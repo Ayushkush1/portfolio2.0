@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import Hero from "@/components/Hero";
+import About from "@/components/About";
 
 const Index = () => {
   const title = "Dominic – Brand & UI/UX Designer in London";
@@ -26,6 +27,7 @@ const Index = () => {
       </Helmet>
       <main>
         <Hero />
+        <About />
       </main>
     </>
   );
