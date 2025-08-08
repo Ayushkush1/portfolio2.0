@@ -1,13 +1,33 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Helmet } from "react-helmet-async";
+import Hero from "@/components/Hero";
 
 const Index = () => {
+  const title = "Dominic – Brand & UI/UX Designer in London";
+  const description =
+    "Portfolio hero of Dominic, a UI/UX and brand designer crafting seamless digital experiences in London.";
+  const canonical = typeof window !== "undefined" ? window.location.origin + "/" : "/";
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Dominic – UI/UX Designer",
+    url: canonical,
+    description,
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <>
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonical} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+      </Helmet>
+      <main>
+        <Hero />
+      </main>
+    </>
   );
 };
 

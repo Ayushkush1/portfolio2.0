@@ -51,8 +51,14 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 5.9% 10%;
 
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Brand & effects */
+    --brand: 24 95% 56%;
+    --brand-foreground: 0 0% 100%;
+    --gradient-hero: radial-gradient(80% 60% at 70% 40%, hsl(var(--brand) / 0.25) 0%, transparent 60%);
+    --shadow-glow: 0 12px 30px hsl(var(--brand) / 0.30);
+    --shadow-elevate: 0 20px 50px -10px hsl(var(--brand) / 0.45);
   }
 
   .dark {
@@ -91,6 +97,13 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Brand & effects */
+    --brand: 24 95% 56%;
+    --brand-foreground: 0 0% 100%;
+    --gradient-hero: radial-gradient(80% 60% at 70% 40%, hsl(var(--brand) / 0.25) 0%, transparent 60%);
+    --shadow-glow: 0 12px 30px hsl(var(--brand) / 0.30);
+    --shadow-elevate: 0 20px 50px -10px hsl(var(--brand) / 0.45);
   }
 }
 
