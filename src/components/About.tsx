@@ -42,8 +42,17 @@ const About = () => {
             </div>
           </article>
 
-          {/* Right column: focus areas */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {/* Portrait with subtle hover effect */}
+            <figure className="group relative overflow-hidden rounded-xl border border-border/60 bg-background/60 sm:col-span-2 shadow-[var(--shadow-elevate)] backdrop-blur supports-[backdrop-filter]:bg-background/40">
+              <img
+                src="/lovable-uploads/78ad0bb8-e628-470a-8f21-94e2354f95fe.png"
+                alt="Professional portrait of Dominic – UI/UX Designer in black hoodie"
+                loading="lazy"
+                className="h-auto w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.02]"
+              />
+              <figcaption className="sr-only">Dominic – UI/UX Designer portrait</figcaption>
+            </figure>
             <Card className="border-border/60 bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/40">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg">
