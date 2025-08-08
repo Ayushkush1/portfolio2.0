@@ -65,7 +65,7 @@ const Hero = () => {
         </div>
 
         {/* Oversized name */}
-        <div className="pointer-events-none absolute bottom-[-1rem] left-4 select-none text-7xl font-extrabold tracking-tight text-foreground/5 sm:text-8xl md:left-10 md:text-[12rem]">
+        <div className="pointer-events-none absolute bottom-[-1rem] left-0 w-full select-none text-[22vw] sm:text-[20vw] md:text-[16vw] leading-none font-extrabold tracking-tight text-foreground/5">
           Dominic
         </div>
       </div>
