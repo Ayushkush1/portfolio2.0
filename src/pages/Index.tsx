@@ -1,5 +1,10 @@
 import { Helmet } from "react-helmet-async";
-import Hero from "@/components/Hero";
+import Heros from "@/components/Heros";
+import About from "@/components/About";
+import Portfolio from "@/components/Portfolio";
+import Services from "@/components/Services";
+import Testimonials from "@/components/Testimonials";
+import Contact from "@/components/Contact";
 
 const Index = () => {
   const title = "Dominic – Brand & UI/UX Designer in London";
@@ -25,7 +30,14 @@ const Index = () => {
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
       <main>
-        <Hero />
+       <div className="mb-20">
+         <Heros />
+       </div>
+        <About />
+        <Portfolio />
+        <Services />
+        <Testimonials />
+        <Contact />
       </main>
     </>
   );
