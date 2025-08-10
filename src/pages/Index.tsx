@@ -30,14 +30,7 @@ const Index = () => {
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
       <main>
-       <div className="mb-20">
-         <Heros />
-       </div>
-        <About />
-        <Portfolio />
-        <Services />
-        <Testimonials />
-        <Contact />
+        <Hero />
       </main>
     </>
   );
