@@ -1,8 +1,19 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 const Hero = () => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const handleMenuToggle = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
+    const handleMenuItemClick = () => {
+        setIsMenuOpen(false);
+    };
+
     return (
         <section aria-label="Hero – UI/UX Designer" className="relative overflow-hidden">
             {/* Ambient brand light */}
@@ -36,18 +47,98 @@ const Hero = () => {
                 </motion.a>
                 <motion.button
                     aria-label="Open menu"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/40"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/40 cursor-pointer"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.6, delay: 0.3 }}
+                    onClick={handleMenuToggle}
                 >
-                    <img
-                        src="/lovable-uploads/MenuIcon.png"
-                        alt="Menu"
-                        className="w-8 brightness-0 invert"
-                    />
+                    {!isMenuOpen && (
+                        <img
+                            src="/lovable-uploads/MenuIcon.png"
+                            alt="Menu"
+                            className="w-8 brightness-0 invert"
+                        />
+                    )}
                 </motion.button>
             </motion.header>
+
+            {/* Slide-out Menu */}
+            <AnimatePresence>
+                {isMenuOpen && (
+                    <motion.div
+                        className="fixed top-0 left-0 w-full h-screen bg-background/95 backdrop-blur-lg flex flex-col items-center justify-center z-50"
+                        initial={{ y: "-100%" }}
+                        animate={{ y: "0%" }}
+                        exit={{ y: "-100%" }}
+                        transition={{ duration: 0.9, ease: "easeInOut" }}
+                    >
+                        {/* Close Icon */}
+                        <motion.button
+                            className="absolute top-6 right-6 text-foreground text-4xl cursor-pointer hover:text-brand transition-colors duration-300 w-12 h-12 flex items-center justify-center"
+                            onClick={handleMenuToggle}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.3, delay: 0.2 }}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <X className="w-8 h-8" />
+                        </motion.button>
+
+                        {/* Navigation Links */}
+                        <motion.nav
+                            className="flex flex-col items-center space-y-4 text-foreground"
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                        >
+                            {[
+                                { href: "#portfolio", label: "Portfolio" },
+                                { href: "#about", label: "About" },
+                                { href: "#services", label: "Services" },
+                                { href: "#testimonials", label: "Testimonials" },
+                                { href: "#contact", label: "Contact" }
+                            ].map((item, index) => (
+                                <motion.a
+                                    key={item.label}
+                                    href={item.href}
+                                    className="text-4xl md:text-6xl lg:text-7xl font-bold hover:text-brand transition-colors duration-300 cursor-pointer"
+                                    onClick={handleMenuItemClick}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{
+                                        duration: 0.4,
+                                        delay: (index * 0.1),
+                                        ease: "easeOut"
+                                    }}
+                                    whileHover={{
+                                        scale: 1.08,
+                                        color: "hsl(var(--brand))",
+                                        transition: {
+                                            type: "spring",
+                                            stiffness: 300,
+                                            damping: 20
+                                        }
+                                    }}
+                                    whileTap={{
+                                        scale: 0.97,
+                                        transition: {
+                                            type: "spring",
+                                            stiffness: 300,
+                                            damping: 25
+                                        }
+                                    }}
+                                >
+                                    {item.label}
+                                </motion.a>
+                            ))}
+                        </motion.nav>
+
+                        
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             <div className="container relative z-10 grid min-h-[80vh] grid-cols-1 items-center gap-10 py-8 md:grid-cols-2">
                 {/* Left copy */}
@@ -124,7 +215,7 @@ const Hero = () => {
                                         }}
                                     >
                                         <motion.div
-                                           
+
                                             transition={{
                                                 duration: 8,
                                                 repeat: Infinity,

@@ -2,7 +2,8 @@ import { Helmet } from "react-helmet-async";
 import Heros from "@/components/Heros";
 import About from "@/components/About";
 import Portfolio from "@/components/Portfolio";
-import Services from "@/components/Services";
+import Experience from "@/components/Experience";
+import Process from "@/components/Process";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 
@@ -30,7 +31,13 @@ const Index = () => {
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
       <main>
-        <Hero />
+        <Heros />
+        <About />
+        <Portfolio />
+        <Experience />
+        <Process />
+        <Testimonials />
+        <Contact />
       </main>
     </>
   );
