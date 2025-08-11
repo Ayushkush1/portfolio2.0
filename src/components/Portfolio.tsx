@@ -227,7 +227,7 @@ const Portfolio = () => {
                                                 <div className="w-3 h-3 bg-yellow-500 rounded-full" />
                                                 <div className="w-3 h-3 bg-green-500 rounded-full" />
                                                 <div className="flex-1 bg-gray-700 rounded-sm h-5 ml-2 flex items-center px-2">
-                                                    <span className="text-gray-300 text-xs font-mono truncate">
+                                                    <span className="text-gray-300 text-[10px] font-mono truncate">
                                                         {project.url}
                                                     </span>
                                                 </div>

@@ -9,14 +9,14 @@ import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 
 const Index = () => {
-  const title = "Dominic – Brand & UI/UX Designer in London";
+  const title = "Ayush Kushwaha";
   const description =
-    "Portfolio hero of Dominic, a UI/UX and brand designer crafting seamless digital experiences in London.";
+    "Portfolio hero of Ayush Kushwaha, a UI/UX and brand designer crafting seamless digital experiences in London.";
   const canonical = typeof window !== "undefined" ? window.location.origin + "/" : "/";
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Dominic – UI/UX Designer",
+    name: "Ayush Kushwaha – UI/UX Designer",
     url: canonical,
     description,
   };

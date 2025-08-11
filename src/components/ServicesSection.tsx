@@ -87,7 +87,7 @@ const ServicesSection = () => {
                         </div>
                         {/* Elegant Features Grid */}
                         <motion.div
-                            className="grid grid-cols-2 gap-6 pt-6"
+                            className="grid grid-cols-2 gap-8 pt-6"
                             initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.7, delay: 0.5 }}
@@ -141,12 +141,12 @@ const ServicesSection = () => {
 
                         viewport={{ once: true }}
                     >
-                        <div className="absolute top-[-100px] left-[30%] transform -translate-x-1/2 w-full h-full pointer-events-none">
+                        <div className="absolute top-[-170px] left-[30%] transform -translate-x-1/2 w-full h-full pointer-events-none">
                             <CardSwap
                                 width={350}
-                                height={450}
+                                height={430}
                                 cardDistance={50}
-                                verticalDistance={40}
+                                verticalDistance={20}
                                 delay={4000}
                                 pauseOnHover={true}
                                 easing="elastic"

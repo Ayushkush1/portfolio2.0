@@ -39,83 +39,94 @@ const PortfolioPage = () => {
             image: "/lovable-uploads/ninzahost.png",
             url: "https://ninzahost.com",
             year: "2024",
-            technologies: ["React", "Node.js", "TypeScript", "TailwindCSS"],
+            technologies: ["Next.js", "Node.js", "TypeScript", "TailwindCSS"],
             rotation: "rotate-2"
         },
         {
             id: 2,
+            title: "Onboarding KYC Platform",
+            category: "Web App, API Integration",
+            description: "Streamlined onboarding process for KYC verification with AI-driven document analysis.",
+            image: "/lovable-uploads/onboarding-kyc.png",
+            url: "https://onboarding-kyc.com",
+            year: "2024",
+            technologies: ["Next.js", "Prisma", "Dojah API", "PostgreSQL", "Supabase"],
+            rotation: "rotate-2"
+        },
+        {
+            id: 3,
             title: "RemoveQ Background Remover",
             category: "Web App, AI Integration",
             description: "Advanced AI-powered background removal tool with batch processing and high-quality image editing capabilities.",
             image: "/lovable-uploads/removeq.png",
             url: "https://removeq.com",
             year: "2024",
-            technologies: ["React", "AI/ML", "Canvas API", "WebGL"],
+            technologies: ["Laravel", "Blade", "CSS", "Bootstrap"],
             rotation: "-rotate-2"
         },
         {
-            id: 3,
-            title: "Tigsaw Project Management",
-            category: "SaaS, Dashboard Design",
+            id: 4,
+            title: "Web Development Agency",
+            category: "SaaS, Landing Page Design",
             description: "Comprehensive project management platform with team collaboration, task tracking, and analytics dashboard.",
             image: "/lovable-uploads/six-table.png",
-            url: "https://tigsaw.com",
-            year: "2023",
-            technologies: ["Vue.js", "Express", "MongoDB", "D3.js"],
+            url: "https://six-table.vercel.app/",
+            year: "2025",
+            technologies: ["Next.js", "Express", "MongoDB", "TailwindCSS"],
             rotation: "rotate-2"
         },
         {
-            id: 4,
+            id: 5,
             title: "Blooger Content Platform",
             category: "CMS, Blog Platform",
             description: "Modern blogging platform with rich text editor, SEO optimization, and content management system.",
             image: "/lovable-uploads/blooger.png",
-            url: "https://blooger.com",
+            url: "https://ayushkush1.github.io/Blooger/",
             year: "2023",
             technologies: ["Next.js", "Prisma", "PostgreSQL", "Vercel"],
             rotation: "-rotate-2"
         },
         {
-            id: 5,
+            id: 6,
             title: "Movix Entertainment Hub",
             category: "Streaming, UI/UX",
             description: "Entertainment streaming platform with movie discovery, watchlists, and personalized recommendations.",
             image: "/lovable-uploads/movix.png",
-            url: "https://movix.com",
+            url: "https://ayushmovix.vercel.app/",
             year: "2023",
-            technologies: ["React", "Redux", "Firebase", "TMDB API"],
+            technologies: ["React", "Redux", "TMDB API"],
             rotation: "rotate-2"
         },
         {
-            id: 6,
+            id: 7,
             title: "Proposal Pro Business Tool",
             category: "Business App, Document Generation",
             description: "Professional proposal creation tool with templates, e-signatures, and client management features.",
             image: "/lovable-uploads/proposal-pro.png",
-            url: "https://proposalpro.com",
-            year: "2022",
-            technologies: ["Angular", "PDF.js", "Node.js", "Stripe"],
+            url: "https://proposal-pro-sable.vercel.app/",
+            year: "2025",
+            technologies: ["Next.js", "PDF.js", "Node.js"],
             rotation: "-rotate-2"
         },
         {
-            id: 7,
+            id: 8,
             title: "Mobius Engine Analytics",
             category: "Data Analytics, Dashboard",
             description: "Advanced analytics engine with real-time data visualization, custom reports, and business intelligence.",
             image: "/lovable-uploads/MobuisEngine.png",
-            url: "https://mobiusengine.com",
-            year: "2022",
+            url: "https://mobuis-engine-kappa.vercel.app/",
+            year: "2024",
             technologies: ["React", "Chart.js", "WebSockets", "Python"],
             rotation: "rotate-2"
         },
         {
-            id: 8,
+            id: 9,
             title: "Personal Portfolio v1",
             category: "Portfolio, Creative Design",
             description: "First iteration of personal portfolio showcasing creative design approach and interactive elements.",
             image: "/lovable-uploads/portfolio.png",
-            url: "https://ayushkushwaha.dev",
-            year: "2022",
+            url: "https://ayushkushwaha.vercel.app/",
+            year: "2024",
             technologies: ["HTML5", "CSS3", "JavaScript", "GSAP"],
             rotation: "-rotate-2"
         }
@@ -246,7 +257,11 @@ const PortfolioPage = () => {
                                                 <div className="w-3 h-3 bg-red-500 rounded-full" />
                                                 <div className="w-3 h-3 bg-yellow-500 rounded-full" />
                                                 <div className="w-3 h-3 bg-green-500 rounded-full" />
-                                                <div className="flex-1 bg-gray-700 rounded-sm h-5 ml-2"></div>
+                                                <div className="flex-1 bg-gray-700 rounded-sm h-5 ml-2 flex items-center px-2">
+                                                    <span className="text-gray-300 text-[10px] font-mono truncate">
+                                                        {project.url}
+                                                    </span>
+                                                </div>
                                             </div>
 
                                             {/* Screen Content Area */}
