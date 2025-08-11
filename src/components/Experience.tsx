@@ -163,18 +163,13 @@ const Experience = () => {
 
                             {/* Description */}
                             <motion.p
-                                className="text-gray-600 text-[16px] leading-relaxed mb-12"
+                                className="text-gray-600 text-[17px] leading-relaxed mb-12"
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.4 }}
                                 viewport={{ once: true }}
                             >
-                                Ayush is a passionate designer known for his innovative,
-                                expressive digital work. He helps startups and studios
-                                create clean interfaces and strong branding. Based in
-                                India, he blends function with emotion and often
-                                spends his free time exploring new design trends or
-                                working on creative projects.
+                                Ayush is a product‑focused developer crafting clean, expressive interfaces and strong brand systems for startups. Based in India, he blends function with emotion and explores new design trends through side projects.
                             </motion.p>
                         </div>
 
@@ -189,7 +184,7 @@ const Experience = () => {
                             {experiences.map((exp, index) => (
                                 <motion.div
                                     key={exp.id}
-                                    className="flex justify-between items-center py-4 border-b border-gray-100 last:border-b-0  transition-colors duration-200 rounded-lg px-4 -mx-4"
+                                    className="flex justify-between items-center py-4 border-b border-gray-100/10 last:border-b-0  transition-colors duration-200  px-4 -mx-4"
                                     initial={{ opacity: 0, x: 20 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}

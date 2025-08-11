@@ -45,7 +45,7 @@ const Contact = () => {
     ];
 
     return (
-        <section ref={ref} id="contact" className="relative min-h-screen py-20 overflow-hidden bg-background text-foreground">
+        <section ref={ref} id="contact" className="relative min-h-screen py-20 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5 text-foreground">
             
 
             <div className="container relative z-10 flex flex-col min-h-screen">

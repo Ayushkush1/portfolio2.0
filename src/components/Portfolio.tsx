@@ -36,35 +36,39 @@ const Portfolio = () => {
     const featuredProjects = [
         {
             id: 1,
-            title: "Archin Architecture Studio",
-            category: "Prototype Design, Webflow",
-            description: "A modern architecture studio website featuring immersive project showcases and seamless portfolio navigation.",
-            image: "/lovable-uploads/proposal-pro.png",
-            url: "https://archin-studio.com"
+            title: "Web Development Agency",
+            category: "Prototype Design, Development",
+            description: "A modern web development agency website featuring immersive project showcases and seamless portfolio navigation.",
+            image: "/lovable-uploads/six-table.png",
+            url: "https://six-table.vercel.app/",
+            rotation: "rotate-2"
         },
         {
             id: 2,
-            title: "Zumar Construct Firm",
+            title: "Web Hosting Company",
             category: "Web Design , Development",
-            description: "Professional construction company website with project galleries and service showcases.",
-            image: "/lovable-uploads/blooger.png",
-            url: "https://zumar-construct.com"
+            description: "Professional web hosting company website with project galleries and service showcases.",
+            image: "/lovable-uploads/ninzahost.png",
+            url: "https://ninzahost.com",
+            rotation: "-rotate-2"
         },
         {
             id: 3,
-            title: "Dallas Real Estate",
+            title: "Movie Searching Platform",
             category: "Web Design , Development",
-            description: "Modern real estate platform with advanced property search and virtual tours.",
-            image: "/lovable-uploads/MobuisEngine.png",
-            url: "https://dallas-realestate.com"
+            description: "Modern movie searching platform with advanced search and streaming features.",
+            image: "/lovable-uploads/movix.png",
+            url: "https://ayushmovix.vercel.app/",
+            rotation: "rotate-2"
         },
         {
             id: 4,
-            title: "Luxe Interior Design",
+            title: "Professional Documents Management Tool",
             category: "Web Design , Development",
-            description: "Elegant interior design website showcasing stunning project galleries and design services.",
-            image: "/lovable-uploads/movix.png",
-            url: "https://luxe-interior.com"
+            description: "Comprehensive document management tool for professionals with advanced organization and collaboration features.",
+            image: "/lovable-uploads/proposal-pro.png",
+            url: "https://proposal-pro-sable.vercel.app/",
+            rotation: "-rotate-2"
         },
 
     ];
@@ -210,36 +214,48 @@ const Portfolio = () => {
                                 </motion.div>
 
                                 {/* Project Card */}
-                                <div className="flex flex-col ">
-                                    {/* Direct Image */}
-                                    <div className="relative overflow-hidden rounded-3xl bg-gray-100 hover:bg-gray-50 transition-all duration-300 group-hover:shadow-2xl">
-                                        <div className="aspect-[5/3] overflow-hidden">
-                                            <img
-                                                src={project.image}
-                                                alt={project.title}
-                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                            />
-                                        </div>
+                                <div className="relative h-[410px] p-6 rounded-3xl bg-gradient-to-br from-gray-900/10 via-gray-800/10 to-gray-800/20 backdrop-blur-md border border-white/10 shadow-lg transition-all duration-500 group-hover:shadow-2xl">
+                                    {/* Decorative Elements */}
+                                    <div className="absolute top-4 right-4 w-12 h-12 bg-brand/20 rounded-full blur-lg" />
 
-                                        {/* Hover Overlay */}
-                                        <motion.div
-                                            className="absolute inset-0 bg-brand/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"
-                                            initial={false}
-                                        />
+                                    {/* Floating Image Container - Optimized for Screenshots */}
+                                    <div className={`relative mb-4 ${project.rotation} group-hover:rotate-0 transition-transform duration-500`}>
+                                        <div className="relative overflow-hidden rounded-xl shadow-2xl bg-gray-900 p-2">
+                                            {/* Browser Frame */}
+                                            <div className="bg-gray-800 rounded-t-lg p-2 flex items-center gap-2">
+                                                <div className="w-3 h-3 bg-red-500 rounded-full" />
+                                                <div className="w-3 h-3 bg-yellow-500 rounded-full" />
+                                                <div className="w-3 h-3 bg-green-500 rounded-full" />
+                                                <div className="flex-1 bg-gray-700 rounded-sm h-5 ml-2 flex items-center px-2">
+                                                    <span className="text-gray-300 text-xs font-mono truncate">
+                                                        {project.url}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            {/* Screen Content Area - Perfect for Screenshots */}
+                                            <div className="aspect-[16/7] overflow-hidden">
+                                                <img
+                                                    src={project.image}
+                                                    alt={project.title}
+                                                    className="w-full h-full object-cover scale-100 group-hover:scale-105 transition-transform duration-700 ease-out will-change-transform origin-center"
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    {/* Project Info - Below the Card */}
-                                    <div className="mt-4 flex justify-between items-center px-6">
-                                        <h3 className="text-lg font-semibold text-foreground">
+                                    {/* Project Info */}
+                                    <div className="relative z-10 space-y-3 mt-4">
+                                        <h3 className="text-lg font-bold text-foreground leading-tight line-clamp-2">
                                             {project.title}
                                         </h3>
 
                                         {/* Category Tags */}
                                         <div className="flex gap-2 flex-wrap">
-                                            {project.category.split(',').map((tag, tagIndex) => (
+                                            {project.category.split(',').slice(0, 2).map((tag, tagIndex) => (
                                                 <span
                                                     key={tagIndex}
-                                                    className="px-3 py-1 bg-brand/10 text-brand text-xs rounded-full font-medium hover:bg-brand/20 transition-colors duration-200"
+                                                    className="px-3 py-1 bg-foreground/5 text-gray-500 text-xs rounded-xl font-medium border border-foreground/20 transition-colors duration-200"
                                                 >
                                                     {tag.trim()}
                                                 </span>

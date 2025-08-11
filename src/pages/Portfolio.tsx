@@ -39,7 +39,8 @@ const PortfolioPage = () => {
             image: "/lovable-uploads/ninzahost.png",
             url: "https://ninzahost.com",
             year: "2024",
-            technologies: ["React", "Node.js", "TypeScript", "TailwindCSS"]
+            technologies: ["React", "Node.js", "TypeScript", "TailwindCSS"],
+            rotation: "rotate-2"
         },
         {
             id: 2,
@@ -49,7 +50,8 @@ const PortfolioPage = () => {
             image: "/lovable-uploads/removeq.png",
             url: "https://removeq.com",
             year: "2024",
-            technologies: ["React", "AI/ML", "Canvas API", "WebGL"]
+            technologies: ["React", "AI/ML", "Canvas API", "WebGL"],
+            rotation: "-rotate-2"
         },
         {
             id: 3,
@@ -59,7 +61,8 @@ const PortfolioPage = () => {
             image: "/lovable-uploads/six-table.png",
             url: "https://tigsaw.com",
             year: "2023",
-            technologies: ["Vue.js", "Express", "MongoDB", "D3.js"]
+            technologies: ["Vue.js", "Express", "MongoDB", "D3.js"],
+            rotation: "rotate-2"
         },
         {
             id: 4,
@@ -69,7 +72,8 @@ const PortfolioPage = () => {
             image: "/lovable-uploads/blooger.png",
             url: "https://blooger.com",
             year: "2023",
-            technologies: ["Next.js", "Prisma", "PostgreSQL", "Vercel"]
+            technologies: ["Next.js", "Prisma", "PostgreSQL", "Vercel"],
+            rotation: "-rotate-2"
         },
         {
             id: 5,
@@ -79,7 +83,8 @@ const PortfolioPage = () => {
             image: "/lovable-uploads/movix.png",
             url: "https://movix.com",
             year: "2023",
-            technologies: ["React", "Redux", "Firebase", "TMDB API"]
+            technologies: ["React", "Redux", "Firebase", "TMDB API"],
+            rotation: "rotate-2"
         },
         {
             id: 6,
@@ -89,7 +94,8 @@ const PortfolioPage = () => {
             image: "/lovable-uploads/proposal-pro.png",
             url: "https://proposalpro.com",
             year: "2022",
-            technologies: ["Angular", "PDF.js", "Node.js", "Stripe"]
+            technologies: ["Angular", "PDF.js", "Node.js", "Stripe"],
+            rotation: "-rotate-2"
         },
         {
             id: 7,
@@ -99,7 +105,8 @@ const PortfolioPage = () => {
             image: "/lovable-uploads/MobuisEngine.png",
             url: "https://mobiusengine.com",
             year: "2022",
-            technologies: ["React", "Chart.js", "WebSockets", "Python"]
+            technologies: ["React", "Chart.js", "WebSockets", "Python"],
+            rotation: "rotate-2"
         },
         {
             id: 8,
@@ -109,7 +116,8 @@ const PortfolioPage = () => {
             image: "/lovable-uploads/portfolio.png",
             url: "https://ayushkushwaha.dev",
             year: "2022",
-            technologies: ["HTML5", "CSS3", "JavaScript", "GSAP"]
+            technologies: ["HTML5", "CSS3", "JavaScript", "GSAP"],
+            rotation: "-rotate-2"
         }
     ];
 
@@ -196,7 +204,11 @@ const PortfolioPage = () => {
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
-                                whileHover={{ y: -10 }}
+                                whileHover={{
+                                    y: -8,
+                                    rotateY: 5,
+                                    rotateX: 5
+                                }}
                                 onMouseMove={(e) => handleMouseMove(e, project.id)}
                                 onMouseEnter={() => handleMouseEnter(project.id)}
                                 onMouseLeave={handleMouseLeave}
@@ -222,63 +234,48 @@ const PortfolioPage = () => {
                                 </motion.div>
 
                                 {/* Project Card */}
-                                <div className="bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-brand/30 transition-all duration-300 group-hover:shadow-2xl">
-                                    {/* Project Image */}
-                                    <div className="relative overflow-hidden">
-                                        <div className="aspect-[4/3] overflow-hidden">
-                                            <img
-                                                src={project.image}
-                                                alt={project.title}
-                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                            />
-                                        </div>
+                                <div className="relative h-[500px] p-6 rounded-3xl bg-gradient-to-br from-gray-900/10 via-gray-800/10 to-gray-800/20 backdrop-blur-md border border-white/10 shadow-lg transition-all duration-500 group-hover:shadow-2xl">
+                                    {/* Decorative Elements */}
+                                    <div className="absolute top-4 right-4 w-12 h-12 bg-brand/20 rounded-full blur-lg" />
 
-                                        {/* Year Badge */}
-                                        <div className="absolute top-4 right-4">
-                                            <span className="px-3 py-1 bg-black/50 backdrop-blur text-white text-sm rounded-full">
-                                                {project.year}
-                                            </span>
-                                        </div>
+                                    {/* Floating Image Container - Browser Mockup */}
+                                    <div className={`relative mb-4 ${project.rotation} group-hover:rotate-0 transition-transform duration-500`}>
+                                        <div className="relative overflow-hidden rounded-xl shadow-2xl bg-gray-900 p-2">
+                                            {/* Browser Frame */}
+                                            <div className="bg-gray-800 rounded-t-lg p-2 flex items-center gap-2">
+                                                <div className="w-3 h-3 bg-red-500 rounded-full" />
+                                                <div className="w-3 h-3 bg-yellow-500 rounded-full" />
+                                                <div className="w-3 h-3 bg-green-500 rounded-full" />
+                                                <div className="flex-1 bg-gray-700 rounded-sm h-5 ml-2"></div>
+                                            </div>
 
-                                        {/* Hover Overlay */}
-                                        <motion.div
-                                            className="absolute inset-0 bg-brand/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                                            initial={false}
-                                        />
+                                            {/* Screen Content Area */}
+                                            <div className="aspect-[16/10] overflow-hidden bg-white">
+                                                <img
+                                                    src={project.image}
+                                                    alt={project.title}
+                                                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
 
                                     {/* Project Info */}
-                                    <div className="p-6">
-                                        <div className="flex justify-between items-start mb-3">
-                                            <h3 className="text-xl font-semibold text-foreground group-hover:text-brand transition-colors duration-300">
-                                                {project.title}
-                                            </h3>
-                                        </div>
+                                    <div className="relative z-10 space-y-3 mt-4">
+                                        <h3 className="text-lg font-bold text-foreground leading-tight line-clamp-2">
+                                            {project.title}
+                                        </h3>
 
-                                        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                                            {project.description}
-                                        </p>
-
-                                        {/* Technologies */}
-                                        <div className="flex flex-wrap gap-2 mb-4">
-                                            {project.technologies.slice(0, 3).map((tech, techIndex) => (
+                                        {/* Category Tags */}
+                                        <div className="flex gap-2 flex-wrap">
+                                            {project.category.split(',').slice(0, 2).map((tag, tagIndex) => (
                                                 <span
-                                                    key={techIndex}
-                                                    className="px-2 py-1 bg-brand/10 text-brand text-xs rounded-md font-medium"
+                                                    key={tagIndex}
+                                                    className="px-3 py-1 bg-brand/10 text-brand text-xs rounded-md font-medium border border-brand/20 hover:bg-brand/20 transition-colors duration-200"
                                                 >
-                                                    {tech}
+                                                    {tag.trim()}
                                                 </span>
                                             ))}
-                                            {project.technologies.length > 3 && (
-                                                <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-md">
-                                                    +{project.technologies.length - 3}
-                                                </span>
-                                            )}
-                                        </div>
-
-                                        {/* Category */}
-                                        <div className="text-xs text-gray-500 uppercase tracking-wide">
-                                            {project.category}
                                         </div>
                                     </div>
                                 </div>
@@ -286,12 +283,12 @@ const PortfolioPage = () => {
                         ))}
                     </motion.div>
 
-                   
+
                 </div>
 
                 <Contact />
 
-               
+
             </section>
         </>
     );

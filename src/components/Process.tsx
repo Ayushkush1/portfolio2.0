@@ -185,7 +185,7 @@ const Process = () => {
 
                                 {/* Step Card */}
                                 <motion.div
-                                    className="bg-gray-900 border border-gray-800 rounded-3xl p-8 shadow-xl hover:shadow-2xl hover:border-brand/30 transition-all duration-300 relative z-10 h-80"
+                                    className="bg-gradient-to-br from-gray-900/95 via-gray-800/70 to-gray-950/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-xl hover:shadow-2xl hover:shadow-brand/20 hover:border-brand/5 transition-all duration-300 relative z-10 h-80 group overflow-hidden"
                                     initial={{ opacity: 0, y: 50, rotate: 0 }}
                                     whileInView={{
                                         opacity: 1,
@@ -195,13 +195,17 @@ const Process = () => {
                                     transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
                                     viewport={{ once: true }}
                                 >
+                                    {/* Texture Overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent opacity-30" />
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-gray-900/20 via-transparent to-gray-800/20" />
+
                                     {/* Step Number - Large at top */}
-                                    <div className="text-6xl font-bold text-brand mb-8">
+                                    <div className="relative text-6xl font-bold text-brand mb-8 z-10">
                                         {step.number}
                                     </div>
 
                                     {/* Content at bottom */}
-                                    <div className="absolute bottom-8 left-8 right-8">
+                                    <div className="absolute bottom-8 left-8 right-8 z-10">
                                         <h3 className="text-xl font-bold text-white mb-3">
                                             {step.title}
                                         </h3>
@@ -260,7 +264,7 @@ const Process = () => {
 
                                 {/* Step Card */}
                                 <motion.div
-                                    className="bg-gray-900 border border-gray-800 rounded-3xl p-8 shadow-xl hover:shadow-2xl hover:border-brand/30 transition-all duration-300 relative z-10 h-80"
+                                    className="bg-gradient-to-br from-gray-900/95 via-gray-800/70 to-gray-950/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-xl hover:shadow-2xl hover:shadow-brand/20 hover:border-brand/5 transition-all duration-300 relative z-10 h-80 group overflow-hidden"
                                     initial={{ opacity: 0, y: 50, rotate: 0 }}
                                     whileInView={{
                                         opacity: 1,
@@ -270,13 +274,17 @@ const Process = () => {
                                     transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
                                     viewport={{ once: true }}
                                 >
+                                    {/* Texture Overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent opacity-30" />
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-gray-900/20 via-transparent to-gray-800/20" />
+
                                     {/* Step Number - Large at top */}
-                                    <div className="text-6xl font-bold text-brand mb-8">
+                                    <div className="relative text-6xl font-bold text-brand mb-8 z-10">
                                         {step.number}
                                     </div>
 
                                     {/* Content at bottom */}
-                                    <div className="absolute bottom-8 left-8 right-8">
+                                    <div className="absolute bottom-8 left-8 right-8 z-10">
                                         <h3 className="text-xl font-bold text-white mb-3">
                                             {step.title}
                                         </h3>

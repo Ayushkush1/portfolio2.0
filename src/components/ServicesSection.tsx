@@ -22,10 +22,10 @@ const ServicesSection = () => {
         },
         {
             id: 3,
-            title: "Mobile Apps",
-            description: "Cross-platform mobile apps that work seamlessly everywhere.",
-            icon: <Smartphone className="w-8 h-8" />,
-            features: ["React Native", "Flutter", "iOS/Android", "App Store Optimization"],
+            title: "Website Revamp",
+            description: "Modernizing existing sites with improved UI, UX, performance, and SEO.",
+            icon: <Globe className="w-8 h-8" />,
+            features: ["UI Refresh", "Code Refactor", "Performance Boost", "SEO Improvements"],
             color: "from-green-500 to-emerald-500"
         },
         {
@@ -36,7 +36,6 @@ const ServicesSection = () => {
             features: ["Core Web Vitals", "SEO Optimization", "Load Speed", "Accessibility"],
             color: "from-yellow-500 to-orange-500"
         },
-
     ];
 
     return (
@@ -77,7 +76,7 @@ const ServicesSection = () => {
                                     ideas into reality</span>
                             </motion.h2>
                             <motion.p
-                                className="text-gray-600 text-lg leading-relaxed"
+                                className="text-gray-600 text-[17px] leading-relaxed pt-4"
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -88,7 +87,7 @@ const ServicesSection = () => {
                         </div>
                         {/* Elegant Features Grid */}
                         <motion.div
-                            className="grid grid-cols-2 gap-6"
+                            className="grid grid-cols-2 gap-6 pt-6"
                             initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.7, delay: 0.5 }}
@@ -142,7 +141,7 @@ const ServicesSection = () => {
 
                         viewport={{ once: true }}
                     >
-                        <div className="absolute top-[-100px] left-1/2 transform -translate-x-1/2 w-full h-full pointer-events-none">
+                        <div className="absolute top-[-100px] left-[30%] transform -translate-x-1/2 w-full h-full pointer-events-none">
                             <CardSwap
                                 width={350}
                                 height={450}
@@ -154,10 +153,10 @@ const ServicesSection = () => {
 
                             >
                                 {services.map((service, index) => (
-                                    <Card key={service.id} customClass="!bg-gradient-to-br from-gray-900/95 to-black/95 backdrop-blur-xl !border-white  shadow-2xl">
+                                    <Card key={service.id} customClass="!bg-gradient-to-br from-gray-900/95 to-black/95 backdrop-blur-xl !border-gray-700 border shadow-2xl">
                                         <div className="py-10 px-6 h-full flex flex-col justify-between">
                                             <div className="text-center">
-                                                <div className={`w-20 h-20 rounded-3xl bg-gradient-to-r ${service.color} flex items-center justify-center text-white mb-6 shadow-xl mx-auto`}>
+                                                <div className={`w-20 h-20 rounded-3xl bg-gradient-to-r ${service.color} flex items-center justify-center text-white  mb-6 shadow-2xl mx-auto`}>
                                                     {service.icon}
                                                 </div>
                                                 <h3 className="text-2xl font-bold text-white mb-4 leading-tight">
