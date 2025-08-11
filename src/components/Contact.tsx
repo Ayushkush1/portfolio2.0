@@ -25,27 +25,27 @@ const Contact = () => {
         {
             icon: Globe,
             label: "Website",
-            href: "#"
+            href: "https://ayushkushwaha.vercel.app"
         },
         {
-            icon: Twitter,
-            label: "Twitter",
-            href: "#"
-        },
-        {
-            icon: Instagram,
-            label: "Instagram",
-            href: "#"
+            icon: Github,
+            label: "Github",
+            href: "https://github.com/Ayushkush1"
         },
         {
             icon: Linkedin,
             label: "LinkedIn",
-            href: "#"
+            href: "https://www.linkedin.com/in/ayush-kushwaha-b3b76915b/"
+        },
+        {
+            icon: Instagram,
+            label: "Instagram",
+            href: "https://www.instagram.com/awsm_ayush_/"
         }
     ];
 
     return (
-        <section ref={ref} className="relative min-h-screen py-20 overflow-hidden bg-background text-foreground">
+        <section ref={ref} id="contact" className="relative min-h-screen py-20 overflow-hidden bg-background text-foreground">
             
 
             <div className="container relative z-10 flex flex-col min-h-screen">
@@ -126,7 +126,7 @@ const Contact = () => {
                                         ease: "easeInOut"
                                     }}
                                 >
-                                    <ArrowRight className="h-6 w-6 text-[#ff5f26] group-hover:text-[#ff4d1a] transition-all group-hover:rotate-0 -rotate-45 duration-300" />
+                                    <ArrowRight className="h-6 w-6 text-[#ff5f26] transition-all group-hover:rotate-0 -rotate-45 duration-300" />
                                 </motion.div>
                                 <div className="relative overflow-hidden h-6 w-fit text-white">
                                     <motion.div
@@ -145,6 +145,18 @@ const Contact = () => {
                                         </span>
                                     </motion.div>
                                 </div>
+                                {/* Shimmer effect */}
+                                <motion.div
+                                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                                    initial={{ x: "-100%" }}
+                                    animate={{ x: "100%" }}
+                                    transition={{
+                                        duration: 3,
+                                        repeat: Infinity,
+                                        ease: "easeInOut",
+                                        delay: 2
+                                    }}
+                                />
                             </Button>
                         </motion.div>
                     </motion.div>
@@ -161,7 +173,7 @@ const Contact = () => {
                     <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                         {/* Left - Copyright */}
                         <div className="text-muted-foreground text-sm">
-                            © Ayush Kushwaha, 2025
+                            © Ayush Kushwaha, 2023
                         </div>
 
                         {/* Center - Social Links */}
@@ -170,6 +182,7 @@ const Contact = () => {
                                 <motion.a
                                     key={index}
                                     href={link.href}
+                                    target="_blank"
                                     className="w-10 h-10 rounded-full border border-border bg-background/60 backdrop-blur flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-[#ff5f26] hover:bg-[#ff5f26]/10 transition-all duration-300"
                                     whileHover={{ scale: 1.1, y: -2 }}
                                     whileTap={{ scale: 0.95 }}

@@ -2,9 +2,11 @@ import { ArrowRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const navigate = useNavigate();
 
     const handleMenuToggle = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -12,6 +14,26 @@ const Hero = () => {
 
     const handleMenuItemClick = () => {
         setIsMenuOpen(false);
+    };
+
+    const navigateToPortfolio = () => {
+        navigate('/portfolio');
+    };
+
+    const scrollToSection = (sectionId) => {
+        if (sectionId === 'portfolio') {
+            navigate('/portfolio');
+            return;
+        }
+
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+        setIsMenuOpen(false); // Close menu after navigation
     };
 
     return (
@@ -94,17 +116,19 @@ const Hero = () => {
                             transition={{ duration: 0.5, delay: 0.3 }}
                         >
                             {[
-                                { href: "#portfolio", label: "Portfolio" },
-                                { href: "#about", label: "About" },
-                                { href: "#services", label: "Services" },
-                                { href: "#testimonials", label: "Testimonials" },
-                                { href: "#contact", label: "Contact" }
+                                { href: "#portfolio", label: "Portfolio", id: "portfolio" },
+                                { href: "#services", label: "Services", id: "services" },
+                                { href: "#about", label: "About", id: "about" },
+                                { href: "#contact", label: "Contact", id: "contact" }
                             ].map((item, index) => (
                                 <motion.a
                                     key={item.label}
                                     href={item.href}
                                     className="text-4xl md:text-6xl lg:text-7xl font-bold hover:text-brand transition-colors duration-300 cursor-pointer"
-                                    onClick={handleMenuItemClick}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        scrollToSection(item.id);
+                                    }}
                                     initial={{ opacity: 0, y: 30 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{
@@ -134,8 +158,18 @@ const Hero = () => {
                                 </motion.a>
                             ))}
                         </motion.nav>
+                        {/* Background section name */}
+                        <motion.div
+                            className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[5vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true, amount: 0.1 }}
+                            transition={{ duration: 1, delay: 1.2 }}
+                        >
+                            Menu
+                        </motion.div>
 
-                        
+
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -195,7 +229,12 @@ const Hero = () => {
                                 className="group"
                                 whileHover="hover"
                             >
-                                <Button variant="hero" size="lg" className="group flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)]">
+                                <Button
+                                    variant="hero"
+                                    size="lg"
+                                    className="group flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)]"
+                                    onClick={navigateToPortfolio}
+                                >
                                     <motion.div
                                         className="bg-white rounded-full p-2 flex items-center justify-center mr-2 group-hover:bg-orange-50 transition-colors duration-300 shadow-[0_0_15px_rgba(255,95,38,0.3)]"
                                         animate={{
@@ -222,7 +261,7 @@ const Hero = () => {
                                                 ease: "linear"
                                             }}
                                         >
-                                            <ArrowRight className="h-6 w-6 text-[#ff5f26] group-hover:text-[#ff4d1a] transition-all group-hover:rotate-0 -rotate-45 duration-300" />
+                                            <ArrowRight className="h-6 w-6 text-[#ff5f26] transition-all group-hover:rotate-0 -rotate-45 duration-300" />
                                         </motion.div>
                                     </motion.div>
                                     <div className="relative overflow-hidden h-6 w-fit text-white">

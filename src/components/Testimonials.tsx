@@ -5,17 +5,17 @@ const Testimonials = () => {
     const testimonials = [
         {
             id: 1,
-            name: "Sophie Lemaire",
-            role: "Product Lead at Loomi",
-            image: "/lovable-uploads/placeholder.svg",
-            text: "Working with Joris was a game-changer. He instantly understood our vision and translated it into a sleek, intuitive product. The process felt effortless, and the results exceeded our expectations."
+            name: "Nahar Singh",
+            role: "Founder at Erichost",
+            image: "/lovable-uploads/EricHostFounder.png",
+            text: "I'm thoroughly impressed with Ayush's designing creativity! He brought fresh ideas to our hosting platform and delivered beyond expectations. His creative approach to web design is exactly what Erichost needed."
         },
         {
             id: 2,
-            name: "Milan Bakker",
-            role: "Founder of Drifted Studio",
-            image: "/lovable-uploads/placeholder.svg",
-            text: "Joris brings clarity to chaos. His design work is not only beautiful but deeply strategic. He helped us rebrand from the ground up, and our audience response has been incredible."
+            name: "Nitish Kumar",
+            role: "Founder at NinzaHost",
+            image: "/lovable-uploads/NinzaHostFounder.png",
+            text: "Ayush transformed our vision into a stunning web hosting platform. His technical expertise and attention to detail made NinzaHost stand out in the competitive hosting market. The user experience he created is simply outstanding!"
         }
     ];
 
@@ -157,7 +157,7 @@ const Testimonials = () => {
 
             {/* Background decoration */}
             <motion.div
-                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[12vw] sm:text-[10vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
+                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[5vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 1 }}

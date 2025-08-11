@@ -5,42 +5,28 @@ const Experience = () => {
     const experiences = [
         {
             id: 1,
-            role: "Freelance Practice",
-            company: "Ayush Studio",
-            period: "2021 → Now"
-        },
-        {
-            id: 2,
-            role: "Design Lead",
-            company: "TechCorp",
+            role: "Frontend Lead",
+            company: "NinzaHost",
             period: "2024 → Now"
         },
         {
+            id: 2,
+            role: "Freelance Practice",
+            company: "Freelance Agency",
+            period: "2023 → Now"
+        },
+        {
             id: 3,
-            role: "Senior Designer",
-            company: "StartupX",
-            period: "2019 → 2024"
+            role: "Full Stack Developer",
+            company: "Tigsaw & RemoveQ",
+            period: "2022 → Now"
         },
 
     ];
 
     return (
-        <section id="experience" className="relative py-24 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
-            {/* Background Elements */}
-            <div className="absolute inset-0 overflow-hidden">
-                {/* Small orange dot in top right */}
-                <motion.div
-                    className="absolute top-8 right-8 w-4 h-4 bg-brand rounded-full"
-                    animate={{
-                        scale: [1, 1.2, 1],
-                    }}
-                    transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                />
-            </div>
+        <section id="experience" className="relative py-24 pt-40 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
+           
 
             <div className="container relative z-10 max-w-7xl mx-auto px-4 pb-32">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
@@ -90,26 +76,53 @@ const Experience = () => {
                                 >
 
                                     <motion.a
-                                        href="#"
-                                        className="w-6 h-6 text-gray-400 hover:text-brand transition-all duration-200"
-                                        whileHover={{ scale: 1.1, y: -2 }}
-                                        whileTap={{ scale: 0.95 }}
+                                        href="https://www.linkedin.com/in/ayush-kushwaha-b3b76915b/"
+                                        target="_blank"
+                                        className="w-6 h-6 text-gray-400 transition-colors duration-300"
+                                        whileHover={{
+                                            scale: 1.15,
+                                            color: "rgb(var(--brand-rgb, 251, 146, 60))"
+                                        }}
+                                        whileTap={{ scale: 0.9 }}
+                                        transition={{
+                                            type: "spring",
+                                            stiffness: 400,
+                                            damping: 25
+                                        }}
                                     >
                                         <Linkedin className="w-full h-full" />
                                     </motion.a>
                                     <motion.a
-                                        href="#"
-                                        className="w-6 h-6 text-gray-400 hover:text-brand transition-all duration-200"
-                                        whileHover={{ scale: 1.1, y: -2 }}
-                                        whileTap={{ scale: 0.95 }}
+                                        href="https://github.com/Ayushkush1"
+                                        target="_blank"
+                                        className="w-6 h-6 text-gray-400 transition-colors duration-300"
+                                        whileHover={{
+                                            scale: 1.15,
+                                            color: "rgb(var(--brand-rgb, 251, 146, 60))"
+                                        }}
+                                        whileTap={{ scale: 0.9 }}
+                                        transition={{
+                                            type: "spring",
+                                            stiffness: 400,
+                                            damping: 25
+                                        }}
                                     >
                                         <Github className="w-full h-full" />
                                     </motion.a>
                                     <motion.a
-                                        href="#"
-                                        className="w-6 h-6 text-gray-400 hover:text-brand transition-all duration-200"
-                                        whileHover={{ scale: 1.1, y: -2 }}
-                                        whileTap={{ scale: 0.95 }}
+                                        href="https://www.instagram.com/awsm_ayush_/"
+                                        target="_blank"
+                                        className="w-6 h-6 text-gray-400 transition-colors duration-300"
+                                        whileHover={{
+                                            scale: 1.15,
+                                            color: "rgb(var(--brand-rgb, 251, 146, 60))"
+                                        }}
+                                        whileTap={{ scale: 0.9 }}
+                                        transition={{
+                                            type: "spring",
+                                            stiffness: 400,
+                                            damping: 25
+                                        }}
                                     >
                                         <Instagram className="w-full h-full" />
                                     </motion.a>
@@ -208,7 +221,7 @@ const Experience = () => {
 
             {/* Background decoration */}
             <motion.div
-                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[12vw] sm:text-[10vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
+                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[5vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 1 }}

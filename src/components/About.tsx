@@ -53,7 +53,7 @@ const SkillPill: React.FC<PillProps> = ({ icon, label, color }) => (
 
 const About: React.FC = () => {
   return (
-    <section className="relative flex items-center justify-center overflow-hidden w-full pt-40 pb-32 bg-gradient-to-br from-background via-background to-primary/5">
+    <section id="about" className="relative flex items-center justify-center overflow-hidden w-full pt-40 pb-32 bg-gradient-to-br from-background via-background to-primary/5">
       <div className="container relative z-10 max-w-6xl mx-auto pb-28">
         {/* Hello Badge */}
         <motion.div
@@ -229,7 +229,7 @@ const About: React.FC = () => {
 
       {/* Background section name */}
       <motion.div
-        className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[12vw] sm:text-[10vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
+        className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[5vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, amount: 0.1 }}

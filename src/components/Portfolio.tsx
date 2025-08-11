@@ -2,10 +2,12 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const Portfolio = () => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [hoveredCardId, setHoveredCardId] = useState<number | null>(null);
+    const navigate = useNavigate();
 
     // Handle mouse movement for cursor follower
     const handleMouseMove = (e: React.MouseEvent, cardId: number) => {
@@ -26,6 +28,10 @@ const Portfolio = () => {
 
     const handleProjectClick = (url: string) => {
         window.open(url, '_blank', 'noopener,noreferrer');
+    };
+
+    const navigateToPortfolio = () => {
+        navigate('/portfolio');
     };
     const featuredProjects = [
         {
@@ -100,7 +106,12 @@ const Portfolio = () => {
                             className="group"
                             whileHover="hover"
                         >
-                            <Button variant="hero" size="lg" className="group flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)]">
+                            <Button
+                                variant="hero"
+                                size="lg"
+                                className="group flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)]"
+                                onClick={navigateToPortfolio}
+                            >
                                 <motion.div
                                     className="bg-white rounded-full p-2 flex items-center justify-center mr-2 group-hover:bg-orange-50 transition-colors duration-300 shadow-[0_0_15px_rgba(255,95,38,0.3)]"
                                     animate={{
@@ -116,7 +127,7 @@ const Portfolio = () => {
                                         ease: "easeInOut"
                                     }}
                                 >
-                                    <ArrowRight className="h-6 w-6 text-[#ff5f26] group-hover:text-[#ff4d1a] transition-all group-hover:rotate-0 -rotate-45 duration-300" />
+                                    <ArrowRight className="h-6 w-6 text-[#ff5f26]  transition-all group-hover:rotate-0 -rotate-45 duration-300" />
                                 </motion.div>
                                 <div className="relative overflow-hidden h-6 w-fit text-white">
                                     <motion.div
@@ -244,7 +255,7 @@ const Portfolio = () => {
 
             {/* Background decoration */}
             <motion.div
-                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[12vw] sm:text-[10vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
+                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[5vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 1 }}
