@@ -43,10 +43,10 @@ const ServicesSection = () => {
 
 
             <div className="container relative z-10 max-w-7xl mx-auto px-4">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 ">
+                <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8">
                     {/* Left Side - Content */}
                     <motion.div
-                        className="flex flex-col justify-center h-[700px] space-y-8 py-16"
+                        className="order-1 flex flex-col justify-center h-auto lg:h-[700px] space-y-8 py-8 lg:py-16"
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8 }}
@@ -82,7 +82,7 @@ const ServicesSection = () => {
                                 transition={{ duration: 0.6, delay: 0.4 }}
                                 viewport={{ once: true }}
                             >
-                                I deliver tailored digital solutions to help your business grow. My focus is on quality, performance, and ongoing support transforming ideas into engaging experiences that drive results.<br/> From rapid prototyping to scalable deployment, I collaborate closely to ensure every detail aligns with your goals.
+                                I deliver tailored digital solutions to help your business grow. My focus is on quality, performance, and ongoing support transforming ideas into engaging experiences that drive results.<br /> From rapid prototyping to scalable deployment, I collaborate closely to ensure every detail aligns with your goals.
                             </motion.p>
                         </div>
                         {/* Elegant Features Grid */}
@@ -137,20 +137,18 @@ const ServicesSection = () => {
 
                     {/* Right Side - Interactive Card Stack */}
                     <motion.div
-                        className="relative  z-10"
-
+                        className="order-2 relative z-10 h-[400px] lg:h-auto"
                         viewport={{ once: true }}
                     >
-                        <div className="absolute top-[-170px] left-[30%] transform -translate-x-1/2 w-full h-full pointer-events-none">
+                        <div className="absolute top-[-240px] md:top-[-30px] lg:top-[-170px] scale-[1.6] md:scale-[1]  lg:scale-[1] left-[-100px] md:left-[15%] lg:left-[30%] transform -translate-x-1/2 w-full h-full pointer-events-none">
                             <CardSwap
-                                width={350}
-                                height={430}
-                                cardDistance={50}
-                                verticalDistance={20}
+                                width={300}
+                                height={380}
+                                cardDistance={40}
+                                verticalDistance={15}
                                 delay={4000}
                                 pauseOnHover={true}
                                 easing="elastic"
-
                             >
                                 {services.map((service, index) => (
                                     <Card key={service.id} customClass="!bg-gradient-to-br from-gray-900/95 to-black/95 backdrop-blur-xl !border-gray-700 border shadow-2xl">
@@ -189,7 +187,7 @@ const ServicesSection = () => {
 
             {/* Background decoration */}
             <motion.div
-                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[5vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
+                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 1 }}

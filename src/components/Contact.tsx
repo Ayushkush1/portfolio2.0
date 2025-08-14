@@ -21,6 +21,18 @@ const Contact = () => {
     const y1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
     const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
+    // WhatsApp function
+    const openWhatsApp = () => {
+        const phoneNumber = "918738954475"; // Your WhatsApp number
+        const message = "Hi Ayush! I'm interested in discussing a project with you. Can we schedule a free intro call?";
+        const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappURL, '_blank');
+    };
+
+
+
+
+
     const socialLinks = [
         {
             icon: Globe,
@@ -46,7 +58,7 @@ const Contact = () => {
 
     return (
         <section ref={ref} id="contact" className="relative min-h-screen py-20 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5 text-foreground">
-            
+
 
             <div className="container relative z-10 flex flex-col min-h-screen">
                 {/* Top Badge */}
@@ -89,10 +101,10 @@ const Contact = () => {
                     >
                         <p className="text-muted-foreground text-lg leading-relaxed">
                             Feel free to contact me if having any questions.<br />
-                             I'm available for new projects or just for chatting.
+                            I'm available for new projects or just for chatting.
                         </p>
                         <p className="text-muted-foreground text-lg leading-relaxed">
-                           
+
                         </p>
                     </motion.div>
 
@@ -101,7 +113,9 @@ const Contact = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.7 }}
                         viewport={{ once: true }}
+                        className="flex flex-col gap-4 items-center"
                     >
+                        {/* Primary WhatsApp Button */}
                         <motion.div
                             className="group"
                             whileHover="hover"
@@ -110,6 +124,7 @@ const Contact = () => {
                                 variant="hero"
                                 size="lg"
                                 className="group flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)]"
+                                onClick={openWhatsApp}
                             >
                                 <motion.div
                                     className="bg-white rounded-full p-2 flex items-center justify-center mr-2 group-hover:bg-orange-50 transition-colors duration-300 shadow-[0_0_15px_rgba(255,95,38,0.3)]"
@@ -138,10 +153,10 @@ const Contact = () => {
                                         transition={{ duration: 0.3, ease: "easeInOut" }}
                                     >
                                         <span className="w-full flex items-center justify-center">
-                                            Book a free intro call
+                                            WhatsApp Chat
                                         </span>
                                         <span className="w-full flex items-center justify-center font-semibold">
-                                            Book a free intro call
+                                            WhatsApp Chat
                                         </span>
                                     </motion.div>
                                 </div>
@@ -159,6 +174,8 @@ const Contact = () => {
                                 />
                             </Button>
                         </motion.div>
+
+
                     </motion.div>
                 </div>
 
@@ -177,7 +194,7 @@ const Contact = () => {
                         </div>
 
                         {/* Center - Social Links */}
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-4 lg:ml-10">
                             {socialLinks.map((link, index) => (
                                 <motion.a
                                     key={index}
@@ -196,7 +213,27 @@ const Contact = () => {
                             ))}
                         </div>
 
-                        
+                        {/* Right - Email Contact */}
+                        <motion.div
+                            className="text-right"
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 1.0 }}
+                            viewport={{ once: true }}
+                        >
+                            <div className="text-foreground text-xs mb-1">
+                                Email me directly
+                            </div>
+                            <motion.a
+                                href="mailto:ayushkushwaha381@gmail.com"
+                                className="text-muted-foreground hover:text-[#bfbfbf] text-sm  transition-colors duration-300"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                ayushkushwaha381@gmail.com
+                            </motion.a>
+                        </motion.div>
+
                     </div>
                 </motion.footer>
             </div>

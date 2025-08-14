@@ -1,4 +1,4 @@
-import { ArrowRight, X } from "lucide-react";
+import { ArrowRight, X, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
@@ -160,7 +160,7 @@ const Hero = () => {
                         </motion.nav>
                         {/* Background section name */}
                         <motion.div
-                            className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[5vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
+                            className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true, amount: 0.1 }}
@@ -174,7 +174,7 @@ const Hero = () => {
                 )}
             </AnimatePresence>
 
-            <div className="container relative z-10 grid min-h-[80vh] grid-cols-1 items-center gap-10 py-8 md:grid-cols-2">
+            <div className="container relative z-10 grid min-h-[70vh] lg:min-h-[80vh] grid-cols-1 items-center lg:gap-10 py-8 md:grid-cols-2">
                 {/* Left copy */}
                 <motion.div
                     className="space-y-6"
@@ -311,9 +311,11 @@ const Hero = () => {
           />
         </div> */}
 
+
+
                 {/* Oversized name */}
                 <motion.div
-                    className="pointer-events-none absolute bottom-[-1rem] left-0 w-full select-none text-[22vw] sm:text-[20vw] md:text-[19vw] leading-none font-extrabold tracking-tight text-foreground/5"
+                    className="pointer-events-none absolute bottom-4 lg:bottom-[-1rem] left-0 w-full select-none text-[20vw]  md:text-[19vw] leading-none font-extrabold tracking-tight text-foreground/5"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 1.2 }}

@@ -23,7 +23,7 @@ const Testimonials = () => {
         <section className="relative py-24 bg-gradient-to-br from-background via-background to-primary/5">
             <div className="container relative z-10 max-w-7xl mx-auto px-4 pb-16">
                 <motion.div
-                    className="grid grid-cols-1 lg:grid-cols-2 gap-0 relative min-h-[600px]"
+                    className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-0 relative min-h-[600px]"
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
@@ -41,7 +41,7 @@ const Testimonials = () => {
 
                     {/* Left Testimonial - Top Position */}
                     <motion.div
-                        className="p-16 lg:pr-24 flex items-start"
+                        className="md:p-16 lg:pr-24 flex items-start"
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.4 }}
@@ -98,7 +98,7 @@ const Testimonials = () => {
 
                     {/* Right Testimonial - Bottom Position */}
                     <motion.div
-                        className="p-16 lg:pl-24 flex items-end"
+                        className="md:p-16 lg:pl-24 flex items-end"
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.5 }}
@@ -157,7 +157,7 @@ const Testimonials = () => {
 
             {/* Background decoration */}
             <motion.div
-                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[5vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
+                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 1 }}

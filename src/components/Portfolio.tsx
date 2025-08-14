@@ -81,7 +81,7 @@ const Portfolio = () => {
             <div className="container relative z-10 max-w-7xl mx-auto px-4 pb-40">
                 {/* Section Header */}
                 <motion.div
-                    className="flex items-center justify-between mb-20"
+                    className="flex flex-col md:flex-row gap-10 lg:gap-0 items-center justify-between mb-20"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
@@ -89,7 +89,7 @@ const Portfolio = () => {
                 >
                     <div>
                         <motion.h2
-                            className="text-5xl md:text-7xl font-bold text-foreground"
+                            className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground"
                             initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
@@ -214,7 +214,7 @@ const Portfolio = () => {
                                 </motion.div>
 
                                 {/* Project Card */}
-                                <div className="relative h-[410px] p-6 rounded-3xl bg-gradient-to-br from-gray-900/10 via-gray-800/10 to-gray-800/20 backdrop-blur-md border border-white/10 shadow-lg transition-all duration-500 group-hover:shadow-2xl">
+                                <div className="relative md:h-[410px] p-6 rounded-3xl bg-gradient-to-br from-gray-900/10 via-gray-800/10 to-gray-800/20 backdrop-blur-md border border-white/10 shadow-lg transition-all duration-500 group-hover:shadow-2xl">
                                     {/* Decorative Elements */}
                                     <div className="absolute top-4 right-4 w-12 h-12 bg-brand/20 rounded-full blur-lg" />
 
@@ -271,7 +271,7 @@ const Portfolio = () => {
 
             {/* Background decoration */}
             <motion.div
-                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[5vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
+                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 1 }}

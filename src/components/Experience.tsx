@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Github, Instagram, Linkedin, Twitter } from "lucide-react";
+import { Github, Instagram, Linkedin, Twitter, Mail } from "lucide-react";
 
 const Experience = () => {
     const experiences = [
@@ -26,14 +26,14 @@ const Experience = () => {
 
     return (
         <section id="experience" className="relative py-24 pt-40 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
-           
+
 
             <div className="container relative z-10 max-w-7xl mx-auto px-4 pb-32">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
+                <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
                     {/* Left Side - Profile Image & Info */}
-                    <div className="-rotate-2">
+                    <div className="lg:-rotate-2 order-1 w-full">
                         <motion.div
-                            className="order-1 lg:order-1 flex flex-col pt-12 "
+                            className="flex flex-col pt-6 lg:pt-12"
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
@@ -45,10 +45,12 @@ const Experience = () => {
                                 whileHover={{ y: -5 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <div className="w-full  aspect-[4/3] bg-gradient-to-br from-amber-200/20 via-gray-800 to-gray-900 rounded-3xl shadow-2xl">
-                                    {/* Placeholder for profile image */}
-                                    <div className="max-w-[25rem]  ml-[5.5rem] flex items-center justify-center">
-                                        <img src="lovable-uploads/Profile.png" className="object-cover h-full w-full" alt="" />
+                                <div className="w-full aspect-[4/3] bg-gradient-to-br from-amber-200/20 via-gray-800 to-gray-900 rounded-3xl shadow-2xl relative overflow-hidden">
+                                    {/* Centered profile image */}
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <div className="h-full  flex items-center justify-center">
+                                            <img src="lovable-uploads/Profile.png" className="object-cover h-full w-full rounded-2xl" alt="Ayush Kushwaha" />
+                                        </div>
                                     </div>
                                 </div>
                             </motion.div>
@@ -126,6 +128,22 @@ const Experience = () => {
                                     >
                                         <Instagram className="w-full h-full" />
                                     </motion.a>
+                                    <motion.a
+                                        href="mailto:ayushkushwaha381@gmail.com"
+                                        className="w-6 h-6 text-gray-400 transition-colors duration-300"
+                                        whileHover={{
+                                            scale: 1.15,
+                                            color: "rgb(var(--brand-rgb, 251, 146, 60))"
+                                        }}
+                                        whileTap={{ scale: 0.9 }}
+                                        transition={{
+                                            type: "spring",
+                                            stiffness: 400,
+                                            damping: 25
+                                        }}
+                                    >
+                                        <Mail className="w-full h-full" />
+                                    </motion.a>
                                 </motion.div>
                             </div>
                         </motion.div>
@@ -133,7 +151,7 @@ const Experience = () => {
 
                     {/* Right Side - Content */}
                     <motion.div
-                        className="order-2 lg:order-2 pt-12"
+                        className="order-2 pt-6 lg:pt-12 w-full"
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8 }}
@@ -216,7 +234,7 @@ const Experience = () => {
 
             {/* Background decoration */}
             <motion.div
-                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[5vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
+                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 1 }}

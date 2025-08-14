@@ -245,7 +245,7 @@ const PortfolioPage = () => {
                                 </motion.div>
 
                                 {/* Project Card */}
-                                <div className="relative h-[420px] p-6 rounded-3xl bg-gradient-to-br from-gray-900/10 via-gray-800/10 to-gray-800/20 backdrop-blur-md border border-white/10 shadow-lg transition-all duration-500 group-hover:shadow-2xl">
+                                <div className="relative md:h-[420px] p-6 rounded-3xl bg-gradient-to-br from-gray-900/10 via-gray-800/10 to-gray-800/20 backdrop-blur-md border border-white/10 shadow-lg transition-all duration-500 group-hover:shadow-2xl">
                                     {/* Decorative Elements */}
                                     <div className="absolute top-4 right-4 w-12 h-12 bg-brand/20 rounded-full blur-lg" />
 
