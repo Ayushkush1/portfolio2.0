@@ -192,6 +192,7 @@ const Contact = () => {
                         <div className="text-muted-foreground text-sm">
                             © Ayush Kushwaha, 2023
                         </div>
+                        
 
                         {/* Center - Social Links */}
                         <div className="flex items-center gap-4 lg:ml-10">
