@@ -9,16 +9,26 @@ import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 
 const Index = () => {
-  const title = "Ayush Kushwaha";
+  const title = "Ayush Kushwaha | Web & UI/UX Designer";
   const description =
-    "Portfolio hero of Ayush Kushwaha, a UI/UX and brand designer crafting seamless digital experiences in London.";
+    "Freelance Web & UI/UX Designer crafting beautiful, user-centered digital experiences. Based in India, specializing in modern web design, development, and user interface design.";
   const canonical = typeof window !== "undefined" ? window.location.origin + "/" : "/";
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Ayush Kushwaha – UI/UX Designer",
+    "@type": "Person",
+    name: "Ayush Kushwaha",
     url: canonical,
     description,
+    jobTitle: "Web & UI/UX Designer",
+    worksFor: {
+      "@type": "Organization",
+      name: "Freelance"
+    },
+    sameAs: [
+      "https://github.com/Ayushkush1",
+      "https://www.linkedin.com/in/ayush-kushwaha-b3b76915b/",
+      "https://www.instagram.com/awsm_ayush_/"
+    ]
   };
 
   return (
