@@ -173,6 +173,7 @@ const PortfolioPage = () => {
                         </motion.button>
                     </Link>
                 </motion.header>
+                
 
                 <div className="container relative z-10 max-w-7xl mx-auto px-4 pb-24">
                     {/* Hero Section */}
