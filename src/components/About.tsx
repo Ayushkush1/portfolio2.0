@@ -54,7 +54,7 @@ const SkillPill: React.FC<PillProps> = ({ icon, label, color }) => (
 const About: React.FC = () => {
   return (
     <section id="about" className="relative flex items-center justify-center overflow-hidden w-full pt-40 pb-32 bg-gradient-to-br from-background via-background to-primary/5">
-      <div className="container relative z-10 max-w-6xl mx-auto pb-40 md:pb-28">
+      <div className="container relative z-10 md:max-w-6xl mx-auto pb-40 md:pb-28">
         {/* Hello Badge */}
         <motion.div
           className="text-center mb-16"
@@ -86,14 +86,14 @@ const About: React.FC = () => {
         <div className="relative flex items-center justify-center">
           {/* Central Text */}
           <motion.div
-            className="text-center max-w-[790px] px-8 pt-4"
+            className="text-center md:max-w-[790px] px-8 pt-4"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           >
             <h1 className="text-3xl md:text-5xl lg:text-5xl font-thin text-foreground mb-6" style={{ lineHeight: "1.1" }}>
-              I help startups and businesses boost{" "}
+              I help startups turn ideas into market-ready MVPs, boosting{" "}
               
                 conversions and user engagement
               
@@ -105,7 +105,7 @@ const About: React.FC = () => {
           {/* Floating Skills Pills - Desktop Only */}
           <div className="hidden lg:block">
             {/* Left side pills with different rotations */}
-            <div className="absolute -left-14 top-6 flex flex-col gap-10">
+            <div className="absolute -left-14 top-12 flex flex-col gap-10">
               <motion.div
                 className="rotate-6"
                 initial={{ opacity: 0, x: -100, rotate: 6 }}
@@ -136,7 +136,7 @@ const About: React.FC = () => {
             </div>
 
             {/* Right side pills with different rotations */}
-            <div className="absolute -right-14 top-6 flex flex-col gap-10">
+            <div className="absolute -right-14 top-12 flex flex-col gap-10">
               <motion.div
                 className="-rotate-6"
                 initial={{ opacity: 0, x: 100, rotate: -6 }}

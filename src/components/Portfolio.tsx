@@ -223,11 +223,11 @@ const Portfolio = () => {
                                         <div className="relative overflow-hidden rounded-xl shadow-2xl bg-gray-900 p-2">
                                             {/* Browser Frame */}
                                             <div className="bg-gray-800 rounded-t-lg p-2 flex items-center gap-2">
-                                                <div className="w-3 h-3 bg-red-500 rounded-full" />
-                                                <div className="w-3 h-3 bg-yellow-500 rounded-full" />
-                                                <div className="w-3 h-3 bg-green-500 rounded-full" />
-                                                <div className="flex-1 bg-gray-700 rounded-sm h-5 ml-2 flex items-center px-2">
-                                                    <span className="text-gray-300 text-[10px] font-mono truncate">
+                                                <div className="w-3 h-3 bg-red-500 rounded-full flex-shrink-0" />
+                                                <div className="w-3 h-3 bg-yellow-500 rounded-full flex-shrink-0" />
+                                                <div className="w-3 h-3 bg-green-500 rounded-full flex-shrink-0" />
+                                                <div className="flex-1 bg-gray-700 rounded-sm h-5 ml-2 flex items-center px-2 min-w-0 overflow-hidden">
+                                                    <span className="text-gray-300 text-[8px] md:text-[10px] font-mono truncate block overflow-hidden text-ellipsis whitespace-nowrap">
                                                         {project.url}
                                                     </span>
                                                 </div>

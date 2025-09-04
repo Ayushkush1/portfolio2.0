@@ -174,10 +174,10 @@ const Hero = () => {
                 )}
             </AnimatePresence>
 
-            <div className="container relative z-10 grid min-h-[70vh] lg:min-h-[80vh] grid-cols-1 items-center lg:gap-10 py-8 md:grid-cols-2">
+            <div className="container relative z-10 grid min-h-[70vh] lg:min-h-[80vh] grid-cols-1 items-center lg:gap-10 gap-3 py-20 md:grid-cols-2">
                 {/* Left copy */}
                 <motion.div
-                    className="space-y-6"
+                    className="md:space-y-6"
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
@@ -209,13 +209,12 @@ const Hero = () => {
                     transition={{ duration: 0.8, delay: 0.5 }}
                 >
                     <motion.p
-                        className="max-w-[290px] text-md text-gray-300 md:text-right"
+                        className="max-w-[280px] text-md text-gray-300 md:text-right"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.8 }}
                     >
-                        Hi, I'm Ayush Kushwaha - a UI/UX and web designer passionate about
-                        creating seamless digital experiences that connect and convert.
+                        Hi, I'm Ayush Kushwaha - a UI/UX designer & MVP expert crafting digital experiences that connect and convert. I turn ideas into launch-ready products.
                     </motion.p>
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
