@@ -43,8 +43,19 @@ const Portfolio = () => {
             url: "https://six-table.vercel.app/",
             rotation: "rotate-2"
         },
-        {
+         {
             id: 2,
+            title: "Erichost Hosting Platform",
+            category: "Hosting, Web Platform",
+            description: "A hosting service platform offering scalable deployments, domain management, and one-click Next.js app deployments.",
+            image: "/lovable-uploads/EricHost.png",
+            url: "https://main.erichost.app/",
+            year: "2025",
+            technologies: ["Next.js", "TypeScript", "TailwindCSS", "Docker", "Vercel"],
+            rotation: "rotate-2"
+        },
+        {
+            id: 3,
             title: "Web Hosting Company",
             category: "Web Design , Development",
             description: "Professional web hosting company website with project galleries and service showcases.",
@@ -53,7 +64,7 @@ const Portfolio = () => {
             rotation: "-rotate-2"
         },
         {
-            id: 3,
+            id: 4,
             title: "Movie Searching Platform",
             category: "Web Design , Development",
             description: "Modern movie searching platform with advanced search and streaming features.",
@@ -61,15 +72,7 @@ const Portfolio = () => {
             url: "https://ayushmovix.vercel.app/",
             rotation: "rotate-2"
         },
-        {
-            id: 4,
-            title: "Professional Documents Management Tool",
-            category: "Web Design , Development",
-            description: "Comprehensive document management tool for professionals with advanced organization and collaboration features.",
-            image: "/lovable-uploads/proposal-pro.png",
-            url: "https://proposal-pro-sable.vercel.app/",
-            rotation: "-rotate-2"
-        },
+       
 
     ];
 

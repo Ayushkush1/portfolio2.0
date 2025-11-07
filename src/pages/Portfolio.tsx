@@ -42,8 +42,19 @@ const PortfolioPage = () => {
             technologies: ["Next.js", "Node.js", "TypeScript", "TailwindCSS"],
             rotation: "-rotate-2"
         },
-        {
+         {
             id: 2,
+            title: "Erichost Hosting Platform",
+            category: "Hosting, Web Platform",
+            description: "A hosting service platform offering scalable deployments, domain management, and one-click Next.js app deployments.",
+            image: "/lovable-uploads/EricHost.png",
+            url: "https://main.erichost.app/",
+            year: "2025",
+            technologies: ["Next.js", "TypeScript", "TailwindCSS", "Docker", "Vercel"],
+            rotation: "rotate-2"
+        },
+        {
+            id: 3,
             title: "Onboarding KYC Platform",
             category: "Web App, API Integration",
             description: "Streamlined onboarding process for KYC verification with AI-driven document analysis.",
@@ -54,7 +65,7 @@ const PortfolioPage = () => {
             rotation: "rotate-2"
         },
         {
-            id: 3,
+            id: 4,
             title: "RemoveQ Background Remover",
             category: "Web App, AI Integration",
             description: "Advanced AI-powered background removal tool with batch processing and high-quality image editing capabilities.",
@@ -65,7 +76,7 @@ const PortfolioPage = () => {
             rotation: "-rotate-2"
         },
         {
-            id: 4,
+            id: 5,
             title: "Web Development Agency",
             category: "SaaS, Landing Page Design",
             description: "Comprehensive project management platform with team collaboration, task tracking, and analytics dashboard.",
@@ -76,7 +87,7 @@ const PortfolioPage = () => {
             rotation: "rotate-2"
         },
         {
-            id: 5,
+            id: 6,
             title: "Blooger Content Platform",
             category: "CMS, Blog Platform",
             description: "Modern blogging platform with rich text editor, SEO optimization, and content management system.",
@@ -87,7 +98,7 @@ const PortfolioPage = () => {
             rotation: "-rotate-2"
         },
         {
-            id: 6,
+            id: 7,
             title: "Movix Entertainment Hub",
             category: "Streaming, UI/UX",
             description: "Entertainment streaming platform with movie discovery, watchlists, and personalized recommendations.",
@@ -98,7 +109,7 @@ const PortfolioPage = () => {
             rotation: "rotate-2"
         },
         {
-            id: 7,
+            id: 8,
             title: "Proposal Pro Business Tool",
             category: "Business App, Document Generation",
             description: "Professional proposal creation tool with templates, e-signatures, and client management features.",
@@ -109,7 +120,7 @@ const PortfolioPage = () => {
             rotation: "-rotate-2"
         },
         {
-            id: 8,
+            id: 9,
             title: "Mobius Engine Analytics",
             category: "Data Analytics, Dashboard",
             description: "Advanced analytics engine with real-time data visualization, custom reports, and business intelligence.",
@@ -120,7 +131,7 @@ const PortfolioPage = () => {
             rotation: "rotate-2"
         },
         {
-            id: 9,
+            id: 10,
             title: "Personal Portfolio v1",
             category: "Portfolio, Creative Design",
             description: "First iteration of personal portfolio showcasing creative design approach and interactive elements.",
@@ -129,7 +140,11 @@ const PortfolioPage = () => {
             year: "2024",
             technologies: ["HTML5", "CSS3", "JavaScript", "GSAP"],
             rotation: "-rotate-2"
-        }
+        },
+
+       
+
+
     ];
 
     const title = "Portfolio – Ayush Kushwaha | Web & UI/UX Designer";
@@ -173,7 +188,7 @@ const PortfolioPage = () => {
                         </motion.button>
                     </Link>
                 </motion.header>
-                
+
 
                 <div className="container relative z-10 max-w-7xl mx-auto px-4 pb-24">
                     {/* Hero Section */}
