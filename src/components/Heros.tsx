@@ -20,6 +20,13 @@ const Hero = () => {
         navigate('/portfolio');
     };
 
+    const openWhatsApp = () => {
+        const phoneNumber = "918738954475"; // Your WhatsApp number
+        const message = "Hello Ayush, I'm interested in your services.";
+        const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappURL, '_blank');
+    };
+
     const scrollToSection = (sectionId) => {
         if (sectionId === 'portfolio') {
             navigate('/portfolio');
@@ -232,7 +239,7 @@ const Hero = () => {
                                     variant="hero"
                                     size="lg"
                                     className="group flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)]"
-                                    onClick={navigateToPortfolio}
+                                    onClick={openWhatsApp}
                                 >
                                     <motion.div
                                         className="bg-white rounded-full p-2 flex items-center justify-center mr-2 group-hover:bg-orange-50 transition-colors duration-300 shadow-[0_0_15px_rgba(255,95,38,0.3)]"
@@ -273,10 +280,10 @@ const Hero = () => {
                                             transition={{ duration: 0.3, ease: "easeInOut" }}
                                         >
                                             <span className="w-full flex items-center justify-center">
-                                                See my works
+                                                Let's Connect
                                             </span>
                                             <span className="w-full flex items-center justify-center font-semibold">
-                                                See my works
+                                                Let's Connect
                                             </span>
                                         </motion.div>
                                     </div>
