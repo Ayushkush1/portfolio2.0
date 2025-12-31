@@ -36,15 +36,24 @@ const Portfolio = () => {
     const featuredProjects = [
         {
             id: 1,
-            title: "Web Development Agency",
-            category: "Prototype Design, Development",
-            description: "A modern web development agency website featuring immersive project showcases and seamless portfolio navigation.",
-            image: "/lovable-uploads/six-table.png",
-            url: "https://six-table.vercel.app/",
+            title: "Catfy",
+            category: "Catalogue Builder, SaaS",
+            description: "A powerful catalogue builder tool that helps businesses create and manage digital catalogues efficiently.",
+            image: "/lovable-uploads/catfy.png",
+            url: "https://catfy-catalog.vercel.app",
+            rotation: "-rotate-2"
+        },
+        {
+            id: 2,
+            title: "Coding Pandas",
+            category: "EdTech, Education",
+            description: "An interactive online classroom platform for mastering Web Development and Data Structures & Algorithms.",
+            image: "/lovable-uploads/coding-pandas.png",
+            url: "https://coding-pandas.vercel.app/",
             rotation: "rotate-2"
         },
-         {
-            id: 2,
+        {
+            id: 3,
             title: "Erichost Hosting Platform",
             category: "Hosting, Web Platform",
             description: "A hosting service platform offering scalable deployments, domain management, and one-click Next.js app deployments.",
@@ -52,27 +61,18 @@ const Portfolio = () => {
             url: "https://main.erichost.app/",
             year: "2025",
             technologies: ["Next.js", "TypeScript", "TailwindCSS", "Docker", "Vercel"],
-            rotation: "rotate-2"
-        },
-        {
-            id: 3,
-            title: "Web Hosting Company",
-            category: "Web Design , Development",
-            description: "Professional web hosting company website with project galleries and service showcases.",
-            image: "/lovable-uploads/ninzahost.png",
-            url: "https://ninzahost.com",
             rotation: "-rotate-2"
         },
         {
             id: 4,
-            title: "Movie Searching Platform",
-            category: "Web Design , Development",
-            description: "Modern movie searching platform with advanced search and streaming features.",
-            image: "/lovable-uploads/movix.png",
-            url: "https://ayushmovix.vercel.app/",
+            title: "NeatRoots",
+            category: "App Dev Courses, IT Services",
+            description: "A comprehensive platform offering online app development courses and professional IT services.",
+            image: "/lovable-uploads/neatroots.png",
+            url: "https://neatroot.vercel.app/",
             rotation: "rotate-2"
         },
-       
+
 
     ];
 

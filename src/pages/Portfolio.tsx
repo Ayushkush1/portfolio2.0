@@ -33,6 +33,33 @@ const PortfolioPage = () => {
     const allProjects = [
         {
             id: 1,
+            title: "Catfy",
+            category: "Catalogue Builder, SaaS",
+            description: "A powerful catalogue builder tool that helps businesses create and manage digital catalogues efficiently.",
+            image: "/lovable-uploads/catfy.png",
+            url: "https://catfy-catalog.vercel.app",
+            rotation: "-rotate-2"
+        },
+         {
+            id: 2,
+            title: "Coding Pandas",
+            category: "EdTech, Education",
+            description: "An interactive online classroom platform for mastering Web Development and Data Structures & Algorithms.",
+            image: "/lovable-uploads/coding-pandas.png",
+            url: "https://coding-pandas.vercel.app/",
+            rotation: "rotate-2"
+        },
+        {
+            id: 3,
+            title: "NeatRoots",
+            category: "App Dev Courses, IT Services",
+            description: "A comprehensive platform offering online app development courses and professional IT services.",
+            image: "/lovable-uploads/neatroots.png",
+            url: "https://neatroot.vercel.app/",
+            rotation: "-rotate-2"
+        },
+        {
+            id: 4,
             title: "NinzaHost Platform",
             category: "Web Design, Development, UI/UX",
             description: "A modern web hosting platform featuring intuitive dashboard, server management, and seamless user experience.",
@@ -40,10 +67,10 @@ const PortfolioPage = () => {
             url: "https://ninzahost.com",
             year: "2024",
             technologies: ["Next.js", "Node.js", "TypeScript", "TailwindCSS"],
-            rotation: "-rotate-2"
+            rotation: "rotate-2"
         },
          {
-            id: 2,
+            id: 5,
             title: "Erichost Hosting Platform",
             category: "Hosting, Web Platform",
             description: "A hosting service platform offering scalable deployments, domain management, and one-click Next.js app deployments.",
@@ -51,10 +78,10 @@ const PortfolioPage = () => {
             url: "https://main.erichost.app/",
             year: "2025",
             technologies: ["Next.js", "TypeScript", "TailwindCSS", "Docker", "Vercel"],
-            rotation: "rotate-2"
+            rotation: "-rotate-2"
         },
         {
-            id: 3,
+            id: 6,
             title: "Onboarding KYC Platform",
             category: "Web App, API Integration",
             description: "Streamlined onboarding process for KYC verification with AI-driven document analysis.",
@@ -65,7 +92,7 @@ const PortfolioPage = () => {
             rotation: "rotate-2"
         },
         {
-            id: 4,
+            id: 7,
             title: "RemoveQ Background Remover",
             category: "Web App, AI Integration",
             description: "Advanced AI-powered background removal tool with batch processing and high-quality image editing capabilities.",
@@ -76,7 +103,7 @@ const PortfolioPage = () => {
             rotation: "-rotate-2"
         },
         {
-            id: 5,
+            id: 8,
             title: "Web Development Agency",
             category: "SaaS, Landing Page Design",
             description: "Comprehensive project management platform with team collaboration, task tracking, and analytics dashboard.",
@@ -87,7 +114,7 @@ const PortfolioPage = () => {
             rotation: "rotate-2"
         },
         {
-            id: 6,
+            id: 9,
             title: "Blooger Content Platform",
             category: "CMS, Blog Platform",
             description: "Modern blogging platform with rich text editor, SEO optimization, and content management system.",
@@ -98,7 +125,7 @@ const PortfolioPage = () => {
             rotation: "-rotate-2"
         },
         {
-            id: 7,
+            id: 10,
             title: "Movix Entertainment Hub",
             category: "Streaming, UI/UX",
             description: "Entertainment streaming platform with movie discovery, watchlists, and personalized recommendations.",
@@ -109,7 +136,7 @@ const PortfolioPage = () => {
             rotation: "rotate-2"
         },
         {
-            id: 8,
+            id: 11,
             title: "Proposal Pro Business Tool",
             category: "Business App, Document Generation",
             description: "Professional proposal creation tool with templates, e-signatures, and client management features.",
@@ -120,7 +147,7 @@ const PortfolioPage = () => {
             rotation: "-rotate-2"
         },
         {
-            id: 9,
+            id: 12,
             title: "Mobius Engine Analytics",
             category: "Data Analytics, Dashboard",
             description: "Advanced analytics engine with real-time data visualization, custom reports, and business intelligence.",
@@ -131,7 +158,7 @@ const PortfolioPage = () => {
             rotation: "rotate-2"
         },
         {
-            id: 10,
+            id: 13,
             title: "Personal Portfolio v1",
             category: "Portfolio, Creative Design",
             description: "First iteration of personal portfolio showcasing creative design approach and interactive elements.",

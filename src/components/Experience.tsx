@@ -4,23 +4,25 @@ import { Github, Instagram, Linkedin, Twitter, Mail } from "lucide-react";
 const Experience = () => {
     const experiences = [
         {
-            id: 1,
-            role: "Frontend Lead",
-            company: "NinzaHost",
-            period: "2024 → Now"
+            id: 0,
+            role: "Tech Lead",
+            company: "The Gold Technologies",
+            period: " August 2025 → Now"
+        },
+        {
+            id: 1,role: "Freelance Practice",
+            company: "Freelance Agency",
+            period: "2023 → Now"
+            
         },
         {
             id: 2,
-            role: "Freelance Practice",
-            company: "Freelance Agency",
-            period: "2023 → Now"
+            role: "Frontend Developer",
+            company: "NinzaHost",
+            period: "2024 → 2025"
+            
         },
-        {
-            id: 3,
-            role: "Full Stack Developer",
-            company: "Tigsaw & RemoveQ",
-            period: "2022 → Now"
-        },
+      
 
     ];
 
