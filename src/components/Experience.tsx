@@ -47,11 +47,11 @@ const Experience = () => {
                                 whileHover={{ y: -5 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <div className="w-full aspect-[4/3] bg-gradient-to-br from-amber-200/20 via-gray-800 to-gray-900 rounded-3xl shadow-2xl relative overflow-hidden">
+                                <div className="w-full aspect-[1/1] rounded-3xl shadow-2xl shadow-foreground/5 relative overflow-hidden">
                                     {/* Centered profile image */}
                                     <div className="absolute inset-0 flex items-center justify-center">
                                         <div className="h-full  flex items-center justify-center">
-                                            <img src="lovable-uploads/Profile.png" className="object-cover h-full w-full rounded-2xl" alt="Ayush Kushwaha" />
+                                            <img src="lovable-uploads/profile2.png" className="object-cover h-full w-full rounded-2xl" alt="Ayush Kushwaha" />
                                         </div>
                                     </div>
                                 </div>
@@ -153,7 +153,7 @@ const Experience = () => {
 
                     {/* Right Side - Content */}
                     <motion.div
-                        className="order-2 pt-6 lg:pt-12 w-full"
+                        className="order-2 pt-6 lg:pt-24 w-full"
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8 }}
