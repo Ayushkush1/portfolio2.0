@@ -5,16 +5,16 @@ const Testimonials = () => {
     const testimonials = [
         {
             id: 1,
-            name: "Nahar Singh",
+            name: "",
             role: "Founder at Erichost",
-            image: "/lovable-uploads/EricHostFounder.png",
+            image: "",
             text: "I'm thoroughly impressed with Ayush's designing creativity! He brought fresh ideas to our hosting platform and delivered beyond expectations. His creative approach to web design is exactly what Erichost needed."
         },
         {
             id: 2,
-            name: "Nitish Kumar",
+            name: "",
             role: "Founder at NinzaHost",
-            image: "/lovable-uploads/NinzaHostFounder.png",
+            image: "",
             text: "Ayush transformed our vision into a stunning web hosting platform. His technical expertise and attention to detail made NinzaHost stand out in the competitive hosting market. The user experience he created is simply outstanding!"
         }
     ];
