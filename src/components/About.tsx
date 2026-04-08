@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import {
   LayoutGrid,
   PenTool,
@@ -51,9 +52,40 @@ const SkillPill: React.FC<PillProps> = ({ icon, label, color }) => (
   </motion.div>
 );
 
-const About: React.FC = () => {
+const WordReveal = ({ children, progress, range }: { children: React.ReactNode, progress: any, range: [number, number] }) => {
+  const opacity = useTransform(progress, range, [0.15, 1]);
   return (
-    <section id="about" className="relative flex items-center justify-center overflow-hidden w-full pt-40 pb-32 bg-gradient-to-br from-background via-background to-primary/5">
+    <motion.span style={{ opacity }} className="inline-block mr-[0.25em] mb-[0.1em] text-center">
+      {children}
+    </motion.span>
+  );
+};
+
+const About: React.FC = () => {
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  const textRef = useRef<HTMLHeadingElement>(null);
+  const { scrollYProgress: textScrollYProgress } = useScroll({
+    target: textRef,
+    offset: ["start 85%", "end 65%"],
+  });
+
+  const statementText = "I help startups turn ideas into market-ready MVPs, boosting conversions and user engagement through CRO-focused design, UX strategy, and modern web development.";
+  const words = statementText.split(" ");
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -150]); // Top moves fastest upwards
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -100]); // Middle moves medium
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, -50]);  // Bottom moves slowest
+  const y4 = useTransform(scrollYProgress, [0, 1], [0, -150]); // Top moves fastest upwards
+  const y5 = useTransform(scrollYProgress, [0, 1], [0, -100]); // Middle moves medium
+  const y6 = useTransform(scrollYProgress, [0, 1], [0, -50]);  // Bottom moves slowest
+
+  return (
+    <section ref={containerRef} id="about" className="relative flex items-center justify-center overflow-hidden w-full pt-40 pb-32 bg-gradient-to-br from-background via-background to-primary/5">
       <div className="container relative z-10 md:max-w-6xl mx-auto pb-40 md:pb-28">
         {/* Hello Badge */}
         <motion.div
@@ -92,77 +124,92 @@ const About: React.FC = () => {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           >
-            <h1 className="text-3xl md:text-5xl lg:text-5xl font-thin text-foreground mb-6" style={{ lineHeight: "1.1" }}>
-              I help startups turn ideas into market-ready MVPs, boosting{" "}
-              
-                conversions and user engagement
-              
-              {" "}
-              through CRO-focused design, UX strategy, and modern web development.
+            <h1 ref={textRef} className="text-3xl md:text-5xl lg:text-5xl font-thin text-foreground mb-6 flex flex-wrap justify-center text-center" style={{ lineHeight: "1.2" }}>
+              {words.map((word, i) => {
+                const start = i / words.length;
+                const end = start + (1 / words.length);
+                return (
+                  <WordReveal key={i} progress={textScrollYProgress} range={[start, end]}>
+                    {word}
+                  </WordReveal>
+                );
+              })}
             </h1>
           </motion.div>
 
           {/* Floating Skills Pills - Desktop Only */}
           <div className="hidden lg:block">
             {/* Left side pills with different rotations */}
-            <div className="absolute -left-14 top-12 flex flex-col gap-10">
-              <motion.div
-                className="rotate-6"
-                initial={{ opacity: 0, x: -100, rotate: 6 }}
-                whileInView={{ opacity: 1, x: 0, rotate: 6 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
-              >
-                <SkillPill icon={<LayoutGrid className="size-4" />} label="Design systems" color="#ff5f26" />
+            <div className="absolute -left-14 top-24 flex flex-col gap-10">
+              <motion.div style={{ y: y1 }}>
+                <motion.div
+                  className="rotate-6"
+                  initial={{ opacity: 0, x: -100, rotate: 6 }}
+                  whileInView={{ opacity: 1, x: 0, rotate: 6 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
+                >
+                  <SkillPill icon={<LayoutGrid className="size-4" />} label="Design systems" color="#ff5f26" />
+                </motion.div>
               </motion.div>
-              <motion.div
-                className="rotate-3 ml-8"
-                initial={{ opacity: 0, x: -120, rotate: 3 }}
-                whileInView={{ opacity: 1, x: 0, rotate: 3 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
-              >
-                <SkillPill icon={<PenTool className="size-4" />} label="UI/UX" color="#10b981" />
+              <motion.div style={{ y: y2 }}>
+                <motion.div
+                  className="rotate-3 ml-8"
+                  initial={{ opacity: 0, x: -120, rotate: 3 }}
+                  whileInView={{ opacity: 1, x: 0, rotate: 3 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
+                >
+                  <SkillPill icon={<PenTool className="size-4" />} label="UI/UX" color="#10b981" />
+                </motion.div>
               </motion.div>
-              <motion.div
-                className="-rotate-6 ml-4"
-                initial={{ opacity: 0, x: -80, rotate: -6 }}
-                whileInView={{ opacity: 1, x: 0, rotate: -6 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, delay: 0.9, ease: "easeOut" }}
-              >
-                <SkillPill icon={<Search className="size-4" />} label="Research" color="#3b82f6" />
+              <motion.div style={{ y: y3 }}>
+                <motion.div
+                  className="-rotate-6 ml-4"
+                  initial={{ opacity: 0, x: -80, rotate: -6 }}
+                  whileInView={{ opacity: 1, x: 0, rotate: -6 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6, delay: 0.9, ease: "easeOut" }}
+                >
+                  <SkillPill icon={<Search className="size-4" />} label="Research" color="#3b82f6" />
+                </motion.div>
               </motion.div>
             </div>
 
             {/* Right side pills with different rotations */}
-            <div className="absolute -right-14 top-12 flex flex-col gap-10">
-              <motion.div
-                className="-rotate-6"
-                initial={{ opacity: 0, x: 100, rotate: -6 }}
-                whileInView={{ opacity: 1, x: 0, rotate: -6 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
-              >
-                <SkillPill icon={<Film className="size-4" />} label="Animation" color="#22c55e" />
+            <div className="absolute -right-14 top-24 flex flex-col gap-10">
+              <motion.div style={{ y: y4 }}>
+                <motion.div
+                  className="-rotate-6"
+                  initial={{ opacity: 0, x: 100, rotate: -6 }}
+                  whileInView={{ opacity: 1, x: 0, rotate: -6 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
+                >
+                  <SkillPill icon={<Film className="size-4" />} label="Animation" color="#22c55e" />
+                </motion.div>
               </motion.div>
-              <motion.div
-                className="-rotate-3 mr-8"
-                initial={{ opacity: 0, x: 120, rotate: -3 }}
-                whileInView={{ opacity: 1, x: 0, rotate: -3 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
-              >
-                <SkillPill icon={<FlaskConical className="size-4" />} label="Prototyping" color="#ec4899" />
+              <motion.div style={{ y: y5 }}>
+                <motion.div
+                  className="-rotate-3 mr-8"
+                  initial={{ opacity: 0, x: 120, rotate: -3 }}
+                  whileInView={{ opacity: 1, x: 0, rotate: -3 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
+                >
+                  <SkillPill icon={<FlaskConical className="size-4" />} label="Prototyping" color="#ec4899" />
+                </motion.div>
               </motion.div>
-              <motion.div
-                className="rotate-6 mr-4"
-                initial={{ opacity: 0, x: 80, rotate: 6 }}
-                whileInView={{ opacity: 1, x: 0, rotate: 6 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, delay: 1.0, ease: "easeOut" }}
-              >
-                <SkillPill icon={<Goal className="size-4" />} label="Strategy" color="#f59e0b" />
+              <motion.div style={{ y: y6 }}>
+                <motion.div
+                  className="rotate-6 mr-4"
+                  initial={{ opacity: 0, x: 80, rotate: 6 }}
+                  whileInView={{ opacity: 1, x: 0, rotate: 6 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6, delay: 1.0, ease: "easeOut" }}
+                >
+                  <SkillPill icon={<Goal className="size-4" />} label="Strategy" color="#f59e0b" />
+                </motion.div>
               </motion.div>
             </div>
           </div>         

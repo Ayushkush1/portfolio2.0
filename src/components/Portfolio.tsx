@@ -1,13 +1,24 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Portfolio = () => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [hoveredCardId, setHoveredCardId] = useState<number | null>(null);
     const navigate = useNavigate();
+
+    // Load designer fonts ONLY for this component
+    useEffect(() => {
+        const id = "portfolio-fonts";
+        if (!document.getElementById(id)) {
+            const link = document.createElement("link");
+            link.id = id;
+            link.rel = "stylesheet";
+            link.href = "https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap";
+            document.head.appendChild(link);
+        }
+    }, []);
 
     // Handle mouse movement for cursor follower
     const handleMouseMove = (e: React.MouseEvent, cardId: number) => {
@@ -37,251 +48,206 @@ const Portfolio = () => {
         {
             id: 1,
             title: "Catfy",
-            category: "Catalogue Builder, SaaS",
-            description: "A powerful catalogue builder tool that helps businesses create and manage digital catalogues efficiently.",
+            workType: "SaaS",
             image: "/lovable-uploads/catfy.png",
             url: "https://catfy-catalog.vercel.app",
-            rotation: "-rotate-2"
         },
         {
             id: 2,
             title: "Coding Pandas",
-            category: "EdTech, Education",
-            description: "An interactive online classroom platform for mastering Web Development and Data Structures & Algorithms.",
+            workType: "EdTech",
             image: "/lovable-uploads/coding-pandas.png",
             url: "https://coding-pandas.vercel.app/",
-            rotation: "rotate-2"
         },
         {
             id: 3,
-            title: "Erichost Hosting Platform",
-            category: "Hosting, Web Platform",
-            description: "A hosting service platform offering scalable deployments, domain management, and one-click Next.js app deployments.",
+            title: "Erichost",
+            workType: "Platform",
             image: "/lovable-uploads/EricHost.png",
             url: "https://main.erichost.app/",
-            year: "2025",
-            technologies: ["Next.js", "TypeScript", "TailwindCSS", "Docker", "Vercel"],
-            rotation: "-rotate-2"
         },
         {
             id: 4,
             title: "NeatRoots",
-            category: "App Dev Courses, IT Services",
-            description: "A comprehensive platform offering online app development courses and professional IT services.",
+            workType: "Development",
             image: "/lovable-uploads/neatroots.png",
             url: "https://neatroot.vercel.app/",
-            rotation: "rotate-2"
         },
-
-
     ];
 
 
-    // Animation when index changes
+    const targetRef = useRef<HTMLElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: targetRef,
+    });
+    // This shifts the track left as the user scrolls down the 300vh section
+    const x = useTransform(scrollYProgress, [0, 1], ["0vw", "-230vw"]);
 
     return (
-        <section id="portfolio" className="relative py-24 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
-            <div className="container relative z-10 max-w-7xl mx-auto px-4 pb-40">
-                {/* Section Header */}
-                <motion.div
-                    className="flex flex-col md:flex-row gap-10 lg:gap-0 items-center justify-between mb-20"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                >
-                    <div>
-                        <motion.h2
-                            className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground"
-                            initial={{ opacity: 0, x: -30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
+        <section ref={targetRef} id="portfolio" className="relative h-[350vh] bg-gradient-to-br from-background via-background to-primary/5">
+            <div className="sticky top-0 flex flex-col justify-center h-screen overflow-hidden">
+
+                {/* Horizontal Scroll Track — header card is first item */}
+                <div className="relative flex w-full items-center pt-14">
+                    <motion.div
+                        style={{ x }}
+                        className="flex gap-12 pl-8 md:pl-16 lg:pl-24 w-max pb-6 items-center"
+                    >
+                        {/* ── Text Card (leftmost, same height as project cards) ── */}
+                        <motion.div
+                            className="shrink-0 w-[52vw] md:w-[35vw] lg:w-[25vw] flex flex-col justify-end pb-2"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
                             viewport={{ once: true }}
                         >
-                            Featured <span className="italic font-light text-orange-500">Works</span>
-                        </motion.h2>
-                    </div>
-
-
-                    <motion.div
-                        initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
-                        viewport={{ once: true }}
-                    >
-                        <motion.div
-                            className="group"
-                            whileHover="hover"
-                        >
-                            <Button
-                                variant="hero"
-                                size="lg"
-                                className="group flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)]"
-                                onClick={navigateToPortfolio}
+                            <h2
+                                className="text-3xl md:text-4xl lg:text-[2.5rem] leading-snug text-foreground mb-6"
+                                style={{ fontFamily: "'Fraunces', serif" }}
                             >
-                                <motion.div
-                                    className="bg-white rounded-full p-2 flex items-center justify-center mr-2 group-hover:bg-orange-50 transition-colors duration-300 shadow-[0_0_15px_rgba(255,95,38,0.3)]"
-                                    animate={{
-                                        boxShadow: [
-                                            "0 0 15px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0.4)",
-                                            "0 0 25px rgba(255, 95, 38, 0.5), 0 0 0 8px rgba(255, 95, 38, 0)",
-                                            "0 0 15px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0)"
-                                        ]
-                                    }}
-                                    transition={{
-                                        duration: 2,
-                                        repeat: Infinity,
-                                        ease: "easeInOut"
-                                    }}
-                                >
-                                    <ArrowRight className="h-6 w-6 text-[#ff5f26]  transition-all group-hover:rotate-0 -rotate-45 duration-300" />
-                                </motion.div>
-                                <div className="relative overflow-hidden h-6 w-fit text-white">
+                                <span className="font-light opacity-50">Selected works</span>
+                                <br />
+                                <span className="font-light opacity-50">crafted with </span>
+                                <br />
+                                <span className="font-bold italic">pure intent</span>
+                                <span className="text-[#ff5f26]">.</span>
+                            </h2>
+
+                            <motion.button
+                                whileHover={{ boxShadow: "0 15px 40px rgba(255, 95, 38, 0.4)" }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={navigateToPortfolio}
+                                className="self-start group flex items-center gap-4 p-1.5 pr-8 rounded-full bg-[#ff5f26] text-white shadow-[0_10px_30px_rgba(255,95,38,0.2)] transition-all duration-300"
+                                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                            >
+                                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#ff5f26] group-hover:rotate-0 -rotate-45 transition-transform duration-500">
+                                    <ArrowRight className="w-5 h-5" />
+                                </div>
+                                <div className="relative overflow-hidden h-5">
                                     <motion.div
-                                        className="flex flex-col items-center"
-                                        variants={{
-                                            hover: { y: -24 }
-                                        }}
-                                        initial={{ y: 0 }}
-                                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                                        className="flex flex-col transition-transform duration-500 ease-in-out group-hover:-translate-y-5"
                                     >
-                                        <span className="w-full flex items-center justify-center">
-                                            See All Projects
-                                        </span>
-                                        <span className="w-full flex items-center justify-center font-semibold">
-                                            See All Projects
-                                        </span>
+                                        <span className="h-5 flex items-center text-[14px] font-semibold tracking-wide">View all projects</span>
+                                        <span className="h-5 flex items-center text-[14px] font-semibold tracking-wide">View all projects</span>
                                     </motion.div>
                                 </div>
-
-                                {/* Shimmer effect */}
-                                <motion.div
-                                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                                    initial={{ x: "-100%" }}
-                                    animate={{ x: "100%" }}
-                                    transition={{
-                                        duration: 3,
-                                        repeat: Infinity,
-                                        ease: "easeInOut",
-                                        delay: 2
-                                    }}
-                                />
-                            </Button>
+                            </motion.button>
                         </motion.div>
-                    </motion.div>
-                </motion.div>
 
-                {/* Simple 2x2 Grid Layout */}
-                <div className="relative">
-                    <motion.div
-                        className="grid grid-cols-1 md:grid-cols-2 gap-16"
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, staggerChildren: 0.2 }}
-                        viewport={{ once: true }}
-                    >
-                        {featuredProjects.map((project, index) => (
-                            <motion.div
+                        {/* ── Project Cards ── */}
+                        {featuredProjects.map((project) => (
+                            <div
                                 key={project.id}
-                                className="group relative cursor-pointer"
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: index * 0.15 }}
-                                viewport={{ once: true }}
-                                whileHover={{ y: -10 }}
+                                className="group relative cursor-none w-[85vw] md:w-[65vw] lg:w-[57vw] shrink-0"
                                 onMouseMove={(e) => handleMouseMove(e, project.id)}
                                 onMouseEnter={() => handleMouseEnter(project.id)}
                                 onMouseLeave={handleMouseLeave}
                                 onClick={() => handleProjectClick(project.url)}
                             >
-                                {/* Cursor Follower Circle with Arrow */}
+                                {/* Glassmorphism "VIEW WORK" cursor */}
                                 <motion.div
-                                    className="absolute pointer-events-none z-50 bg-brand text-white rounded-full flex items-center justify-center shadow-2xl"
+                                    className="absolute pointer-events-none z-50 w-[76px] h-[76px] rounded-full flex items-center justify-center text-gray-900 text-[10px] font-semibold tracking-[0.15em] uppercase shadow-2xl"
                                     style={{
-                                        width: "60px",
-                                        height: "60px",
-                                        left: mousePosition.x - 40,
-                                        top: mousePosition.y - 40,
+                                        left: mousePosition.x - 48,
+                                        top: mousePosition.y - 48,
+                                        fontFamily: "'DM Sans', sans-serif",
+                                        background: "rgba(255, 255, 255, 0.12)",
+                                        backdropFilter: "blur(16px)",
+                                        WebkitBackdropFilter: "blur(16px)",
+                                        border: "1px solid rgba(255, 255, 255, 0.25)",
                                     }}
                                     initial={{ opacity: 0, scale: 0 }}
                                     animate={{
                                         opacity: hoveredCardId === project.id ? 1 : 0,
                                         scale: hoveredCardId === project.id ? 1 : 0,
                                     }}
-                                    transition={{
-                                        duration: 0.2,
-                                        ease: "easeOut"
-                                    }}
+                                    transition={{ duration: 0.15, ease: "easeOut" }}
                                 >
-                                    <ArrowRight className="w-6 h-6 -rotate-45" />
+                                    VIEW
                                 </motion.div>
 
-                                {/* Project Card */}
-                                <div className="relative md:h-[410px] p-6 rounded-3xl bg-gradient-to-br from-gray-900/10 via-gray-800/10 to-gray-800/20 backdrop-blur-md border border-white/10 shadow-lg transition-all duration-500 group-hover:shadow-2xl">
-                                    {/* Decorative Elements */}
-                                    <div className="absolute top-4 right-4 w-12 h-12 bg-brand/20 rounded-full blur-lg" />
+                                {/* Card Image */}
+                                <div className="relative overflow-hidden rounded-[2.5rem] aspect-[16/9] bg-gray-950 border border-white/8 shadow-xl transition-all duration-500 group-hover:border-white/15 group-hover:shadow-[0_8px_40px_rgba(0,0,0,0.5)]">
+                                    <img
+                                        src={project.image}
+                                        alt={project.title}
+                                        className="w-full h-full object-cover object-top scale-100 group-hover:scale-[1.02] transition-transform duration-[1.8s] ease-out will-change-transform"
+                                    />
+                                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700" />
+                                </div>
 
-                                    {/* Floating Image Container - Optimized for Screenshots */}
-                                    <div className={`relative mb-4 ${project.rotation} group-hover:rotate-0 transition-transform duration-500`}>
-                                        <div className="relative overflow-hidden rounded-xl shadow-2xl bg-gray-900 p-2">
-                                            {/* Browser Frame */}
-                                            <div className="bg-gray-800 rounded-t-lg p-2 flex items-center gap-2">
-                                                <div className="w-3 h-3 bg-red-500 rounded-full flex-shrink-0" />
-                                                <div className="w-3 h-3 bg-yellow-500 rounded-full flex-shrink-0" />
-                                                <div className="w-3 h-3 bg-green-500 rounded-full flex-shrink-0" />
-                                                <div className="flex-1 bg-gray-700 rounded-sm h-5 ml-2 flex items-center px-2 min-w-0 overflow-hidden">
-                                                    <span className="text-gray-300 text-[8px] md:text-[10px] font-mono truncate block overflow-hidden text-ellipsis whitespace-nowrap">
-                                                        {project.url}
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                            {/* Screen Content Area - Perfect for Screenshots */}
-                                            <div className="aspect-[16/7] overflow-hidden">
-                                                <img
-                                                    src={project.image}
-                                                    alt={project.title}
-                                                    className="w-full h-full object-cover scale-100 group-hover:scale-105 transition-transform duration-700 ease-out will-change-transform origin-center"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Project Info */}
-                                    <div className="relative z-10 space-y-3 mt-4">
-                                        <h3 className="text-lg font-bold text-foreground leading-tight line-clamp-2">
+                                {/* Below-card info bar */}
+                                <div className="flex items-center justify-between mt-2 px-6">
+                                    <h3 className="text-xl font-light italic text-foreground tracking-normal" style={{ fontFamily: "'Fraunces', serif" }}>
                                             {project.title}
                                         </h3>
-
-                                        {/* Category Tags */}
-                                        <div className="flex gap-2 flex-wrap">
-                                            {project.category.split(',').slice(0, 2).map((tag, tagIndex) => (
-                                                <span
-                                                    key={tagIndex}
-                                                    className="px-3 py-1 bg-foreground/5 text-gray-500 text-xs rounded-xl font-medium border border-foreground/20 transition-colors duration-200"
-                                                >
-                                                    {tag.trim()}
-                                                </span>
-                                            ))}
-                                        </div>
+                                    <div className="flex items-center gap-2 ml-4 shrink-0" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                                        <div className="h-[1px] w-8 bg-foreground/20" />
+                                        <span className="text-[11px] font-medium uppercase tracking-[0.15em] text-foreground/40" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                                            {project.workType}
+                                        </span>
                                     </div>
                                 </div>
-                            </motion.div>
+                            </div>
                         ))}
+
+                        {/* ── Closing CTA Card ── */}
+                        <motion.div
+                            className="shrink-0 w-[60vw] md:w-[38vw] lg:w-[30vw] flex flex-col justify-end pb-2 pl-10"
+                            initial={{ opacity: 0, x: 40 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                            viewport={{ once: true }}
+                        >
+                            <h2
+                                className="text-3xl md:text-4xl lg:text-[2.5rem] leading-snug text-foreground mb-6"
+                                style={{ fontFamily: "'Fraunces', serif" }}
+                            >
+                                <span className="font-light opacity-50">Got an idea?</span>
+                                <br />
+                                <span className="font-light opacity-50">Let's build </span>
+                                <br />
+                                <span className="font-bold italic">something real</span>
+                                <span className="text-[#ff5f26]">.</span>
+                            </h2>
+
+                            <motion.button
+                                whileHover={{ scale: 1.05, boxShadow: "0 15px 40px rgba(255, 95, 38, 0.4)" }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={() => {
+                                    const el = document.getElementById('contact');
+                                    el?.scrollIntoView({ behavior: 'smooth' });
+                                }}
+                                className="self-start group flex items-center gap-4 p-1.5 pr-8 rounded-full bg-[#ff5f26] text-white shadow-[0_10px_30px_rgba(255,95,38,0.2)] transition-all duration-300"
+                                style={{ fontFamily: "'DM Sans', sans-serif" }}
+                            >
+                                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#ff5f26] group-hover:rotate-0 -rotate-45 transition-transform duration-500">
+                                    <ArrowRight className="w-5 h-5" />
+                                </div>
+                                <div className="relative overflow-hidden h-5">
+                                    <motion.div
+                                        className="flex flex-col transition-transform duration-500 ease-in-out group-hover:-translate-y-5"
+                                    >
+                                        <span className="h-5 flex items-center text-[14px] font-semibold tracking-wide">Start a project</span>
+                                        <span className="h-5 flex items-center text-[14px] font-semibold tracking-wide">Start a project</span>
+                                    </motion.div>
+                                </div>
+                            </motion.button>
+                        </motion.div>
                     </motion.div>
                 </div>
-            </div>
 
-            {/* Background decoration */}
-            <motion.div
-                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 1 }}
-                viewport={{ once: true }}
-            >
-                Portfolio
-            </motion.div>
+                {/* Background decoration */}
+                <motion.div
+                    className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 1, delay: 1 }}
+                    viewport={{ once: true }}
+                >
+                    Portfolio
+                </motion.div>
+            </div>
         </section>
     );
 };
