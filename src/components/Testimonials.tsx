@@ -20,7 +20,7 @@ const Testimonials = () => {
     ];
 
     return (
-        <section className="relative py-24 bg-gradient-to-br from-background via-background to-primary/5">
+        <section id="testimonials" className="relative py-24 bg-gradient-to-br from-background via-background to-primary/5">
             <div className="container relative z-10 max-w-7xl mx-auto px-4 pb-16">
                 <motion.div
                     className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-0 relative min-h-[600px]"

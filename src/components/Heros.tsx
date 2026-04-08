@@ -1,25 +1,18 @@
 import { ArrowRight, X, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const navigate = useNavigate();
+    const containerRef = useRef<HTMLElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end start"]
+    });
 
-    const handleMenuToggle = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
-
-    const handleMenuItemClick = () => {
-        setIsMenuOpen(false);
-    };
-
-    const navigateToPortfolio = () => {
-        navigate('/portfolio');
-    };
-
+    const xLeft = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
+    const xRight = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
     const openWhatsApp = () => {
         const phoneNumber = "918738954475"; // Your WhatsApp number
         const message = "Hello Ayush, I'm interested in your services.";
@@ -27,24 +20,8 @@ const Hero = () => {
         window.open(whatsappURL, '_blank');
     };
 
-    const scrollToSection = (sectionId) => {
-        if (sectionId === 'portfolio') {
-            navigate('/portfolio');
-            return;
-        }
-
-        const section = document.getElementById(sectionId);
-        if (section) {
-            section.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-        setIsMenuOpen(false); // Close menu after navigation
-    };
-
     return (
-        <section aria-label="Hero – UI/UX Designer" className="relative overflow-hidden">
+        <section id="home" ref={containerRef} aria-label="Hero – UI/UX Designer" className="relative overflow-hidden pt-20">
             {/* Ambient brand light */}
             <div
                 className="pointer-events-none absolute inset-0"
@@ -54,132 +31,7 @@ const Hero = () => {
                 }}
             />
 
-            <motion.header
-                className="container relative z-10 flex items-center justify-between py-6"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-            >
-                <motion.a
-                    href="#"
-                    className=""
-                    aria-label="Ayush home"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                >
-                    <img
-                        src="/lovable-uploads/logo.png"
-                        alt="Ayush Kushwaha Logo"
-                        className="h-8 w-auto brightness-0 invert"
-                    />
-                </motion.a>
-                <motion.button
-                    aria-label="Open menu"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/40 cursor-pointer"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                    onClick={handleMenuToggle}
-                >
-                    {!isMenuOpen && (
-                        <img
-                            src="/lovable-uploads/MenuIcon.png"
-                            alt="Menu"
-                            className="w-8 brightness-0 invert"
-                        />
-                    )}
-                </motion.button>
-            </motion.header>
 
-            {/* Slide-out Menu */}
-            <AnimatePresence>
-                {isMenuOpen && (
-                    <motion.div
-                        className="fixed top-0 left-0 w-full h-screen bg-background/95 backdrop-blur-lg flex flex-col items-center justify-center z-50"
-                        initial={{ y: "-100%" }}
-                        animate={{ y: "0%" }}
-                        exit={{ y: "-100%" }}
-                        transition={{ duration: 0.9, ease: "easeInOut" }}
-                    >
-                        {/* Close Icon */}
-                        <motion.button
-                            className="absolute top-6 right-6 text-foreground text-4xl cursor-pointer hover:text-brand transition-colors duration-300 w-12 h-12 flex items-center justify-center"
-                            onClick={handleMenuToggle}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.3, delay: 0.2 }}
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <X className="w-8 h-8" />
-                        </motion.button>
-
-                        {/* Navigation Links */}
-                        <motion.nav
-                            className="flex flex-col items-center space-y-4 text-foreground"
-                            initial={{ opacity: 0, y: 50 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.3 }}
-                        >
-                            {[
-                                { href: "#portfolio", label: "Portfolio", id: "portfolio" },
-                                { href: "#services", label: "Services", id: "services" },
-                                { href: "#about", label: "About", id: "about" },
-                                { href: "#contact", label: "Contact", id: "contact" }
-                            ].map((item, index) => (
-                                <motion.a
-                                    key={item.label}
-                                    href={item.href}
-                                    className="text-4xl md:text-6xl lg:text-7xl font-bold hover:text-brand transition-colors duration-300 cursor-pointer"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        scrollToSection(item.id);
-                                    }}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{
-                                        duration: 0.4,
-                                        delay: (index * 0.1),
-                                        ease: "easeOut"
-                                    }}
-                                    whileHover={{
-                                        scale: 1.08,
-                                        color: "hsl(var(--brand))",
-                                        transition: {
-                                            type: "spring",
-                                            stiffness: 300,
-                                            damping: 20
-                                        }
-                                    }}
-                                    whileTap={{
-                                        scale: 0.97,
-                                        transition: {
-                                            type: "spring",
-                                            stiffness: 300,
-                                            damping: 25
-                                        }
-                                    }}
-                                >
-                                    {item.label}
-                                </motion.a>
-                            ))}
-                        </motion.nav>
-                        {/* Background section name */}
-                        <motion.div
-                            className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true, amount: 0.1 }}
-                            transition={{ duration: 1, delay: 1.2 }}
-                        >
-                            Menu
-                        </motion.div>
-
-
-                    </motion.div>
-                )}
-            </AnimatePresence>
 
             <div className="container relative z-10 grid min-h-[70vh] lg:min-h-[80vh] grid-cols-1 items-center lg:gap-10 gap-3 py-20 md:grid-cols-2">
                 {/* Left copy */}
@@ -199,12 +51,34 @@ const Hero = () => {
                         <span className="text-xs text-muted-foreground">Available for Work</span>
                     </motion.div>
                     <motion.h1
-                        className="text-4xl font-bold leading-tight tracking-tight md:text-6xl max-w-xl"
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.7 }}
+                        className="text-4xl font-bold leading-tight tracking-tight md:text-6xl max-w-xl flex flex-wrap"
+                        variants={{
+                            hidden: { opacity: 1 },
+                            show: {
+                                opacity: 1,
+                                transition: { staggerChildren: 0.06, delayChildren: 0.4 }
+                            }
+                        }}
+                        initial="hidden"
+                        animate="show"
                     >
-                        Web & UI/UX Designer based in India
+                        {"Web & UI/UX Designer based in India".split(" ").map((word, wordIdx, array) => (
+                            <span key={wordIdx} className="inline-block whitespace-nowrap">
+                                {word.split("").map((char, charIdx) => (
+                                    <motion.span
+                                        key={charIdx}
+                                        variants={{
+                                            hidden: { opacity: 0, filter: "blur(8px)", x: -4 },
+                                            show: { opacity: 1, filter: "blur(0px)", x: 0, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } }
+                                        }}
+                                        className="inline-block"
+                                    >
+                                        {char}
+                                    </motion.span>
+                                ))}
+                                {wordIdx !== array.length - 1 && <span className="inline-block">&nbsp;</span>}
+                            </span>
+                        ))}
                     </motion.h1>
                 </motion.div>
 
@@ -221,7 +95,7 @@ const Hero = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.8 }}
                     >
-                        Hi, I'm Ayush Kushwaha - a UI/UX designer & MVP expert crafting digital experiences that connect and convert. I turn ideas into launch-ready products.
+                        Hi, I'm Ayush Kushwaha - a UI/UX designer & MVP expert crafting digital experiences that connect and convert.<br /> I turn ideas into launch ready products.
                     </motion.p>
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -307,26 +181,17 @@ const Hero = () => {
                     </motion.div>
                 </motion.div>
 
-                {/* Portrait */}
-                {/* <div className="pointer-events-none absolute right-0 top-20 hidden max-w-[520px] md:block">
-          <img
-            src="/lovable-uploads/c92ecd03-1561-4fbe-afc1-fe27e3e9fdbe.png"
-            alt="UI/UX designer hero portrait with orange accent glasses"
-            loading="lazy"
-            className="h-auto w-[520px] rounded-xl object-cover shadow-[var(--shadow-elevate)]"
-          />
-        </div> */}
-
 
 
                 {/* Oversized name */}
                 <motion.div
-                    className="pointer-events-none absolute bottom-4 lg:bottom-[-1rem] left-0 w-full select-none text-[20vw]  md:text-[19vw] leading-none font-extrabold tracking-tight text-foreground/5"
+                    className="pointer-events-none absolute bottom-4 lg:bottom-[-1rem] left-0 w-full select-none text-[20vw] md:text-[19vw] leading-none font-extrabold tracking-tight text-foreground/5"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 1.2 }}
                 >
-                    Ayush Kushwaha
+                    <motion.div style={{ x: xLeft }}>Ayush</motion.div>
+                    <motion.div style={{ x: xRight }}>Kushwaha</motion.div>
                 </motion.div>
             </div>
         </section>
