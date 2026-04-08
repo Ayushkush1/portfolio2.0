@@ -166,14 +166,24 @@ const Portfolio = () => {
                                     VIEW
                                 </motion.div>
 
-                                {/* Card Image */}
-                                <div className="relative overflow-hidden rounded-[2.5rem] aspect-[16/9] bg-gray-950 border border-white/8 shadow-xl transition-all duration-500 group-hover:border-white/15 group-hover:shadow-[0_8px_40px_rgba(0,0,0,0.5)]">
-                                    <img
-                                        src={project.image}
-                                        alt={project.title}
-                                        className="w-full h-full object-cover object-top scale-100 group-hover:scale-[1.02] transition-transform duration-[1.8s] ease-out will-change-transform"
-                                    />
-                                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700" />
+                                {/* Card Image Container */}
+                                <div className="relative overflow-hidden rounded-[2.5rem] aspect-[16/9] bg-gray-950 border border-white/8 shadow-xl transition-all duration-500 group-hover:border-white/15 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                                    <div className="w-full h-full overflow-hidden">
+                                        <img
+                                            src={project.image}
+                                            alt={project.title}
+                                            className="w-full h-auto object-top transition-transform ease-linear will-change-transform"
+                                            style={{ 
+                                                transitionDuration: hoveredCardId === project.id ? '20s' : '1s',
+                                                transitionDelay: hoveredCardId === project.id ? '300ms' : '0ms',
+                                                transform: hoveredCardId === project.id 
+                                                    ? (window.innerWidth < 768 ? 'translateY(calc(-100% + 22vw))' : (window.innerWidth < 1024 ? 'translateY(calc(-100% + 18vw))' : 'translateY(calc(-100% + 16vw))'))
+                                                    : 'translateY(0)'
+                                            }}
+                                        />
+                                    </div>
+                                    {/* Overlay Gradient */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none group-hover:opacity-0 transition-opacity duration-500" />
                                 </div>
 
                                 {/* Below-card info bar */}
