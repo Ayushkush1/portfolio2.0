@@ -185,7 +185,7 @@ const Hero = () => {
 
                 {/* Oversized name */}
                 <motion.div
-                    className="pointer-events-none absolute bottom-4 lg:bottom-[-1rem] left-0 w-full select-none text-[20vw] md:text-[19vw] leading-none font-extrabold tracking-tight text-foreground/5"
+                    className="pointer-events-none absolute bottom-4 lg:bottom-[-1rem] left-0 w-full select-none text-[20vw] md:text-[19vw] leading-none font-extrabold tracking-tight text-foreground/[0.025]"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 1.2 }}

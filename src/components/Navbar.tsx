@@ -8,6 +8,7 @@ const navItems = [
     { href: "#about", label: "About", id: "about" },
     { href: "#portfolio", label: "Portfolio", id: "portfolio" },
     { href: "#experience", label: "Experience", id: "experience" },
+    { href: "#github", label: "Activity", id: "github" },
     { href: "#services", label: "Services", id: "services" },
     { href: "#process", label: "Process", id: "process" },
     { href: "#testimonials", label: "Testimonials", id: "testimonials" },
@@ -197,7 +198,7 @@ const Navbar = () => {
                                 <motion.a
                                     key={item.label}
                                     href={item.href}
-                                    className="text-3xl md:text-5xl lg:text-5xl font-bold hover:text-brand transition-colors duration-300 cursor-pointer"
+                                    className="text-3xl md:text-5xl lg:text-[3rem]  font-bold hover:text-brand transition-colors duration-300 cursor-pointer"
                                     onClick={(e) => {
                                         e.preventDefault();
                                         scrollToSection(item.id);

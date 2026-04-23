@@ -81,10 +81,10 @@ const Portfolio = () => {
         target: targetRef,
     });
     // This shifts the track left as the user scrolls down the 300vh section
-    const x = useTransform(scrollYProgress, [0, 1], ["0vw", "-230vw"]);
+    const x = useTransform(scrollYProgress, [0, 1], ["0vw", "-240vw"]);
 
     return (
-        <section ref={targetRef} id="portfolio" className="relative h-[350vh] bg-gradient-to-br from-background via-background to-primary/5">
+        <section ref={targetRef} id="portfolio" className="relative h-[350vh] py-10 bg-gradient-to-br from-background via-background to-primary/5">
             <div className="sticky top-0 flex flex-col justify-center h-screen overflow-hidden">
 
                 {/* Horizontal Scroll Track — header card is first item */}
@@ -172,12 +172,13 @@ const Portfolio = () => {
                                         <img
                                             src={project.image}
                                             alt={project.title}
-                                            className="w-full h-auto object-top transition-transform ease-linear will-change-transform"
+                                            className="w-full h-auto object-top transition-transform will-change-transform"
                                             style={{ 
-                                                transitionDuration: hoveredCardId === project.id ? '20s' : '1s',
+                                                transitionDuration: hoveredCardId === project.id ? '20s' : '3s',
                                                 transitionDelay: hoveredCardId === project.id ? '300ms' : '0ms',
+                                                transitionTimingFunction: hoveredCardId === project.id ? 'linear' : 'ease-out',
                                                 transform: hoveredCardId === project.id 
-                                                    ? (window.innerWidth < 768 ? 'translateY(calc(-100% + 22vw))' : (window.innerWidth < 1024 ? 'translateY(calc(-100% + 18vw))' : 'translateY(calc(-100% + 16vw))'))
+                                                    ? (window.innerWidth < 768 ? 'translateY(calc(-100% + 47.81vw))' : (window.innerWidth < 1024 ? 'translateY(calc(-100% + 36.56vw))' : 'translateY(calc(-100% + 32.06vw))'))
                                                     : 'translateY(0)'
                                             }}
                                         />
@@ -222,7 +223,7 @@ const Portfolio = () => {
                             </h2>
 
                             <motion.button
-                                whileHover={{ scale: 1.05, boxShadow: "0 15px 40px rgba(255, 95, 38, 0.4)" }}
+                                whileHover={{boxShadow: "0 15px 40px rgba(255, 95, 38, 0.4)" }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={() => {
                                     const el = document.getElementById('contact');

@@ -8,6 +8,7 @@ import ServicesSection from "@/components/ServicesSection";
 import Process from "@/components/Process";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
+import GithubActivity from "@/components/GithubActivity";
 
 const Index = () => {
   const title = "Ayush Kushwaha | Web & UI/UX Designer";
@@ -47,6 +48,7 @@ const Index = () => {
         <Heros />
         <About />
         <Portfolio />
+        <GithubActivity />
         <Experience />
         <ServicesSection />
         <Process />
