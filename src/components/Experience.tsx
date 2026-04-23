@@ -1,7 +1,49 @@
 import { motion } from "framer-motion";
 import { Github, Instagram, Linkedin, Twitter, Mail } from "lucide-react";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Experience = () => {
+    const sectionRef = useRef<HTMLElement>(null);
+    const imageRef = useRef<HTMLDivElement>(null);
+    const bgTextRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        let ctx = gsap.context(() => {
+            // Reveal background text
+            gsap.fromTo(bgTextRef.current, 
+                { opacity: 0, y: 30 },
+                { 
+                    opacity: 1, 
+                    y: 0, 
+                    duration: 1.5, 
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 80%",
+                    }
+                }
+            );
+
+            // Parallax for profile image
+            gsap.to(imageRef.current, {
+                y: -50,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1,
+                }
+            });
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     const experiences = [
         {
             id: 0,
@@ -27,7 +69,7 @@ const Experience = () => {
     ];
 
     return (
-        <section id="experience" className="relative py-24 pt-40 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
+        <section ref={sectionRef} id="experience" className="relative py-24 pt-40 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
 
 
             <div className="container relative z-10 max-w-7xl mx-auto px-4 pb-32">
@@ -43,6 +85,7 @@ const Experience = () => {
                         >
                             {/* Profile Image */}
                             <motion.div
+                                ref={imageRef}
                                 className="relative mb-4"
                                 whileHover={{ y: -5 }}
                                 transition={{ duration: 0.3 }}
@@ -171,14 +214,15 @@ const Experience = () => {
                                 My Experiences
                             </motion.p>
                             <motion.h2
-                                className="text-4xl md:text-5xl font-bold text-foreground leading-tight mb-8"
+                                className="text-4xl md:text-5xl lg:text-[3rem] tracking-tight mb-8 leading-[1.1] text-gray-500"
+                                style={{ fontFamily: "'Fraunces', serif" }}
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, delay: 0.3 }}
                                 viewport={{ once: true }}
                             >
                                 Pushing boundaries{" "}
-                                <span className="text-gray-400 font-normal">since 2023</span>
+                                <span className="text-white font-normal">since 2023 <span className="text-[#ff5f26] text-[3rem]">.</span></span>
                             </motion.h2>
 
                             {/* Description */}
@@ -235,15 +279,12 @@ const Experience = () => {
             </div>
 
             {/* Background decoration */}
-            <motion.div
+            <div
+                ref={bgTextRef}
                 className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 1 }}
-                viewport={{ once: true }}
             >
                 Experience
-            </motion.div>
+            </div>
         </section>
     );
 };

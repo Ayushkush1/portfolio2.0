@@ -1,187 +1,123 @@
 import { motion } from "framer-motion";
-import { Palette, Code, Smartphone, Zap, Globe, Users } from "lucide-react";
-import CardSwap, { Card } from "./Services";
+import { useState } from "react";
 
 const ServicesSection = () => {
+    const [activeId, setActiveId] = useState(1);
+
     const services = [
         {
             id: 1,
-            title: "UI/UX Design",
-            description: "Beautiful, intuitive interfaces that users love to interact with.",
-            icon: <Palette className="w-8 h-8" />,
-            features: ["User Research", "Wireframing", "Prototyping", "Design Systems"],
-            color: "from-purple-500 to-pink-500"
+            title: "SaaS Development",
+            description: "Building production-ready MVPs and scalable SaaS platforms designed to help startups launch and grow at speed.",
+            features: ["Product Strategy", "System Architecture", "Cloud Infrastructure", "Rapid Prototyping"],
         },
         {
             id: 2,
-            title: "Web Development",
-            description: "Fast, responsive websites built with modern technologies.",
-            icon: <Code className="w-8 h-8" />,
-            features: ["React/Next.js", "TypeScript", "Node.js", "Database Design"],
-            color: "from-blue-500 to-cyan-500"
+            title: "UI/UX Design",
+            description: "Crafting intuitive digital experiences that balance aesthetics with functional excellence.",
+            features: ["User Research", "Wireframing", "Interactive Prototyping", "Design Systems"],
         },
         {
             id: 3,
-            title: "Website Revamp",
-            description: "Modernizing existing sites with improved UI, UX, performance, and SEO.",
-            icon: <Globe className="w-8 h-8" />,
-            features: ["UI Refresh", "Code Refactor", "Performance Boost", "SEO Improvements"],
-            color: "from-green-500 to-emerald-500"
+            title: "Web Development",
+            description: "Building scalable, high-performance web applications with modern, robust architectures.",
+            features: ["Frontend Engineering", "Backend Systems", "API Development", "Database Design"],
         },
         {
             id: 4,
-            title: "Performance Optimization",
-            description: "Lightning-fast websites optimized for speed and SEO.",
-            icon: <Zap className="w-8 h-8" />,
-            features: ["Core Web Vitals", "SEO Optimization", "Load Speed", "Accessibility"],
-            color: "from-yellow-500 to-orange-500"
+            title: "Website Revamp",
+            description: "Transforming aging websites into modern, high-converting digital assets.",
+            features: ["UI Refresh", "Code Modernization", "Performance Tuning", "SEO Strategy"],
         },
     ];
 
     return (
-        <section id="services" className="relative pb-32 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
-
-
+        <section id="services" className="relative pb-32 bg-gradient-to-br from-background via-background to-primary/5">
+            {/* Sticky Scroll Services Section */}
             <div className="container relative z-10 max-w-7xl mx-auto px-4">
-                <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8">
-                    {/* Left Side - Content */}
-                    <motion.div
-                        className="order-1 flex flex-col justify-center h-auto lg:h-[700px] space-y-8 py-8 lg:py-16"
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
-                    >
-                        {/* Header */}
-                        <div>
-                            <motion.p
-                                className="text-gray-400 text-lg mb-4 italic"
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.2 }}
-                                viewport={{ once: true }}
-                            >
-                                What I Offer
-                            </motion.p>
-                            <motion.h2
-                                className="text-4xl md:text-5xl font-bold text-foreground leading-tight mb-6"
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.3 }}
-                                viewport={{ once: true }}
-                            >
-                                Services that{" "} <br />
-                                <span className="text-brand font-normal italic">transform</span>
-                                <span className="text-foreground font-normal">{" "}
-                                    ideas into reality</span>
-                            </motion.h2>
-                            <motion.p
-                                className="text-gray-600 text-[17px] leading-relaxed pt-4"
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.4 }}
-                                viewport={{ once: true }}
-                            >
-                                I deliver tailored digital solutions to help your business grow. My focus is on quality, performance, and ongoing support transforming ideas into engaging experiences that drive results.<br /> From rapid prototyping to scalable deployment, I collaborate closely to ensure every detail aligns with your goals.
-                            </motion.p>
-                        </div>
-                        {/* Elegant Features Grid */}
+                <div className="flex flex-col lg:flex-row relative">
+                    
+                    {/* Left Sticky Number */}
+                    <div className="hidden lg:flex w-1/2 sticky top-0 h-screen items-center justify-start lg:pl-2 xl:pl-4">
                         <motion.div
-                            className="grid grid-cols-2 gap-8 pt-6"
-                            initial={{ opacity: 0, y: 40 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.7, delay: 0.5 }}
-                            viewport={{ once: true }}
+                            key={activeId}
+                            initial={{ opacity: 0, scale: 0.9, x: -20 }}
+                            animate={{ opacity: 1, scale: 1, x: 0 }}
+                            transition={{ duration: 0.4, ease: "easeOut" }}
+                            className="text-[18rem] xl:text-[22rem] leading-none font-bold text-transparent select-none"
+                            style={{ 
+                                WebkitTextStroke: "2px rgba(255,255,255,0.15)",
+                                fontFamily: "'Fraunces', serif" 
+                            }}
                         >
-                            <motion.div
-                                className="group rounded-xl "
-                                whileHover={{ y: -2 }}
-                            >
-                                <div className="flex items-center space-x-3">
-                                    <div className="w-2 h-2 bg-brand rounded-full group-hover:scale-125 transition-transform duration-300" />
-                                    <span className="text-foreground font-medium text-sm">Expert Craftsmanship</span>
-                                </div>
-                            </motion.div>
-
-                            <motion.div
-                                className="group  "
-                                whileHover={{ y: -2 }}
-                            >
-                                <div className="flex items-center space-x-3">
-                                    <div className="w-2 h-2 bg-brand rounded-full group-hover:scale-125 transition-transform duration-300" />
-                                    <span className="text-foreground font-medium text-sm">Client-Focused</span>
-                                </div>
-                            </motion.div>
-
-                            <motion.div
-                                className="group  "
-                                whileHover={{ y: -2 }}
-                            >
-                                <div className="flex items-center space-x-3">
-                                    <div className="w-2 h-2 bg-brand rounded-full group-hover:scale-125 transition-transform duration-300" />
-                                    <span className="text-foreground font-medium text-sm">Premium Quality</span>
-                                </div>
-                            </motion.div>
-
-                            <motion.div
-                                className="group "
-                                whileHover={{ y: -2 }}
-                            >
-                                <div className="flex items-center space-x-3">
-                                    <div className="w-2 h-2 bg-brand rounded-full group-hover:scale-125 transition-transform duration-300" />
-                                    <span className="text-foreground font-medium text-sm">Ongoing Support</span>
-                                </div>
-                            </motion.div>
+                            0{activeId}
                         </motion.div>
-                    </motion.div>
+                    </div>
 
-                    {/* Right Side - Interactive Card Stack */}
-                    <motion.div
-                        className="order-2 relative z-10 h-[400px] lg:h-auto"
-                        viewport={{ once: true }}
-                    >
-                        <div className="absolute top-[-240px] md:top-[-30px] lg:top-[-170px] scale-[1.6] md:scale-[1]  lg:scale-[1] left-[-100px] md:left-[15%] lg:left-[30%] transform -translate-x-1/2 w-full h-full pointer-events-none">
-                            <CardSwap
-                                width={300}
-                                height={380}
-                                cardDistance={40}
-                                verticalDistance={15}
-                                delay={4000}
-                                pauseOnHover={true}
-                                easing="elastic"
+                    {/* Right Scrolling Content */}
+                    <div className="w-full lg:w-1/2 flex flex-col pt-20 pb-[10vh]">
+                        {services.map((service) => (
+                            <motion.div
+                                key={service.id}
+                                className="min-h-[60vh] flex flex-col justify-center py-24 border-b border-white/5 last:border-0"
+                                onViewportEnter={() => setActiveId(service.id)}
+                                viewport={{ margin: "-45% 0px -45% 0px" }}
+                                initial={{ opacity: 0, y: 40 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, ease: "easeOut" }}
                             >
-                                {services.map((service, index) => (
-                                    <Card key={service.id} customClass="!bg-gradient-to-br from-gray-900/95 to-black/95 backdrop-blur-xl !border-gray-700 border shadow-2xl">
-                                        <div className="py-10 px-6 h-full flex flex-col justify-between">
-                                            <div className="text-center">
-                                                <div className={`w-20 h-20 rounded-3xl bg-gradient-to-r ${service.color} flex items-center justify-center text-white  mb-6 shadow-2xl mx-auto`}>
-                                                    {service.icon}
-                                                </div>
-                                                <h3 className="text-2xl font-bold text-white mb-4 leading-tight">
-                                                    {service.title}
-                                                </h3>
-                                                <p className="text-gray-300 text-base leading-relaxed mb-6 px-2">
-                                                    {service.description}
-                                                </p>
-                                            </div>
+                                {/* Mobile Number */}
+                                <motion.div 
+                                    className="lg:hidden text-7xl font-bold text-transparent mb-6" 
+                                    style={{ WebkitTextStroke: "1px rgba(255,255,255,0.2)", fontFamily: "'Fraunces', serif" }}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.6, delay: 0.1 }}
+                                >
+                                    0{service.id}<span className="text-brand">.</span>
+                                </motion.div>
+                                
+                                <motion.h3 
+                                    className="text-4xl md:text-5xl font-medium mb-6 tracking-tight text-white" 
+                                    style={{ fontFamily: "'Fraunces', serif" }}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.6, delay: 0.2 }}
+                                >
+                                    {service.title}<span className="text-brand ml-1">.</span>
+                                </motion.h3>
 
-                                            <div className="mt-auto">
-                                                <div className="w-full h-px bg-gradient-to-r from-transparent via-brand/30 to-transparent mb-4" />
-                                                <div className="grid grid-cols-2 gap-2">
-                                                    {service.features.map((feature, idx) => (
-                                                        <div key={idx} className="flex items-center text-gray-400 text-sm">
-                                                            <div className="w-2 h-2 bg-brand rounded-full mr-2 flex-shrink-0" />
-                                                            <span className="truncate">{feature}</span>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Card>
-                                ))}
-                            </CardSwap>
-                        </div>
-                    </motion.div>
+                                <motion.p 
+                                    className="text-gray-500 text-lg md:text-xl mb-12 max-w-lg leading-relaxed"
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.6, delay: 0.3 }}
+                                >
+                                    {service.description}
+                                </motion.p>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12">
+                                    {service.features.map((feature, idx) => (
+                                        <motion.div 
+                                            key={idx} 
+                                            className="flex items-center text-gray-400 group cursor-default transition-all duration-300 hover:translate-x-2"
+                                            initial={{ opacity: 0, x: -10 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            transition={{ duration: 0.5, delay: 0.4 + (idx * 0.1) }}
+                                        >
+                                            <span className="text-xs mr-4 font-mono text-brand/60 group-hover:text-brand transition-all duration-300">
+                                                / 0{idx + 1}
+                                            </span>
+                                            <span className="text-lg group-hover:text-white transition-colors duration-300 border-b border-transparent group-hover:border-white/10 pb-1">
+                                                {feature}
+                                            </span>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+
                 </div>
             </div>
 

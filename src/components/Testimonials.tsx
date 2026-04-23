@@ -1,20 +1,18 @@
 import { motion } from "framer-motion";
-import { Quote } from "lucide-react";
+import { Quote, Users } from "lucide-react";
 
 const Testimonials = () => {
     const testimonials = [
         {
             id: 1,
-            name: "",
-            role: "Founder at Erichost",
-            image: "",
+            name: "Founder",
+            role: "Erichost",
             text: "I'm thoroughly impressed with Ayush's designing creativity! He brought fresh ideas to our hosting platform and delivered beyond expectations. His creative approach to web design is exactly what Erichost needed."
         },
         {
             id: 2,
-            name: "",
-            role: "Founder at NinzaHost",
-            image: "",
+            name: "Founder",
+            role: "NinzaHost",
             text: "Ayush transformed our vision into a stunning web hosting platform. His technical expertise and attention to detail made NinzaHost stand out in the competitive hosting market. The user experience he created is simply outstanding!"
         }
     ];
@@ -56,8 +54,8 @@ const Testimonials = () => {
                                 transition={{ duration: 0.5, delay: 0.7 }}
                                 viewport={{ once: true }}
                             >
-                                <p className="text-gray-300 text-xl leading-relaxed">
-                                    {testimonials[0].text}
+                                <p className="text-gray-300 text-xl leading-relaxed italic">
+                                    "{testimonials[0].text}"
                                 </p>
                                 <motion.div
                                     initial={{ scale: 0, rotate: -180 }}
@@ -65,7 +63,7 @@ const Testimonials = () => {
                                     transition={{ duration: 0.5, delay: 0.8 }}
                                     viewport={{ once: true }}
                                 >
-                                    <Quote className="h-8 w-8 text-brand flex-shrink-0 mt-1" />
+                                    <Quote className="h-8 w-8 text-brand flex-shrink-0 mt-1 opacity-50" />
                                 </motion.div>
                             </motion.div>
 
@@ -77,12 +75,8 @@ const Testimonials = () => {
                                 transition={{ duration: 0.5, delay: 0.9 }}
                                 viewport={{ once: true }}
                             >
-                                <div className="w-12 h-12 rounded-full overflow-hidden">
-                                    <img
-                                        src={testimonials[0].image}
-                                        alt={testimonials[0].name}
-                                        className="w-full h-full object-cover bg-gray-700"
-                                    />
+                                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500">
+                                    <Users className="w-5 h-5" />
                                 </div>
                                 <div>
                                     <h4 className="font-semibold text-white text-base">
@@ -113,8 +107,8 @@ const Testimonials = () => {
                                 transition={{ duration: 0.5, delay: 0.8 }}
                                 viewport={{ once: true }}
                             >
-                                <p className="text-gray-300 text-xl leading-relaxed">
-                                    {testimonials[1].text}
+                                <p className="text-gray-300 text-xl leading-relaxed italic">
+                                    "{testimonials[1].text}"
                                 </p>
                                 <motion.div
                                     initial={{ scale: 0, rotate: -180 }}
@@ -122,7 +116,7 @@ const Testimonials = () => {
                                     transition={{ duration: 0.5, delay: 0.9 }}
                                     viewport={{ once: true }}
                                 >
-                                    <Quote className="h-8 w-8 text-brand flex-shrink-0 mt-1" />
+                                    <Quote className="h-8 w-8 text-brand flex-shrink-0 mt-1 opacity-50" />
                                 </motion.div>
                             </motion.div>
 
@@ -134,12 +128,8 @@ const Testimonials = () => {
                                 transition={{ duration: 0.5, delay: 1 }}
                                 viewport={{ once: true }}
                             >
-                                <div className="w-12 h-12 rounded-full overflow-hidden">
-                                    <img
-                                        src={testimonials[1].image}
-                                        alt={testimonials[1].name}
-                                        className="w-full h-full object-cover bg-gray-700"
-                                    />
+                                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500">
+                                    <Users className="w-5 h-5" />
                                 </div>
                                 <div>
                                     <h4 className="font-semibold text-white text-base">

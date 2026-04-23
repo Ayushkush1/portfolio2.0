@@ -1,314 +1,172 @@
 import { motion } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Process = () => {
+    const [activeId, setActiveId] = useState(1);
+    const sectionRef = useRef<HTMLElement>(null);
+    const headerRef = useRef<HTMLDivElement>(null);
+    const bgTextRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        let ctx = gsap.context(() => {
+            // Reveal header
+            gsap.fromTo(headerRef.current, 
+                { opacity: 0, y: 30 },
+                { 
+                    opacity: 1, 
+                    y: 0, 
+                    duration: 1, 
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: headerRef.current,
+                        start: "top 85%",
+                    }
+                }
+            );
+
+            // Reveal background text
+            gsap.fromTo(bgTextRef.current, 
+                { opacity: 0, y: 30 },
+                { 
+                    opacity: 1, 
+                    y: 0, 
+                    duration: 1.5, 
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 80%",
+                    }
+                }
+            );
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
+
     const processSteps = [
         {
             id: 1,
             number: "01",
             title: "Discovery",
-            description: "Understanding your goals, target audience, and project requirements"
+            description: "Everything starts with a deep dive into your vision. I research your market, analyze your competitors, and define the core problem we're solving together.",
+            features: ["Market Research", "Stakeholder Interviews", "Goals Definition", "Audience Persona"]
         },
         {
             id: 2,
             number: "02",
             title: "Strategy",
-            description: "Creating a comprehensive plan and timeline for your project"
+            description: "A solid plan is half the battle. I map out the user journey, define the technical architecture, and create a roadmap that ensures we're building for success.",
+            features: ["User Flows", "Information Architecture", "Tech Stack Selection", "Project Roadmap"]
         },
         {
             id: 3,
             number: "03",
             title: "Design",
-            description: "Crafting beautiful, user-centered designs with your feedback"
+            description: "Visuals that communicate and convert. I craft high-fidelity designs that blend aesthetics with functionality, ensuring a seamless experience across all touchpoints.",
+            features: ["UI/UX Design", "Interactive Prototypes", "Design System", "Visual Identity"]
         },
         {
             id: 4,
             number: "04",
             title: "Development",
-            description: "Building your project with clean, efficient, and scalable code"
+            description: "Bringing the vision to life with precision. I build high-performance, scalable applications using modern web technologies and industry best practices.",
+            features: ["Frontend Engineering", "API Integration", "Performance Tuning", "Responsive Build"]
         },
         {
             id: 5,
             number: "05",
             title: "Launch",
-            description: "Testing, optimization, and successful deployment of your project"
+            description: "Crossing the finish line with confidence. I perform rigorous testing, handle deployment, and ensure your product is ready to make an impact on the world.",
+            features: ["Quality Assurance", "SEO Optimization", "Deployment", "Maintenance Plan"]
         }
     ];
 
     return (
-        <section id="process" className="relative py-24 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
-            <div className="container relative z-10 max-w-7xl mx-auto px-4 pb-28">
-                {/* Header */}
-                <motion.div
-                    className="text-center mb-20"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                >
-                    <motion.p
-                        className="text-gray-400 text-lg mb-4 italic"
-                        initial={{ opacity: 0, y: 20 }}
+        <section ref={sectionRef} id="process" className="relative py-32 bg-gradient-to-br from-background via-background to-primary/5 overflow-visible">
+            {/* Header */}
+            <div className="container relative z-20 max-w-7xl mx-auto px-4 mb-32">
+                <div ref={headerRef} className="text-center opacity-0">
+                    <h2 className="text-6xl md:text-8xl tracking-tight leading-[0.9] mb-8" style={{ fontFamily: "'Fraunces', serif" }}>
+                        <span className="text-gray-500 font-light italic block text-3xl md:text-4xl mb-2">Workflow that</span>
+                        <span className="text-white font-bold">delivers<span className="text-[#ff5f26]">.</span></span>
+                    </h2>
+                    <p className="text-gray-500 font-medium tracking-[0.2em] uppercase text-[10px] md:text-xs">
+                        A systematic approach to excellence
+                    </p>
+                </div>
+            </div>
+
+            {/* Stacking Cards Container */}
+            <div className="container relative z-10 max-w-7xl mx-auto px-4 space-y-[25vh] pb-[25vh]">
+                {processSteps.map((step, index) => (
+                    <motion.div
+                        key={step.id}
+                        className="sticky top-[15vh] w-full"
+                        initial={{ opacity: 0, y: 100 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        viewport={{ margin: "-10% 0px -10% 0px" }}
                     >
-                        Our Process, Explained
-                    </motion.p>
-                    <motion.h2
-                        className="text-4xl md:text-5xl font-bold text-foreground leading-tight"
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
-                        viewport={{ once: true }}
-                    >
-                        Here's how it works
-                    </motion.h2>
-                </motion.div>
+                        <div 
+                            className="w-full min-h-[70vh] flex flex-col justify-center bg-[#0a1120] border border-white/10 rounded-[3rem] p-8 md:p-20 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.7)] relative overflow-hidden group"
+                            style={{ 
+                                marginTop: `${index * 32}px`,
+                                transform: `scale(${1 - (processSteps.length - index) * 0.015})`,
+                            }}
+                        >
+                            {/* Subtle background number */}
+                            <div className="absolute top-1 right-[-5%] text-[20rem] font-bold text-white/[0.02] select-none pointer-events-none italic" style={{ fontFamily: "'Fraunces', serif" }}>
+                                {step.number}
+                            </div>
 
-                {/* Process Cards in Two Rows */}
-                <motion.div
-                    className="relative"
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                    viewport={{ once: true }}
-                >
-                    {/* Top Row - First 3 cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-16 relative">
-                        {processSteps.slice(0, 3).map((step, index) => (
-                            <motion.div
-                                key={step.id}
-                                className={`relative ${index === 1 ? 'md:mt-8' : ''}`}
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-                                viewport={{ once: true }}
-                            >
-                                {/* Curved Arrow from card 1 to 2 */}
-                                {index === 0 && (
-                                    <motion.svg
-                                        className="hidden md:block absolute top-16 -right-14 rotate-[10deg] w-20 h-12 text-brand z-50"
-                                        viewBox="0 0 80 50"
-                                        fill="none"
-                                        initial={{ pathLength: 0, opacity: 0 }}
-                                        whileInView={{ pathLength: 1, opacity: 1 }}
-                                        transition={{ duration: 1.5, delay: 1 }}
-                                        viewport={{ once: true }}
-                                    >
-                                        <motion.path
-                                            d="M5 25 Q40 5 75 25"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            fill="none"
-                                            strokeLinecap="round"
-                                        />
-                                        <motion.circle
-                                            cx="5"
-                                            cy="25"
-                                            r="3"
-                                            fill="currentColor"
-                                        />
-                                        <motion.circle
-                                            cx="75"
-                                            cy="25"
-                                            r="3"
-                                            fill="currentColor"
-                                        />
-                                    </motion.svg>
-                                )}
-
-                                {/* Curved Arrow from card 2 to 3 */}
-                                {index === 1 && (
-                                    <motion.svg
-                                        className="hidden md:block absolute top-48 -right-14 -rotate-[15deg] w-20 h-12 text-brand z-50"
-                                        viewBox="0 0 80 50"
-                                        fill="none"
-                                        initial={{ pathLength: 0, opacity: 0 }}
-                                        whileInView={{ pathLength: 1, opacity: 1 }}
-                                        transition={{ duration: 1.5, delay: 1.2 }}
-                                        viewport={{ once: true }}
-                                    >
-                                        <motion.path
-                                            d="M5 25 Q40 45 75 25"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            fill="none"
-                                            strokeLinecap="round"
-                                        />
-                                        <motion.circle
-                                            cx="5"
-                                            cy="25"
-                                            r="3"
-                                            fill="currentColor"
-                                        />
-                                        <motion.circle
-                                            cx="75"
-                                            cy="25"
-                                            r="3"
-                                            fill="currentColor"
-                                        />
-                                    </motion.svg>
-                                )}
-
-                                {/* Arrow from card 3 to card 4 (down to next row) */}
-                                {index === 2 && (
-                                    <motion.svg
-                                        className="hidden md:block absolute -bottom-14 left-36 transform -translate-x-1/2 translate-y-8 w-24 h-34 rotate-[10deg] text-brand z-50"
-                                        viewBox="0 0 80 120"
-                                        fill="none"
-                                        initial={{ pathLength: 0, opacity: 0 }}
-                                        whileInView={{ pathLength: 1, opacity: 1 }}
-                                        transition={{ duration: 1.5, delay: 1.4 }}
-                                        viewport={{ once: true }}
-                                    >
-                                        <motion.path
-                                            d="M40 5 Q60 60 20 115"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            fill="none"
-                                            strokeLinecap="round"
-                                        />
-                                        <motion.circle
-                                            cx="40"
-                                            cy="5"
-                                            r="3"
-                                            fill="currentColor"
-                                        />
-                                        <motion.circle
-                                            cx="20"
-                                            cy="115"
-                                            r="3"
-                                            fill="currentColor"
-                                        />
-                                    </motion.svg>
-                                )}
-
-                                {/* Step Card */}
-                                <motion.div
-                                    className="bg-gradient-to-br from-gray-900/95 via-gray-800/70 to-gray-950/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-xl hover:shadow-2xl hover:shadow-brand/20 hover:border-brand/5 transition-all duration-300 relative z-10 h-80 group overflow-hidden"
-                                    initial={{ opacity: 0, y: 50, rotate: 0 }}
-                                    whileInView={{
-                                        opacity: 1,
-                                        y: 0,
-                                        rotate: index === 0 ? 3 : index === 1 ? -4 : 2
-                                    }}
-                                    transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-                                    viewport={{ once: true }}
-                                >
-                                    {/* Texture Overlay */}
-                                    <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent opacity-30" />
-                                    <div className="absolute inset-0 bg-gradient-to-tr from-gray-900/20 via-transparent to-gray-800/20" />
-
-                                    {/* Step Number - Large at top */}
-                                    <div className="relative text-6xl font-bold text-brand mb-8 z-10">
+                            <div className="relative z-10">
+                                <div className="flex items-center gap-4 mb-8">
+                                    <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#ff5f26] font-bold">
                                         {step.number}
                                     </div>
+                                    <div className="h-px w-24 bg-white/10" />
+                                    <span className="text-gray-500 font-bold text-xs tracking-widest uppercase">Phase</span>
+                                </div>
 
-                                    {/* Content at bottom */}
-                                    <div className="absolute bottom-8 left-8 right-8 z-10">
-                                        <h3 className="text-xl font-bold text-white mb-3">
-                                            {step.title}
+                                <div className="grid lg:grid-cols-2 gap-12 items-end">
+                                    <div>
+                                        <h3 className="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight" style={{ fontFamily: "'Fraunces', serif" }}>
+                                            {step.title}<span className="text-[#ff5f26]">.</span>
                                         </h3>
-                                        <p className="text-gray-300 leading-relaxed text-sm">
+                                        <p className="text-gray-400 text-lg md:text-xl leading-relaxed">
                                             {step.description}
                                         </p>
                                     </div>
-                                </motion.div>
-                            </motion.div>
-                        ))}
-                    </div>
 
-                    {/* Bottom Row - Last 2 cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-3xl mx-auto relative">
-                        {processSteps.slice(3).map((step, index) => (
-                            <motion.div
-                                key={step.id}
-                                className="relative"
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
-                                viewport={{ once: true }}
-                            >
-                                {/* Curved Arrow from card 4 to 5 */}
-                                {index === 0 && (
-                                    <motion.svg
-                                        className="hidden md:block absolute top-52 -right-14 w-20 h-16 text-brand z-50"
-                                        viewBox="0 0 60 50"
-                                        fill="none"
-                                        initial={{ pathLength: 0, opacity: 0 }}
-                                        whileInView={{ pathLength: 1, opacity: 1 }}
-                                        transition={{ duration: 1.5, delay: 1.6 }}
-                                        viewport={{ once: true }}
-                                    >
-                                        <motion.path
-                                            d="M5 25 Q30 5 55 25"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            fill="none"
-                                            strokeLinecap="round"
-                                        />
-                                        <motion.circle
-                                            cx="5"
-                                            cy="25"
-                                            r="3"
-                                            fill="currentColor"
-                                        />
-                                        <motion.circle
-                                            cx="55"
-                                            cy="25"
-                                            r="3"
-                                            fill="currentColor"
-                                        />
-                                    </motion.svg>
-                                )}
-
-                                {/* Step Card */}
-                                <motion.div
-                                    className="bg-gradient-to-br from-gray-900/95 via-gray-800/70 to-gray-950/90 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-xl hover:shadow-2xl hover:shadow-brand/20 hover:border-brand/5 transition-all duration-300 relative z-10 h-80 group overflow-hidden"
-                                    initial={{ opacity: 0, y: 50, rotate: 0 }}
-                                    whileInView={{
-                                        opacity: 1,
-                                        y: 0,
-                                        rotate: index === 0 ? -3 : 2
-                                    }}
-                                    transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
-                                    viewport={{ once: true }}
-                                >
-                                    {/* Texture Overlay */}
-                                    <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent opacity-30" />
-                                    <div className="absolute inset-0 bg-gradient-to-tr from-gray-900/20 via-transparent to-gray-800/20" />
-
-                                    {/* Step Number - Large at top */}
-                                    <div className="relative text-6xl font-bold text-brand mb-8 z-10">
-                                        {step.number}
+                                    <div className="bg-white/[0.02] border border-white/[0.05] rounded-3xl p-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        {step.features.map((feature, idx) => (
+                                            <div key={idx} className="flex items-center gap-3">
+                                                <div className="w-1 h-1 rounded-full bg-[#ff5f26]" />
+                                                <span className="text-gray-400 text-sm font-medium">{feature}</span>
+                                            </div>
+                                        ))}
                                     </div>
+                                </div>
+                            </div>
 
-                                    {/* Content at bottom */}
-                                    <div className="absolute bottom-8 left-8 right-8 z-10">
-                                        <h3 className="text-xl font-bold text-white mb-3">
-                                            {step.title}
-                                        </h3>
-                                        <p className="text-gray-300 leading-relaxed text-sm">
-                                            {step.description}
-                                        </p>
-                                    </div>
-                                </motion.div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </motion.div>
+                            {/* Bottom glow effect */}
+                            <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#ff5f26]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        </div>
+                    </motion.div>
+                ))}
             </div>
 
             {/* Background decoration */}
-            <motion.div
-                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 1 }}
-                viewport={{ once: true }}
+            <div
+                ref={bgTextRef}
+                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5 opacity-0"
             >
                 Process
-            </motion.div>
+            </div>
         </section>
     );
 };

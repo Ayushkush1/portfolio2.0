@@ -40,7 +40,7 @@ const GithubActivity = () => {
     const years: ('last' | number)[] = ['last', currentYear, currentYear - 1, currentYear - 2, currentYear - 3, currentYear - 4];
 
     const sectionRef = useRef<HTMLElement>(null);
-    const leftContentRef = useRef<HTMLDivElement>(null);
+    const headerRef = useRef<HTMLDivElement>(null);
     const calendarRef = useRef<HTMLDivElement>(null);
     const bgTextRef = useRef<HTMLDivElement>(null);
 
@@ -77,165 +77,137 @@ const GithubActivity = () => {
                 }
             });
 
-            tl.fromTo(leftContentRef.current, 
-                { opacity: 0, x: -40, filter: "blur(8px)" }, 
-                { opacity: 1, x: 0, filter: "blur(0px)", duration: 1, ease: "power3.out" }
-            )
-            .fromTo(".stat-card-gsap", 
-                { opacity: 0, y: 30, scale: 0.95 }, 
-                { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.1, ease: "back.out(1.5)" },
-                "-=0.6"
+            tl.fromTo(headerRef.current, 
+                { opacity: 0, y: 30, filter: "blur(10px)" }, 
+                { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, ease: "power3.out" }
             )
             .fromTo(calendarRef.current, 
-                { opacity: 0, x: 40, filter: "blur(8px)" }, 
-                { opacity: 1, x: 0, filter: "blur(0px)", duration: 1, ease: "power3.out" },
+                { opacity: 0, y: 40, scale: 0.98, filter: "blur(10px)" }, 
+                { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.2, ease: "power4.out" },
                 "-=0.6"
-            )
-            .fromTo(bgTextRef.current,
-                { opacity: 0, scale: 0.9, y: 30 },
-                { opacity: 1, scale: 1, y: 0, duration: 1.5, ease: "power2.out" },
-                "-=1"
             );
+
+            // Reveal background text
+            gsap.fromTo(bgTextRef.current, 
+                { opacity: 0, y: 30 },
+                { 
+                    opacity: 1, 
+                    y: 0, 
+                    duration: 1.5, 
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: "top 80%",
+                    }
+                }
+            );
+
+            // Subtle parallax for calendar card
+            gsap.to(calendarRef.current, {
+                y: -40,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1.5,
+                }
+            });
         }, sectionRef);
 
         return () => ctx.revert();
     }, []);
 
     return (
-        <section ref={sectionRef} id="github" className="relative py-24 bg-gradient-to-br from-background via-background to-primary/5 overflow-hidden h-screen">
+        <section ref={sectionRef} id="github" className="relative py-32 pb-48 bg-gradient-to-br from-background via-background to-primary/5 overflow-hidden">
             {/* Ambient Background Glows */}
-            <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 w-[800px] h-[800px] bg-white/[0.03] rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
-            <div className="container mx-auto px-6 relative z-10">
-                <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            <div className="container mx-auto px-6 relative z-10 flex flex-col items-center">
+                
+                {/* Minimal Header */}
+                <div ref={headerRef} className="text-center mb-24 opacity-0">
+                    <h2 className="text-6xl md:text-7xl tracking-tight leading-[0.9] mb-8" style={{ fontFamily: "'Fraunces', serif" }}>
+                        <span className="text-gray-500 font-light italic block text-3xl md:text-4xl mb-2">Building consistently,</span>
+                        <span className="text-white font-bold">shipping daily<span className="text-[#ff5f26]">.</span></span>
+                    </h2>
+                    <div className="flex items-center justify-center gap-3">
+                         <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20">
+                            <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                            <span className="text-[10px] font-bold text-green-500 uppercase tracking-widest">Live Sync</span>
+                         </div>
+                         <div className="w-[1px] h-4 bg-white/10" />
+                         <p className="text-gray-500 font-medium tracking-[0.2em] uppercase text-[10px]">
+                             GitHub Activity History
+                         </p>
+                    </div>
+                </div>
 
-                    {/* Left Content */}
-                    <div className="lg:w-5/12 flex flex-col justify-center relative">
-                        <div ref={leftContentRef} className="opacity-0">
-                            <div className="inline-flex items-center gap-2 mb-8 shadow-lg backdrop-blur-sm relative overflow-hidden group">
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                                <Github className="w-4 h-4 text-gray-400 italic" />
-                                <span className="text-gray-400 text-sm font-medium tracking-wider uppercase italic">GitHub Activity</span>
-                            </div>
-
-                            <h2 className="text-4xl md:text-5xl lg:text-[3rem] tracking-tight mb-8 leading-[1.1]" style={{ fontFamily: "'Fraunces', serif" }}>
-                                <span className="text-gray-400 block font-normal mb-1">Building</span>
-                                <span className="text-gray-400 block font-normal mb-2">consistently,</span>
-                                <span className="text-white font-bold italic">shipping daily<span className="text-[#ff5f26]">.</span></span>
-                            </h2>
-
-                            <p className="text-foreground/50 text-lg md:text-lg mb-10 leading-relaxed font-light max-w-lg" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-                                My GitHub reflects my passion for building products, experimenting with ideas, and staying consistent through daily commits.
-                            </p>
-
-                            <motion.button
-                                whileHover={{ boxShadow: "0 15px 40px rgba(255, 95, 38, 0.4)" }}
-                                whileTap={{ scale: 0.95 }}
-                                onClick={() => window.open(`https://github.com/${GITHUB_USERNAME}`, '_blank')}
-                                className="self-start group flex items-center gap-4 p-1.5 pr-8 rounded-full bg-[#ff5f26] text-white shadow-[0_10px_30px_rgba(255,95,38,0.2)] transition-all duration-300"
-                                style={{ fontFamily: "'DM Sans', sans-serif" }}
-                            >
-                                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#ff5f26] group-hover:rotate-0 -rotate-45 transition-transform duration-500">
-                                    <ArrowRight className="w-5 h-5" />
-                                </div>
-                                <div className="relative overflow-hidden h-5">
-                                    <motion.div
-                                        className="flex flex-col transition-transform duration-500 ease-in-out group-hover:-translate-y-5"
-                                    >
-                                        <span className="h-5 flex items-center text-[14px] font-semibold tracking-wide">View GitHub Profile</span>
-                                        <span className="h-5 flex items-center text-[14px] font-semibold tracking-wide">View GitHub Profile</span>
-                                    </motion.div>
-                                </div>
-                            </motion.button>
+                {/* Massive Calendar Block */}
+                <div ref={calendarRef} className="w-full max-w-7xl opacity-0">
+                    <div className="w-full border border-white/[0.08] rounded-3xl p-6 md:p-10 bg-[#0d1117]/50 backdrop-blur-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative">
+                        <div className="transform scale-[0.75] sm:scale-90 md:scale-100 lg:scale-[1.1] origin-center flex justify-center w-full py-4">
+                            <GitHubCalendar
+                                username={GITHUB_USERNAME}
+                                year={selectedYear === 'last' ? undefined : selectedYear}
+                                colorScheme="dark"
+                                showWeekdayLabels={true}
+                                theme={{
+                                    light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
+                                    dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
+                                }}
+                                fontSize={11}
+                                blockSize={14}
+                                blockMargin={6}
+                                blockRadius={3}
+                                renderBlock={(block, activity) => {
+                                    const date = new Date(activity.date);
+                                    const month = date.toLocaleString('default', { month: 'long' });
+                                    const day = date.getDate();
+                                    const getOrdinal = (n: number) => {
+                                        const s = ["th", "st", "nd", "rd"];
+                                        const v = n % 100;
+                                        return n + (s[(v - 20) % 10] || s[v] || s[0]);
+                                    };
+                                    return React.cloneElement(block as React.ReactElement, {
+                                        'data-tooltip-id': 'react-tooltip',
+                                        'data-tooltip-content': `${activity.count} contribution${activity.count !== 1 ? 's' : ''} on ${month} ${getOrdinal(day)}.`,
+                                    });
+                                }}
+                            />
+                            <Tooltip 
+                                id="react-tooltip" 
+                                style={{ fontSize: '11px', padding: '4px 8px', borderRadius: '8px', zIndex: 50, fontWeight: 500, backgroundColor: 'rgba(0,0,0,0.9)', backdropFilter: 'blur(4px)' }}
+                            />
                         </div>
                     </div>
 
-                    {/* Right Content */}
-                    <div className="lg:w-7/12 flex flex-col justify-center gap-6">
-
-                        {/* Stats Cards Row */}
-                        <div className="w-full flex justify-center lg:justify-end">
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-[800px]">
-                                <StatCard
-                                    icon={<BookOpen className="w-4 h-4" />}
-                                    label="Public Repos"
-                                    value={loading ? "..." : data?.public_repos}
-                                />
-                                <StatCard
-                                    icon={<Users className="w-4 h-4" />}
-                                    label="Followers"
-                                    value={loading ? "..." : data?.followers}
-                                />
-                                <StatCard
-                                    icon={<Activity className="w-4 h-4" />}
-                                    label="Daily Commits"
-                                    value="Active"
-                                />
-                                <StatCard
-                                    icon={<GitBranch className="w-4 h-4" />}
-                                    label="Open Source"
-                                    value="Yes"
-                                />
-                            </div>
+                    {/* Controls Row */}
+                    <div className="mt-6 flex flex-col md:flex-row items-center justify-between gap-8 px-4">
+                        <div className="flex flex-wrap gap-2 justify-center order-2 md:order-1">
+                            {years.map((year) => (
+                                <button
+                                    key={year}
+                                    onClick={() => setSelectedYear(year)}
+                                    className={`text-[10px] md:text-xs py-1.5 px-4 rounded-full transition-all whitespace-nowrap border ${
+                                        selectedYear === year 
+                                        ? 'bg-white text-black border-white font-bold shadow-lg shadow-white/10' 
+                                        : 'bg-white/5 text-foreground/50 border-white/10 hover:bg-white/10 hover:text-white'
+                                    }`}
+                                >
+                                    {year === 'last' ? 'Last year' : year}
+                                </button>
+                            ))}
                         </div>
 
-                        <div className="w-full flex justify-center lg:justify-end">
-                            <div ref={calendarRef} className="w-full max-w-[800px] flex flex-col gap-6 opacity-0">
-                                <div className="w-full border border-white/10 rounded-md p-4 md:p-5 bg-[#0d1117] overflow-hidden text-foreground/80 flex justify-center shadow-2xl relative">
-                                    <div className="transform scale-[0.8] sm:scale-95 md:scale-100 origin-center flex justify-center w-full">
-                                        <GitHubCalendar
-                                            username={GITHUB_USERNAME}
-                                            year={selectedYear === 'last' ? undefined : selectedYear}
-                                            colorScheme="dark"
-                                            showWeekdayLabels={true}
-                                            theme={{
-                                                light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
-                                                dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
-                                            }}
-                                            fontSize={11}
-                                            blockSize={10}
-                                            blockMargin={3}
-                                            blockRadius={2}
-                                            renderBlock={(block, activity) => {
-                                                const date = new Date(activity.date);
-                                                const month = date.toLocaleString('default', { month: 'long' });
-                                                const day = date.getDate();
-                                                const getOrdinal = (n: number) => {
-                                                    const s = ["th", "st", "nd", "rd"];
-                                                    const v = n % 100;
-                                                    return n + (s[(v - 20) % 10] || s[v] || s[0]);
-                                                };
-                                                return React.cloneElement(block as React.ReactElement, {
-                                                    'data-tooltip-id': 'react-tooltip',
-                                                    'data-tooltip-content': `${activity.count} contribution${activity.count !== 1 ? 's' : ''} on ${month} ${getOrdinal(day)}.`,
-                                                });
-                                            }}
-                                        />
-                                        <Tooltip 
-                                            id="react-tooltip" 
-                                            style={{ fontSize: '11px', padding: '1px 1px', borderRadius: '5px', zIndex: 50, fontWeight: 500 }}
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="flex flex-wrap gap-2 w-full justify-center lg:justify-end">
-                                    {years.map((year) => (
-                                        <button
-                                            key={year}
-                                            onClick={() => setSelectedYear(year)}
-                                            className={`text-xs py-1 px-3 rounded-full transition-all whitespace-nowrap ${
-                                                selectedYear === year 
-                                                ? 'bg-white/80 backdrop-blur-sm text-black font-semibold shadow-sm' 
-                                                : 'bg-white/5 text-foreground/60 hover:bg-white/10 hover:text-foreground border border-white/5'
-                                            }`}
-                                        >
-                                            {year === 'last' ? 'Last year' : year}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-
+                        <motion.button
+                            whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(255, 95, 38, 0.3)" }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => window.open(`https://github.com/${GITHUB_USERNAME}`, '_blank')}
+                            className="flex items-center gap-2 text-xs md:text-sm font-semibold text-[#ff5f26] border border-[#ff5f26]/20 bg-[#ff5f26]/5 py-2.5 px-6 rounded-full hover:bg-[#ff5f26] hover:text-white transition-all duration-300 order-1 md:order-2"
+                        >
+                            View Full Profile <ExternalLink className="w-4 h-4" />
+                        </motion.button>
                     </div>
                 </div>
             </div>
