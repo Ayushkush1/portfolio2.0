@@ -1,11 +1,9 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Portfolio = () => {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [hoveredCardId, setHoveredCardId] = useState<number | null>(null);
     const navigate = useNavigate();
 
     // Load designer fonts ONLY for this component
@@ -19,23 +17,6 @@ const Portfolio = () => {
             document.head.appendChild(link);
         }
     }, []);
-
-    // Handle mouse movement for cursor follower
-    const handleMouseMove = (e: React.MouseEvent, cardId: number) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        setMousePosition({
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top,
-        });
-    };
-
-    const handleMouseEnter = (cardId: number) => {
-        setHoveredCardId(cardId);
-    };
-
-    const handleMouseLeave = () => {
-        setHoveredCardId(null);
-    };
 
     const handleProjectClick = (url: string) => {
         window.open(url, '_blank', 'noopener,noreferrer');
@@ -83,15 +64,41 @@ const Portfolio = () => {
     // This shifts the track left as the user scrolls down the 300vh section
     const x = useTransform(scrollYProgress, [0, 1], ["0vw", "-240vw"]);
 
+    const cssHoverRules = `
+        .project-image-scroll {
+            transition: transform 3s ease-out 0ms;
+            transform: translateY(0);
+        }
+        .group:hover .project-image-scroll {
+            transition: transform 20s linear 300ms;
+        }
+        @media (max-width: 767px) {
+            .group:hover .project-image-scroll {
+                transform: translateY(calc(-100% + 47.81vw));
+            }
+        }
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .group:hover .project-image-scroll {
+                transform: translateY(calc(-100% + 36.56vw));
+            }
+        }
+        @media (min-width: 1024px) {
+            .group:hover .project-image-scroll {
+                transform: translateY(calc(-100% + 32.06vw));
+            }
+        }
+    `;
+
     return (
         <section ref={targetRef} id="portfolio" className="relative h-[350vh] py-10 bg-gradient-to-br from-background via-background to-primary/5">
+            <style>{cssHoverRules}</style>
             <div className="sticky top-0 flex flex-col justify-center h-screen overflow-hidden">
 
                 {/* Horizontal Scroll Track — header card is first item */}
                 <div className="relative flex w-full items-center pt-14">
                     <motion.div
                         style={{ x }}
-                        className="flex gap-12 pl-8 md:pl-16 lg:pl-24 w-max pb-6 items-center"
+                        className="flex gap-12 pl-8 md:pl-16 lg:pl-24 w-max pb-6 items-center will-change-transform"
                     >
                         {/* ── Text Card (leftmost, same height as project cards) ── */}
                         <motion.div
@@ -138,49 +145,16 @@ const Portfolio = () => {
                         {featuredProjects.map((project) => (
                             <div
                                 key={project.id}
-                                className="group relative cursor-none w-[85vw] md:w-[65vw] lg:w-[57vw] shrink-0"
-                                onMouseMove={(e) => handleMouseMove(e, project.id)}
-                                onMouseEnter={() => handleMouseEnter(project.id)}
-                                onMouseLeave={handleMouseLeave}
+                                className="group relative w-[85vw] md:w-[65vw] lg:w-[57vw] shrink-0 cursor-pointer"
                                 onClick={() => handleProjectClick(project.url)}
                             >
-                                {/* Glassmorphism "VIEW WORK" cursor */}
-                                <motion.div
-                                    className="absolute pointer-events-none z-50 w-[76px] h-[76px] rounded-full flex items-center justify-center text-gray-900 text-[10px] font-semibold tracking-[0.15em] uppercase shadow-2xl"
-                                    style={{
-                                        left: mousePosition.x - 48,
-                                        top: mousePosition.y - 48,
-                                        fontFamily: "'DM Sans', sans-serif",
-                                        background: "rgba(255, 255, 255, 0.12)",
-                                        backdropFilter: "blur(16px)",
-                                        WebkitBackdropFilter: "blur(16px)",
-                                        border: "1px solid rgba(255, 255, 255, 0.25)",
-                                    }}
-                                    initial={{ opacity: 0, scale: 0 }}
-                                    animate={{
-                                        opacity: hoveredCardId === project.id ? 1 : 0,
-                                        scale: hoveredCardId === project.id ? 1 : 0,
-                                    }}
-                                    transition={{ duration: 0.15, ease: "easeOut" }}
-                                >
-                                    VIEW
-                                </motion.div>
-
                                 {/* Card Image Container */}
                                 <div className="relative overflow-hidden rounded-[2.5rem] aspect-[16/9] bg-gray-950 border border-white/8 shadow-xl transition-all duration-500 group-hover:border-white/15 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                                     <div className="w-full h-full overflow-hidden">
                                         <img
                                             src={project.image}
                                             alt={project.title}
-                                            className="w-full h-auto object-top transition-transform will-change-transform"
-                                            style={{ 
-                                                transitionDuration: hoveredCardId === project.id ? '20s' : '3s',
-                                                transitionDelay: hoveredCardId === project.id ? '300ms' : '0ms',
-                                                transitionTimingFunction: hoveredCardId === project.id ? 'linear' : 'ease-out',
-                                                transform: hoveredCardId === project.id 
-                                                    ? (window.innerWidth < 768 ? 'translateY(calc(-100% + 47.81vw))' : (window.innerWidth < 1024 ? 'translateY(calc(-100% + 36.56vw))' : 'translateY(calc(-100% + 32.06vw))'))
-                                                    : 'translateY(0)'
-                                            }}
+                                            className="w-full h-auto object-top will-change-transform project-image-scroll"
                                         />
                                     </div>
                                     {/* Overlay Gradient */}

@@ -74,7 +74,7 @@ const About: React.FC = () => {
     offset: ["start 85%", "end 65%"],
   });
 
-  const statementText = "I help startups turn ideas into market-ready MVPs, boosting conversions and user engagement through CRO-focused design, UX strategy, and modern web development.";
+  const statementText = "I help startups turn ideas into market-ready MVPs, boosting conversions and user engagement through scalable architecture, product strategy, and modern full-stack development.";
   const words = statementText.split(" ");
 
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -150]); // Top moves fastest upwards
@@ -160,7 +160,7 @@ const About: React.FC = () => {
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
                 >
-                  <SkillPill icon={<PenTool className="size-4" />} label="UI/UX" color="#10b981" />
+                  <SkillPill icon={<PenTool className="size-4" />} label="SaaS Builder" color="#10b981" />
                 </motion.div>
               </motion.div>
               <motion.div style={{ y: y3 }}>
@@ -236,7 +236,7 @@ const About: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.7 }}
               >
-                <SkillPill icon={<PenTool className="size-4" />} label="UI/UX" color="#10b981" />
+                <SkillPill icon={<PenTool className="size-4" />} label="SaaS Builder" color="#10b981" />
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}

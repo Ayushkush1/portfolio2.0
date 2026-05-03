@@ -1,8 +1,19 @@
 import { ArrowRight, X, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { useState, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, animate } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+const CountUp = ({ to, duration = 2 }: { to: number, duration?: number }) => {
+    const count = useMotionValue(0);
+    const rounded = useTransform(count, Math.round);
+
+    useEffect(() => {
+        const animation = animate(count, to, { duration: duration, ease: "easeOut", delay: 1.2 });
+        return animation.stop;
+    }, [count, to, duration]);
+
+    return <motion.span>{rounded}</motion.span>;
+};
 
 const Hero = () => {
     const containerRef = useRef<HTMLElement>(null);
@@ -21,7 +32,7 @@ const Hero = () => {
     };
 
     return (
-        <section id="home" ref={containerRef} aria-label="Hero – UI/UX Designer" className="relative overflow-hidden pt-20">
+        <section id="home" ref={containerRef} aria-label="Hero – Product Developer" className="relative overflow-hidden pt-20">
             {/* Ambient brand light */}
             <div
                 className="pointer-events-none absolute inset-0"
@@ -43,9 +54,9 @@ const Hero = () => {
                 >
                     <motion.div
                         className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.6, delay: 0.6 }}
+                        initial={{ opacity: 0, y: -20, filter: "blur(4px)" }}
+                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
                     >
                         <span className="h-2 w-2 rounded-full bg-brand" />
                         <span className="text-xs text-muted-foreground">Available for Work</span>
@@ -56,27 +67,45 @@ const Hero = () => {
                             hidden: { opacity: 1 },
                             show: {
                                 opacity: 1,
-                                transition: { staggerChildren: 0.06, delayChildren: 0.4 }
+                                transition: { staggerChildren: 0.02, delayChildren: 0.2 }
                             }
                         }}
                         initial="hidden"
                         animate="show"
                     >
-                        {"Web & UI/UX Designer based in India".split(" ").map((word, wordIdx, array) => (
-                            <span key={wordIdx} className="inline-block whitespace-nowrap">
-                                {word.split("").map((char, charIdx) => (
-                                    <motion.span
-                                        key={charIdx}
-                                        variants={{
-                                            hidden: { opacity: 0, filter: "blur(8px)", x: -4 },
-                                            show: { opacity: 1, filter: "blur(0px)", x: 0, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } }
-                                        }}
-                                        className="inline-block"
-                                    >
-                                        {char}
-                                    </motion.span>
+                        {["Ideas, engineered", "into real products", "Built to scale"].map((line, lineIdx) => (
+                            <span 
+                                key={lineIdx} 
+                                className="block w-full"
+                            >
+                                {line.split(" ").map((word, wordIdx, array) => (
+                                    <span key={wordIdx} className="inline-block whitespace-nowrap">
+                                        {word.split("").map((char, charIdx) => (
+                                            <motion.span
+                                                key={charIdx}
+                                                variants={{
+                                                    hidden: { opacity: 0, filter: "blur(12px)", y: 40, rotateX: -30 },
+                                                    show: { opacity: 1, filter: "blur(0px)", y: 0, rotateX: 0, transition: { type: "spring", bounce: 0, duration: 1.2 } }
+                                                }}
+                                                className="inline-block"
+                                            >
+                                                {char}
+                                            </motion.span>
+                                        ))}
+                                        {wordIdx !== array.length - 1 && <span className="inline-block">&nbsp;</span>}
+                                    </span>
                                 ))}
-                                {wordIdx !== array.length - 1 && <span className="inline-block">&nbsp;</span>}
+                                {lineIdx === 2 && (
+                                    <motion.span
+                                        variants={{
+                                            hidden: { opacity: 0, filter: "blur(12px)", y: 40, rotateX: -30 },
+                                            show: { opacity: 1, filter: "blur(0px)", y: 0, rotateX: 0, transition: { type: "spring", bounce: 0, duration: 1.2 } }
+                                        }}
+                                        className="inline-block text-brand not-italic"
+                                    >
+                                        .
+                                    </motion.span>
+                                )}
                             </span>
                         ))}
                     </motion.h1>
@@ -89,14 +118,53 @@ const Hero = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.5 }}
                 >
-                    <motion.p
-                        className="max-w-[280px] text-md text-gray-300 md:text-right"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.8 }}
+                    <motion.div
+                        className="max-w-[300px] space-y-4 md:text-right"
+                        initial={{ opacity: 0, x: 40, filter: "blur(10px)" }}
+                        animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                        transition={{ duration: 1.2, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
                     >
-                        Hi, I'm Ayush Kushwaha - a UI/UX designer & MVP expert crafting digital experiences that connect and convert.<br /> I turn ideas into launch ready products.
-                    </motion.p>
+                        <motion.div 
+                            className="flex gap-8 md:justify-end pb-2 border-b border-white/5"
+                            variants={{
+                                hidden: { opacity: 0 },
+                                show: {
+                                    opacity: 1,
+                                    transition: { staggerChildren: 0.2, delayChildren: 1.0 }
+                                }
+                            }}
+                            initial="hidden"
+                            animate="show"
+                        >
+                            <motion.div 
+                                className="flex flex-col md:items-end"
+                                variants={{
+                                    hidden: { opacity: 0, scale: 0.8, y: 15 },
+                                    show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 200, damping: 15 } }
+                                }}
+                            >
+                                <span className="text-3xl font-black text-white flex items-start">
+                                    <CountUp to={20} /><span className="text-brand text-xl font-black ml-[2px] mt-[2px]">+</span>
+                                </span>
+                                <span className="text-[10px] uppercase leading-3 text-gray-400/60 tracking-wide font-medium mt-1">Products Built</span>
+                            </motion.div>
+                            <motion.div 
+                                className="flex flex-col md:items-end"
+                                variants={{
+                                    hidden: { opacity: 0, scale: 0.8, y: 15 },
+                                    show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 200, damping: 15 } }
+                                }}
+                            >
+                                <span className="text-3xl font-black text-white flex items-start">
+                                    <CountUp to={3} /><span className="text-brand text-xl font-black ml-[2px] mt-[2px]">+</span>
+                                </span>
+                                <span className="text-[10px] uppercase leading-3 text-gray-400/60 tracking-wide font-medium mt-1">Years Exp.</span>
+                            </motion.div>
+                        </motion.div>
+                        <p className="text-md text-gray-300 leading-relaxed">
+                            I build scalable web products, lead development, and turn ideas into production-ready systems.
+                        </p>
+                    </motion.div>
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { X, Home, User, Briefcase, Mail } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const navItems = [
@@ -84,7 +84,7 @@ const Navbar = () => {
     return (
         <>
             <motion.header
-                className="fixed top-0 left-0 w-full z-50 flex items-center justify-between py-6 px-6 md:px-24 pointer-events-none"
+                className="hidden md:flex fixed top-0 left-0 w-full z-50 items-center justify-between py-6 px-6 md:px-24 pointer-events-none"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
@@ -165,6 +165,34 @@ const Navbar = () => {
                     </motion.button>
                 </div>
             </motion.header>
+
+            {/* iOS App-like Bottom Navigation for Mobile */}
+            <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] flex items-center justify-between px-6 py-3 bg-white/10 backdrop-blur-2xl backdrop-saturate-200 border border-white/20 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.3)] w-[90vw] max-w-[400px]">
+                {[
+                    { id: "home", label: "Home", icon: Home },
+                    { id: "about", label: "About", icon: User },
+                    { id: "portfolio", label: "Portfolio", icon: Briefcase },
+                    { id: "contact", label: "Contact", icon: Mail },
+                ].map((item) => {
+                    const isActive = activeSection.toLowerCase() === item.id;
+                    return (
+                        <button 
+                            key={item.id} 
+                            onClick={() => scrollToSection(item.id)} 
+                            className={`relative p-3 rounded-full transition-all duration-300 ${isActive ? 'text-white' : 'text-gray-400 hover:text-gray-200'}`}
+                        >
+                            {isActive && (
+                                <motion.div 
+                                    layoutId="mobileNavIndicator"
+                                    className="absolute inset-0 bg-[#ff5f26] rounded-full z-0"
+                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                />
+                            )}
+                            <item.icon className="w-5 h-5 relative z-10" />
+                        </button>
+                    );
+                })}
+            </div>
 
             {/* Slide-out Menu */}
             <AnimatePresence>

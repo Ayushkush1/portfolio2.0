@@ -174,8 +174,8 @@ const PortfolioPage = () => {
 
     ];
 
-    const title = "Portfolio – Ayush Kushwaha | Web & UI/UX Designer";
-    const description = "Explore my complete portfolio of web design and development projects. From SaaS platforms to creative websites, discover my work in UI/UX design and full-stack development.";
+    const title = "Portfolio – Ayush Kushwaha | SaaS Engineer & Product Builder";
+    const description = "Explore my portfolio of SaaS platforms and digital products. I build scalable web products, lead development, and turn ideas into production-ready systems.";
     const canonical = typeof window !== "undefined" ? window.location.origin + "/portfolio" : "/portfolio";
 
     return (

@@ -103,16 +103,12 @@ const Process = () => {
             {/* Stacking Cards Container */}
             <div className="container relative z-10 max-w-7xl mx-auto px-4 space-y-[25vh] pb-[25vh]">
                 {processSteps.map((step, index) => (
-                    <motion.div
+                    <div
                         key={step.id}
                         className="sticky top-[15vh] w-full"
-                        initial={{ opacity: 0, y: 100 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        viewport={{ margin: "-10% 0px -10% 0px" }}
                     >
                         <div 
-                            className="w-full min-h-[70vh] flex flex-col justify-center bg-[#0a1120] border border-white/10 rounded-[3rem] p-8 md:p-20 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.7)] relative overflow-hidden group"
+                            className="w-full min-h-[70vh] flex flex-col justify-center bg-[#0a1120] border border-white/10 rounded-[3rem] p-8 md:p-20 relative overflow-hidden group"
                             style={{ 
                                 marginTop: `${index * 32}px`,
                                 transform: `scale(${1 - (processSteps.length - index) * 0.015})`,
@@ -156,7 +152,7 @@ const Process = () => {
                             {/* Bottom glow effect */}
                             <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#ff5f26]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         </div>
-                    </motion.div>
+                    </div>
                 ))}
             </div>
 

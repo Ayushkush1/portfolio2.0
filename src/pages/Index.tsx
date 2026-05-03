@@ -11,9 +11,9 @@ import Contact from "@/components/Contact";
 import GithubActivity from "@/components/GithubActivity";
 
 const Index = () => {
-  const title = "Ayush Kushwaha | Web & UI/UX Designer";
+  const title = "Ayush Kushwaha | SaaS Engineer & Product Builder";
   const description =
-    "Freelance Web & UI/UX Designer crafting beautiful, user-centered digital experiences. Based in India, specializing in modern web design, development, and user interface design.";
+    "SaaS Engineer & Product Builder based in India. I build scalable web products, lead development, and turn ideas into production-ready systems.";
   const canonical = typeof window !== "undefined" ? window.location.origin + "/" : "/";
   const jsonLd = {
     "@context": "https://schema.org",
@@ -21,7 +21,7 @@ const Index = () => {
     name: "Ayush Kushwaha",
     url: canonical,
     description,
-    jobTitle: "Web & UI/UX Designer",
+    jobTitle: "SaaS Engineer & Product Builder",
     worksFor: {
       "@type": "Organization",
       name: "Freelance"

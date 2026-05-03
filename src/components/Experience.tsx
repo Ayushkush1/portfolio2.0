@@ -110,7 +110,7 @@ const Experience = () => {
                                     viewport={{ once: true }}
                                 >
                                     <h3 className="text-lg font-semibold text-foreground">Ayush Kushwaha</h3>
-                                    <p className="text-gray-500 text-xs">Freelance Developer</p>
+                                    <p className="text-gray-500 text-xs">SaaS Engineer & Product Builder</p>
                                 </motion.div>
 
                                 {/* Social Links */}
@@ -233,7 +233,7 @@ const Experience = () => {
                                 transition={{ duration: 0.6, delay: 0.4 }}
                                 viewport={{ once: true }}
                             >
-                                Ayush is a product‑focused developer crafting clean, expressive interfaces and strong brand systems for startups. Based in India, he blends function with emotion and explores new design trends through side projects.
+                                I am a product focused developer crafting clean, expressive interfaces and strong brand systems for startups. Based in India, he blends function with emotion and explores new design trends through side projects.
                             </motion.p>
                         </div>
 
