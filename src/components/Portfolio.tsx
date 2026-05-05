@@ -90,26 +90,26 @@ const Portfolio = () => {
     `;
 
     return (
-        <section ref={targetRef} id="portfolio" className="relative h-[350vh] py-10 bg-gradient-to-br from-background via-background to-primary/5">
+        <section ref={targetRef} id="portfolio" className="relative h-auto md:h-[350vh] py-10 md:py-10 bg-gradient-to-br from-background via-background to-primary/5">
             <style>{cssHoverRules}</style>
-            <div className="sticky top-0 flex flex-col justify-center h-screen overflow-hidden">
+            <div className="relative md:sticky top-0 flex flex-col justify-start md:justify-center h-auto md:h-screen overflow-visible md:overflow-hidden">
 
-                {/* Horizontal Scroll Track — header card is first item */}
-                <div className="relative flex w-full items-center pt-14">
+                {/* Horizontal Scroll Track (Desktop Only) */}
+                <div className="hidden md:flex relative w-full items-center pt-14">
                     <motion.div
                         style={{ x }}
-                        className="flex gap-12 pl-8 md:pl-16 lg:pl-24 w-max pb-6 items-center will-change-transform"
+                        className="flex gap-12 pl-16 lg:pl-24 w-max pb-6 items-center will-change-transform"
                     >
-                        {/* ── Text Card (leftmost, same height as project cards) ── */}
+                        {/* ── Text Card ── */}
                         <motion.div
-                            className="shrink-0 w-[52vw] md:w-[35vw] lg:w-[25vw] flex flex-col justify-end pb-2"
+                            className="shrink-0 w-[35vw] lg:w-[25vw] flex flex-col justify-end pb-2"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8 }}
                             viewport={{ once: true }}
                         >
                             <h2
-                                className="text-3xl md:text-4xl lg:text-[2.5rem] leading-snug text-foreground mb-6"
+                                className="text-3xl md:text-4xl lg:text-[2.5rem] leading-[1.1] text-foreground mb-6"
                                 style={{ fontFamily: "'Fraunces', serif" }}
                             >
                                 <span className="font-light opacity-50">Selected works</span>
@@ -145,10 +145,9 @@ const Portfolio = () => {
                         {featuredProjects.map((project) => (
                             <div
                                 key={project.id}
-                                className="group relative w-[85vw] md:w-[65vw] lg:w-[57vw] shrink-0 cursor-pointer"
+                                className="group relative w-[65vw] lg:w-[57vw] shrink-0 cursor-pointer"
                                 onClick={() => handleProjectClick(project.url)}
                             >
-                                {/* Card Image Container */}
                                 <div className="relative overflow-hidden rounded-[2.5rem] aspect-[16/9] bg-gray-950 border border-white/8 shadow-xl transition-all duration-500 group-hover:border-white/15 group-hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                                     <div className="w-full h-full overflow-hidden">
                                         <img
@@ -157,18 +156,16 @@ const Portfolio = () => {
                                             className="w-full h-auto object-top will-change-transform project-image-scroll"
                                         />
                                     </div>
-                                    {/* Overlay Gradient */}
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none group-hover:opacity-0 transition-opacity duration-500" />
                                 </div>
 
-                                {/* Below-card info bar */}
-                                <div className="flex items-center justify-between mt-2 px-6">
+                                <div className="flex items-center justify-between mt-4 px-6">
                                     <h3 className="text-xl font-light italic text-foreground tracking-normal" style={{ fontFamily: "'Fraunces', serif" }}>
-                                            {project.title}
-                                        </h3>
+                                        {project.title}
+                                    </h3>
                                     <div className="flex items-center gap-2 ml-4 shrink-0" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                                         <div className="h-[1px] w-8 bg-foreground/20" />
-                                        <span className="text-[11px] font-medium uppercase tracking-[0.15em] text-foreground/40" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                                        <span className="text-[11px] font-medium uppercase tracking-[0.15em] text-foreground/40">
                                             {project.workType}
                                         </span>
                                     </div>
@@ -178,14 +175,14 @@ const Portfolio = () => {
 
                         {/* ── Closing CTA Card ── */}
                         <motion.div
-                            className="shrink-0 w-[60vw] md:w-[38vw] lg:w-[30vw] flex flex-col justify-end pb-2 pl-10"
+                            className="shrink-0 w-[38vw] lg:w-[30vw] flex flex-col justify-end pb-2 pl-10"
                             initial={{ opacity: 0, x: 40 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8 }}
                             viewport={{ once: true }}
                         >
                             <h2
-                                className="text-3xl md:text-4xl lg:text-[2.5rem] leading-snug text-foreground mb-6"
+                                className="text-4xl lg:text-[2.5rem] leading-[1.1] text-foreground mb-6"
                                 style={{ fontFamily: "'Fraunces', serif" }}
                             >
                                 <span className="font-light opacity-50">Got an idea?</span>
@@ -222,9 +219,82 @@ const Portfolio = () => {
                     </motion.div>
                 </div>
 
+                {/* Vertical Stack (Mobile Only) */}
+                <div className="md:hidden flex flex-col gap-8 px-6 pt-6 pb-20">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                    >
+                        <h2 className="text-[2.2rem] leading-[1.1] text-foreground mb-8" style={{ fontFamily: "'Fraunces', serif" }}>
+                            <span className="font-light opacity-50">Selected works</span>
+                            <br />
+                            <span className="font-light opacity-50">crafted with </span>
+                            <br />
+                            <span className="font-bold italic">pure intent</span>
+                            <span className="text-[#ff5f26]">.</span>
+                        </h2>
+                    </motion.div>
+
+                    {featuredProjects.map((project, idx) => (
+                        <motion.div 
+                            key={project.id} 
+                            className="flex flex-col gap-4"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: idx * 0.1 }}
+                            viewport={{ once: true, amount: 0.2 }}
+                            onClick={() => handleProjectClick(project.url)}
+                        >
+                             <div className="relative overflow-hidden rounded-[2rem] aspect-[4/3] bg-gray-950 border border-white/10 shadow-lg">
+                                <img src={project.image} alt={project.title} className="w-full h-full object-cover object-top" />
+                                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20">
+                                    <ArrowRight className="w-5 h-5 -rotate-45" />
+                                </div>
+                             </div>
+                             <div className="flex items-end justify-between px-2">
+                                <div>
+                                    <span className="text-[10px] uppercase tracking-widest text-foreground/40 block mb-1 font-medium">{project.workType}</span>
+                                    <h3 className="text-2xl font-light italic text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>{project.title}</h3>
+                                </div>
+                             </div>
+                        </motion.div>
+                    ))}
+
+                    <motion.div
+                        className="mt-10 pt-10 border-t border-white/5"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                    >
+                        <h2 className="text-3xl leading-tight text-foreground mb-8" style={{ fontFamily: "'Fraunces', serif" }}>
+                            <span className="font-light opacity-50">Got an idea?</span>
+                            <br />
+                            <span className="font-bold italic">Let's build it.</span>
+                        </h2>
+                        
+                        <div className="flex flex-row gap-3">
+                            <button 
+                                onClick={navigateToPortfolio}
+                                className="flex-1 py-3 px-4 rounded-xl bg-white/5 border border-white/10 text-white text-[13px] font-medium flex items-center justify-between group"
+                            >
+                                <span>View all</span>
+                                <ArrowRight className="w-4 h-4 group-active:translate-x-1 transition-transform" />
+                            </button>
+                            <button 
+                                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                                className="flex-1 py-3 px-4 rounded-xl bg-[#ff5f26] text-white text-[13px] font-bold flex items-center justify-between"
+                            >
+                                <span>Start Project</span>
+                                <ArrowRight className="w-4 h-4" />
+                            </button>
+                        </div>
+                    </motion.div>
+                </div>
+
                 {/* Background decoration */}
                 <motion.div
-                    className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
+                    className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5 hidden md:block"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 1 }}

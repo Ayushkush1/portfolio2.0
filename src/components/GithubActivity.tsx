@@ -119,16 +119,16 @@ const GithubActivity = () => {
     }, []);
 
     return (
-        <section ref={sectionRef} id="github" className="relative py-32 pb-48 bg-gradient-to-br from-background via-background to-primary/5 overflow-hidden">
+        <section ref={sectionRef} id="github" className="relative py-16 pb-24 md:py-32 md:pb-48 bg-gradient-to-br from-background via-background to-primary/5 overflow-hidden">
             {/* Ambient Background Glows */}
             <div className="absolute top-1/2 left-1/2 w-[800px] h-[800px] bg-white/[0.03] rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
-            <div className="container mx-auto px-6 relative z-10 flex flex-col items-center">
+            <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col items-center">
                 
                 {/* Minimal Header */}
-                <div ref={headerRef} className="text-center mb-24 opacity-0">
-                    <h2 className="text-6xl md:text-7xl tracking-tight leading-[0.9] mb-8" style={{ fontFamily: "'Fraunces', serif" }}>
-                        <span className="text-gray-500 font-light italic block text-3xl md:text-4xl mb-2">Building consistently,</span>
+                <div ref={headerRef} className="text-center mb-8 md:mb-24 opacity-0">
+                    <h2 className="text-[2.2rem] md:text-7xl tracking-tight leading-[1.1] md:leading-[0.9] mb-6 md:mb-8" style={{ fontFamily: "'Fraunces', serif" }}>
+                        <span className="text-gray-500 font-light italic block text-xl md:text-4xl mb-2">Building consistently,</span>
                         <span className="text-white font-bold">shipping daily<span className="text-[#ff5f26]">.</span></span>
                     </h2>
                     <div className="flex items-center justify-center gap-3">
@@ -144,22 +144,22 @@ const GithubActivity = () => {
                 </div>
 
                 {/* Massive Calendar Block */}
-                <div ref={calendarRef} className="w-full max-w-7xl opacity-0">
-                    <div className="w-full border border-white/[0.08] rounded-3xl p-6 md:p-10 bg-[#0d1117]/50 backdrop-blur-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative">
-                        <div className="transform scale-[0.75] sm:scale-90 md:scale-100 lg:scale-[1.1] origin-center flex justify-center w-full py-4">
+                <div ref={calendarRef} className="w-full max-w-7xl opacity-0 px-2 md:px-0">
+                    <div className="w-full border border-white/[0.08] rounded-3xl p-3 md:p-10 bg-[#0d1117]/50 backdrop-blur-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative">
+                        <div className="w-full flex justify-center py-6 md:py-4 md:transform md:scale-100 lg:scale-[1.1] md:origin-center">
                             <GitHubCalendar
                                 username={GITHUB_USERNAME}
                                 year={selectedYear === 'last' ? undefined : selectedYear}
                                 colorScheme="dark"
-                                showWeekdayLabels={true}
+                                showWeekdayLabels={typeof window !== 'undefined' && window.innerWidth > 768}
                                 theme={{
                                     light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
                                     dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
                                 }}
-                                fontSize={11}
-                                blockSize={14}
-                                blockMargin={6}
-                                blockRadius={3}
+                                fontSize={typeof window !== 'undefined' && window.innerWidth < 768 ? 7 : 11}
+                                blockSize={typeof window !== 'undefined' && window.innerWidth < 768 ? 5 : 14}
+                                blockMargin={typeof window !== 'undefined' && window.innerWidth < 768 ? 2 : 6}
+                                blockRadius={typeof window !== 'undefined' && window.innerWidth < 768 ? 1 : 3}
                                 renderBlock={(block, activity) => {
                                     const date = new Date(activity.date);
                                     const month = date.toLocaleString('default', { month: 'long' });

@@ -90,8 +90,8 @@ const Process = () => {
             {/* Header */}
             <div className="container relative z-20 max-w-7xl mx-auto px-4 mb-32">
                 <div ref={headerRef} className="text-center opacity-0">
-                    <h2 className="text-6xl md:text-8xl tracking-tight leading-[0.9] mb-8" style={{ fontFamily: "'Fraunces', serif" }}>
-                        <span className="text-gray-500 font-light italic block text-3xl md:text-4xl mb-2">Workflow that</span>
+                    <h2 className="text-[2.2rem] md:text-8xl tracking-tight leading-[1.1] md:leading-[0.9] mb-6 md:mb-8" style={{ fontFamily: "'Fraunces', serif" }}>
+                        <span className="text-gray-500 font-light italic block text-xl md:text-4xl mb-2">Workflow that</span>
                         <span className="text-white font-bold">delivers<span className="text-[#ff5f26]">.</span></span>
                     </h2>
                     <p className="text-gray-500 font-medium tracking-[0.2em] uppercase text-[10px] md:text-xs">
@@ -101,14 +101,14 @@ const Process = () => {
             </div>
 
             {/* Stacking Cards Container */}
-            <div className="container relative z-10 max-w-7xl mx-auto px-4 space-y-[25vh] pb-[25vh]">
+            <div className="container relative z-10 max-w-7xl mx-auto px-4 space-y-[15vh] md:space-y-[25vh] pb-[10vh] md:pb-[25vh]">
                 {processSteps.map((step, index) => (
                     <div
                         key={step.id}
-                        className="sticky top-[15vh] w-full"
+                        className="sticky top-[12vh] md:top-[15vh] w-full"
                     >
                         <div 
-                            className="w-full min-h-[70vh] flex flex-col justify-center bg-[#0a1120] border border-white/10 rounded-[3rem] p-8 md:p-20 relative overflow-hidden group"
+                            className="w-full min-h-[55vh] md:min-h-[70vh] flex flex-col justify-center bg-[#0a1120] border border-white/10 rounded-[2rem] md:rounded-[3rem] p-6 md:p-20 relative overflow-hidden group"
                             style={{ 
                                 marginTop: `${index * 32}px`,
                                 transform: `scale(${1 - (processSteps.length - index) * 0.015})`,
@@ -130,15 +130,15 @@ const Process = () => {
 
                                 <div className="grid lg:grid-cols-2 gap-12 items-end">
                                     <div>
-                                        <h3 className="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight" style={{ fontFamily: "'Fraunces', serif" }}>
+                                        <h3 className="text-3xl md:text-6xl font-bold text-white mb-6 md:mb-8 leading-tight" style={{ fontFamily: "'Fraunces', serif" }}>
                                             {step.title}<span className="text-[#ff5f26]">.</span>
                                         </h3>
-                                        <p className="text-gray-400 text-lg md:text-xl leading-relaxed">
+                                        <p className="text-gray-400 text-base md:text-xl leading-relaxed">
                                             {step.description}
                                         </p>
                                     </div>
 
-                                    <div className="bg-white/[0.02] border border-white/[0.05] rounded-3xl p-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div className="bg-white/[0.02] border border-white/[0.05] rounded-2xl md:rounded-3xl p-6 md:p-8 grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mt-6 md:mt-0">
                                         {step.features.map((feature, idx) => (
                                             <div key={idx} className="flex items-center gap-3">
                                                 <div className="w-1 h-1 rounded-full bg-[#ff5f26]" />

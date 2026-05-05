@@ -69,10 +69,10 @@ const Experience = () => {
     ];
 
     return (
-        <section ref={sectionRef} id="experience" className="relative py-24 pt-40 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
+        <section ref={sectionRef} id="experience" className="relative py-12 pt-20 md:py-24 md:pt-40 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
 
 
-            <div className="container relative z-10 max-w-7xl mx-auto px-4 pb-32">
+            <div className="container relative z-10 max-w-7xl mx-auto px-4 pb-12 md:pb-32">
                 <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
                     {/* Left Side - Profile Image & Info */}
                     <div className="lg:-rotate-2 order-1 w-full">
@@ -83,22 +83,30 @@ const Experience = () => {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             viewport={{ once: true }}
                         >
-                            {/* Profile Image */}
-                            <motion.div
+                            {/* Profile Image Wrapper for GSAP Parallax */}
+                            <div
                                 ref={imageRef}
-                                className="relative mb-4"
-                                whileHover={{ y: -5 }}
-                                transition={{ duration: 0.3 }}
+                                className="relative mb-2 md:mb-4"
                             >
-                                <div className="w-full aspect-[1/1] rounded-3xl shadow-2xl shadow-foreground/5 relative overflow-hidden">
-                                    {/* Centered profile image */}
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <div className="h-full  flex items-center justify-center">
-                                            <img src="lovable-uploads/profile2.png" className="object-cover h-full w-full rounded-2xl" alt="Ayush Kushwaha" />
+                                {/* Motion div for Hover lift */}
+                                <motion.div
+                                    whileHover={{ y: -10 }}
+                                    transition={{ 
+                                        type: "spring", 
+                                        stiffness: 400, 
+                                        damping: 25 
+                                    }}
+                                >
+                                    <div className="w-full aspect-[1/1] rounded-3xl shadow-2xl shadow-foreground/5 relative overflow-hidden">
+                                        {/* Centered profile image */}
+                                        <div className="absolute inset-0 flex items-center justify-center">
+                                            <div className="h-full  flex items-center justify-center">
+                                                <img src="lovable-uploads/profile2.png" className="object-cover h-full w-full rounded-2xl" alt="Ayush Kushwaha" />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </motion.div>
+                                </motion.div>
+                            </div>
 
                             <div className="flex justify-between px-4">
                                 {/* Name & Title */}
@@ -109,13 +117,13 @@ const Experience = () => {
                                     transition={{ duration: 0.6, delay: 0.8 }}
                                     viewport={{ once: true }}
                                 >
-                                    <h3 className="text-lg font-semibold text-foreground">Ayush Kushwaha</h3>
-                                    <p className="text-gray-500 text-xs">SaaS Engineer & Product Builder</p>
+                                    <h3 className="text-base md:text-lg font-semibold text-foreground">Ayush Kushwaha</h3>
+                                    <p className="text-gray-500 text-[11px] md:text-xs">SaaS Engineer & Product Builder</p>
                                 </motion.div>
 
                                 {/* Social Links */}
                                 <motion.div
-                                    className="flex gap-4 justify-center"
+                                    className="flex gap-3 md:gap-4 justify-center"
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.6, delay: 0.9 }}
@@ -125,7 +133,7 @@ const Experience = () => {
                                     <motion.a
                                         href="https://www.linkedin.com/in/ayush-kushwaha-b3b76915b/"
                                         target="_blank"
-                                        className="w-6 h-6 text-gray-400 transition-colors duration-300"
+                                        className="w-5 h-5 md:w-6 md:h-6 text-gray-400 transition-colors duration-300"
                                         whileHover={{
                                             scale: 1.15,
                                             color: "rgb(var(--brand-rgb, 251, 146, 60))"
@@ -142,7 +150,7 @@ const Experience = () => {
                                     <motion.a
                                         href="https://github.com/Ayushkush1"
                                         target="_blank"
-                                        className="w-6 h-6 text-gray-400 transition-colors duration-300"
+                                        className="w-5 h-5 md:w-6 md:h-6 text-gray-400 transition-colors duration-300"
                                         whileHover={{
                                             scale: 1.15,
                                             color: "rgb(var(--brand-rgb, 251, 146, 60))"
@@ -159,7 +167,7 @@ const Experience = () => {
                                     <motion.a
                                         href="https://www.instagram.com/awsm_ayush_/"
                                         target="_blank"
-                                        className="w-6 h-6 text-gray-400 transition-colors duration-300"
+                                        className="w-5 h-5 md:w-6 md:h-6 text-gray-400 transition-colors duration-300"
                                         whileHover={{
                                             scale: 1.15,
                                             color: "rgb(var(--brand-rgb, 251, 146, 60))"
@@ -175,7 +183,7 @@ const Experience = () => {
                                     </motion.a>
                                     <motion.a
                                         href="mailto:ayushkushwaha381@gmail.com"
-                                        className="w-6 h-6 text-gray-400 transition-colors duration-300"
+                                        className="w-5 h-5 md:w-6 md:h-6 text-gray-400 transition-colors duration-300"
                                         whileHover={{
                                             scale: 1.15,
                                             color: "rgb(var(--brand-rgb, 251, 146, 60))"
@@ -196,7 +204,7 @@ const Experience = () => {
 
                     {/* Right Side - Content */}
                     <motion.div
-                        className="order-2 pt-6 lg:pt-24 w-full"
+                        className="order-2 pt-10 pb-8 px-6 lg:pt-24 lg:px-0 w-full bg-white/5 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none border border-white/10 md:border-none rounded-[3rem] md:rounded-none shadow-2xl md:shadow-none"
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8 }}
@@ -254,18 +262,18 @@ const Experience = () => {
                                     transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
                                     viewport={{ once: true }}
                                 >
-                                    <div className="flex-1">
-                                        <p className="font-medium text-gray-200 text-sm">
+                                    <div className="w-[40%] md:flex-1">
+                                        <p className="font-medium text-gray-200 text-[10px] md:text-sm whitespace-nowrap overflow-hidden text-ellipsis">
                                             {exp.role}
                                         </p>
                                     </div>
-                                    <div className="flex-1 text-center">
-                                        <p className="text-gray-500 text-sm">
+                                    <div className="w-[30%] md:flex-1 text-center">
+                                        <p className="text-gray-500 text-[10px] md:text-sm whitespace-nowrap overflow-hidden text-ellipsis">
                                             {exp.company}
                                         </p>
                                     </div>
-                                    <div className="flex-1 text-right">
-                                        <p className="text-gray-400 text-sm">
+                                    <div className="w-[30%] md:flex-1 text-right">
+                                        <p className="text-gray-400 text-[10px] md:text-sm whitespace-nowrap">
                                             {exp.period}
                                         </p>
                                     </div>
@@ -281,7 +289,7 @@ const Experience = () => {
             {/* Background decoration */}
             <div
                 ref={bgTextRef}
-                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
+                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5 hidden md:block"
             >
                 Experience
             </div>

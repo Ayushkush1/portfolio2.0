@@ -13,12 +13,13 @@ type PillProps = {
   icon: React.ReactNode;
   label: string;
   color: string;
+  disableDrag?: boolean;
 };
 
-const SkillPill: React.FC<PillProps> = ({ icon, label, color }) => (
+const SkillPill: React.FC<PillProps> = ({ icon, label, color, disableDrag }) => (
   <motion.div
-    className="rounded-full px-2 py-1.5 pr-4 flex items-center gap-2 bg-white/90 backdrop-blur text-sm text-gray-900 shadow-lg border border-white/20 hover:bg-white transition-colors cursor-grab active:cursor-grabbing"
-    drag
+    className={`rounded-full px-1.5 py-1 pr-3 md:px-2 md:py-1.5 md:pr-4 flex items-center gap-1.5 md:gap-2 bg-white/90 backdrop-blur text-xs md:text-sm text-gray-900 shadow-lg border border-white/20 hover:bg-white transition-colors ${disableDrag ? '' : 'cursor-grab active:cursor-grabbing'}`}
+    drag={!disableDrag}
     dragSnapToOrigin
     dragConstraints={{
       top: -300,
@@ -41,7 +42,7 @@ const SkillPill: React.FC<PillProps> = ({ icon, label, color }) => (
     }}
   >
     <span
-      className="inline-flex items-center justify-center rounded-full size-8"
+      className="inline-flex items-center justify-center rounded-full size-7 md:size-8"
       style={{ backgroundColor: color }}
     >
       <span className="text-white">
@@ -84,9 +85,9 @@ const About: React.FC = () => {
   const y5 = useTransform(scrollYProgress, [0, 1], [0, -100]); // Middle moves medium
   const y6 = useTransform(scrollYProgress, [0, 1], [0, -50]);  // Bottom moves slowest
 
-  return (
-    <section ref={containerRef} id="about" className="relative flex items-center justify-center overflow-hidden w-full pt-40 pb-32 bg-gradient-to-br from-background via-background to-primary/5">
-      <div className="container relative z-10 md:max-w-6xl mx-auto pb-40 md:pb-28">
+    return (
+    <section ref={containerRef} id="about" className="relative flex items-center justify-center overflow-hidden w-full pt-10 pb-12 md:pt-40 md:pb-32 bg-gradient-to-br from-background via-background to-primary/5">
+      <div className="container relative z-10 md:max-w-6xl mx-auto pb-10 md:pb-28">
         {/* Hello Badge */}
         <motion.div
           className="text-center mb-16"
@@ -118,13 +119,13 @@ const About: React.FC = () => {
         <div className="relative flex items-center justify-center">
           {/* Central Text */}
           <motion.div
-            className="text-center md:max-w-[790px] px-8 pt-4"
+            className="text-center md:max-w-[790px] px-6 py-8 md:px-8 md:py-4 md:bg-transparent bg-white/5 backdrop-blur-xl border border-white/10 md:border-none rounded-[2.5rem] md:rounded-none shadow-2xl md:shadow-none"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           >
-            <h1 ref={textRef} className="text-3xl md:text-5xl lg:text-5xl font-thin text-foreground mb-6 flex flex-wrap justify-center text-center" style={{ lineHeight: "1.2" }}>
+            <h1 ref={textRef} className="text-[1.7rem] md:text-5xl lg:text-5xl font-thin text-foreground mb-0 md:mb-6 flex flex-wrap justify-center text-center" style={{ lineHeight: "1.2" }}>
               {words.map((word, i) => {
                 const start = i / words.length;
                 const end = start + (1 / words.length);
@@ -212,72 +213,51 @@ const About: React.FC = () => {
                 </motion.div>
               </motion.div>
             </div>
-          </div>         
-           {/* Mobile Skills Display */}
-          <motion.div
-            className="lg:hidden absolute top-full mt-8  transform -translate-x-1/2 w-full max-w-md"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-          >
-            <div className="grid grid-cols-2 gap-3">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.6 }}
+          </div>
+        </div>
+
+        {/* Mobile Skills Display - Unique Marquee UI */}
+        <div className="lg:hidden mt-12 relative w-screen -ml-[calc((100vw-100%)/2)] overflow-hidden py-4">
+          <div className="flex flex-col gap-4">
+            {/* First Row */}
+            <div className="flex whitespace-nowrap overflow-hidden">
+              <motion.div 
+                className="flex gap-3 px-0"
+                animate={{ x: [0, -500] }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               >
-                <SkillPill icon={<LayoutGrid className="size-4" />} label="Design systems" color="#ff5f26" />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.7 }}
-              >
-                <SkillPill icon={<PenTool className="size-4" />} label="SaaS Builder" color="#10b981" />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.8 }}
-              >
-                <SkillPill icon={<Search className="size-4" />} label="Research" color="#3b82f6" />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.9 }}
-              >
-                <SkillPill icon={<Film className="size-4" />} label="Animation" color="#22c55e" />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 1.0 }}
-              >
-                <SkillPill icon={<FlaskConical className="size-4" />} label="Prototyping" color="#ec4899" />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 1.1 }}
-              >
-                <SkillPill icon={<Goal className="size-4" />} label="Strategy" color="#f59e0b" />
+                {[1, 2, 3].map((i) => (
+                  <div key={`r1-${i}`} className="flex gap-4">
+                    <SkillPill icon={<LayoutGrid className="size-4" />} label="Design systems" color="#ff5f26" disableDrag />
+                    <SkillPill icon={<PenTool className="size-4" />} label="SaaS Builder" color="#10b981" disableDrag />
+                    <SkillPill icon={<Search className="size-4" />} label="Research" color="#3b82f6" disableDrag />
+                  </div>
+                ))}
               </motion.div>
             </div>
-          </motion.div>
+            {/* Second Row */}
+            <div className="flex whitespace-nowrap overflow-hidden">
+              <motion.div 
+                className="flex gap-3 px-0"
+                animate={{ x: [-500, 0] }}
+                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+              >
+                {[1, 2, 3].map((i) => (
+                  <div key={`r2-${i}`} className="flex gap-4">
+                    <SkillPill icon={<Film className="size-4" />} label="Animation" color="#22c55e" disableDrag />
+                    <SkillPill icon={<FlaskConical className="size-4" />} label="Prototyping" color="#ec4899" disableDrag />
+                    <SkillPill icon={<Goal className="size-4" />} label="Strategy" color="#f59e0b" disableDrag />
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Background section name */}
       <motion.div
-        className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5"
+        className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5 hidden md:block"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, amount: 0.1 }}

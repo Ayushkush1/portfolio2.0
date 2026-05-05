@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Home, User, Briefcase, Mail } from "lucide-react";
+import { X, Home, User, Briefcase, Mail, LayoutGrid, History } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const navItems = [
     { href: "#home", label: "Home", id: "home" },
     { href: "#about", label: "About", id: "about" },
     { href: "#portfolio", label: "Portfolio", id: "portfolio" },
-    { href: "#experience", label: "Experience", id: "experience" },
     { href: "#github", label: "Activity", id: "github" },
+    { href: "#experience", label: "Experience", id: "experience" },
     { href: "#services", label: "Services", id: "services" },
     { href: "#process", label: "Process", id: "process" },
     { href: "#testimonials", label: "Testimonials", id: "testimonials" },
@@ -19,7 +19,15 @@ const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState("Home");
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -84,13 +92,13 @@ const Navbar = () => {
     return (
         <>
             <motion.header
-                className="hidden md:flex fixed top-0 left-0 w-full z-50 items-center justify-between py-6 px-6 md:px-24 pointer-events-none"
+                className="fixed top-0 left-0 w-full z-50 flex items-center justify-between py-6 px-6 md:px-24 pointer-events-none"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
             >
                 <AnimatePresence>
-                    {!isScrolled && (
+                    {(!isScrolled || !isMobile) && (
                         <motion.a
                             href="#"
                             className="pointer-events-auto"
@@ -98,7 +106,7 @@ const Navbar = () => {
                             onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, x: -20, transition: { duration: 0.2 } }}
+                            exit={{ opacity: 0, x: -20, filter: "blur(4px)", transition: { duration: 0.3 } }}
                             transition={{ duration: 0.6, delay: 0.2 }}
                         >
                             <img
@@ -110,76 +118,94 @@ const Navbar = () => {
                     )}
                 </AnimatePresence>
 
-                <div className="flex items-center gap-3 lg:gap-4 pointer-events-auto ml-auto">
-                    {/* Glassmorphism Text Pill */}
-                    <div className="hidden md:flex items-center justify-center h-[46px] min-w-[90px] px-5 rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)]">
-                        <div className="relative flex items-center justify-center overflow-hidden w-full h-full">
-                            <AnimatePresence mode="popLayout">
-                                <motion.span
-                                    key={activeSection}
-                                    variants={textVariants}
-                                    initial="initial"
-                                    animate="animate"
-                                    exit="exit"
-                                    className="text-base font-medium tracking-wide text-foreground"
-                                >
-                                    {activeSection}
-                                </motion.span>
-                            </AnimatePresence>
-                        </div>
-                    </div>
+                <AnimatePresence>
+                    {(!isScrolled || !isMobile) && (
+                        <motion.div 
+                            className="flex items-center gap-3 lg:gap-4 pointer-events-auto ml-auto"
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: 20, filter: "blur(4px)", transition: { duration: 0.3 } }}
+                            transition={{ duration: 0.6, delay: 0.3 }}
+                        >
+                            {/* Glassmorphism Text Pill */}
+                            <div className="hidden md:flex items-center justify-center h-[46px] min-w-[90px] px-5 rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)]">
+                                <div className="relative flex items-center justify-center overflow-hidden w-full h-full">
+                                    <AnimatePresence mode="popLayout">
+                                        <motion.span
+                                            key={activeSection}
+                                            variants={textVariants}
+                                            initial="initial"
+                                            animate="animate"
+                                            exit="exit"
+                                            className="text-base font-medium tracking-wide text-foreground"
+                                        >
+                                            {activeSection}
+                                        </motion.span>
+                                    </AnimatePresence>
+                                </div>
+                            </div>
 
-                    <motion.button
-                        aria-label="Open menu"
-                        className="inline-flex h-[46px] w-[46px] items-center justify-center rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 text-foreground border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-white/20 hover:shadow-[0_4px_30px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden relative group"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
-                        onClick={handleMenuToggle}
-                    >
-                        <AnimatePresence mode="wait">
-                            {!isMenuOpen ? (
-                                <motion.div
-                                    key="hamburger"
-                                    initial={{ opacity: 0, rotate: -90 }}
-                                    animate={{ opacity: 1, rotate: 0 }}
-                                    exit={{ opacity: 0, rotate: 90 }}
-                                    transition={{ duration: 0.3 }}
-                                    className="flex flex-col items-center justify-center gap-[6px]"
-                                >
-                                    <div className="w-[18px] h-[2px] bg-foreground rounded-full group-hover:w-[22px] transition-all duration-300" />
-                                    <div className="w-[18px] h-[2px] bg-foreground rounded-full group-hover:w-[22px] transition-all duration-300" />
-                                </motion.div>
-                            ) : (
-                                <motion.div
-                                    key="close"
-                                    initial={{ opacity: 0, rotate: -90 }}
-                                    animate={{ opacity: 1, rotate: 0 }}
-                                    exit={{ opacity: 0, rotate: 90 }}
-                                    transition={{ duration: 0.3 }}
-                                >
-                                    <X className="w-5 h-5 text-foreground" strokeWidth={2} />
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </motion.button>
-                </div>
+                            <motion.button
+                                aria-label="Open menu"
+                                className="inline-flex h-[46px] w-[46px] items-center justify-center rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 text-foreground border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-white/20 hover:shadow-[0_4px_30px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden relative group"
+                                onClick={handleMenuToggle}
+                            >
+                                <AnimatePresence mode="wait">
+                                    {!isMenuOpen ? (
+                                        <motion.div
+                                            key="hamburger"
+                                            initial={{ opacity: 0, rotate: -90 }}
+                                            animate={{ opacity: 1, rotate: 0 }}
+                                            exit={{ opacity: 0, rotate: 90 }}
+                                            transition={{ duration: 0.3 }}
+                                            className="flex flex-col items-center justify-center gap-[6px]"
+                                        >
+                                            <div className="w-[18px] h-[2px] bg-foreground rounded-full group-hover:w-[22px] transition-all duration-300" />
+                                            <div className="w-[18px] h-[2px] bg-foreground rounded-full group-hover:w-[22px] transition-all duration-300" />
+                                        </motion.div>
+                                    ) : (
+                                        <motion.div
+                                            key="close"
+                                            initial={{ opacity: 0, rotate: -90 }}
+                                            animate={{ opacity: 1, rotate: 0 }}
+                                            exit={{ opacity: 0, rotate: 90 }}
+                                            transition={{ duration: 0.3 }}
+                                        >
+                                            <X className="w-5 h-5 text-foreground" strokeWidth={2} />
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </motion.button>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </motion.header>
 
             {/* iOS App-like Bottom Navigation for Mobile */}
-            <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] flex items-center justify-between px-6 py-3 bg-white/10 backdrop-blur-2xl backdrop-saturate-200 border border-white/20 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.3)] w-[90vw] max-w-[400px]">
+            <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] flex items-center justify-between px-2 py-2 bg-white/10 backdrop-blur-2xl backdrop-saturate-200 border border-white/20 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.3)] w-[90vw] max-w-[400px]">
                 {[
                     { id: "home", label: "Home", icon: Home },
                     { id: "about", label: "About", icon: User },
                     { id: "portfolio", label: "Portfolio", icon: Briefcase },
+                    { id: "experience", label: "Experience", icon: History },
+                    { id: "services", label: "Services", icon: LayoutGrid },
                     { id: "contact", label: "Contact", icon: Mail },
                 ].map((item) => {
                     const isActive = activeSection.toLowerCase() === item.id;
                     return (
                         <button 
                             key={item.id} 
-                            onClick={() => scrollToSection(item.id)} 
-                            className={`relative p-3 rounded-full transition-all duration-300 ${isActive ? 'text-white' : 'text-gray-400 hover:text-gray-200'}`}
+                            onClick={() => {
+                                if (item.id === 'portfolio') {
+                                    const section = document.getElementById('portfolio');
+                                    if (section) {
+                                        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    }
+                                } else {
+                                    scrollToSection(item.id);
+                                }
+                            }} 
+                            className={`relative p-2 rounded-full transition-all duration-300 ${isActive ? 'text-white' : 'text-gray-400 hover:text-gray-200'}`}
                         >
                             {isActive && (
                                 <motion.div 

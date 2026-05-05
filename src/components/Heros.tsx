@@ -32,7 +32,7 @@ const Hero = () => {
     };
 
     return (
-        <section id="home" ref={containerRef} aria-label="Hero – Product Developer" className="relative overflow-hidden pt-20">
+        <section id="home" ref={containerRef} aria-label="Hero – Product Developer" className="relative overflow-hidden pt-[5rem] md:pt-20">
             {/* Ambient brand light */}
             <div
                 className="pointer-events-none absolute inset-0"
@@ -44,10 +44,10 @@ const Hero = () => {
 
 
 
-            <div className="container relative z-10 grid min-h-[70vh] lg:min-h-[80vh] grid-cols-1 items-center lg:gap-10 gap-3 py-20 md:grid-cols-2">
+            <div className="container relative z-10 grid min-h-[70vh] lg:min-h-[80vh] grid-cols-1 items-start md:items-center lg:gap-10 md:gap-4 gap-0 pt-8 md:pt-36 pb-12 md:pb-40 md:py-20 md:grid-cols-2">
                 {/* Left copy */}
                 <motion.div
-                    className="md:space-y-6"
+                    className="md:space-y-6 space-y-3"
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
@@ -62,7 +62,7 @@ const Hero = () => {
                         <span className="text-xs text-muted-foreground">Available for Work</span>
                     </motion.div>
                     <motion.h1
-                        className="text-4xl font-bold leading-tight tracking-tight md:text-6xl max-w-xl flex flex-wrap"
+                        className=" text-[2.5rem] md:text-4xl font-bold leading-tight tracking-tight md:text-6xl max-w-xl flex flex-wrap"
                         variants={{
                             hidden: { opacity: 1 },
                             show: {
@@ -113,19 +113,19 @@ const Hero = () => {
 
                 {/* Right side - portrait and bio */}
                 <motion.div
-                    className="flex flex-col items-start justify-center gap-6 md:items-end"
+                    className="flex flex-col items-start justify-center -mt-8 md:mt-0 gap-4 md:gap-6 md:items-end w-full"
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.5 }}
                 >
                     <motion.div
-                        className="max-w-[300px] space-y-4 md:text-right"
+                        className="w-full max-w-full md:max-w-[300px] flex flex-col gap-2 md:gap-4 md:text-right"
                         initial={{ opacity: 0, x: 40, filter: "blur(10px)" }}
                         animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                         transition={{ duration: 1.2, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <motion.div 
-                            className="flex gap-8 md:justify-end pb-2 border-b border-white/5"
+                            className="flex gap-8 w-full justify-start md:justify-end pb-4 md:pb-2 md:border-b md:border-white/5 order-2 md:order-1"
                             variants={{
                                 hidden: { opacity: 0 },
                                 show: {
@@ -137,31 +137,31 @@ const Hero = () => {
                             animate="show"
                         >
                             <motion.div 
-                                className="flex flex-col md:items-end"
+                                className="flex flex-col justify-center items-start md:items-end p-0"
                                 variants={{
                                     hidden: { opacity: 0, scale: 0.8, y: 15 },
                                     show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 200, damping: 15 } }
                                 }}
                             >
-                                <span className="text-3xl font-black text-white flex items-start">
+                                <span className="text-2xl md:text-3xl font-black text-white flex items-start">
                                     <CountUp to={20} /><span className="text-brand text-xl font-black ml-[2px] mt-[2px]">+</span>
                                 </span>
                                 <span className="text-[10px] uppercase leading-3 text-gray-400/60 tracking-wide font-medium mt-1">Products Built</span>
                             </motion.div>
                             <motion.div 
-                                className="flex flex-col md:items-end"
+                                className="flex flex-col justify-center items-start md:items-end p-0"
                                 variants={{
                                     hidden: { opacity: 0, scale: 0.8, y: 15 },
                                     show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 200, damping: 15 } }
                                 }}
                             >
-                                <span className="text-3xl font-black text-white flex items-start">
+                                <span className="text-2xl md:text-3xl font-black text-white flex items-start">
                                     <CountUp to={3} /><span className="text-brand text-xl font-black ml-[2px] mt-[2px]">+</span>
                                 </span>
                                 <span className="text-[10px] uppercase leading-3 text-gray-400/60 tracking-wide font-medium mt-1">Years Exp.</span>
                             </motion.div>
                         </motion.div>
-                        <p className="text-md text-gray-300 leading-relaxed">
+                        <p className="text-md text-gray-300 leading-relaxed order-1 md:order-2">
                             I build scalable web products, lead development, and turn ideas into production-ready systems.
                         </p>
                     </motion.div>
@@ -253,7 +253,7 @@ const Hero = () => {
 
                 {/* Oversized name */}
                 <motion.div
-                    className="pointer-events-none absolute bottom-4 lg:bottom-[-1rem] left-0 w-full select-none text-[20vw] md:text-[19vw] leading-none font-extrabold tracking-tight text-foreground/[0.025]"
+                    className="pointer-events-none absolute bottom-4 lg:bottom-[-1rem] left-0 w-full select-none text-[20vw] md:text-[19vw] leading-none font-extrabold tracking-tight text-foreground/[0.025] hidden md:block"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 1.2 }}
