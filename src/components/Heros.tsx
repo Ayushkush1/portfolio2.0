@@ -1,8 +1,8 @@
-import { ArrowRight, X, Mail, FileText } from "lucide-react";
+import { ArrowRight, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, animate } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { motion, useScroll, useTransform, useMotionValue, animate } from "framer-motion";
+import { useRef, useEffect } from "react";
+
 const CountUp = ({ to, duration = 2 }: { to: number, duration?: number }) => {
     const count = useMotionValue(0);
     const rounded = useTransform(count, Math.round);
@@ -32,7 +32,7 @@ const Hero = () => {
     };
 
     return (
-        <section id="home" ref={containerRef} aria-label="Hero – Product Developer" className="relative overflow-hidden pt-[5rem] md:pt-20">
+        <section id="home" ref={containerRef} aria-label="Hero – Product Developer" className="relative overflow-hidden pt-[7rem] md:pt-20">
             {/* Ambient brand light */}
             <div
                 className="pointer-events-none absolute inset-0"
@@ -47,7 +47,7 @@ const Hero = () => {
             <div className="container relative z-10 grid min-h-[70vh] lg:min-h-[80vh] grid-cols-1 items-start md:items-center lg:gap-10 md:gap-4 gap-0 pt-8 md:pt-36 pb-12 md:pb-40 md:py-20 md:grid-cols-2">
                 {/* Left copy */}
                 <motion.div
-                    className="md:space-y-6 space-y-3"
+                    className="md:space-y-6 space-y-4"
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
@@ -65,7 +65,7 @@ const Hero = () => {
                         <FileText className="h-3.5 w-3.5 text-white" />
                     </motion.a>
                     <motion.h1
-                        className=" text-[2.5rem] md:text-4xl font-bold leading-tight tracking-tight md:text-6xl max-w-xl flex flex-wrap"
+                        className=" text-[2.6rem] md:text-4xl font-bold leading-tight tracking-tight md:text-6xl max-w-xl flex flex-wrap"
                         variants={{
                             hidden: { opacity: 1 },
                             show: {

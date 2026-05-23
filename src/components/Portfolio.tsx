@@ -255,10 +255,15 @@ const Portfolio = () => {
                                     <ArrowRight className="w-5 h-5 -rotate-45" />
                                 </div>
                             </div>
-                            <div className="flex items-end justify-between px-2">
-                                <div>
-                                    <span className="text-[10px] uppercase tracking-widest text-foreground/40 block mb-1 font-medium">{project.workType}</span>
-                                    <h3 className="text-2xl font-light italic text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>{project.title}</h3>
+                            <div className="flex items-center justify-between lg:mt-3 -mt-2 px-2">
+                                <h3 className="lg:text-2xl text-md font-light italic text-foreground tracking-normal" style={{ fontFamily: "'Fraunces', serif" }}>
+                                    {project.title}
+                                </h3>
+                                <div className="flex items-center gap-2 ml-4 shrink-0" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                                    <div className="h-[1px] w-6 bg-foreground/20" />
+                                    <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-foreground/40">
+                                        {project.workType}
+                                    </span>
                                 </div>
                             </div>
                         </motion.div>
