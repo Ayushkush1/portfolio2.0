@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -61,8 +61,11 @@ const Portfolio = () => {
     const { scrollYProgress } = useScroll({
         target: targetRef,
     });
-    // This shifts the track left as the user scrolls down the 300vh section
-    const x = useTransform(scrollYProgress, [0, 1], ["0vw", "-240vw"]);
+    // This shifts the track left as the user scrolls down the section
+    // Added 0.05 buffer at start and 0.95 buffer at end to give breathing room
+    // Stopped slightly earlier at -225vw so the content doesn't go too far inside
+    const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+    const x = useTransform(smoothProgress, [0, 0.05, 0.95, 1], ["0vw", "0vw", "-225vw", "-225vw"]);
 
     const cssHoverRules = `
         .project-image-scroll {
@@ -194,7 +197,7 @@ const Portfolio = () => {
                             </h2>
 
                             <motion.button
-                                whileHover={{boxShadow: "0 15px 40px rgba(255, 95, 38, 0.4)" }}
+                                whileHover={{ boxShadow: "0 15px 40px rgba(255, 95, 38, 0.4)" }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={() => {
                                     const el = document.getElementById('contact');
@@ -237,8 +240,8 @@ const Portfolio = () => {
                     </motion.div>
 
                     {featuredProjects.map((project, idx) => (
-                        <motion.div 
-                            key={project.id} 
+                        <motion.div
+                            key={project.id}
                             className="flex flex-col gap-4"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -246,18 +249,18 @@ const Portfolio = () => {
                             viewport={{ once: true, amount: 0.2 }}
                             onClick={() => handleProjectClick(project.url)}
                         >
-                             <div className="relative overflow-hidden rounded-[2rem] aspect-[4/3] bg-gray-950 border border-white/10 shadow-lg">
+                            <div className="relative overflow-hidden rounded-[2rem] aspect-[4/3] bg-gray-950 border border-white/10 shadow-lg">
                                 <img src={project.image} alt={project.title} className="w-full h-full object-cover object-top" />
                                 <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20">
                                     <ArrowRight className="w-5 h-5 -rotate-45" />
                                 </div>
-                             </div>
-                             <div className="flex items-end justify-between px-2">
+                            </div>
+                            <div className="flex items-end justify-between px-2">
                                 <div>
                                     <span className="text-[10px] uppercase tracking-widest text-foreground/40 block mb-1 font-medium">{project.workType}</span>
                                     <h3 className="text-2xl font-light italic text-foreground" style={{ fontFamily: "'Fraunces', serif" }}>{project.title}</h3>
                                 </div>
-                             </div>
+                            </div>
                         </motion.div>
                     ))}
 
@@ -272,16 +275,16 @@ const Portfolio = () => {
                             <br />
                             <span className="font-bold italic">Let's build it.</span>
                         </h2>
-                        
+
                         <div className="flex flex-row gap-3">
-                            <button 
+                            <button
                                 onClick={navigateToPortfolio}
                                 className="flex-1 py-3 px-4 rounded-xl bg-white/5 border border-white/10 text-white text-[13px] font-medium flex items-center justify-between group"
                             >
                                 <span>View all</span>
                                 <ArrowRight className="w-4 h-4 group-active:translate-x-1 transition-transform" />
                             </button>
-                            <button 
+                            <button
                                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                                 className="flex-1 py-3 px-4 rounded-xl bg-[#ff5f26] text-white text-[13px] font-bold flex items-center justify-between"
                             >
@@ -294,7 +297,8 @@ const Portfolio = () => {
 
                 {/* Background decoration */}
                 <motion.div
-                    className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5 hidden md:block"
+                    style={{ x }}
+                    className="pointer-events-none absolute bottom-0 left-0 w-max select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5 hidden md:block whitespace-nowrap px-10"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 1 }}

@@ -30,11 +30,7 @@ const Contact = () => {
     };
 
     const socialLinks = [
-        {
-            icon: Globe,
-            label: "Website",
-            href: "https://ayushkushwaha.vercel.app"
-        },
+       
         {
             icon: Github,
             label: "Github",
@@ -44,6 +40,11 @@ const Contact = () => {
             icon: Linkedin,
             label: "LinkedIn",
             href: "https://www.linkedin.com/in/ayush-kushwaha-b3b76915b/"
+        },
+         {
+            icon: Twitter,
+            label: "Twitter / X",
+            href: "https://twitter.com"
         },
         {
             icon: Instagram,
@@ -178,15 +179,11 @@ const Contact = () => {
                     viewport={{ once: true }}
                 >
                     {/* Ghost Watermark - Desktop Only */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15vw] font-bold text-white/[0.01] select-none pointer-events-none tracking-tighter hidden md:block">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[16vw] font-black text-white/[0.01] select-none pointer-events-none tracking-tighter hidden md:block">
                         KUSHWAHA
                     </div>
 
-                    <div className="relative bg-transparent md:bg-[#0d121f]/40 border-0 md:border md:border-white/5 backdrop-blur-none md:backdrop-blur-md rounded-none md:rounded-[2.5rem] p-4 md:p-10 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-10 overflow-hidden transition-all duration-500 shadow-none md:shadow-2xl">
-                        {/* Interactive Glow - Desktop Only */}
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-brand/5 blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none hidden md:block" />
-                        <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand/5 blur-[80px] translate-y-1/2 -translate-x-1/2 pointer-events-none hidden md:block" />
-
+                    <div className="relative flex flex-col md:flex-row justify-between items-center gap-4 md:gap-10 p-4 md:p-10">
                         {/* Order on Mobile: 1. Socials, 2. Email, 3. Copyright */}
                         
                         {/* Center - Social Links (Second on Mobile) */}

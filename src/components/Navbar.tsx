@@ -121,14 +121,14 @@ const Navbar = () => {
                 <AnimatePresence>
                     {(!isScrolled || !isMobile) && (
                         <motion.div 
-                            className="flex items-center gap-3 lg:gap-4 pointer-events-auto ml-auto"
+                            className="flex items-center gap-2 lg:gap-3 pointer-events-auto ml-auto"
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: 20, filter: "blur(4px)", transition: { duration: 0.3 } }}
                             transition={{ duration: 0.6, delay: 0.3 }}
                         >
                             {/* Glassmorphism Text Pill */}
-                            <div className="hidden md:flex items-center justify-center h-[46px] min-w-[90px] px-5 rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)]">
+                            <div className="hidden md:flex items-center justify-center h-[38px] min-w-[80px] px-4 rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)]">
                                 <div className="relative flex items-center justify-center overflow-hidden w-full h-full">
                                     <AnimatePresence mode="popLayout">
                                         <motion.span
@@ -137,7 +137,7 @@ const Navbar = () => {
                                             initial="initial"
                                             animate="animate"
                                             exit="exit"
-                                            className="text-base font-medium tracking-wide text-foreground"
+                                            className="text-sm font-medium tracking-wide text-foreground"
                                         >
                                             {activeSection}
                                         </motion.span>
@@ -147,7 +147,7 @@ const Navbar = () => {
 
                             <motion.button
                                 aria-label="Open menu"
-                                className="inline-flex h-[46px] w-[46px] items-center justify-center rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 text-foreground border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-white/20 hover:shadow-[0_4px_30px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden relative group"
+                                className="inline-flex h-[38px] w-[38px] items-center justify-center rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 text-foreground border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-white/20 hover:shadow-[0_4px_30px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden relative group"
                                 onClick={handleMenuToggle}
                             >
                                 <AnimatePresence mode="wait">
@@ -193,8 +193,8 @@ const Navbar = () => {
                 ].map((item) => {
                     const isActive = activeSection.toLowerCase() === item.id;
                     return (
-                        <button 
-                            key={item.id} 
+                        <button
+                            key={item.id}
                             onClick={() => {
                                 if (item.id === 'portfolio') {
                                     const section = document.getElementById('portfolio');
@@ -204,11 +204,11 @@ const Navbar = () => {
                                 } else {
                                     scrollToSection(item.id);
                                 }
-                            }} 
+                            }}
                             className={`relative p-2 rounded-full transition-all duration-300 ${isActive ? 'text-white' : 'text-gray-400 hover:text-gray-200'}`}
                         >
                             {isActive && (
-                                <motion.div 
+                                <motion.div
                                     layoutId="mobileNavIndicator"
                                     className="absolute inset-0 bg-[#ff5f26] rounded-full z-0"
                                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}

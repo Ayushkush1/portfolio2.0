@@ -85,7 +85,7 @@ const About: React.FC = () => {
   const y5 = useTransform(scrollYProgress, [0, 1], [0, -100]); // Middle moves medium
   const y6 = useTransform(scrollYProgress, [0, 1], [0, -50]);  // Bottom moves slowest
 
-    return (
+  return (
     <section ref={containerRef} id="about" className="relative flex items-center justify-center overflow-hidden w-full pt-10 pb-12 md:pt-40 md:pb-32 bg-gradient-to-br from-background via-background to-primary/5">
       <div className="container relative z-10 md:max-w-6xl mx-auto pb-10 md:pb-28">
         {/* Hello Badge */}
@@ -119,7 +119,7 @@ const About: React.FC = () => {
         <div className="relative flex items-center justify-center">
           {/* Central Text */}
           <motion.div
-            className="text-center md:max-w-[790px] px-6 py-8 md:px-8 md:py-4 md:bg-transparent bg-white/5 backdrop-blur-xl border border-white/10 md:border-none rounded-[2.5rem] md:rounded-none shadow-2xl md:shadow-none"
+            className="text-center md:max-w-[790px] px-6 py-8 md:px-8 md:py-4 md:bg-transparent bg-white/5 backdrop-blur-xl md:backdrop-blur-none border border-white/10 md:border-none rounded-[2.5rem] md:rounded-none shadow-2xl md:shadow-none"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -221,7 +221,7 @@ const About: React.FC = () => {
           <div className="flex flex-col gap-4">
             {/* First Row */}
             <div className="flex whitespace-nowrap overflow-hidden">
-              <motion.div 
+              <motion.div
                 className="flex gap-3 px-0"
                 animate={{ x: [0, -500] }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -237,7 +237,7 @@ const About: React.FC = () => {
             </div>
             {/* Second Row */}
             <div className="flex whitespace-nowrap overflow-hidden">
-              <motion.div 
+              <motion.div
                 className="flex gap-3 px-0"
                 animate={{ x: [-500, 0] }}
                 transition={{ duration: 25, repeat: Infinity, ease: "linear" }}

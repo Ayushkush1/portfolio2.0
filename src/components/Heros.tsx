@@ -1,4 +1,4 @@
-import { ArrowRight, X, Mail } from "lucide-react";
+import { ArrowRight, X, Mail, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, animate } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
@@ -52,15 +52,18 @@ const Hero = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
                 >
-                    <motion.div
-                        className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1"
+                    <motion.a
+                        href="/AYUSH_KUSHWAHA_resume_updated.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 hover:bg-primary/20 transition-colors cursor-pointer"
                         initial={{ opacity: 0, y: -20, filter: "blur(4px)" }}
                         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                         transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
                     >
-                        <span className="h-2 w-2 rounded-full bg-brand" />
-                        <span className="text-xs text-muted-foreground">Available for Work</span>
-                    </motion.div>
+                        <span className="text-xs text-muted-foreground font-medium"> View My Resume</span>
+                        <FileText className="h-3.5 w-3.5 text-white" />
+                    </motion.a>
                     <motion.h1
                         className=" text-[2.5rem] md:text-4xl font-bold leading-tight tracking-tight md:text-6xl max-w-xl flex flex-wrap"
                         variants={{
