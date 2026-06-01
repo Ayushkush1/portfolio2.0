@@ -1,181 +1,120 @@
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
-import { useState } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Contact from "@/components/Contact";
 
+const allProjects = [
+    {
+        id: 1,
+        title: "Catfy",
+        category: "Catalogue Builder",
+        description: "A powerful catalogue builder tool that helps businesses create and manage digital catalogues efficiently.",
+        image: "/lovable-uploads/catfy.png",
+        url: "https://catfy-catalog.vercel.app",
+    },
+    {
+        id: 2,
+        title: "Coding Pandas",
+        category: "EdTech Platform",
+        description: "An interactive online classroom platform for mastering Web Development and Data Structures & Algorithms.",
+        image: "/lovable-uploads/coding-pandas.png",
+        url: "https://coding-pandas.vercel.app/",
+    },
+    {
+        id: 3,
+        title: "NeatRoots",
+        category: "App Dev Courses",
+        description: "A comprehensive platform offering online app development courses and professional IT services.",
+        image: "/lovable-uploads/neatroots.png",
+        url: "https://neatroot.vercel.app/",
+    },
+    {
+        id: 4,
+        title: "NinzaHost",
+        category: "Web Hosting",
+        description: "A modern web hosting platform featuring intuitive dashboard, server management, and seamless user experience.",
+        image: "/lovable-uploads/ninzahost.png",
+        url: "https://ninzahost.com",
+    },
+    {
+        id: 5,
+        title: "Erichost",
+        category: "Hosting Platform",
+        description: "A hosting service platform offering scalable deployments, domain management, and one-click Next.js app deployments.",
+        image: "/lovable-uploads/EricHost.png",
+        url: "https://main.erichost.app/",
+    },
+    {
+        id: 6,
+        title: "Onboarding KYC",
+        category: "API Integration",
+        description: "Streamlined onboarding process for KYC verification with AI-driven document analysis.",
+        image: "/lovable-uploads/onboarding-kyc.png",
+        url: "https://onboarding-kyc.com",
+    },
+    {
+        id: 7,
+        title: "RemoveQ",
+        category: "AI Web App",
+        description: "Advanced AI-powered background removal tool with batch processing and high-quality image editing capabilities.",
+        image: "/lovable-uploads/removeq.png",
+        url: "https://removeq.com",
+    },
+    {
+        id: 8,
+        title: "Web Agency",
+        category: "SaaS Platform",
+        description: "Comprehensive project management platform with team collaboration, task tracking, and analytics dashboard.",
+        image: "/lovable-uploads/six-table.png",
+        url: "https://six-table.vercel.app/",
+    },
+    {
+        id: 9,
+        title: "Blooger",
+        category: "CMS Platform",
+        description: "Modern blogging platform with rich text editor, SEO optimization, and content management system.",
+        image: "/lovable-uploads/blooger.png",
+        url: "https://ayushkush1.github.io/Blooger/",
+    },
+    {
+        id: 10,
+        title: "Movix",
+        category: "Streaming UI",
+        description: "Entertainment streaming platform with movie discovery, watchlists, and personalized recommendations.",
+        image: "/lovable-uploads/movix.png",
+        url: "https://ayushmovix.vercel.app/",
+    },
+    {
+        id: 11,
+        title: "Proposal Pro",
+        category: "Business SaaS",
+        description: "Professional proposal creation tool with templates, e-signatures, and client management features.",
+        image: "/lovable-uploads/proposal-pro.png",
+        url: "https://proposal-pro-sable.vercel.app/",
+    },
+    {
+        id: 12,
+        title: "Mobius",
+        category: "Data Analytics",
+        description: "Advanced analytics engine with real-time data visualization, custom reports, and business intelligence.",
+        image: "/lovable-uploads/MobuisEngine.png",
+        url: "https://mobuis-engine-kappa.vercel.app/",
+    },
+    {
+        id: 13,
+        title: "Portfolio",
+        category: "Creative Design",
+        description: "First iteration of personal portfolio showcasing creative design approach and interactive elements.",
+        image: "/lovable-uploads/portfolio.png",
+        url: "https://ayushkushwaha.vercel.app/",
+    },
+];
+
 const PortfolioPage = () => {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [hoveredCardId, setHoveredCardId] = useState<number | null>(null);
-
-    // Handle mouse movement for cursor follower
-    const handleMouseMove = (e: React.MouseEvent, cardId: number) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        setMousePosition({
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top,
-        });
-    };
-
-    const handleMouseEnter = (cardId: number) => {
-        setHoveredCardId(cardId);
-    };
-
-    const handleMouseLeave = () => {
-        setHoveredCardId(null);
-    };
-
-    const handleProjectClick = (url: string) => {
-        window.open(url, '_blank', 'noopener,noreferrer');
-    };
-
-    const allProjects = [
-        {
-            id: 1,
-            title: "Catfy",
-            category: "Catalogue Builder, SaaS",
-            description: "A powerful catalogue builder tool that helps businesses create and manage digital catalogues efficiently.",
-            image: "/lovable-uploads/catfy.png",
-            url: "https://catfy-catalog.vercel.app",
-            rotation: "-rotate-2"
-        },
-         {
-            id: 2,
-            title: "Coding Pandas",
-            category: "EdTech, Education",
-            description: "An interactive online classroom platform for mastering Web Development and Data Structures & Algorithms.",
-            image: "/lovable-uploads/coding-pandas.png",
-            url: "https://coding-pandas.vercel.app/",
-            rotation: "rotate-2"
-        },
-        {
-            id: 3,
-            title: "NeatRoots",
-            category: "App Dev Courses, IT Services",
-            description: "A comprehensive platform offering online app development courses and professional IT services.",
-            image: "/lovable-uploads/neatroots.png",
-            url: "https://neatroot.vercel.app/",
-            rotation: "-rotate-2"
-        },
-        {
-            id: 4,
-            title: "NinzaHost Platform",
-            category: "Web Design, Development, UI/UX",
-            description: "A modern web hosting platform featuring intuitive dashboard, server management, and seamless user experience.",
-            image: "/lovable-uploads/ninzahost.png",
-            url: "https://ninzahost.com",
-            year: "2024",
-            technologies: ["Next.js", "Node.js", "TypeScript", "TailwindCSS"],
-            rotation: "rotate-2"
-        },
-         {
-            id: 5,
-            title: "Erichost Hosting Platform",
-            category: "Hosting, Web Platform",
-            description: "A hosting service platform offering scalable deployments, domain management, and one-click Next.js app deployments.",
-            image: "/lovable-uploads/EricHost.png",
-            url: "https://main.erichost.app/",
-            year: "2025",
-            technologies: ["Next.js", "TypeScript", "TailwindCSS", "Docker", "Vercel"],
-            rotation: "-rotate-2"
-        },
-        {
-            id: 6,
-            title: "Onboarding KYC Platform",
-            category: "Web App, API Integration",
-            description: "Streamlined onboarding process for KYC verification with AI-driven document analysis.",
-            image: "/lovable-uploads/onboarding-kyc.png",
-            url: "https://onboarding-kyc.com",
-            year: "2024",
-            technologies: ["Next.js", "Prisma", "Dojah API", "PostgreSQL", "Supabase"],
-            rotation: "rotate-2"
-        },
-        {
-            id: 7,
-            title: "RemoveQ Background Remover",
-            category: "Web App, AI Integration",
-            description: "Advanced AI-powered background removal tool with batch processing and high-quality image editing capabilities.",
-            image: "/lovable-uploads/removeq.png",
-            url: "https://removeq.com",
-            year: "2024",
-            technologies: ["Laravel", "Blade", "CSS", "Bootstrap"],
-            rotation: "-rotate-2"
-        },
-        {
-            id: 8,
-            title: "Web Development Agency",
-            category: "SaaS, Landing Page Design",
-            description: "Comprehensive project management platform with team collaboration, task tracking, and analytics dashboard.",
-            image: "/lovable-uploads/six-table.png",
-            url: "https://six-table.vercel.app/",
-            year: "2025",
-            technologies: ["Next.js", "Express", "MongoDB", "TailwindCSS"],
-            rotation: "rotate-2"
-        },
-        {
-            id: 9,
-            title: "Blooger Content Platform",
-            category: "CMS, Blog Platform",
-            description: "Modern blogging platform with rich text editor, SEO optimization, and content management system.",
-            image: "/lovable-uploads/blooger.png",
-            url: "https://ayushkush1.github.io/Blooger/",
-            year: "2023",
-            technologies: ["Next.js", "Prisma", "PostgreSQL", "Vercel"],
-            rotation: "-rotate-2"
-        },
-        {
-            id: 10,
-            title: "Movix Entertainment Hub",
-            category: "Streaming, UI/UX",
-            description: "Entertainment streaming platform with movie discovery, watchlists, and personalized recommendations.",
-            image: "/lovable-uploads/movix.png",
-            url: "https://ayushmovix.vercel.app/",
-            year: "2023",
-            technologies: ["React", "Redux", "TMDB API"],
-            rotation: "rotate-2"
-        },
-        {
-            id: 11,
-            title: "Proposal Pro Business Tool",
-            category: "Business App, Document Generation",
-            description: "Professional proposal creation tool with templates, e-signatures, and client management features.",
-            image: "/lovable-uploads/proposal-pro.png",
-            url: "https://proposal-pro-sable.vercel.app/",
-            year: "2025",
-            technologies: ["Next.js", "PDF.js", "Node.js"],
-            rotation: "-rotate-2"
-        },
-        {
-            id: 12,
-            title: "Mobius Engine Analytics",
-            category: "Data Analytics, Dashboard",
-            description: "Advanced analytics engine with real-time data visualization, custom reports, and business intelligence.",
-            image: "/lovable-uploads/MobuisEngine.png",
-            url: "https://mobuis-engine-kappa.vercel.app/",
-            year: "2024",
-            technologies: ["React", "Chart.js", "WebSockets", "Python"],
-            rotation: "rotate-2"
-        },
-        {
-            id: 13,
-            title: "Personal Portfolio v1",
-            category: "Portfolio, Creative Design",
-            description: "First iteration of personal portfolio showcasing creative design approach and interactive elements.",
-            image: "/lovable-uploads/portfolio.png",
-            url: "https://ayushkushwaha.vercel.app/",
-            year: "2024",
-            technologies: ["HTML5", "CSS3", "JavaScript", "GSAP"],
-            rotation: "-rotate-2"
-        },
-
-       
-
-
-    ];
-
     const title = "Portfolio – Ayush Kushwaha | SaaS Engineer & Product Builder";
-    const description = "Explore my portfolio of SaaS platforms and digital products. I build scalable web products, lead development, and turn ideas into production-ready systems.";
+    const description = "Explore my portfolio of SaaS platforms and digital products.";
     const canonical = typeof window !== "undefined" ? window.location.origin + "/portfolio" : "/portfolio";
 
     return (
@@ -184,169 +123,118 @@ const PortfolioPage = () => {
                 <title>{title}</title>
                 <meta name="description" content={description} />
                 <link rel="canonical" href={canonical} />
-                <meta property="og:title" content={title} />
-                <meta property="og:description" content={description} />
             </Helmet>
 
-            <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
-                {/* Navigation Header */}
+            <section className="relative min-h-screen bg-background text-white selection:bg-[#ff5f26] selection:text-white">
+                
+                {/* Background Ambient Lighting */}
+                <div
+                    className="pointer-events-none fixed inset-0 z-0"
+                    style={{ background: "radial-gradient(circle at 50% 0%, rgba(255, 95, 38, 0.05) 0%, transparent 60%)" }}
+                />
+
+                {/* Header */}
                 <motion.header
-                    className="container relative z-10 flex items-center justify-between py-6"
+                    className="container max-w-7xl relative z-50 flex items-center justify-between pt-8 pb-4 mx-auto px-4 md:px-8"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
                 >
                     <Link to="/">
-                        <motion.img
-                            src="/lovable-uploads/logo.png"
-                            alt="Ayush Kushwaha Logo"
-                            className="h-8 w-auto brightness-0 invert cursor-pointer"
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ duration: 0.2 }}
-                        />
+                        <motion.img src="/lovable-uploads/logo.png" alt="Logo" className="h-6 w-auto brightness-0 invert" whileHover={{ scale: 1.05 }} />
                     </Link>
                     <Link to="/">
-                        <motion.button
-                            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-background/60 backdrop-blur supports-[backdrop-filter]:bg-background/40 cursor-pointer hover:bg-brand/20 transition-colors duration-300"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
+                        <motion.button className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/5 border border-white/10 backdrop-blur cursor-pointer hover:bg-white hover:text-black transition-all duration-300">
                             <ArrowLeft className="w-5 h-5" />
                         </motion.button>
                     </Link>
                 </motion.header>
 
-
-                <div className="container relative z-10 max-w-7xl mx-auto px-4 pb-24">
-                    {/* Hero Section */}
-                    <motion.div
-                        className="text-center mb-20"
+                <div className="container relative z-10 max-w-7xl mx-auto px-4 md:px-8 mt-4">
+                    
+                    {/* Hero Section - Reverted to massive cinematic typography */}
+                    <motion.div 
+                        className="text-center mb-24 mt-12"
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
+                        transition={{ duration: 0.6 }}
                     >
-                        <motion.h1
-                            className="text-5xl md:text-7xl lg:text-6xl font-bold text-foreground mb-6"
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.3 }}
-                        >
-                            My <span className="italic font-light text-brand">Portfolio</span>
-                        </motion.h1>
-                        <motion.p
-                            className="text-lg text-gray-600 max-w-2xl mx-auto"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.5 }}
-                        >
-                            A curated collection of my web design and development projects,
-                            showcasing creativity, functionality, and user-centered design.
-                        </motion.p>
+                        <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-light text-white mb-6 tracking-tight leading-none drop-shadow-2xl" style={{ fontFamily: "'Fraunces', serif" }}>
+                            My <span className="italic font-bold text-[#ff5f26]">Work</span>
+                        </h1>
+                        <p className="text-lg md:text-xl text-white/50 max-w-2xl mx-auto font-light" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                            A curated collection of scalable SaaS platforms, CRMs, and performant web applications. Built for production.
+                        </p>
                     </motion.div>
 
-                    {/* Projects Grid */}
-                    <motion.div
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8"
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.6, staggerChildren: 0.1 }}
-                    >
-                        {allProjects.map((project, index) => (
-                            <motion.div
-                                key={project.id}
-                                className="group relative cursor-pointer"
-                                initial={{ opacity: 0, y: 50 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
-                                whileHover={{
-                                    y: -8,
-                                    rotateY: 5,
-                                    rotateX: 5
-                                }}
-                                onMouseMove={(e) => handleMouseMove(e, project.id)}
-                                onMouseEnter={() => handleMouseEnter(project.id)}
-                                onMouseLeave={handleMouseLeave}
-                                onClick={() => handleProjectClick(project.url)}
-                            >
-                                {/* Cursor Follower Circle */}
+                    {/* Multi-Card Folder Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16">
+                        {allProjects.map((project, index) => {
+                            return (
                                 <motion.div
-                                    className="absolute pointer-events-none z-50 bg-brand text-white rounded-full flex items-center justify-center shadow-2xl"
-                                    style={{
-                                        width: "60px",
-                                        height: "60px",
-                                        left: mousePosition.x - 30,
-                                        top: mousePosition.y - 30,
-                                    }}
-                                    initial={{ opacity: 0, scale: 0 }}
-                                    animate={{
-                                        opacity: hoveredCardId === project.id ? 1 : 0,
-                                        scale: hoveredCardId === project.id ? 1 : 0,
-                                    }}
-                                    transition={{ duration: 0.2, ease: "easeOut" }}
+                                    key={project.id}
+                                    className="relative w-full flex flex-col group cursor-pointer"
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-50px" }}
+                                    transition={{ duration: 0.6, delay: (index % 2) * 0.1 }}
+                                    onClick={() => window.open(project.url, '_blank')}
                                 >
-                                    <ExternalLink className="w-5 h-5" />
-                                </motion.div>
-
-                                {/* Project Card */}
-                                <div className="relative md:h-[420px] p-6 rounded-3xl bg-gradient-to-br from-gray-900/10 via-gray-800/10 to-gray-800/20 backdrop-blur-md border border-white/10 shadow-lg transition-all duration-500 group-hover:shadow-2xl">
-                                    {/* Decorative Elements */}
-                                    <div className="absolute top-4 right-4 w-12 h-12 bg-brand/20 rounded-full blur-lg" />
-
-                                    {/* Floating Image Container - Browser Mockup */}
-                                    <div className={`relative mb-4 ${project.rotation} group-hover:rotate-0 transition-transform duration-500`}>
-                                        <div className="relative overflow-hidden rounded-xl shadow-2xl bg-gray-900 p-2">
-                                            {/* Browser Frame */}
-                                            <div className="bg-gray-800 rounded-t-lg p-2 flex items-center gap-2">
-                                                <div className="w-3 h-3 bg-red-500 rounded-full" />
-                                                <div className="w-3 h-3 bg-yellow-500 rounded-full" />
-                                                <div className="w-3 h-3 bg-green-500 rounded-full" />
-                                                <div className="flex-1 bg-gray-700 rounded-sm h-5 ml-2 flex items-center px-2 min-w-0 overflow-hidden">
-                                                    <span className="text-gray-300 text-[9px] md:text-[10px] font-mono truncate block overflow-hidden text-ellipsis whitespace-nowrap">
-                                                        {project.url}
-                                                    </span>
+                                    {/* Top Row: Tab area (Left) and Raised Card (Right) */}
+                                    <div className="flex h-10 md:h-12 w-full">
+                                        {/* Tab Area */}
+                                        <div className="w-28 md:w-36 h-full flex items-center px-4 relative z-10">
+                                            <span className="text-white/40 group-hover:text-[#ff5f26] font-bold text-[10px] md:text-xs uppercase tracking-widest transition-colors duration-300" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                                                {project.title.split(' ')[0]}
+                                            </span>
+                                        </div>
+                                        
+                                        {/* Raised Card (Right side) */}
+                                        <div className="flex-1 h-full bg-[#18181b] group-hover:bg-[#27272a] transition-colors duration-500 rounded-tr-[1.5rem] rounded-tl-2xl relative border-t border-r border-white/10 shadow-inner">
+                                            {/* The SVG Inner Curve connecting tab area to raised card */}
+                                            <svg className="absolute bottom-0 -left-6 w-6 h-6 fill-[#18181b] group-hover:fill-[#27272a] transition-colors duration-500" viewBox="0 0 24 24">
+                                                <path d="M 0 24 C 12 24, 24 12, 24 0 L 24 24 Z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    
+                                    {/* Main Card Body */}
+                                    <div className="w-full bg-[#18181b] group-hover:bg-[#27272a] transition-colors duration-500 rounded-b-[1.5rem] rounded-tl-2xl p-4 flex flex-col relative shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-t-0 border-white/10">
+                                        
+                                        {/* Image Section - Now has explicit padding around it so the card background is visible */}
+                                        <div className="w-full aspect-[16/10] md:aspect-[16/9] rounded-xl overflow-hidden shadow-2xl relative mb-6">
+                                            <img src={project.image} alt={project.title} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out" />
+                                            
+                                            {/* Hover Interaction Overlay */}
+                                            <div className="absolute inset-0 bg-[#ff5f26]/0 group-hover:bg-[#ff5f26]/20 transition-colors duration-500 flex items-center justify-center">
+                                                <div className="w-16 h-16 rounded-full bg-white text-[#ff5f26] flex items-center justify-center scale-0 group-hover:scale-100 transition-transform duration-500 shadow-xl">
+                                                    <ArrowRight className="w-8 h-8 -rotate-45" />
                                                 </div>
                                             </div>
+                                        </div>
 
-                                            {/* Screen Content Area */}
-                                            <div className="aspect-[16/7] overflow-hidden">
-                                                <img
-                                                    src={project.image}
-                                                    alt={project.title}
-                                                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                                                />
+                                        {/* Text & Details Section - Now placed explicitly on the card body */}
+                                        <div className="px-2 pb-2 flex justify-between items-end">
+                                            <div>
+                                                <h3 className="text-3xl font-light text-white mb-2" style={{ fontFamily: "'Fraunces', serif" }}>
+                                                    {project.title}
+                                                </h3>
+                                                <span className="text-white/50 text-sm tracking-wide" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                                                    {project.category}
+                                                </span>
                                             </div>
                                         </div>
+                                        
                                     </div>
-
-                                    {/* Project Info */}
-                                    <div className="relative z-10 space-y-3 mt-4">
-                                        <h3 className="text-lg font-bold text-foreground leading-tight line-clamp-2">
-                                            {project.title}
-                                        </h3>
-
-                                        {/* Category Tags */}
-                                        <div className="flex gap-2 flex-wrap">
-                                            {project.category.split(',').slice(0, 2).map((tag, tagIndex) => (
-                                                <span
-                                                    key={tagIndex}
-                                                    className="px-3 py-1 bg-brand/10 text-brand text-xs rounded-md font-medium border border-brand/20 hover:bg-brand/20 transition-colors duration-200"
-                                                >
-                                                    {tag.trim()}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-
+                                </motion.div>
+                            );
+                        })}
+                    </div>
 
                 </div>
-
-                <Contact />
-
-
+                
+                <div className="mt-32">
+                    <Contact />
+                </div>
             </section>
         </>
     );
