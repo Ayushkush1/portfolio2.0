@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import React, { useEffect, useState, useRef } from "react";
-import { GitHubCalendar } from "react-github-calendar";
+import { ActivityCalendar } from "react-activity-calendar";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import { Github, GitBranch, Star, Users, BookOpen, Activity, ArrowRight, ExternalLink } from "lucide-react";
@@ -18,6 +18,12 @@ interface GithubData {
     repos: any[];
 }
 
+interface CalendarData {
+    date: string;
+    count: number;
+    level: 0 | 1 | 2 | 3 | 4;
+}
+
 const StatCard = ({ icon, label, value }: { icon: React.ReactNode, label: string, value: string | number | undefined }) => (
     <div className="stat-card-gsap opacity-0 p-5 rounded-xl bg-[#0d1117] border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between group relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -33,11 +39,8 @@ const StatCard = ({ icon, label, value }: { icon: React.ReactNode, label: string
 
 const GithubActivity = () => {
     const [data, setData] = useState<GithubData | null>(null);
+    const [calendarData, setCalendarData] = useState<CalendarData[]>([]);
     const [loading, setLoading] = useState(true);
-    const [selectedYear, setSelectedYear] = useState<'last' | number>('last');
-
-    const currentYear = new Date().getFullYear();
-    const years: ('last' | number)[] = ['last', currentYear, currentYear - 1, currentYear - 2, currentYear - 3, currentYear - 4];
 
     const sectionRef = useRef<HTMLElement>(null);
     const headerRef = useRef<HTMLDivElement>(null);
@@ -47,6 +50,7 @@ const GithubActivity = () => {
     useEffect(() => {
         const fetchGithubData = async () => {
             try {
+                // Fetch basic user stats
                 const userRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
                 const userData = await userRes.json();
                 const reposRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=3`);
@@ -58,6 +62,30 @@ const GithubActivity = () => {
                     public_repos: userData.public_repos || 0,
                     repos: Array.isArray(reposData) ? reposData : [],
                 });
+
+                // Fetch robust calendar data from deno edge proxy
+                const calendarRes = await fetch(`https://github-contributions-api.deno.dev/${GITHUB_USERNAME}.json`);
+                const rawCalendar = await calendarRes.json();
+                
+                if (rawCalendar && rawCalendar.contributions) {
+                    const levelMap: Record<string, 0 | 1 | 2 | 3 | 4> = {
+                        "NONE": 0,
+                        "FIRST_QUARTILE": 1,
+                        "SECOND_QUARTILE": 2,
+                        "THIRD_QUARTILE": 3,
+                        "FOURTH_QUARTILE": 4
+                    };
+
+                    const formattedData: CalendarData[] = rawCalendar.contributions
+                        .flat()
+                        .map((day: any) => ({
+                            date: day.date,
+                            count: day.contributionCount,
+                            level: levelMap[day.contributionLevel] || 0
+                        }));
+                    
+                    setCalendarData(formattedData);
+                }
             } catch (error) {
                 console.error("Error fetching GitHub data:", error);
             } finally {
@@ -147,34 +175,40 @@ const GithubActivity = () => {
                 <div ref={calendarRef} className="w-full max-w-7xl opacity-0 px-2 md:px-0">
                     <div className="w-full border border-white/[0.08] rounded-3xl p-3 md:p-10 bg-[#0d1117]/50 backdrop-blur-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative">
                         <div className="w-full flex justify-center py-6 md:py-4 md:transform md:scale-100 lg:scale-[1.1] md:origin-center">
-                            <GitHubCalendar
-                                username={GITHUB_USERNAME}
-                                year={selectedYear === 'last' ? undefined : selectedYear}
-                                colorScheme="dark"
-                                showWeekdayLabels={typeof window !== 'undefined' && window.innerWidth > 768}
-                                theme={{
-                                    light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
-                                    dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
-                                }}
-                                fontSize={typeof window !== 'undefined' && window.innerWidth < 768 ? 7 : 11}
-                                blockSize={typeof window !== 'undefined' && window.innerWidth < 768 ? 5 : 14}
-                                blockMargin={typeof window !== 'undefined' && window.innerWidth < 768 ? 2 : 6}
-                                blockRadius={typeof window !== 'undefined' && window.innerWidth < 768 ? 1 : 3}
-                                renderBlock={(block, activity) => {
-                                    const date = new Date(activity.date);
-                                    const month = date.toLocaleString('default', { month: 'long' });
-                                    const day = date.getDate();
-                                    const getOrdinal = (n: number) => {
-                                        const s = ["th", "st", "nd", "rd"];
-                                        const v = n % 100;
-                                        return n + (s[(v - 20) % 10] || s[v] || s[0]);
-                                    };
-                                    return React.cloneElement(block as React.ReactElement, {
-                                        'data-tooltip-id': 'react-tooltip',
-                                        'data-tooltip-content': `${activity.count} contribution${activity.count !== 1 ? 's' : ''} on ${month} ${getOrdinal(day)}.`,
-                                    });
-                                }}
-                            />
+                            {calendarData.length > 0 ? (
+                                <ActivityCalendar
+                                    data={calendarData}
+                                    colorScheme="dark"
+                                    showWeekdayLabels={typeof window !== 'undefined' && window.innerWidth > 768}
+                                    theme={{
+                                        light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
+                                        dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
+                                    }}
+                                    fontSize={typeof window !== 'undefined' && window.innerWidth < 768 ? 7 : 11}
+                                    blockSize={typeof window !== 'undefined' && window.innerWidth < 768 ? 5 : 14}
+                                    blockMargin={typeof window !== 'undefined' && window.innerWidth < 768 ? 2 : 6}
+                                    blockRadius={typeof window !== 'undefined' && window.innerWidth < 768 ? 1 : 3}
+                                    renderBlock={(block, activity) => {
+                                        const date = new Date(activity.date);
+                                        const month = date.toLocaleString('default', { month: 'long' });
+                                        const day = date.getDate();
+                                        const getOrdinal = (n: number) => {
+                                            const s = ["th", "st", "nd", "rd"];
+                                            const v = n % 100;
+                                            return n + (s[(v - 20) % 10] || s[v] || s[0]);
+                                        };
+                                        return React.cloneElement(block as React.ReactElement, {
+                                            'data-tooltip-id': 'react-tooltip',
+                                            'data-tooltip-content': `${activity.count} contribution${activity.count !== 1 ? 's' : ''} on ${month} ${getOrdinal(day)}.`,
+                                        });
+                                    }}
+                                />
+                            ) : (
+                                <div className="text-white/50 text-sm py-10 flex flex-col items-center">
+                                    <div className="w-6 h-6 border-2 border-white/20 border-t-[#ff5f26] rounded-full animate-spin mb-4" />
+                                    Loading robust calendar data...
+                                </div>
+                            )}
                             <Tooltip 
                                 id="react-tooltip" 
                                 style={{ fontSize: '11px', padding: '4px 8px', borderRadius: '8px', zIndex: 50, fontWeight: 500, backgroundColor: 'rgba(0,0,0,0.9)', backdropFilter: 'blur(4px)' }}
@@ -183,22 +217,7 @@ const GithubActivity = () => {
                     </div>
 
                     {/* Controls Row */}
-                    <div className="mt-6 flex flex-col md:flex-row items-center justify-between gap-8 px-4">
-                        <div className="flex flex-wrap gap-2 justify-center order-2 md:order-1">
-                            {years.map((year) => (
-                                <button
-                                    key={year}
-                                    onClick={() => setSelectedYear(year)}
-                                    className={`text-[10px] md:text-xs py-1.5 px-4 rounded-full transition-all whitespace-nowrap border ${
-                                        selectedYear === year 
-                                        ? 'bg-white text-black border-white font-bold shadow-lg shadow-white/10' 
-                                        : 'bg-white/5 text-foreground/50 border-white/10 hover:bg-white/10 hover:text-white'
-                                    }`}
-                                >
-                                    {year === 'last' ? 'Last year' : year}
-                                </button>
-                            ))}
-                        </div>
+                    <div className="mt-6 flex flex-col md:flex-row items-center justify-end gap-8 px-4">
 
                         <motion.button
                             whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(255, 95, 38, 0.3)" }}

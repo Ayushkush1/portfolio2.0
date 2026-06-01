@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Heros from "@/components/Heros";
 import About from "@/components/About";
-import Portfolio from "@/components/Portfolio";
+import Showcase from "@/components/Showcase";
 import Experience from "@/components/Experience";
 import ServicesSection from "@/components/ServicesSection";
 import Process from "@/components/Process";
@@ -47,7 +47,7 @@ const Index = () => {
         <Navbar />
         <Heros />
         <About />
-        <Portfolio />
+        <Showcase />
         <GithubActivity />
         <Experience />
         <ServicesSection />
