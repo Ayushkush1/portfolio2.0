@@ -6,6 +6,7 @@ import Showcase from "@/components/Showcase";
 import GithubActivity from "@/components/GithubActivity";
 import Experience from "@/components/Experience";
 import ServicesSection from "@/components/ServicesSection";
+import DesignShowcase from "@/components/DesignShowcase";
 import Process from "@/components/Process";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
@@ -52,6 +53,7 @@ const Index = () => {
         <Showcase />
         <Experience />
         <ServicesSection />
+        <DesignShowcase />
         <Testimonials />
         <Contact />
       </main>
