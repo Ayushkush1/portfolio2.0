@@ -11,7 +11,7 @@ const allProjects = [
         title: "Catfy",
         category: "Catalogue Builder",
         description: "A powerful catalogue builder tool that helps businesses create and manage digital catalogues efficiently.",
-        image: "/lovable-uploads/catfy.png",
+        image: "/assets/catfy.png",
         url: "https://catfy-catalog.vercel.app",
     },
     {
@@ -19,7 +19,7 @@ const allProjects = [
         title: "Coding Pandas",
         category: "EdTech Platform",
         description: "An interactive online classroom platform for mastering Web Development and Data Structures & Algorithms.",
-        image: "/lovable-uploads/coding-pandas.png",
+        image: "/assets/coding-pandas.png",
         url: "https://coding-pandas.vercel.app/",
     },
     {
@@ -27,7 +27,7 @@ const allProjects = [
         title: "NeatRoots",
         category: "App Dev Courses",
         description: "A comprehensive platform offering online app development courses and professional IT services.",
-        image: "/lovable-uploads/neatroots.png",
+        image: "/assets/neatroots.png",
         url: "https://neatroot.vercel.app/",
     },
     {
@@ -35,7 +35,7 @@ const allProjects = [
         title: "NinzaHost",
         category: "Web Hosting",
         description: "A modern web hosting platform featuring intuitive dashboard, server management, and seamless user experience.",
-        image: "/lovable-uploads/ninzahost.png",
+        image: "/assets/ninzahost.png",
         url: "https://ninzahost.com",
     },
     {
@@ -43,7 +43,7 @@ const allProjects = [
         title: "Erichost",
         category: "Hosting Platform",
         description: "A hosting service platform offering scalable deployments, domain management, and one-click Next.js app deployments.",
-        image: "/lovable-uploads/EricHost.png",
+        image: "/assets/EricHost.png",
         url: "https://main.erichost.app/",
     },
     {
@@ -51,7 +51,7 @@ const allProjects = [
         title: "Onboarding KYC",
         category: "API Integration",
         description: "Streamlined onboarding process for KYC verification with AI-driven document analysis.",
-        image: "/lovable-uploads/onboarding-kyc.png",
+        image: "/assets/onboarding-kyc.png",
         url: "https://onboarding-kyc.com",
     },
     {
@@ -59,7 +59,7 @@ const allProjects = [
         title: "RemoveQ",
         category: "AI Web App",
         description: "Advanced AI-powered background removal tool with batch processing and high-quality image editing capabilities.",
-        image: "/lovable-uploads/removeq.png",
+        image: "/assets/removeq.png",
         url: "https://removeq.com",
     },
     {
@@ -67,7 +67,7 @@ const allProjects = [
         title: "Web Agency",
         category: "SaaS Platform",
         description: "Comprehensive project management platform with team collaboration, task tracking, and analytics dashboard.",
-        image: "/lovable-uploads/six-table.png",
+        image: "/assets/six-table.png",
         url: "https://six-table.vercel.app/",
     },
     {
@@ -75,7 +75,7 @@ const allProjects = [
         title: "Blooger",
         category: "CMS Platform",
         description: "Modern blogging platform with rich text editor, SEO optimization, and content management system.",
-        image: "/lovable-uploads/blooger.png",
+        image: "/assets/blooger.png",
         url: "https://ayushkush1.github.io/Blooger/",
     },
     {
@@ -83,7 +83,7 @@ const allProjects = [
         title: "Movix",
         category: "Streaming UI",
         description: "Entertainment streaming platform with movie discovery, watchlists, and personalized recommendations.",
-        image: "/lovable-uploads/movix.png",
+        image: "/assets/movix.png",
         url: "https://ayushmovix.vercel.app/",
     },
     {
@@ -91,7 +91,7 @@ const allProjects = [
         title: "Proposal Pro",
         category: "Business SaaS",
         description: "Professional proposal creation tool with templates, e-signatures, and client management features.",
-        image: "/lovable-uploads/proposal-pro.png",
+        image: "/assets/proposal-pro.png",
         url: "https://proposal-pro-sable.vercel.app/",
     },
     {
@@ -99,7 +99,7 @@ const allProjects = [
         title: "Mobius",
         category: "Data Analytics",
         description: "Advanced analytics engine with real-time data visualization, custom reports, and business intelligence.",
-        image: "/lovable-uploads/MobuisEngine.png",
+        image: "/assets/MobuisEngine.png",
         url: "https://mobuis-engine-kappa.vercel.app/",
     },
     {
@@ -107,7 +107,7 @@ const allProjects = [
         title: "Portfolio",
         category: "Creative Design",
         description: "First iteration of personal portfolio showcasing creative design approach and interactive elements.",
-        image: "/lovable-uploads/portfolio.png",
+        image: "/assets/portfolio.png",
         url: "https://ayushkushwaha.vercel.app/",
     },
 ];
@@ -140,7 +140,7 @@ const PortfolioPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                 >
                     <Link to="/">
-                        <motion.img src="/lovable-uploads/logo.png" alt="Logo" className="h-6 w-auto brightness-0 invert" whileHover={{ scale: 1.05 }} />
+                        <motion.img src="/assets/logo.png" alt="Logo" className="h-6 w-auto brightness-0 invert" whileHover={{ scale: 1.05 }} />
                     </Link>
                     <Link to="/">
                         <motion.button className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/5 border border-white/10 backdrop-blur cursor-pointer hover:bg-white hover:text-black transition-all duration-300">

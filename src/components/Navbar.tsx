@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const navItems = [
     { href: "#home", label: "Home", id: "home" },
     { href: "#about", label: "About", id: "about" },
-    { href: "#portfolio", label: "Portfolio", id: "portfolio" },
+    { href: "/work", label: "Work", id: "work" },
     { href: "#experience", label: "Experience", id: "experience" },
     { href: "#contact", label: "Contact", id: "contact" }
 ];
@@ -61,8 +61,8 @@ const Navbar = () => {
     };
 
     const scrollToSection = (sectionId: string) => {
-        if (sectionId === 'portfolio') {
-            navigate('/portfolio');
+        if (sectionId === 'portfolio' || sectionId === 'work') {
+            navigate(sectionId === 'work' ? '/work' : '/portfolio');
             setIsMenuOpen(false);
             return;
         }
@@ -105,7 +105,7 @@ const Navbar = () => {
                         transition={{ duration: 0.6, delay: 0.2 }}
                     >
                         <img
-                            src="/lovable-uploads/logo.png"
+                            src="/assets/logo.png"
                             alt="Ayush Kushwaha Logo"
                             className="h-8 w-auto brightness-0 invert"
                         />

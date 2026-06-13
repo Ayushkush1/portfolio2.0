@@ -86,7 +86,7 @@ const Experience = () => {
                             {/* Profile Image Wrapper for GSAP Parallax */}
                             <div
                                 ref={imageRef}
-                                className="relative mb-2 md:mb-4"
+                                className="relative mb-2 md:mb-0"
                             >
                                 {/* Motion div for Hover lift */}
                                 <motion.div
@@ -97,18 +97,13 @@ const Experience = () => {
                                         damping: 25 
                                     }}
                                 >
-                                    <div className="w-full aspect-[1/1] rounded-3xl shadow-2xl shadow-foreground/5 relative overflow-hidden">
-                                        {/* Centered profile image */}
-                                        <div className="absolute inset-0 flex items-center justify-center">
-                                            <div className="h-full  flex items-center justify-center">
-                                                <img src="lovable-uploads/profile2.png" className="object-cover h-full w-full rounded-2xl" alt="Ayush Kushwaha" />
-                                            </div>
-                                        </div>
+                                    <div className="w-[85%] md:w-[90%] mx-auto relative rounded-3xl overflow-hidden shadow-2xl shadow-foreground/5">
+                                        <img src="assets/profile2.png" className="w-full h-auto object-cover" alt="Ayush Kushwaha" />
                                     </div>
                                 </motion.div>
                             </div>
 
-                            <div className="flex justify-between px-4">
+                            <div className="flex justify-between px-8">
                                 {/* Name & Title */}
                                 <motion.div
                                     className="mb-6"
@@ -230,7 +225,7 @@ const Experience = () => {
                                 viewport={{ once: true }}
                             >
                                 Pushing boundaries{" "}
-                                <span className="text-white font-normal">since 2023 <span className="text-[#ff5f26] text-[3rem]">.</span></span>
+                                <span className="text-white font-normal">since 2023<span className="text-[#ff5f26] text-[3rem]">.</span></span>
                             </motion.h2>
 
                             {/* Description */}
@@ -241,7 +236,7 @@ const Experience = () => {
                                 transition={{ duration: 0.6, delay: 0.4 }}
                                 viewport={{ once: true }}
                             >
-                                I am a product focused developer crafting clean, expressive interfaces and strong brand systems for startups. Based in India, he blends function with emotion and explores new design trends through side projects.
+                                Building high-performance SaaS platforms, internal business systems, and modern web applications that drive operational efficiency. With a strong focus on scalable architecture and exceptional user experiences.
                             </motion.p>
                         </div>
 

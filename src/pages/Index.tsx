@@ -3,17 +3,17 @@ import Navbar from "@/components/Navbar";
 import Heros from "@/components/Heros";
 import About from "@/components/About";
 import Showcase from "@/components/Showcase";
+import GithubActivity from "@/components/GithubActivity";
 import Experience from "@/components/Experience";
 import ServicesSection from "@/components/ServicesSection";
 import Process from "@/components/Process";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
-import GithubActivity from "@/components/GithubActivity";
 
 const Index = () => {
-  const title = "Ayush Kushwaha | SaaS Engineer & Product Builder";
+  const title = "Ayush Kushwaha | Full-Stack Product Engineer";
   const description =
-    "SaaS Engineer & Product Builder based in India. I build scalable web products, lead development, and turn ideas into production-ready systems.";
+    "Full-Stack Product Engineer building SaaS platforms, business systems, and exceptional user experiences. Based in India.";
   const canonical = typeof window !== "undefined" ? window.location.origin + "/" : "/";
   const jsonLd = {
     "@context": "https://schema.org",
@@ -21,10 +21,10 @@ const Index = () => {
     name: "Ayush Kushwaha",
     url: canonical,
     description,
-    jobTitle: "SaaS Engineer & Product Builder",
+    jobTitle: "Full-Stack Product Engineer",
     worksFor: {
       "@type": "Organization",
-      name: "Freelance"
+      name: "The Gold Technologies"
     },
     sameAs: [
       "https://github.com/Ayushkush1",
@@ -41,6 +41,8 @@ const Index = () => {
         <link rel="canonical" href={canonical} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
       <main>
@@ -48,10 +50,8 @@ const Index = () => {
         <Heros />
         <About />
         <Showcase />
-        <GithubActivity />
         <Experience />
         <ServicesSection />
-        <Process />
         <Testimonials />
         <Contact />
       </main>

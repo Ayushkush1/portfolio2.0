@@ -24,15 +24,16 @@ const Hero = () => {
 
     const xLeft = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
     const xRight = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+
     const openWhatsApp = () => {
-        const phoneNumber = "918738954475"; // Your WhatsApp number
+        const phoneNumber = "918738954475";
         const message = "Hello Ayush, I'm interested in your services.";
         const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
         window.open(whatsappURL, '_blank');
     };
 
     return (
-        <section id="home" ref={containerRef} aria-label="Hero – Product Developer" className="relative overflow-hidden pt-[7rem] md:pt-20">
+        <section id="home" ref={containerRef} aria-label="Hero – Product Developer" className="relative overflow-hidden pt-[7rem] md:pt-24">
             {/* Ambient brand light */}
             <div
                 className="pointer-events-none absolute inset-0"
@@ -41,8 +42,6 @@ const Hero = () => {
                         "radial-gradient(70% 70% at 70% 40%, hsl(var(--brand) / 0.25) 0%, transparent 60%)",
                 }}
             />
-
-
 
             <div className="container relative z-10 grid min-h-[70vh] lg:min-h-[80vh] grid-cols-1 items-start md:items-center lg:gap-10 md:gap-4 gap-0 pt-8 md:pt-36 pb-12 md:pb-40 md:py-20 md:grid-cols-2">
                 {/* Left copy */}
@@ -61,8 +60,8 @@ const Hero = () => {
                         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                         transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
                     >
-                        <span className="text-xs text-muted-foreground font-medium"> View My Resume</span>
-                        <FileText className="h-3.5 w-3.5 text-white" />
+                        <FileText className="h-3 w-3 text-white" />
+                        <span className="text-xs text-muted-foreground font-medium"> My Resume</span>
                     </motion.a>
                     <motion.h1
                         className=" text-[2.6rem] md:text-4xl font-bold leading-tight tracking-tight md:text-6xl max-w-xl flex flex-wrap"
@@ -76,9 +75,9 @@ const Hero = () => {
                         initial="hidden"
                         animate="show"
                     >
-                        {["Ideas, engineered", "into real products", "Built to scale"].map((line, lineIdx) => (
-                            <span 
-                                key={lineIdx} 
+                        {["Full-Stack Product", "Engineer, built", "to scale"].map((line, lineIdx) => (
+                            <span
+                                key={lineIdx}
                                 className="block w-full"
                             >
                                 {line.split(" ").map((word, wordIdx, array) => (
@@ -122,12 +121,12 @@ const Hero = () => {
                     transition={{ duration: 0.8, delay: 0.5 }}
                 >
                     <motion.div
-                        className="w-full max-w-full md:max-w-[300px] flex flex-col gap-2 md:gap-4 md:text-right"
+                        className="w-full max-w-full md:max-w-[310px] flex flex-col gap-2 md:gap-4 md:text-right"
                         initial={{ opacity: 0, x: 40, filter: "blur(10px)" }}
                         animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                         transition={{ duration: 1.2, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
                     >
-                        <motion.div 
+                        <motion.div
                             className="flex gap-8 w-full justify-start md:justify-end pb-4 md:pb-2 md:border-b md:border-white/5 order-2 md:order-1"
                             variants={{
                                 hidden: { opacity: 0 },
@@ -139,7 +138,7 @@ const Hero = () => {
                             initial="hidden"
                             animate="show"
                         >
-                            <motion.div 
+                            <motion.div
                                 className="flex flex-col justify-center items-start md:items-end p-0"
                                 variants={{
                                     hidden: { opacity: 0, scale: 0.8, y: 15 },
@@ -151,7 +150,7 @@ const Hero = () => {
                                 </span>
                                 <span className="text-[10px] uppercase leading-3 text-gray-400/60 tracking-wide font-medium mt-1">Products Built</span>
                             </motion.div>
-                            <motion.div 
+                            <motion.div
                                 className="flex flex-col justify-center items-start md:items-end p-0"
                                 variants={{
                                     hidden: { opacity: 0, scale: 0.8, y: 15 },
@@ -165,7 +164,7 @@ const Hero = () => {
                             </motion.div>
                         </motion.div>
                         <p className="text-md text-gray-300 leading-relaxed order-1 md:order-2">
-                            I build scalable web products, lead development, and turn ideas into production-ready systems.
+                            I design, build, and scale modern digital products from SaaS platforms and business systems to high performance web applications and user centric experiences.
                         </p>
                     </motion.div>
                     <motion.div
@@ -233,7 +232,6 @@ const Hero = () => {
                                         </motion.div>
                                     </div>
 
-
                                     {/* Shimmer effect */}
                                     <motion.div
                                         className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
@@ -251,8 +249,6 @@ const Hero = () => {
                         </motion.div>
                     </motion.div>
                 </motion.div>
-
-
 
                 {/* Oversized name */}
                 <motion.div
