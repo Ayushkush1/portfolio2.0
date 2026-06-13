@@ -11,6 +11,18 @@ const navItems = [
     { href: "#contact", label: "Contact", id: "contact" }
 ];
 
+const indicatorSections = [
+    { id: "home", label: "Home" },
+    { id: "about", label: "About" },
+    { id: "work", label: "Products" },
+    { id: "experience", label: "Experience" },
+    { id: "services", label: "Services" },
+    { id: "design", label: "Design" },
+    { id: "process", label: "Process" },
+    { id: "testimonials", label: "Testimonials" },
+    { id: "contact", label: "Contact" }
+];
+
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState("Home");
@@ -27,7 +39,7 @@ const Navbar = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-            const sections = navItems.map(item => document.getElementById(item.id));
+            const sections = indicatorSections.map(item => document.getElementById(item.id));
             const scrollPosition = window.scrollY + window.innerHeight * 0.4; // Trigger earlier
 
             setIsScrolled(window.scrollY > 50);
@@ -40,7 +52,7 @@ const Navbar = () => {
                 for (let i = sections.length - 1; i >= 0; i--) {
                     const section = sections[i];
                     if (section && section.offsetTop <= scrollPosition) {
-                        current = navItems[i].label;
+                        current = indicatorSections[i].label;
                         break;
                     }
                 }
