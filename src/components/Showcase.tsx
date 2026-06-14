@@ -31,7 +31,7 @@ const ProductCard = ({ product, i, targetScale, progress }: { product: FeaturedP
         <div ref={containerRef} className="h-screen flex items-center justify-center sticky top-0 px-4 md:px-6">
             <motion.div
                 style={{ scale, top: `calc(${i * 25}px)`, willChange: "transform" }}
-                className="relative flex flex-col md:flex-row p-8 md:p-12 h-auto w-full max-w-7xl mx-auto rounded-[2.5rem] bg-[#0A0F1A] border border-white/10 shadow-2xl overflow-hidden origin-top gap-8 md:gap-16"
+                className="relative flex flex-col md:flex-row p-6 md:p-12 h-auto max-h-[85vh] md:max-h-none w-full max-w-7xl mx-auto rounded-[2rem] md:rounded-[2.5rem] bg-[#0A0F1A] border border-white/10 shadow-2xl overflow-y-auto md:overflow-hidden origin-top gap-5 md:gap-16 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             >
                 {/* Left/Middle Column: Image Slider */}
                 <div className="w-full md:flex-1 flex flex-col justify-center h-full">
@@ -59,9 +59,9 @@ const ProductCard = ({ product, i, targetScale, progress }: { product: FeaturedP
                             href={currentItem.url !== "#" ? currentItem.url : undefined}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="absolute top-4 right-4 md:top-6 md:right-6 flex items-center gap-2 bg-black/40 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full text-white/90 hover:text-white hover:bg-black/60 hover:border-white/30 transition-all duration-300 shadow-lg z-20 group"
+                            className="absolute top-4 right-4 md:top-6 md:right-6 flex items-center gap-2 bg-black/40 backdrop-blur-md border border-white/10 p-2.5 md:px-4 md:py-2 rounded-full text-white/90 hover:text-white hover:bg-black/60 hover:border-white/30 transition-all duration-300 shadow-lg z-20 group"
                         >
-                            <span className="text-[10px] md:text-xs font-semibold tracking-wide">{currentItem.name}</span>
+                            <span className="hidden md:inline-block text-[10px] md:text-xs font-semibold tracking-wide">{currentItem.name}</span>
                             <ExternalLink className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
                         </a>
 
@@ -81,12 +81,12 @@ const ProductCard = ({ product, i, targetScale, progress }: { product: FeaturedP
                 </div>
 
                 {/* Right Column: Content */}
-                <div className="w-full md:flex-none md:w-[320px] xl:w-[400px] flex flex-col h-full py-4 md:py-8 pr-4 md:pr-8">
+                <div className="w-full md:flex-none md:w-[320px] xl:w-[400px] flex flex-col h-full py-0 md:py-8 pr-0 md:pr-8">
                     {/* Top Content */}
                     <div className="flex flex-col justify-start">
                         {/* Elegant Category Tag */}
-                        <div className="flex items-center gap-3 mb-8">
-                            <span className="w-6 h-[1px] bg-brand/40"></span>
+                        <div className="flex items-center gap-3 mb-4 md:mb-8">
+                            <span className="hidden md:block w-6 h-[1px] bg-brand/40"></span>
                             <span className="text-[10px] md:text-xs font-semibold tracking-[0.2em] uppercase text-brand/90">
                                 {product.category}
                             </span>
@@ -94,19 +94,19 @@ const ProductCard = ({ product, i, targetScale, progress }: { product: FeaturedP
 
                         {/* Premium Title */}
                         <h2 
-                            className="text-4xl md:text-5xl font-light mb-6 text-white leading-[1.1] tracking-tight"
+                            className="text-3xl md:text-5xl font-light mb-4 md:mb-6 text-white leading-[1.1] tracking-tight"
                             style={{ fontFamily: "'Fraunces', serif" }}
                         >
                             {product.name}
                         </h2>
                         
                         {/* Minimal Description */}
-                        <p className="text-gray-500 text-sm md:text-base leading-relaxed mb-8 font-light">
+                        <p className="text-gray-500 text-sm md:text-base leading-relaxed mb-6 md:mb-8 font-light">
                             {product.solution}
                         </p>
 
                         {/* Additional Content: Tech Stack */}
-                        <div className="flex flex-wrap gap-2 mb-8">
+                        <div className="flex flex-wrap gap-2 mb-6 md:mb-8">
                             {product.techStack.slice(0, 3).map((tech, idx) => (
                                 <span 
                                     key={idx} 
@@ -119,7 +119,7 @@ const ProductCard = ({ product, i, targetScale, progress }: { product: FeaturedP
                     </div>
 
                     {/* Bottom Action (Pinned to bottom) */}
-                    <div className="mt-auto pt-8 border-t border-white/5">
+                    <div className="mt-auto pt-6 md:pt-8 border-t border-white/5">
                         <a 
                             href="/work" 
                             className="group flex items-center justify-between w-full text-white/60 hover:text-brand transition-colors"
@@ -176,20 +176,20 @@ const Showcase = () => {
                             top: `calc(${featuredProducts.length * 25}px)`,
                             willChange: "transform"
                         }}
-                        className="relative flex flex-col items-center justify-center h-[80vh] w-full max-w-7xl rounded-[2.5rem] bg-gradient-to-br from-gray-900 to-black border border-white/10 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] overflow-hidden group cursor-pointer"
+                        className="relative flex flex-col items-center justify-center h-[65vh] md:h-[80vh] p-6 md:p-0 w-full max-w-7xl rounded-[2rem] md:rounded-[2.5rem] bg-gradient-to-br from-gray-900 to-black border border-white/10 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] overflow-hidden group cursor-pointer"
                         onClick={() => navigate('/work')}
                     >
                         <div className="absolute inset-0 bg-brand/0 group-hover:bg-brand/5 transition-colors duration-500" />
 
-                        <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-brand transition-all duration-500">
-                            <Layers className="w-9 h-9 text-white" />
+                        <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-6 md:mb-8 group-hover:scale-110 group-hover:bg-brand transition-all duration-500">
+                            <Layers className="w-7 h-7 md:w-9 md:h-9 text-white" />
                         </div>
 
-                        <h2 className="text-5xl md:text-7xl font-light mb-6 text-white text-center" style={{ fontFamily: "'Fraunces', serif" }}>
+                        <h2 className="text-4xl md:text-7xl font-light mb-4 md:mb-6 text-white text-center" style={{ fontFamily: "'Fraunces', serif" }}>
                             Full Case <span className="font-bold italic">Studies</span>
                         </h2>
 
-                        <p className="text-white/50 text-xl md:text-2xl mb-12 text-center max-w-2xl font-light">
+                        <p className="text-white/50 text-lg md:text-2xl mb-8 md:mb-12 text-center max-w-2xl font-light">
                             Deep-dive into architecture, design decisions, and technical challenges behind each product.
                         </p>
 

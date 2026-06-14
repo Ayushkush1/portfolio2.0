@@ -43,7 +43,7 @@ const Hero = () => {
                 }}
             />
 
-            <div className="container relative z-10 grid min-h-[70vh] lg:min-h-[80vh] grid-cols-1 items-start md:items-center lg:gap-10 md:gap-4 gap-0 pt-8 md:pt-36 pb-12 md:pb-40 md:py-20 md:grid-cols-2">
+            <div className="container relative z-10 grid min-h-[70vh] lg:min-h-[80vh] grid-cols-1 items-start md:items-center lg:gap-10 md:gap-4 gap-8 pt-8 md:pt-36 pb-12 md:pb-40 md:py-20 md:grid-cols-2">
                 {/* Left copy */}
                 <motion.div
                     className="md:space-y-6 space-y-4"
@@ -64,7 +64,7 @@ const Hero = () => {
                         <span className="text-xs text-muted-foreground font-medium"> My Resume</span>
                     </motion.a>
                     <motion.h1
-                        className=" text-[2.6rem] md:text-4xl font-bold leading-tight tracking-tight md:text-6xl max-w-xl flex flex-wrap"
+                        className=" text-[2.2rem] sm:text-[2.6rem] md:text-6xl font-bold leading-tight tracking-tight max-w-xl flex flex-wrap"
                         variants={{
                             hidden: { opacity: 1 },
                             show: {
