@@ -52,8 +52,9 @@ export const featuredProducts: FeaturedProduct[] = [
     outcome: "Live platform with 10k+ catalogue views, cutting product listing time by 70%.",
     techStack: ["Next.js", "PostgreSQL", "Prisma", "Tailwind CSS", "AI APIs"],
     sliderItems: [
-      { image: "/assets/catfy.png", url: "https://catfy-catalog.vercel.app", name: "CATFY Landing" },
-      { image: "/assets/Catfy_LandignPage.png", url: "https://catfy-catalog.vercel.app", name: "CATFY Dashboard" },
+      { image: "/assets/Catfy_LandignPage1.png", url: "https://catfy-catalog.vercel.app", name: "CATFY Landing" },
+      { image: "/assets/Catfy_LandignPage2.png", url: "https://catfy-catalog.vercel.app", name: "CATFY Dashboard" },
+      { image: "/assets/Catfy_LandignPage3.png", url: "https://catfy-catalog.vercel.app", name: "CATFY Dashboard" },
     ],
     url: "https://catfy-catalog.vercel.app",
     isLarge: true,
@@ -69,7 +70,8 @@ export const featuredProducts: FeaturedProduct[] = [
     outcome: "Reduced lead response time by 60% and improved pipeline visibility for 3+ sales teams.",
     techStack: ["React", "Node.js", "PostgreSQL", "Prisma", "Supabase"],
     sliderItems: [
-      { image: "/assets/Leadzenor_LandingPage.png", url: "#", name: "Leadzenor Landing" },
+      { image: "/assets/Leadzenor_LandingPage1.png", url: "#", name: "Leadzenor Landing" },
+      { image: "/assets/Leadzenor_LandingPage2.png", url: "#", name: "Leadzenor Dashboard" },
       { image: "/assets/Leadzenor_Dashboard.png", url: "#", name: "Leadzenor Dashboard" },
     ],
     url: "#",
@@ -85,7 +87,8 @@ export const featuredProducts: FeaturedProduct[] = [
     outcome: "Eliminated manual ledger errors, saving 15+ hours/week and enabling real-time inventory tracking.",
     techStack: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "Docker"],
     sliderItems: [
-      { image: "/assets/Karatrix_LandingPage.png", url: "#", name: "Karatrix Platform" },
+      { image: "/assets/Karatrix_LandingPage1.png", url: "#", name: "Karatrix Platform" },
+      { image: "/assets/Karatrix_LandingPage2.png", url: "#", name: "Karatrix Platform" },
       { image: "/assets/Karatrix_Dashboard.png", url: "#", name: "Karatrix Dashboard" },
     ],
     url: "#",

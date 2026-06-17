@@ -3,12 +3,12 @@ import { useRef } from "react";
 import { ArrowRight } from "lucide-react";
 
 const designs = [
-    { src: "/assets/Catfy_LandignPage.png", alt: "Catfy Landing Page", title: "Catfy Landing Page" },
+    { src: "/assets/Catfy_LandignPage1.png", alt: "Catfy Landing Page", title: "Catfy Landing Page" },
     { src: "/assets/Erp_Dashboard.png", alt: "ERP Dashboard", title: "ERP Dashboard" },
     { src: "/assets/Leadzenor_Dashboard.png", alt: "Leadzenor Dashboard", title: "Leadzenor Dashboard" },
-    { src: "/assets/Karatrix_LandingPage.png", alt: "Karatrix Landing Page", title: "Karatrix Landing Page" },
+    { src: "/assets/Karatrix_LandingPage1.png", alt: "Karatrix Landing Page", title: "Karatrix Landing Page" },
     { src: "/assets/TheSevenStar_LandingPage.png", alt: "The Seven Star Landing Page", title: "The Seven Star" },
-    { src: "/assets/EricHost.png", alt: "EricHost Platform", title: "EricHost Platform" },
+    { src: "/assets/EricHost1.png", alt: "EricHost Platform", title: "EricHost Platform" },
 ];
 
 const DesignShowcase = () => {
@@ -24,9 +24,10 @@ const DesignShowcase = () => {
     // Row 2 moves right
     const x2 = useTransform(scrollYProgress, [0, 1], ["-25%", "0%"]);
 
-    // Create longer arrays by duplicating the designs so they don't run out of content while scrolling
-    const row1 = [...designs.slice(0, 3), ...designs.slice(0, 3), ...designs.slice(0, 3), ...designs.slice(0, 3)];
-    const row2 = [...designs.slice(3, 6), ...designs.slice(3, 6), ...designs.slice(3, 6), ...designs.slice(3, 6)];
+    const base1 = designs.slice(0, 3);
+    const base2 = designs.slice(3, 6);
+    const row1 = [...base1, ...base1, ...base1, ...base1, ...base1, ...base1, ...base1, ...base1];
+    const row2 = [...base2, ...base2, ...base2, ...base2, ...base2, ...base2, ...base2, ...base2];
 
     return (
         <section id="design" ref={containerRef} className="py-24 md:py-32 bg-background relative overflow-hidden">
@@ -49,7 +50,14 @@ const DesignShowcase = () => {
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
                         >
-                            Elevating user <br className="hidden md:block" /> experiences.
+                            Elevating user{" "}
+                            <br className="hidden md:block" />
+                            <span 
+                                className="italic text-gray-400" 
+                                style={{ fontFamily: "'Fraunces', serif" }}
+                            >
+                                experiences<span className="text-[#ff5f26]">.</span>
+                            </span>
                         </motion.h2>
                     </div>
                     <motion.p 
@@ -66,21 +74,21 @@ const DesignShowcase = () => {
 
             {/* Scrolling Marquee Rows */}
             <div className="flex flex-col gap-6 md:gap-8 relative w-full mt-10 md:mt-16">
-                {/* Edge fading gradients for that premium smooth cutoff effect */}
-                <div className="absolute inset-y-0 left-0 w-16 md:w-40 bg-gradient-to-r from-background to-transparent z-20 pointer-events-none" />
-                <div className="absolute inset-y-0 right-0 w-16 md:w-40 bg-gradient-to-l from-background to-transparent z-20 pointer-events-none" />
-
+              
                 {/* Top Row (Scrolls Left) */}
-                <motion.div style={{ x: x1 }} className="flex gap-6 md:gap-8 w-max pl-4 md:pl-0">
-                    {row1.map((design, i) => (
-                        <div key={`r1-${i}`} className="w-[260px] md:w-[420px] shrink-0 group relative rounded-3xl overflow-hidden border border-white/5 bg-[#060A13] shadow-2xl">
-                            <div className="aspect-[16/10] w-full overflow-hidden">
-                                <img 
-                                    src={design.src} 
-                                    alt={design.alt} 
-                                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                                />
-                            </div>
+                <motion.div style={{ x: x1 }} className="flex items-center w-max pl-4 md:pl-0">
+                    <motion.div
+                        className="flex items-center gap-6 md:gap-8 w-max"
+                        animate={{ x: ["0%", "-50%"] }}
+                        transition={{ repeat: Infinity, ease: "linear", duration: 120 }}
+                    >
+                        {row1.map((design, i) => (
+                        <div key={`r1-${i}`} className="w-[300px] md:w-[500px] shrink-0 group relative rounded-3xl overflow-hidden border border-white/5 shadow-2xl">
+                            <img 
+                                src={design.src} 
+                                alt={design.alt} 
+                                className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                            />
                             
                             {/* Base Overlay Gradient */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 backdrop-blur-[2px]" />
@@ -103,19 +111,23 @@ const DesignShowcase = () => {
                             </div>
                         </div>
                     ))}
+                    </motion.div>
                 </motion.div>
 
                 {/* Bottom Row (Scrolls Right) */}
-                <motion.div style={{ x: x2 }} className="flex gap-6 md:gap-8 w-max pl-4 md:pl-0">
-                    {row2.map((design, i) => (
-                        <div key={`r2-${i}`} className="w-[260px] md:w-[420px] shrink-0 group relative rounded-3xl overflow-hidden border border-white/5 bg-[#060A13] shadow-2xl">
-                            <div className="aspect-[16/10] w-full overflow-hidden">
-                                <img 
-                                    src={design.src} 
-                                    alt={design.alt} 
-                                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                                />
-                            </div>
+                <motion.div style={{ x: x2 }} className="flex items-center w-max pl-4 md:pl-0">
+                    <motion.div
+                        className="flex items-center gap-6 md:gap-8 w-max"
+                        animate={{ x: ["-50%", "0%"] }}
+                        transition={{ repeat: Infinity, ease: "linear", duration: 120 }}
+                    >
+                        {row2.map((design, i) => (
+                        <div key={`r2-${i}`} className="w-[300px] md:w-[500px] shrink-0 group relative rounded-3xl overflow-hidden border border-white/5 shadow-2xl">
+                            <img 
+                                src={design.src} 
+                                alt={design.alt} 
+                                className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                            />
                             
                             {/* Base Overlay Gradient */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 backdrop-blur-[2px]" />
@@ -138,6 +150,7 @@ const DesignShowcase = () => {
                             </div>
                         </div>
                     ))}
+                    </motion.div>
                 </motion.div>
             </div>
         </section>

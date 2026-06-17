@@ -31,12 +31,13 @@ const ProductCard = ({ product, i, targetScale, progress }: { product: FeaturedP
         <div ref={containerRef} className="h-screen flex items-center justify-center sticky top-0 px-4 md:px-6">
             <motion.div
                 style={{ scale, top: `calc(${i * 25}px)`, willChange: "transform" }}
-                className="relative flex flex-col md:flex-row p-6 md:p-12 h-auto max-h-[85vh] md:max-h-none w-full max-w-7xl mx-auto rounded-[2rem] md:rounded-[2.5rem] bg-[#0A0F1A] border border-white/10 shadow-2xl overflow-y-auto md:overflow-hidden origin-top gap-5 md:gap-16 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                className="relative flex flex-col md:flex-row p-6 md:p-12 h-auto max-h-[85vh] md:max-h-none w-full max-w-[90rem] mx-auto rounded-[2rem] md:rounded-[2.5rem] bg-[#0A0F1A] border border-white/10 shadow-2xl overflow-y-auto md:overflow-hidden origin-top gap-5 md:gap-16 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
             >
                 {/* Left/Middle Column: Image Slider */}
                 <div className="w-full md:flex-1 flex flex-col justify-center h-full">
-                    <div className="w-full relative aspect-[16/10] rounded-[2rem] overflow-hidden group/slider bg-[#060A13] shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5">
-                        <motion.div style={{ scale: imageScale, willChange: "transform" }} className="w-full h-full relative">
+                    <div className="w-full relative rounded-[2rem] overflow-hidden group/slider shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5">
+                        <motion.div style={{ scale: imageScale, willChange: "transform" }} className="w-full h-auto relative">
+                            <img src={product.sliderItems[0].image} className="w-full h-auto invisible block" alt="" />
                             <AnimatePresence>
                                 <motion.img
                                     key={currentIndex}
@@ -176,7 +177,7 @@ const Showcase = () => {
                             top: `calc(${featuredProducts.length * 25}px)`,
                             willChange: "transform"
                         }}
-                        className="relative flex flex-col items-center justify-center h-[65vh] md:h-[80vh] p-6 md:p-0 w-full max-w-7xl rounded-[2rem] md:rounded-[2.5rem] bg-gradient-to-br from-gray-900 to-black border border-white/10 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] overflow-hidden group cursor-pointer"
+                        className="relative flex flex-col items-center justify-center h-[65vh] md:h-[80vh] p-6 md:p-0 w-full max-w-[90rem] mx-auto rounded-[2rem] md:rounded-[2.5rem] bg-gradient-to-br from-gray-900 to-black border border-white/10 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] overflow-hidden group cursor-pointer"
                         onClick={() => navigate('/work')}
                     >
                         <div className="absolute inset-0 bg-brand/0 group-hover:bg-brand/5 transition-colors duration-500" />

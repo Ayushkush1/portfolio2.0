@@ -46,23 +46,12 @@ const Hero = () => {
             <div className="container relative z-10 grid min-h-[70vh] lg:min-h-[80vh] grid-cols-1 items-start md:items-center lg:gap-10 md:gap-4 gap-8 pt-8 md:pt-36 pb-12 md:pb-40 md:py-20 md:grid-cols-2">
                 {/* Left copy */}
                 <motion.div
-                    className="md:space-y-6 space-y-4"
+                    className="pt-6"
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
                 >
-                    <motion.a
-                        href="/AYUSH_KUSHWAHA_resume_updated.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 hover:bg-primary/20 transition-colors cursor-pointer"
-                        initial={{ opacity: 0, y: -20, filter: "blur(4px)" }}
-                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                        transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
-                    >
-                        <FileText className="h-3 w-3 text-white" />
-                        <span className="text-xs text-muted-foreground font-medium"> My Resume</span>
-                    </motion.a>
+                    
                     <motion.h1
                         className=" text-[2.2rem] sm:text-[2.6rem] md:text-6xl font-bold leading-tight tracking-tight max-w-xl flex flex-wrap"
                         variants={{
