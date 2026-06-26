@@ -117,7 +117,7 @@ const Navbar = () => {
                         transition={{ duration: 0.6, delay: 0.2 }}
                     >
                         <img
-                            src="/assets/logo.png"
+                            src="/assets/ayush-kushwaha-logo.png"
                             alt="Ayush Kushwaha Logo"
                             className="h-8 w-auto brightness-0 invert"
                         />

@@ -265,6 +265,18 @@ const WorkPage = () => {
     const description = "Deep-dive case studies of SaaS platforms, ERP systems, and digital products built by Ayush Kushwaha.";
     const canonical = typeof window !== "undefined" ? window.location.origin + "/work" : "/work";
 
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: title,
+        url: canonical,
+        description: description,
+        author: {
+            "@type": "Person",
+            name: "Ayush Kushwaha"
+        }
+    };
+
     return (
         <>
             <Helmet>
@@ -273,6 +285,14 @@ const WorkPage = () => {
                 <link rel="canonical" href={canonical} />
                 <meta property="og:title" content={title} />
                 <meta property="og:description" content={description} />
+                <meta property="og:url" content={canonical} />
+                <meta property="og:type" content="website" />
+                <meta property="og:image" content="https://ayushkushwaha.com/assets/ayush-kushwaha.png" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={title} />
+                <meta name="twitter:description" content={description} />
+                <meta name="twitter:image" content="https://ayushkushwaha.com/assets/ayush-kushwaha.png" />
+                <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
             </Helmet>
 
             <section className="relative min-h-screen bg-background text-white selection:bg-brand selection:text-white">
@@ -289,7 +309,7 @@ const WorkPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                 >
                     <Link to="/">
-                        <motion.img src="/assets/logo.png" alt="Logo" className="h-6 w-auto brightness-0 invert" whileHover={{ scale: 1.05 }} />
+                        <motion.img src="/assets/ayush-kushwaha-logo.png" alt="Logo" className="h-6 w-auto brightness-0 invert" whileHover={{ scale: 1.05 }} />
                     </Link>
                     <Link to="/">
                         <motion.button className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/5 border border-white/10 backdrop-blur cursor-pointer hover:bg-white hover:text-black transition-all duration-300">

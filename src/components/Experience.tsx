@@ -82,11 +82,11 @@ const Experience = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
                             viewport={{ once: true }}
-                        >
-                            {/* Profile Image Wrapper for GSAP Parallax */}
+                            >
+                                                 {/* Profile Image Wrapper for GSAP Parallax */}
                             <div
                                 ref={imageRef}
-                                className="relative mb-2 md:mb-0"
+                                className="relative mb-0"
                             >
                                 {/* Motion div for Hover lift */}
                                 <motion.div
@@ -97,16 +97,16 @@ const Experience = () => {
                                         damping: 25 
                                     }}
                                 >
-                                    <div className="w-[85%] md:w-[90%] mx-auto relative rounded-3xl overflow-hidden shadow-2xl shadow-foreground/5">
-                                        <img src="assets/profile2.png" className="w-full h-auto object-cover" alt="Ayush Kushwaha" />
+                                    <div className="w-[85%] md:w-[90%] mx-auto relative rounded-3xl overflow-hidden shadow-2xl shadow-foreground/5 h-[400px] md:h-[500px] lg:h-[600px] scale-95">
+                                        <img src="assets/ayush-kushwaha.png" className="w-full h-full object-cover object-top" alt="Ayush Kushwaha" />
                                     </div>
                                 </motion.div>
                             </div>
 
-                            <div className="flex justify-between px-8">
+                            <div className="flex justify-between px-12 -mt-2 lg:-mt-4">
                                 {/* Name & Title */}
                                 <motion.div
-                                    className="mb-6"
+                                    className="mb-2"
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.6, delay: 0.8 }}
