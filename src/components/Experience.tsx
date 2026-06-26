@@ -98,7 +98,7 @@ const Experience = () => {
                                     }}
                                 >
                                     <div className="w-[85%] md:w-[90%] mx-auto relative rounded-3xl overflow-hidden shadow-2xl shadow-foreground/5 h-[400px] md:h-[500px] lg:h-[600px] scale-95">
-                                        <img src="assets/ayush-kushwaha.png" className="w-full h-full object-cover object-top" alt="Ayush Kushwaha" />
+                                        <img src="assets/ayush-kushwaha.webp" className="w-full h-full object-cover object-top" alt="Ayush Kushwaha" />
                                     </div>
                                 </motion.div>
                             </div>

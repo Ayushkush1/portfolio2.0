@@ -23,7 +23,7 @@ const Index = () => {
     url: canonical,
     description,
     jobTitle: "Full-Stack Product Engineer & UI/UX Designer",
-    image: "https://ayushkushwaha.com/assets/ayush-kushwaha.png",
+    image: "https://ayushkushwaha.com/assets/ayush-kushwaha.webp",
     knowsAbout: ["Software Engineering", "Web Development", "UI/UX Design", "SaaS Development", "React", "Next.js"],
     worksFor: {
       "@type": "Organization",
