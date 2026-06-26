@@ -52,7 +52,7 @@ const Hero = () => {
                     transition={{ duration: 0.8, delay: 0.4 }}
                 >
                     
-                    <motion.h1
+                    <motion.p
                         className=" text-[2.2rem] sm:text-[2.6rem] md:text-6xl font-bold leading-tight tracking-tight max-w-xl flex flex-wrap"
                         variants={{
                             hidden: { opacity: 1 },
@@ -99,7 +99,7 @@ const Hero = () => {
                                 )}
                             </span>
                         ))}
-                    </motion.h1>
+                    </motion.p>
                 </motion.div>
 
                 {/* Right side - portrait and bio */}
@@ -240,7 +240,7 @@ const Hero = () => {
                 </motion.div>
 
                 {/* Oversized name */}
-                <motion.div
+                <motion.h1
                     className="pointer-events-none absolute bottom-4 lg:bottom-[-1rem] left-0 w-full select-none text-[20vw] md:text-[19vw] leading-none font-extrabold tracking-tight text-foreground/[0.025] hidden md:block"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -248,7 +248,7 @@ const Hero = () => {
                 >
                     <motion.div style={{ x: xLeft }}>Ayush</motion.div>
                     <motion.div style={{ x: xRight }}>Kushwaha</motion.div>
-                </motion.div>
+                </motion.h1>
             </div>
         </section>
     );
