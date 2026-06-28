@@ -8,49 +8,17 @@ import {
   FlaskConical,
   Goal
 } from "lucide-react";
+import FallingPillsArea from "./FallingPillsArea";
 
-type PillProps = {
-  icon: React.ReactNode;
-  label: string;
-  color: string;
-  disableDrag?: boolean;
-};
 
-const SkillPill: React.FC<PillProps> = ({ icon, label, color, disableDrag }) => (
-  <motion.div
-    className={`rounded-full px-1.5 py-1 pr-3 md:px-2 md:py-1.5 md:pr-4 flex items-center gap-1.5 md:gap-2 bg-white/90 backdrop-blur text-xs md:text-sm text-gray-900 shadow-lg border border-white/20 hover:bg-white transition-colors ${disableDrag ? '' : 'cursor-grab active:cursor-grabbing'}`}
-    drag={!disableDrag}
-    dragSnapToOrigin
-    dragConstraints={{
-      top: -300,
-      left: -400,
-      right: 400,
-      bottom: 300,
-    }}
-    dragElastic={0.2}
-    dragTransition={{
-      bounceStiffness: 600,
-      bounceDamping: 20,
-      power: 0.3,
-      timeConstant: 200
-    }}
-    whileDrag={{
-      scale: 1.05,
-      rotate: 5,
-      zIndex: 50,
-      boxShadow: "0 25px 50px rgba(0,0,0,0.3)"
-    }}
-  >
-    <span
-      className="inline-flex items-center justify-center rounded-full size-7 md:size-8"
-      style={{ backgroundColor: color }}
-    >
-      <span className="text-white">
-        {icon}
-      </span>
+/* ── simple pill badge for mobile marquee ────────────────────── */
+const PillBadge: React.FC<{ icon: React.ReactNode; label: string; color: string }> = ({ icon, label, color }) => (
+  <div className="rounded-full px-1.5 py-1 pr-3 flex items-center gap-1.5 bg-white/90 backdrop-blur text-xs text-gray-900 shadow-lg border border-white/20 whitespace-nowrap select-none">
+    <span className="inline-flex items-center justify-center rounded-full size-7 flex-shrink-0" style={{ backgroundColor: color }}>
+      <span className="text-white">{icon}</span>
     </span>
     <span className="font-medium">{label}</span>
-  </motion.div>
+  </div>
 );
 
 const WordReveal = ({ children, progress, range }: { children: React.ReactNode, progress: any, range: [number, number] }) => {
@@ -78,12 +46,9 @@ const About: React.FC = () => {
   const statementText = "I help startups turn ideas into market-ready MVPs, boosting conversions and user engagement through scalable architecture, product strategy, and modern full-stack development.";
   const words = statementText.split(" ");
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -150]); // Top moves fastest upwards
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -100]); // Middle moves medium
-  const y3 = useTransform(scrollYProgress, [0, 1], [0, -50]);  // Bottom moves slowest
-  const y4 = useTransform(scrollYProgress, [0, 1], [0, -150]); // Top moves fastest upwards
-  const y5 = useTransform(scrollYProgress, [0, 1], [0, -100]); // Middle moves medium
-  const y6 = useTransform(scrollYProgress, [0, 1], [0, -50]);  // Bottom moves slowest
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -150]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   return (
     <section ref={containerRef} id="about" className="relative flex items-center justify-center overflow-hidden w-full pt-10 pb-12 md:pt-40 md:pb-32 bg-gradient-to-br from-background via-background to-primary/5">
@@ -138,85 +103,11 @@ const About: React.FC = () => {
             </h1>
           </motion.div>
 
-          {/* Floating Skills Pills - Desktop Only */}
-          <div className="hidden lg:block">
-            {/* Left side pills with different rotations */}
-            <div className="absolute -left-14 top-24 flex flex-col gap-10">
-              <motion.div style={{ y: y1 }}>
-                <motion.div
-                  className="rotate-6"
-                  initial={{ opacity: 0, x: -100, rotate: 6 }}
-                  whileInView={{ opacity: 1, x: 0, rotate: 6 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
-                >
-                  <SkillPill icon={<LayoutGrid className="size-4" />} label="Design systems" color="#ff5f26" />
-                </motion.div>
-              </motion.div>
-              <motion.div style={{ y: y2 }}>
-                <motion.div
-                  className="rotate-3 ml-8"
-                  initial={{ opacity: 0, x: -120, rotate: 3 }}
-                  whileInView={{ opacity: 1, x: 0, rotate: 3 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
-                >
-                  <SkillPill icon={<PenTool className="size-4" />} label="SaaS Builder" color="#10b981" />
-                </motion.div>
-              </motion.div>
-              <motion.div style={{ y: y3 }}>
-                <motion.div
-                  className="-rotate-6 ml-4"
-                  initial={{ opacity: 0, x: -80, rotate: -6 }}
-                  whileInView={{ opacity: 1, x: 0, rotate: -6 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6, delay: 0.9, ease: "easeOut" }}
-                >
-                  <SkillPill icon={<Search className="size-4" />} label="Research" color="#3b82f6" />
-                </motion.div>
-              </motion.div>
-            </div>
-
-            {/* Right side pills with different rotations */}
-            <div className="absolute -right-14 top-24 flex flex-col gap-10">
-              <motion.div style={{ y: y4 }}>
-                <motion.div
-                  className="-rotate-6"
-                  initial={{ opacity: 0, x: 100, rotate: -6 }}
-                  whileInView={{ opacity: 1, x: 0, rotate: -6 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
-                >
-                  <SkillPill icon={<Film className="size-4" />} label="Animation" color="#22c55e" />
-                </motion.div>
-              </motion.div>
-              <motion.div style={{ y: y5 }}>
-                <motion.div
-                  className="-rotate-3 mr-8"
-                  initial={{ opacity: 0, x: 120, rotate: -3 }}
-                  whileInView={{ opacity: 1, x: 0, rotate: -3 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
-                >
-                  <SkillPill icon={<FlaskConical className="size-4" />} label="Prototyping" color="#ec4899" />
-                </motion.div>
-              </motion.div>
-              <motion.div style={{ y: y6 }}>
-                <motion.div
-                  className="rotate-6 mr-4"
-                  initial={{ opacity: 0, x: 80, rotate: 6 }}
-                  whileInView={{ opacity: 1, x: 0, rotate: 6 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6, delay: 1.0, ease: "easeOut" }}
-                >
-                  <SkillPill icon={<Goal className="size-4" />} label="Strategy" color="#f59e0b" />
-                </motion.div>
-              </motion.div>
-            </div>
-          </div>
+          {/* Falling Skills Pills - Desktop Only (physics on hover) */}
+          <FallingPillsArea />
         </div>
 
-        {/* Mobile Skills Display - Unique Marquee UI */}
+        {/* Mobile Skills Display - Marquee */}
         <div className="lg:hidden mt-12 relative w-screen -ml-[calc((100vw-100%)/2)] overflow-hidden py-4">
           <div className="flex flex-col gap-4">
             {/* First Row */}
@@ -228,9 +119,9 @@ const About: React.FC = () => {
               >
                 {[1, 2, 3].map((i) => (
                   <div key={`r1-${i}`} className="flex gap-4">
-                    <SkillPill icon={<LayoutGrid className="size-4" />} label="Design systems" color="#ff5f26" disableDrag />
-                    <SkillPill icon={<PenTool className="size-4" />} label="SaaS Builder" color="#10b981" disableDrag />
-                    <SkillPill icon={<Search className="size-4" />} label="Research" color="#3b82f6" disableDrag />
+                    <PillBadge icon={<LayoutGrid className="size-4" />} label="Design systems" color="#ff5f26" />
+                    <PillBadge icon={<PenTool className="size-4" />} label="SaaS Builder" color="#10b981" />
+                    <PillBadge icon={<Search className="size-4" />} label="Research" color="#3b82f6" />
                   </div>
                 ))}
               </motion.div>
@@ -244,9 +135,9 @@ const About: React.FC = () => {
               >
                 {[1, 2, 3].map((i) => (
                   <div key={`r2-${i}`} className="flex gap-4">
-                    <SkillPill icon={<Film className="size-4" />} label="Animation" color="#22c55e" disableDrag />
-                    <SkillPill icon={<FlaskConical className="size-4" />} label="Prototyping" color="#ec4899" disableDrag />
-                    <SkillPill icon={<Goal className="size-4" />} label="Strategy" color="#f59e0b" disableDrag />
+                    <PillBadge icon={<Film className="size-4" />} label="Animation" color="#22c55e" />
+                    <PillBadge icon={<FlaskConical className="size-4" />} label="Prototyping" color="#ec4899" />
+                    <PillBadge icon={<Goal className="size-4" />} label="Strategy" color="#f59e0b" />
                   </div>
                 ))}
               </motion.div>

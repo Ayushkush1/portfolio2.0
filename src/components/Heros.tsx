@@ -1,7 +1,11 @@
-import { ArrowRight, FileText } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, useScroll, useTransform, useMotionValue, animate } from "framer-motion";
+
 import { useRef, useEffect } from "react";
+
+import VariableProximity from "./VariableProximity";
+
 
 const CountUp = ({ to, duration = 2 }: { to: number, duration?: number }) => {
     const count = useMotionValue(0);
@@ -32,6 +36,7 @@ const Hero = () => {
         window.open(whatsappURL, '_blank');
     };
 
+
     return (
         <section id="home" ref={containerRef} aria-label="Hero – Product Developer" className="relative overflow-hidden pt-[7rem] md:pt-24">
             {/* Ambient brand light */}
@@ -51,9 +56,8 @@ const Hero = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
                 >
-                    
                     <motion.p
-                        className=" text-[2.2rem] sm:text-[2.6rem] md:text-6xl font-bold leading-tight tracking-tight max-w-xl flex flex-wrap"
+                        className="text-[2.2rem] sm:text-[2.6rem] md:text-6xl font-bold leading-tight tracking-tight max-w-xl flex flex-wrap"
                         variants={{
                             hidden: { opacity: 1 },
                             show: {
@@ -65,10 +69,7 @@ const Hero = () => {
                         animate="show"
                     >
                         {["Full-Stack Product", "Engineer, built", "to scale"].map((line, lineIdx) => (
-                            <span
-                                key={lineIdx}
-                                className="block w-full"
-                            >
+                            <span key={lineIdx} className="block w-full">
                                 {line.split(" ").map((word, wordIdx, array) => (
                                     <span key={wordIdx} className="inline-block whitespace-nowrap">
                                         {word.split("").map((char, charIdx) => (
@@ -239,15 +240,46 @@ const Hero = () => {
                     </motion.div>
                 </motion.div>
 
-                {/* Oversized name */}
+                {/* Oversized name – VariableProximity weight morph on hover */}
                 <motion.h1
-                    className="pointer-events-none absolute bottom-4 lg:bottom-[-1rem] left-0 w-full select-none text-[20vw] md:text-[19vw] leading-none font-extrabold tracking-tight text-foreground/[0.025] hidden md:block"
+                    className="pointer-events-none absolute bottom-4 lg:bottom-[-1rem] left-0 w-full select-none text-[20vw] md:text-[19vw] leading-none tracking-tighter text-foreground/[0.025] hidden md:block"
+                   
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 1.2 }}
                 >
-                    <motion.div style={{ x: xLeft }}>Ayush</motion.div>
-                    <motion.div style={{ x: xRight }}>Kushwaha</motion.div>
+                    <motion.div style={{ x: xLeft }}>
+                        <VariableProximity
+                            label="Ayush"
+                            fromFontVariationSettings="'wght' 800, 'opsz' 110"
+                            toFontVariationSettings="'wght' 1000, 'opsz' 110"
+                            containerRef={containerRef as React.MutableRefObject<HTMLElement | null>}
+                            radius={300}
+                            falloff="gaussian"
+                            style={{
+                                display: 'block',
+                                fontFamily: '"Roboto Flex", sans-serif',
+                                letterSpacing: '0em',
+                                lineHeight: 1,
+                            }}
+                        />
+                    </motion.div>
+                    <motion.div style={{ x: xRight }}>
+                        <VariableProximity
+                            label="Kushwaha"
+                            fromFontVariationSettings="'wght' 800, 'opsz' 110"
+                            toFontVariationSettings="'wght' 1000, 'opsz' 110"
+                            containerRef={containerRef as React.MutableRefObject<HTMLElement | null>}
+                            radius={300}
+                            falloff="gaussian"
+                            style={{
+                                display: 'block',
+                                fontFamily: '"Roboto Flex", sans-serif',
+                                letterSpacing: '0em',
+                                lineHeight: 1,
+                            }}
+                        />
+                    </motion.div>
                 </motion.h1>
             </div>
         </section>
