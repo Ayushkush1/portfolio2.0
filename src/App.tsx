@@ -7,6 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import Index from "./pages/Index";
 import Portfolio from "./pages/Portfolio";
 import Work from "./pages/Work";
+import ProjectDetail from "./pages/ProjectDetail";
 import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
 import Lenis from "@studio-freight/lenis";
@@ -55,6 +56,7 @@ const App = () => {
             <Route path="/" element={<Index />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/work" element={<Work />} />
+            <Route path="/work/:id" element={<ProjectDetail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

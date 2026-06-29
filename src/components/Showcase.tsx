@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
 import { ArrowRight, Layers, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { featuredProducts, FeaturedProduct } from "@/data/projects";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const ProductCard = ({ product, i, targetScale, progress }: { product: FeaturedProduct; i: number; targetScale: number; progress: any }) => {
@@ -121,15 +121,15 @@ const ProductCard = ({ product, i, targetScale, progress }: { product: FeaturedP
 
                     {/* Bottom Action (Pinned to bottom) */}
                     <div className="mt-auto pt-6 md:pt-8 border-t border-white/5">
-                        <a 
-                            href="/work" 
+                        <Link 
+                            to={`/work/${product.id}`} 
                             className="group flex items-center justify-between w-full text-white/60 hover:text-brand transition-colors"
                         >
                             <span className="text-xs md:text-sm font-medium tracking-[0.2em] uppercase">Explore Project</span>
                             <div className="w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center group-hover:bg-brand/10 group-hover:border-brand/30 transition-all duration-300">
                                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                             </div>
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </motion.div>
