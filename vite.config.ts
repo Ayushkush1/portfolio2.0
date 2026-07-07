@@ -19,8 +19,21 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    // Target modern browsers to reduce polyfill overhead
     target: "es2020",
-    chunkSizeWarningLimit: 600,
+    chunkSizeWarningLimit: 700,
+    rollupOptions: {
+      output: {
+        // SAFE manualChunks: only split pure-JS libs that have NO React context deps.
+        // Splitting React, Radix, Framer, or react-query into separate chunks
+        // causes duplicate React instances → createContext crash in production.
+        manualChunks: {
+          // GSAP + Lenis are pure JS animation libs — completely React-free.
+          // Splitting them saves ~125 KB from the main entry chunk.
+          "animation": ["gsap", "@studio-freight/lenis"],
+          // matter-js is a pure JS physics engine (used by FallingPillsArea).
+          "physics": ["matter-js"],
+        },
+      },
+    },
   },
 }));
