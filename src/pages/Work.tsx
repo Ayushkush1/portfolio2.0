@@ -5,6 +5,13 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Contact from "@/components/Contact";
 import { caseStudies, portfolioProjects } from "@/data/projects";
+import Navbar from "@/components/Navbar";
+import { Button } from "@/components/ui/button";
+
+const workIndicatorSections = [
+    { id: "projects-list", label: "Projects" },
+    { id: "contact", label: "Contact" }
+];
 
 interface DisplayProject {
     id: string;
@@ -65,25 +72,11 @@ const WorkPage = () => {
                 />
 
                 {/* Header */}
-                <motion.header
-                    className="container max-w-7xl relative z-50 flex items-center justify-between pt-8 pb-4 mx-auto px-4 md:px-8"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                >
-                    <Link to="/">
-                        <motion.img src="/assets/ayush-kushwaha-logo.png" alt="Logo" className="h-6 w-auto brightness-0 invert" whileHover={{ scale: 1.02 }} />
-                    </Link>
-                    <Link to="/">
-                        <motion.button className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/5 border border-white/10 hover:bg-white hover:text-black transition-all duration-300">
-                            <ArrowLeft className="w-5 h-5" />
-                        </motion.button>
-                    </Link>
-                </motion.header>
+                <Navbar backTo="/" customIndicatorSections={workIndicatorSections} />
 
-                <div className="container relative z-10 max-w-7xl mx-auto px-4 md:px-8 mt-16">
+                <div id="projects-list" className="container relative z-10 pt-24 md:pt-32">
                     {/* Hero Statement */}
-                    <div className="mb-24">
+                    <div className="mb-20">
                         <motion.p
                             className="text-brand text-xs font-mono uppercase tracking-[0.2em] mb-4"
                             initial={{ opacity: 0 }}
@@ -104,7 +97,7 @@ const WorkPage = () => {
                     </div>
 
                     {/* Creative Editorial Layout for Projects */}
-                    <div className="flex flex-col gap-y-32 md:gap-y-48 mb-40">
+                    <div className="flex flex-col gap-y-26 md:gap-y-36 mb-40 px-10">
                         {displayProjects.map((project, index) => {
                             const isEven = index % 2 === 0;
                             return (
@@ -113,18 +106,23 @@ const WorkPage = () => {
                                     className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-16 items-center group cursor-pointer`}
                                     initial={{ opacity: 0, y: 50 }}
                                     whileInView={{ opacity: 1, y: 0 }}
+                                    whileHover="hover"
                                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                                     viewport={{ once: true, margin: "-100px" }}
                                     onClick={() => handleProjectClick(project)}
                                 >
                                     {/* Image Section */}
                                     <div className="w-full lg:w-3/4 relative">
-                                        <div className="w-full rounded-xl overflow-hidden bg-neutral-900/40 relative border border-white/5 shadow-2xl">
-                                            <img
+                                        <div className="w-full rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-neutral-900/40 relative border border-white/5 shadow-2xl">
+                                            <motion.img
                                                 src={project.image}
                                                 alt={project.title}
                                                 onError={(e) => { (e.target as HTMLImageElement).src = "/placeholder.svg"; }}
-                                                className="w-full h-auto group-hover:scale-[1.03] transition-transform duration-[1.5s] ease-[0.16,1,0.3,1]"
+                                                className="w-full h-auto"
+                                                variants={{
+                                                    hover: { scale: 1.03 }
+                                                }}
+                                                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
                                             />
                                             <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-700 pointer-events-none" />
                                         </div>
@@ -139,17 +137,13 @@ const WorkPage = () => {
 
                                     {/* Details Section */}
                                     <div className="w-full lg:w-1/4 flex flex-col justify-center">
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <span className="text-[10px] font-mono tracking-widest text-white/50 uppercase">
-                                                {project.year}
-                                            </span>
-                                            <div className="h-px w-6 bg-white/20 group-hover:w-10 group-hover:bg-brand transition-all duration-500" />
-                                            <span className="text-[10px] font-mono tracking-widest text-brand uppercase">
-                                                {project.category}
-                                            </span>
-                                        </div>
+                                         <div className="flex items-center gap-3 mb-4">
+                                             <span className="text-[10px] font-mono tracking-widest text-brand uppercase">
+                                                 {project.category}
+                                             </span>
+                                         </div>
 
-                                        <h2 className="text-3xl md:text-4xl font-light text-white mb-4 group-hover:text-brand transition-colors duration-500 leading-tight" style={{ fontFamily: "'Fraunces', serif" }}>
+                                        <h2 className="text-3xl md:text-4xl font-light text-white mb-1 leading-tight" style={{ fontFamily: "'Fraunces', serif" }}>
                                             {project.title}
                                         </h2>
                                         
@@ -169,13 +163,62 @@ const WorkPage = () => {
                                             </div>
                                         </div>
 
-                                        {/* Explore Button */}
-                                        <div className="inline-flex items-center gap-3 text-xs font-medium tracking-widest uppercase text-white/80 group-hover:text-brand transition-colors duration-300">
-                                            <span>Explore Case Study</span>
-                                            <span className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-brand group-hover:bg-brand/10 transition-all duration-500">
-                                                <ArrowUpRight className="w-3 h-3" />
-                                            </span>
-                                        </div>
+                                         {/* Explore Button */}
+                                         <div className="mt-4 w-fit">
+                                             <Button
+                                                 variant="hero"
+                                                 size="lg"
+                                                 className="group flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)] pl-5 pr-2"
+                                             >
+                                                 <div className="relative overflow-hidden h-6 w-fit text-white">
+                                                     <motion.div
+                                                         className="flex flex-col items-center"
+                                                         variants={{
+                                                             hover: { y: -24 }
+                                                         }}
+                                                         initial={{ y: 0 }}
+                                                         transition={{ duration: 0.3, ease: "easeInOut" }}
+                                                     >
+                                                         <span className="w-full flex items-center justify-center whitespace-nowrap text-sm font-medium h-6 leading-6">
+                                                             Explore Case Study
+                                                         </span>
+                                                         <span className="w-full flex items-center justify-center font-semibold whitespace-nowrap text-sm h-6 leading-6">
+                                                             Explore Case Study
+                                                         </span>
+                                                     </motion.div>
+                                                 </div>
+                                                 <motion.div
+                                                     className="bg-white rounded-full p-1.5 flex items-center justify-center ml-2.5 group-hover:bg-orange-50 transition-colors duration-300 shadow-[0_0_10px_rgba(255,95,38,0.3)]"
+                                                     animate={{
+                                                         boxShadow: [
+                                                             "0 0 10px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0)",
+                                                             "0 0 18px rgba(255, 95, 38, 0.5), 0 0 0 6px rgba(255, 95, 38, 0)",
+                                                             "0 0 10px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0)"
+                                                         ]
+                                                     }}
+                                                     transition={{
+                                                         duration: 2,
+                                                         repeat: Infinity,
+                                                         ease: "easeInOut"
+                                                     }}
+                                                 >
+                                                     <ArrowUpRight className="h-3.5 w-3.5 text-[#ff5f26] transition-all group-hover:rotate-45 duration-300" />
+                                                 </motion.div>
+                                                 
+                                                 {/* Shimmer effect */}
+                                                 <motion.div
+                                                     className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                                                     initial={{ x: "-100%" }}
+                                                     animate={{ x: "100%" }}
+                                                     transition={{
+                                                         duration: 3,
+                                                         repeat: Infinity,
+                                                         ease: "easeInOut",
+                                                         delay: 2
+                                                     }}
+                                                 />
+                                             </Button>
+                                         </div>
                                     </div>
                                 </motion.article>
                             );

@@ -1,38 +1,28 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
-import { ArrowRight } from "lucide-react";
+import GridMotion from "./GridMotion";
 
 const designs = [
-    { src: "/assets/Catfy_LandignPage1.png", alt: "Catfy SaaS Platform Landing Page UI Design by Ayush Kushwaha", title: "Catfy Landing Page" },
-    { src: "/assets/Erp_Dashboard.png", alt: "Enterprise ERP Dashboard UI/UX Design by Ayush Kushwaha", title: "ERP Dashboard" },
-    { src: "/assets/Leadzenor_Dashboard.png", alt: "Leadzenor CRM Dashboard Interface Design by Ayush Kushwaha", title: "Leadzenor Dashboard" },
-    { src: "/assets/Karatrix_LandingPage1.png", alt: "Karatrix Jewellery ERP Landing Page Web Design by Ayush Kushwaha", title: "Karatrix Landing Page" },
-    { src: "/assets/TheSevenStar_LandingPage.png", alt: "The Seven Star Corporate Landing Page Design by Ayush Kushwaha", title: "The Seven Star" },
-    { src: "/assets/EricHost1.png", alt: "EricHost Web Hosting Platform Interface Design by Ayush Kushwaha", title: "EricHost Platform" },
+    "/assets/Catfy_LandignPage1.png",
+    "/assets/Erp_Dashboard.png",
+    "/assets/Leadzenor_Dashboard.png",
+    "/assets/Karatrix_LandingPage1.png",
+    "/assets/TheSevenStar_LandingPage.png",
+    "/assets/EricHost1.png",
 ];
 
 const DesignShowcase = () => {
     const containerRef = useRef<HTMLElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end start"]
+
+    // Create 28 items by repeating designs
+    const gridItems = Array.from({ length: 28 }, (_, index) => {
+        return designs[index % designs.length];
     });
-
-    // We move the rows in opposite directions as the user scrolls down
-    // Row 1 moves left
-    const x1 = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
-    // Row 2 moves right
-    const x2 = useTransform(scrollYProgress, [0, 1], ["-15%", "0%"]);
-
-    const base1 = designs.slice(0, 3);
-    const base2 = designs.slice(3, 6);
-    const row1 = [...base1, ...base1, ...base1, ...base1, ...base1, ...base1, ...base1, ...base1];
-    const row2 = [...base2, ...base2, ...base2, ...base2, ...base2, ...base2, ...base2, ...base2];
 
     return (
         <section id="design" ref={containerRef} className="py-24 md:py-32 bg-background relative overflow-hidden">
-            <div className="container max-w-7xl mx-auto px-4 md:px-6 relative z-10">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+            <div className="w-full max-w-7xl mx-auto px-6 md:px-12 xl:px-16 relative z-10 mb-10 md:mb-16">
+                <div className="flex flex-col md:flex-row justify-between items-end gap-8">
                     <div>
                         <motion.p
                             className="text-brand text-sm md:text-base font-semibold tracking-widest uppercase mb-4"
@@ -72,86 +62,9 @@ const DesignShowcase = () => {
                 </div>
             </div>
 
-            {/* Scrolling Marquee Rows */}
-            <div className="flex flex-col gap-6 md:gap-8 relative w-full mt-10 md:mt-16">
-              
-                {/* Top Row (Scrolls Left) */}
-                <motion.div style={{ x: x1 }} className="flex items-center w-max pl-4 md:pl-0">
-                    <motion.div
-                        className="flex items-center gap-6 md:gap-8 w-max"
-                        animate={{ x: ["0%", "-50%"] }}
-                        transition={{ repeat: Infinity, ease: "linear", duration: 180 }}
-                    >
-                        {row1.map((design, i) => (
-                        <div key={`r1-${i}`} className="w-[300px] md:w-[500px] shrink-0 group relative rounded-3xl overflow-hidden border border-white/5 shadow-2xl">
-                            <img 
-                                src={design.src} 
-                                alt={design.alt} 
-                                className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                            />
-                            
-                            {/* Base Overlay Gradient */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                            
-                            {/* Beautiful Hover Content */}
-                            <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-8 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-8 group-hover:translate-y-0">
-                                <div className="flex justify-end">
-                                    <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center -rotate-45 group-hover:rotate-0 transition-transform duration-500 delay-100">
-                                        <ArrowRight className="w-4 h-4 text-white" />
-                                    </div>
-                                </div>
-                                <div>
-                                    <span className="text-brand text-[10px] font-bold tracking-[0.2em] uppercase mb-2 block transform opacity-0 group-hover:opacity-100 transition-all duration-500 delay-150">
-                                        UI/UX Design
-                                    </span>
-                                    <h3 className="text-white font-medium text-xl md:text-2xl tracking-wide leading-tight">
-                                        {design.title}
-                                    </h3>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                    </motion.div>
-                </motion.div>
-
-                {/* Bottom Row (Scrolls Right) */}
-                <motion.div style={{ x: x2 }} className="flex items-center w-max pl-4 md:pl-0">
-                    <motion.div
-                        className="flex items-center gap-6 md:gap-8 w-max"
-                        animate={{ x: ["-50%", "0%"] }}
-                        transition={{ repeat: Infinity, ease: "linear", duration: 180 }}
-                    >
-                        {row2.map((design, i) => (
-                        <div key={`r2-${i}`} className="w-[300px] md:w-[500px] shrink-0 group relative rounded-3xl overflow-hidden border border-white/5 shadow-2xl">
-                            <img 
-                                src={design.src} 
-                                alt={design.alt} 
-                                className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                            />
-                            
-                            {/* Base Overlay Gradient */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                            
-                            {/* Beautiful Hover Content */}
-                            <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-8 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-8 group-hover:translate-y-0">
-                                <div className="flex justify-end">
-                                    <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center -rotate-45 group-hover:rotate-0 transition-transform duration-500 delay-100">
-                                        <ArrowRight className="w-4 h-4 text-white" />
-                                    </div>
-                                </div>
-                                <div>
-                                    <span className="text-brand text-[10px] font-bold tracking-[0.2em] uppercase mb-2 block transform opacity-0 group-hover:opacity-100 transition-all duration-500 delay-150">
-                                        UI/UX Design
-                                    </span>
-                                    <h3 className="text-white font-medium text-xl md:text-2xl tracking-wide leading-tight">
-                                        {design.title}
-                                    </h3>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                    </motion.div>
-                </motion.div>
+            {/* Interactive GridMotion Container */}
+            <div className="w-full h-[600px] md:h-[700px] relative z-20">
+                <GridMotion items={gridItems} gradientColor="transparent" />
             </div>
         </section>
     );

@@ -49,7 +49,7 @@ const Testimonials = () => {
             {/* Moving Background Text (Desktop) */}
             <motion.div 
                 style={{ x }}
-                className="absolute top-20 left-0 whitespace-nowrap text-[15rem] font-bold text-white/[0.02] select-none pointer-events-none hidden md:block"
+                className="absolute top-20 left-0 whitespace-nowrap text-[14rem] font-bold text-white/[0.02] select-none pointer-events-none hidden md:block"
             >
                 CLIENT FEEDBACK • REAL RESULTS • CLIENT FEEDBACK • REAL RESULTS
             </motion.div>

@@ -11,7 +11,12 @@ import {
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 
-const Contact = () => {
+interface ContactProps {
+    title?: string;
+    description?: string;
+}
+
+const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
     const ref = useRef(null);
     const { scrollYProgress } = useScroll({
         target: ref,
@@ -79,13 +84,17 @@ const Contact = () => {
                 {/* Main Content - Centered */}
                 <div className="flex flex-col justify-center items-center text-center space-y-4 md:space-y-6 px-6 py-10 md:py-0 bg-white/5 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none border border-white/10 md:border-none rounded-[3rem] md:rounded-none shadow-2xl md:shadow-none w-[88vw] mx-auto md:w-full">
                     <motion.h1
-                        className="text-[2.5rem] md:text-8xl font-bold leading-tight"
+                        className={`font-bold leading-tight ${
+                            title.length > 20
+                                ? "text-[2.2rem] md:text-6xl lg:text-7xl max-w-5xl mx-auto"
+                                : "text-[2.5rem] md:text-8xl"
+                        }`}
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.3 }}
                         viewport={{ once: true }}
                     >
-                        Let's Connect
+                        {title}
                     </motion.h1>
 
                     <motion.div
@@ -96,8 +105,12 @@ const Contact = () => {
                         viewport={{ once: true }}
                     >
                         <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-                            Feel free to contact me if having any questions.<br className="hidden md:block" />
-                            I'm available for new projects or just for chatting.
+                            {description !== undefined ? description : (
+                                <>
+                                    Feel free to contact me if having any questions.<br className="hidden md:block" />
+                                    I'm available for new projects or just for chatting.
+                                </>
+                            )}
                         </p>
                     </motion.div>
 

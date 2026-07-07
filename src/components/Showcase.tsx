@@ -1,18 +1,24 @@
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
-import { ArrowRight, Layers, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, Layers, ExternalLink } from "lucide-react";
 import { featuredProducts, FeaturedProduct } from "@/data/projects";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const ProductCard = ({ product, i, targetScale, progress }: { product: FeaturedProduct; i: number; targetScale: number; progress: any }) => {
-    const containerRef = useRef(null);
+const ProductCard = ({ product }: { product: FeaturedProduct }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const containerRef = useRef<HTMLDivElement>(null);
+
     const { scrollYProgress } = useScroll({
         target: containerRef,
-        offset: ["start end", "start start"],
+        offset: ["start end", "center center", "end start"]
     });
 
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.94, 1, 0.94]);
+    const opacity = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [0, 1, 1, 0]);
+    const y = useTransform(scrollYProgress, [0, 0.5, 1], [100, 0, -100]);
 
     const nextImage = () => setCurrentIndex((prev) => (prev + 1) % product.sliderItems.length);
 
@@ -22,21 +28,19 @@ const ProductCard = ({ product, i, targetScale, progress }: { product: FeaturedP
         return () => clearInterval(interval);
     }, [product.sliderItems.length]);
 
-    const smoothImageProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
-    const imageScale = useTransform(smoothImageProgress, [0, 1], [1.05, 1]);
-    const scale = useTransform(progress, [i * 0.25, 1], [1, targetScale]);
     const currentItem = product.sliderItems[currentIndex];
 
     return (
-        <div ref={containerRef} className="h-screen flex items-center justify-center sticky top-0 px-4 md:px-6">
+        <div ref={containerRef} className="h-screen w-full flex items-center justify-center relative showcase-card-wrapper">
             <motion.div
-                style={{ scale, top: `calc(${i * 25}px)`, willChange: "transform" }}
-                className="relative flex flex-col md:flex-row p-6 md:p-12 h-auto max-h-[85vh] md:max-h-none w-full max-w-[90rem] mx-auto rounded-[2rem] md:rounded-[2.5rem] bg-[#0A0F1A] border border-white/10 shadow-2xl overflow-y-auto md:overflow-hidden origin-top gap-5 md:gap-16 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                style={{ scale, opacity, y }}
+                whileHover="hover"
+                className="relative flex flex-col md:flex-row h-auto w-full mx-auto gap-5 md:gap-10 group"
             >
                 {/* Left/Middle Column: Image Slider */}
                 <div className="w-full md:flex-1 flex flex-col justify-center h-full">
-                    <div className="w-full relative rounded-[2rem] overflow-hidden group/slider shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5">
-                        <motion.div style={{ scale: imageScale, willChange: "transform" }} className="w-full h-auto relative">
+                    <div className="w-full relative rounded-[3rem] overflow-hidden group/slider shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5">
+                        <div className="w-full h-auto relative">
                             <img src={product.sliderItems[0].image} className="w-full h-auto invisible block" alt="" />
                             <AnimatePresence>
                                 <motion.img
@@ -49,22 +53,11 @@ const ProductCard = ({ product, i, targetScale, progress }: { product: FeaturedP
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
-                                    transition={{ duration: 1, ease: "easeInOut" }}
+                                    transition={{ duration: 1.0, ease: "easeInOut" }}
                                     className="w-full h-full object-cover absolute inset-0"
                                 />
                             </AnimatePresence>
-                        </motion.div>
-
-                        {/* Corner label inside image */}
-                        <a
-                            href={currentItem.url !== "#" ? currentItem.url : undefined}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="absolute top-4 right-4 md:top-6 md:right-6 flex items-center gap-2 bg-black/40 backdrop-blur-md border border-white/10 p-2.5 md:px-4 md:py-2 rounded-full text-white/90 hover:text-white hover:bg-black/60 hover:border-white/30 transition-all duration-300 shadow-lg z-20 group"
-                        >
-                            <span className="hidden md:inline-block text-[10px] md:text-xs font-semibold tracking-wide">{currentItem.name}</span>
-                            <ExternalLink className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
-                        </a>
+                        </div>
 
                         {/* Pagination Dots */}
                         {product.sliderItems.length > 1 && (
@@ -73,7 +66,8 @@ const ProductCard = ({ product, i, targetScale, progress }: { product: FeaturedP
                                     <button
                                         key={idx}
                                         onClick={() => setCurrentIndex(idx)}
-                                        className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-white w-5 md:w-6' : 'bg-white/40 hover:bg-white/80 w-1.5'}`}
+                                        className={`w-2 h-2 rounded-full transition-all ${currentIndex === idx ? "bg-brand w-4" : "bg-white/40"
+                                            }`}
                                     />
                                 ))}
                             </div>
@@ -82,25 +76,24 @@ const ProductCard = ({ product, i, targetScale, progress }: { product: FeaturedP
                 </div>
 
                 {/* Right Column: Content */}
-                <div className="w-full md:flex-none md:w-[320px] xl:w-[400px] flex flex-col h-full py-0 md:py-8 pr-0 md:pr-8">
+                <div className="w-full md:flex-none md:w-[250px] xl:w-[280px] flex flex-col h-full py-0 md:py-8 ">
                     {/* Top Content */}
                     <div className="flex flex-col justify-start">
                         {/* Elegant Category Tag */}
-                        <div className="flex items-center gap-3 mb-4 md:mb-8">
-                            <span className="hidden md:block w-6 h-[1px] bg-brand/40"></span>
+                        <div className="flex items-center gap-3 mb-4">
                             <span className="text-[10px] md:text-xs font-semibold tracking-[0.2em] uppercase text-brand/90">
                                 {product.category}
                             </span>
                         </div>
 
                         {/* Premium Title */}
-                        <h2 
+                        <h2
                             className="text-3xl md:text-5xl font-light mb-4 md:mb-6 text-white leading-[1.1] tracking-tight"
                             style={{ fontFamily: "'Fraunces', serif" }}
                         >
                             {product.name}
                         </h2>
-                        
+
                         {/* Minimal Description */}
                         <p className="text-gray-500 text-sm md:text-base leading-relaxed mb-6 md:mb-8 font-light">
                             {product.solution}
@@ -109,9 +102,9 @@ const ProductCard = ({ product, i, targetScale, progress }: { product: FeaturedP
                         {/* Additional Content: Tech Stack */}
                         <div className="flex flex-wrap gap-2 mb-6 md:mb-8">
                             {product.techStack.slice(0, 3).map((tech, idx) => (
-                                <span 
-                                    key={idx} 
-                                    className="px-3 py-1 rounded-full border border-white/5 bg-white/[0.02] text-[10px] md:text-xs text-white/50 tracking-wider uppercase"
+                                <span
+                                    key={idx}
+                                    className="px-3 py-1 rounded-full border border-white/5 bg-white/[0.02] text-[10px] md:text-[10px] text-white/50 tracking-wider uppercase"
                                 >
                                     {tech}
                                 </span>
@@ -121,15 +114,64 @@ const ProductCard = ({ product, i, targetScale, progress }: { product: FeaturedP
 
                     {/* Bottom Action (Pinned to bottom) */}
                     <div className="mt-auto pt-6 md:pt-8 border-t border-white/5">
-                        <Link 
-                            to={`/work/${product.id}`} 
-                            className="group flex items-center justify-between w-full text-white/60 hover:text-brand transition-colors"
-                        >
-                            <span className="text-xs md:text-sm font-medium tracking-[0.2em] uppercase">Explore Project</span>
-                            <div className="w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center group-hover:bg-brand/10 group-hover:border-brand/30 transition-all duration-300">
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                            </div>
-                        </Link>
+                        <motion.div className="w-fit" whileHover="hover">
+                            <Button
+                                variant="hero"
+                                size="lg"
+                                className="group/btn flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)] pl-5 pr-2 w-fit h-12"
+                                asChild
+                            >
+                                <Link to={`/work/${product.id}`}>
+                                    <div className="relative overflow-hidden h-6 w-fit text-white">
+                                        <motion.div
+                                            className="flex flex-col items-center"
+                                            variants={{
+                                                hover: { y: -24 }
+                                            }}
+                                            initial={{ y: 0 }}
+                                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                                        >
+                                            <span className="w-full flex items-center justify-center whitespace-nowrap text-sm font-medium h-6 leading-6">
+                                                Explore Case Study
+                                            </span>
+                                            <span className="w-full flex items-center justify-center font-semibold whitespace-nowrap text-sm h-6 leading-6">
+                                                Explore Case Study
+                                            </span>
+                                        </motion.div>
+                                    </div>
+                                    <motion.div
+                                        className="bg-white rounded-full p-1.5 flex items-center justify-center ml-2.5 bg-orange-50 transition-colors duration-300 shadow-[0_0_10px_rgba(255,95,38,0.3)]"
+                                        animate={{
+                                            boxShadow: [
+                                                "0 0 10px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0)",
+                                                "0 0 18px rgba(255, 95, 38, 0.5), 0 0 0 6px rgba(255, 95, 38, 0)",
+                                                "0 0 10px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0)"
+                                            ]
+                                        }}
+                                        transition={{
+                                            duration: 2,
+                                            repeat: Infinity,
+                                            ease: "easeInOut"
+                                        }}
+                                    >
+                                        <ArrowRight className="h-3.5 w-3.5 text-[#ff5f26] transition-all group-hover/btn:rotate-0 -rotate-45 duration-300" />
+                                    </motion.div>
+
+                                    {/* Shimmer effect */}
+                                    <motion.div
+                                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                                        initial={{ x: "-100%" }}
+                                        animate={{ x: "100%" }}
+                                        transition={{
+                                            duration: 3,
+                                            repeat: Infinity,
+                                            ease: "easeInOut",
+                                            delay: 2
+                                        }}
+                                    />
+                                </Link>
+                            </Button>
+                        </motion.div>
                     </div>
                 </div>
             </motion.div>
@@ -138,103 +180,108 @@ const ProductCard = ({ product, i, targetScale, progress }: { product: FeaturedP
 };
 
 const Showcase = () => {
-    const containerRef = useRef(null);
     const navigate = useNavigate();
 
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start start", "end end"],
-    });
-
-    const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
-
     return (
-        <section ref={containerRef} id="work" className="relative bg-background pt-20 pb-40">
-            <div className="sticky top-0 h-screen flex items-center justify-center -z-10 pointer-events-none">
-                <h2 className="text-[15vw] leading-none font-black text-white/[0.015] tracking-tighter" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-                    PRODUCTS
-                </h2>
-            </div>
+        <section id="work" className="relative bg-gradient-to-br from-background via-background to-primary/5 py-24 md:pt-32">
+            <div className="container relative z-10 flex flex-col gap-0">
 
-            <div className="relative -mt-[100vh] z-10">
-                {featuredProducts.map((product, i) => {
-                    const targetScale = 1 - ((featuredProducts.length + 1 - i) * 0.05);
-                    return (
-                        <ProductCard
-                            key={product.id}
-                            i={i}
-                            product={product}
-                            targetScale={targetScale}
-                            progress={smoothProgress}
-                        />
-                    );
-                })}
-
-                {/* Final CTA Card */}
-                <div className="h-screen flex items-center justify-center sticky top-0 px-4 md:px-6">
-                    <motion.div
-                        style={{
-                            top: `calc(${featuredProducts.length * 25}px)`,
-                            willChange: "transform"
-                        }}
-                        className="relative flex flex-col items-center justify-center h-[65vh] md:h-[80vh] p-6 md:p-0 w-full max-w-[90rem] mx-auto rounded-[2rem] md:rounded-[2.5rem] bg-gradient-to-br from-gray-900 to-black border border-white/10 shadow-[0_-20px_50px_rgba(0,0,0,0.8)] overflow-hidden group cursor-pointer"
-                        onClick={() => navigate('/work')}
-                    >
-                        <div className="absolute inset-0 bg-brand/0 group-hover:bg-brand/5 transition-colors duration-500" />
-
-                        <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-6 md:mb-8 group-hover:scale-110 group-hover:bg-brand transition-all duration-500">
-                            <Layers className="w-7 h-7 md:w-9 md:h-9 text-white" />
-                        </div>
-
-                        <h2 className="text-4xl md:text-7xl font-light mb-4 md:mb-6 text-white text-center" style={{ fontFamily: "'Fraunces', serif" }}>
-                            Full Case <span className="font-bold italic">Studies</span>
-                        </h2>
-
-                        <p className="text-white/50 text-lg md:text-2xl mb-8 md:mb-12 text-center max-w-2xl font-light">
-                            Deep-dive into architecture, design decisions, and technical challenges behind each product.
+                {/* Section Header */}
+                <div className="flex flex-col md:flex-row justify-between items-end gap-6">
+                    <div>
+                        <p className="text-brand text-sm md:text-base font-semibold tracking-widest uppercase mb-4">
+                            Case Studies
                         </p>
+                        <h2
+                            className="text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.1]"
+                            style={{ fontFamily: "'Fraunces', serif" }}
+                        >
+                            Selected products <br />
+                            <span className="italic text-gray-400">built to scale<span className="text-brand">.</span></span>
+                        </h2>
+                    </div>
 
-                        <motion.div className="group mt-4" whileHover="hover" onClick={(e) => { e.stopPropagation(); navigate('/work'); }}>
-                            <Button
-                                variant="hero"
-                                size="lg"
-                                className="group flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)] rounded-full px-4 py-7"
-                            >
-                                <motion.div
-                                    className="bg-white rounded-full p-2.5 flex items-center justify-center mr-3 group-hover:bg-orange-50 transition-colors duration-300"
-                                    animate={{
-                                        boxShadow: [
-                                            "0 0 15px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0.4)",
-                                            "0 0 25px rgba(255, 95, 38, 0.5), 0 0 0 8px rgba(255, 95, 38, 0)",
-                                            "0 0 15px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0)"
-                                        ]
-                                    }}
-                                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                                >
-                                    <ArrowRight className="h-6 w-6 text-[#ff5f26] transition-all group-hover:rotate-0 -rotate-45 duration-300" />
-                                </motion.div>
+                    <motion.div className="w-fit" whileHover="hover">
+                        <Button
+                            variant="hero"
+                            size="lg"
+                            className="group/btn flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.3)] hover:shadow-[0_0_30px_rgba(255,95,38,0.5)] pl-5 pr-2 w-fit h-12"
+                            asChild
+                        >
+                            <Link to="/work">
                                 <div className="relative overflow-hidden h-6 w-fit text-white">
                                     <motion.div
                                         className="flex flex-col items-center"
-                                        variants={{ hover: { y: -24 } }}
+                                        variants={{
+                                            hover: { y: -24 }
+                                        }}
                                         initial={{ y: 0 }}
                                         transition={{ duration: 0.3, ease: "easeInOut" }}
                                     >
-                                        <span className="w-full flex items-center justify-center text-lg tracking-wide">Explore All Work</span>
-                                        <span className="w-full flex items-center justify-center text-lg font-semibold tracking-wide">Explore All Work</span>
+                                        <span className="w-full flex items-center justify-center whitespace-nowrap text-sm font-medium h-6 leading-6">
+                                            Explore All Work
+                                        </span>
+                                        <span className="w-full flex items-center justify-center font-semibold whitespace-nowrap text-sm h-6 leading-6">
+                                            Explore All Work
+                                        </span>
                                     </motion.div>
                                 </div>
+                                <motion.div
+                                    className="bg-white rounded-full p-1.5 flex items-center justify-center ml-2.5 bg-orange-50 transition-colors duration-300 shadow-[0_0_10px_rgba(255,95,38,0.2)]"
+                                    animate={{
+                                        boxShadow: [
+                                            "0 0 10px rgba(255, 95, 38, 0.2), 0 0 0 0 rgba(255, 95, 38, 0)",
+                                            "0 0 18px rgba(255, 95, 38, 0.4), 0 0 0 6px rgba(255, 95, 38, 0)",
+                                            "0 0 10px rgba(255, 95, 38, 0.2), 0 0 0 0 rgba(255, 95, 38, 0)"
+                                        ]
+                                    }}
+                                    transition={{
+                                        duration: 2,
+                                        repeat: Infinity,
+                                        ease: "easeInOut"
+                                    }}
+                                >
+                                    <ArrowRight className="h-3.5 w-3.5 text-[#ff5f26] transition-all group-hover/btn:rotate-0 -rotate-45 duration-300 duration-300" />
+                                </motion.div>
+
+                                {/* Shimmer */}
                                 <motion.div
                                     className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
                                     initial={{ x: "-100%" }}
                                     animate={{ x: "100%" }}
-                                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                                    transition={{
+                                        duration: 3,
+                                        repeat: Infinity,
+                                        ease: "easeInOut",
+                                        delay: 1.5
+                                    }}
                                 />
-                            </Button>
-                        </motion.div>
+                            </Link>
+                        </Button>
                     </motion.div>
                 </div>
+
+                {/* Projects List */}
+                {featuredProducts.map((product) => (
+                    <ProductCard
+                        key={product.id}
+                        product={product}
+                    />
+                ))}
+
+
             </div>
+
+            {/* Background section name */}
+            <motion.div
+                className="pointer-events-none absolute bottom-0 left-0 w-full select-none pb-5 text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5 hidden md:block"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 1, delay: 1.2 }}
+            >
+                Projects
+            </motion.div>
         </section>
     );
 };

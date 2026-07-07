@@ -2,9 +2,11 @@ import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
-import { ArrowLeft, ExternalLink, Code2, ShieldAlert, Cpu, Palette, Milestone } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink, Code2, ShieldAlert, Cpu, Palette, Milestone } from "lucide-react";
 import { caseStudies } from "@/data/projects";
 import Contact from "@/components/Contact";
+import { Button } from "@/components/ui/button";
+import Navbar from "@/components/Navbar";
 
 const ProjectDetail = () => {
     const { id } = useParams<{ id: string }>();
@@ -59,30 +61,11 @@ const ProjectDetail = () => {
                 <div className="pointer-events-none fixed inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4rem_4rem] z-0" />
 
                 {/* Header Navbar */}
-                <motion.header
-                    className="container max-w-7xl relative z-50 flex items-center justify-between pt-8 pb-4 mx-auto px-4 md:px-8"
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <Link to="/">
-                        <motion.img 
-                            src="/assets/ayush-kushwaha-logo.png" 
-                            alt="Logo" 
-                            className="h-6 w-auto brightness-0 invert" 
-                            whileHover={{ scale: 1.05 }} 
-                        />
-                    </Link>
-                    <Link to="/work">
-                        <motion.button className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/5 border border-white/10 backdrop-blur-md cursor-pointer hover:bg-white hover:text-black transition-all duration-300">
-                            <ArrowLeft className="w-5 h-5" />
-                        </motion.button>
-                    </Link>
-                </motion.header>
+                <Navbar isProjectDetail={true} />
 
-                <main className="relative z-10 container max-w-7xl mx-auto px-4 md:px-8 mt-12 pb-32">
+                <main className="relative z-10 container  pt-24 md:pt-32 pb-26">
                     {/* Project Intro / Hero */}
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start mb-20">
+                    <div id="overview" className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start mb-12">
                         {/* Title & Tagline Column */}
                         <div className="lg:col-span-8">
                             <motion.div
@@ -90,50 +73,89 @@ const ProjectDetail = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6 }}
                             >
-                                <div className="flex items-center gap-3 mb-6">
-                                    <span
-                                        className="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full border"
-                                        style={{ 
-                                            color: project.color, 
-                                            borderColor: `${project.color}40`, 
-                                            backgroundColor: `${project.color}0a` 
-                                        }}
-                                    >
-                                        {project.category}
-                                    </span>
-                                    <span className="text-white/40 text-sm font-mono">{project.year}</span>
-                                    <span className="flex items-center gap-1.5 text-[10px] text-green-400 font-semibold uppercase tracking-wider bg-green-500/5 border border-green-500/20 px-2.5 py-1 rounded-full">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse inline-block" />
-                                        {project.status}
-                                    </span>
-                                </div>
                                 <h1 
-                                    className="text-5xl md:text-7xl lg:text-8xl font-light text-white mb-2 tracking-tight leading-none"
+                                    className="text-3xl md:text-5xl lg:text-6xl font-light text-white mb-2 tracking-tight leading-none"
                                     style={{ fontFamily: "'Fraunces', serif" }}
                                 >
                                     {project.name}
                                 </h1>
-                                <p className="text-xl md:text-2xl text-white/60 leading-relaxed font-light max-w-3xl">
+                                <p className="text-lg md:text-xl text-white/60 leading-relaxed font-light max-w-3xl">
                                     {project.tagline}
                                 </p>
                             </motion.div>
                         </div>
 
                         {/* Top Link Column */}
-                        <div className="lg:col-span-4 lg:text-right pt-2">
+                        <div className="lg:col-span-4 flex lg:justify-end items-end">
                             {project.liveUrl !== "#" ? (
-                                <motion.a
-                                    href={project.liveUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-base font-medium text-black bg-white hover:bg-brand hover:text-white transition-all duration-300 shadow-[0_10px_30px_rgba(255,255,255,0.05)] hover:shadow-[0_10px_35px_rgba(255,95,38,0.25)] group"
+                                <motion.div
+                                    className="group"
+                                    whileHover="hover"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.2 }}
                                 >
-                                    Visit Live Project
-                                    <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                                </motion.a>
+                                    <Button
+                                        variant="hero"
+                                        size="lg"
+                                        className="group flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)] pl-5 pr-2"
+                                        asChild
+                                    >
+                                        <a
+                                            href={project.liveUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <div className="relative overflow-hidden h-6 w-fit text-white">
+                                                <motion.div
+                                                    className="flex flex-col items-center"
+                                                    variants={{
+                                                        hover: { y: -24 }
+                                                    }}
+                                                    initial={{ y: 0 }}
+                                                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                                                >
+                                                    <span className="w-full flex items-center justify-center whitespace-nowrap">
+                                                        Visit Live Project
+                                                    </span>
+                                                    <span className="w-full flex items-center justify-center font-semibold whitespace-nowrap">
+                                                        Visit Live Project
+                                                    </span>
+                                                </motion.div>
+                                            </div>
+                                            <motion.div
+                                                className="bg-white rounded-full p-2 flex items-center justify-center ml-2 group-hover:bg-orange-50 transition-colors duration-300 shadow-[0_0_15px_rgba(255,95,38,0.3)]"
+                                                animate={{
+                                                    boxShadow: [
+                                                        "0 0 15px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0)",
+                                                        "0 0 25px rgba(255, 95, 38, 0.5), 0 0 0 8px rgba(255, 95, 38, 0)",
+                                                        "0 0 15px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0)"
+                                                    ]
+                                                }}
+                                                transition={{
+                                                    duration: 2,
+                                                    repeat: Infinity,
+                                                    ease: "easeInOut"
+                                                }}
+                                            >
+                                                <ArrowRight className="h-4 w-4 text-[#ff5f26] transition-all group-hover:rotate-0 -rotate-45 duration-300" />
+                                            </motion.div>
+
+                                            {/* Shimmer effect */}
+                                            <motion.div
+                                                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                                                initial={{ x: "-100%" }}
+                                                animate={{ x: "100%" }}
+                                                transition={{
+                                                    duration: 3,
+                                                    repeat: Infinity,
+                                                    ease: "easeInOut",
+                                                    delay: 2
+                                                }}
+                                            />
+                                        </a>
+                                    </Button>
+                                </motion.div>
                             ) : (
                                 <span className="text-white/30 text-sm italic font-light block lg:pt-4">
                                     Internal / Enterprise system (live URL restricted)
@@ -145,7 +167,7 @@ const ProjectDetail = () => {
                     {/* Featured Large Screenshot */}
                     {project.images.length > 0 && (
                         <motion.div 
-                            className="w-full aspect-[16/10] md:aspect-[16/8] rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.6)] bg-white/5 mb-24 relative group"
+                            className="w-full aspect-[16/10] md:aspect-[16/7] rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.6)] bg-white/5 mb-24 relative group"
                             initial={{ opacity: 0, scale: 0.98 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.8, delay: 0.1 }}
@@ -160,7 +182,7 @@ const ProjectDetail = () => {
                     )}
 
                     {/* Metadata Overview Bar */}
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8 py-10 border-y border-white/10 mb-24">
+                    <div id="context" className="grid grid-cols-1 md:grid-cols-4 gap-8 py-10 border-y border-white/10 mb-24">
                         <div>
                             <span className="block text-[10px] font-mono uppercase tracking-widest text-white/40 mb-2">My Role</span>
                             <span className="text-white/80 font-light text-sm md:text-base leading-relaxed block">{project.role.split(" — ")[0]}</span>
@@ -186,7 +208,7 @@ const ProjectDetail = () => {
                     </div>
 
                     {/* Case Study Details Grid */}
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 mb-24">
+                    <div id="vision" className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 mb-24">
                         {/* Left Column: Challenge & Solution */}
                         <div className="lg:col-span-7 space-y-16">
                             <div>
@@ -258,7 +280,7 @@ const ProjectDetail = () => {
 
                     {/* Secondary Showcase Images */}
                     {project.images.length > 1 && (
-                        <div className="mb-24">
+                        <div id="interface" className="mb-24">
                             <h2 
                                 className="text-3xl md:text-4xl font-light mb-10 text-center text-white" 
                                 style={{ fontFamily: "'Fraunces', serif" }}
@@ -284,7 +306,7 @@ const ProjectDetail = () => {
                     )}
 
                     {/* Design Decisions Block */}
-                    <div className="p-8 md:p-12 rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.01] to-white/[0.04] mb-24">
+                    <div id="decisions" className="p-8 md:p-12 rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.01] to-white/[0.04] mb-24">
                         <h2 
                             className="text-3xl md:text-4xl font-light mb-8 flex items-center gap-3 text-white" 
                             style={{ fontFamily: "'Fraunces', serif" }}
@@ -305,34 +327,9 @@ const ProjectDetail = () => {
                         </ul>
                     </div>
 
-                    {/* Page Footer CTA */}
-                    <div className="flex flex-col items-center justify-center py-12 border-t border-white/10 text-center">
-                        <h3 
-                            className="text-2xl md:text-3xl font-light mb-6 text-white" 
-                            style={{ fontFamily: "'Fraunces', serif" }}
-                        >
-                            Interested in building something similar?
-                        </h3>
-                        <div className="flex gap-4">
-                            <Link 
-                                to="/work" 
-                                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-sm font-medium"
-                            >
-                                <ArrowLeft className="w-4 h-4" />
-                                All Case Studies
-                            </Link>
-                            <Link 
-                                to="/" 
-                                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand text-white hover:bg-opacity-90 transition-colors text-sm font-medium"
-                            >
-                                Let's Connect
-                            </Link>
-                        </div>
-                    </div>
-
                 </main>
 
-                <Contact />
+                <Contact title="Interested in building something similar?" />
             </div>
         </>
     );
