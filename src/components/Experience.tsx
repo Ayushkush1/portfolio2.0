@@ -97,13 +97,13 @@ const Experience = () => {
                                         damping: 25 
                                     }}
                                 >
-                                    <div className="w-[85%] md:w-[90%] mx-auto relative rounded-3xl overflow-hidden shadow-2xl shadow-foreground/5 h-[400px] md:h-[500px] lg:h-[600px] scale-95">
+                                    <div className="w-full md:w-[90%] mx-auto relative rounded-3xl overflow-hidden shadow-2xl shadow-foreground/5 h-[400px] md:h-[500px] lg:h-[560px] scale-95">
                                         <img src="assets/ayush-kushwaha.webp" className="w-full h-full object-cover object-top" alt="Ayush Kushwaha" />
                                     </div>
                                 </motion.div>
                             </div>
 
-                            <div className="flex justify-between px-12 -mt-2 lg:-mt-4">
+                            <div className="flex justify-between px-4 md:px-12 -mt-2 lg:-mt-4">
                                 {/* Name & Title */}
                                 <motion.div
                                     className="mb-2"

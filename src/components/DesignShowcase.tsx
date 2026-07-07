@@ -63,7 +63,7 @@ const DesignShowcase = () => {
             </div>
 
             {/* Interactive GridMotion Container */}
-            <div className="w-full h-[600px] md:h-[700px] relative z-20">
+            <div className="w-full h-[500px] md:h-[700px] relative z-20">
                 <GridMotion items={gridItems} gradientColor="transparent" />
             </div>
         </section>

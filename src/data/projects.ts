@@ -53,8 +53,10 @@ export const featuredProducts: FeaturedProduct[] = [
     techStack: ["Next.js", "PostgreSQL", "Prisma", "Tailwind CSS", "AI APIs"],
     sliderItems: [
       { image: "/assets/Catfy_LandignPage1.webp", url: "https://catfy-catalog.vercel.app", name: "CATFY Landing" },
-      { image: "/assets/Catfy_LandignPage2.webp", url: "https://catfy-catalog.vercel.app", name: "CATFY Dashboard" },
-      { image: "/assets/Catfy_LandignPage3.webp", url: "https://catfy-catalog.vercel.app", name: "CATFY Dashboard" },
+      { image: "/assets/Catfy_LandignPage2.webp", url: "https://catfy-catalog.vercel.app", name: "CATFY Landing" },
+      { image: "/assets/Catfy_LandignPage3.webp", url: "https://catfy-catalog.vercel.app", name: "CATFY Landing" },
+      { image: "/assets/Catfy_LandignPage4.webp", url: "https://catfy-catalog.vercel.app", name: "CATFY Landing" },
+      
     ],
     url: "https://catfy-catalog.vercel.app",
     isLarge: true,
@@ -71,7 +73,9 @@ export const featuredProducts: FeaturedProduct[] = [
     techStack: ["React", "Node.js", "PostgreSQL", "Prisma", "Supabase"],
     sliderItems: [
       { image: "/assets/Leadzenor_LandingPage1.webp", url: "#", name: "Leadzenor Landing" },
-      { image: "/assets/Leadzenor_LandingPage2.webp", url: "#", name: "Leadzenor Dashboard" },
+      { image: "/assets/Leadzenor_LandingPage2.webp", url: "#", name: "Leadzenor Landing" },
+      { image: "/assets/Leadzenor_LandingPage3.webp", url: "#", name: "Leadzenor Landing" },
+      { image: "/assets/Leadzenor_LandingPage4.webp", url: "#", name: "Leadzenor Landing" },
       { image: "/assets/Leadzenor_Dashboard.webp", url: "#", name: "Leadzenor Dashboard" },
     ],
     url: "#",
@@ -105,12 +109,15 @@ export const featuredProducts: FeaturedProduct[] = [
     outcome: "Streamlined operations across 5+ departments, reducing approval cycles by 45%.",
     techStack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "GitHub Actions"],
     sliderItems: [
-      { image: "/assets/Erp_LandinPage.webp", url: "#", name: "IP ERP Platform" },
+      { image: "/assets/Erp_LandinPage1.webp", url: "#", name: "IP ERP Platform" },
+      { image: "/assets/Erp_LandinPage2.webp", url: "#", name: "IP ERP Platform" },
       { image: "/assets/Erp_Dashboard.webp", url: "#", name: "IP ERP Dashboard" },
     ],
     url: "#",
+    isLarge: true,
   },
-];// Legacy showcase projects (kept for portfolio page compatibility)
+];
+// Legacy showcase projects (kept for portfolio page compatibility)
 export const showcaseProjects: Project[] = [
   {
     id: "saas-automation",
@@ -248,7 +255,7 @@ export const caseStudies: CaseStudy[] = [
     role: "Full-Stack Engineer & UI/UX Designer — designed the full product flow in Figma, built frontend and backend, and handled deployment.",
     outcome: "Reduced lead response time by 60% for active users. Currently used by 3+ sales teams with positive feedback on UX simplicity.",
     techStack: ["React", "Node.js", "PostgreSQL", "Prisma", "Supabase", "Docker", "Tailwind CSS"],
-    images: ["/assets/Leadzenor_LandingPage1.webp", "/assets/Leadzenor_Dashboard.webp", "/assets/Leadzenor_LandingPage2.webp"],
+    images: ["/assets/Leadzenor_LandingPage1.webp", "/assets/Leadzenor_LandingPage2.webp", "/assets/Leadzenor_LandingPage3.webp"],
     liveUrl: "#"
   },
   {
@@ -294,7 +301,99 @@ export const caseStudies: CaseStudy[] = [
     role: "Tech Lead — led architecture design, built the core workflow engine, and coordinated frontend component development.",
     outcome: "Streamlined operations across 5+ departments. Approval cycle time reduced by 45%. Full audit trail for all actions and decisions.",
     techStack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "GitHub Actions", "Vercel", "Tailwind CSS"],
-    images: ["/assets/Erp_LandinPage.webp", "/assets/Erp_Dashboard.webp"],
+    images: ["/assets/Erp_LandinPage1.webp", "/assets/Erp_LandinPage2.webp", "/assets/Erp_Dashboard.webp"],
+    liveUrl: "#"
+  },
+  {
+    id: "seven-stars",
+    name: "Seven Stars",
+    tagline: "Modern Pub & Restaurant Revamp",
+    category: "Hospitality",
+    year: "2025",
+    status: "Live",
+    color: "#2d6a4f",
+    overview: "Seven Stars at Marsh Baldon is a classic British pub and restaurant in Oxford — and our first UK hospitality client. We delivered a complete digital revamp: a modern, jewel-dark Next.js website paired with a bespoke custom CMS that gives the team full control over their menus, events, gallery, and SEO — all without touching a line of code.",
+    challenge: "The pub's previous site was outdated, slow, and impossible for the team to update independently. Content changes required developer involvement. SEO was minimal, and the design didn't reflect the quality or atmosphere of the venue. For a pub competing in Oxford's vibrant dining scene, an unmaintainable, low-converting site was a direct revenue problem.",
+    solution: "Rebuilt the entire site in Next.js with Tailwind CSS, delivering a rich, dark jewel aesthetic that captures the premium atmosphere of the venue. Designed and built a fully custom CMS backed by PostgreSQL and Prisma — giving the client a powerful admin dashboard to manage menus (food & drinks), events, gallery images, page content, and SEO metadata (title, description, Open Graph, canonical URLs) independently. Integrated table booking, venue hire pages, a loyalty programme section, and automated sitemap and structured data generation for full technical SEO.",
+    designDecisions: [
+      "Jewel-dark palette (deep greens, golds, cream) chosen to feel premium and atmospheric rather than generic hospitality.",
+      "Custom CMS built first — so every design decision had a content management answer behind it.",
+      "SEO fields exposed in the CMS so the client can write their own meta titles and descriptions per page."
+    ],
+    architecture: "Next.js 14 App Router with TypeScript, Tailwind CSS for styling, PostgreSQL database via Prisma ORM, custom-built CMS admin panel with role-based access, automated sitemap.xml and robots.txt generation, Open Graph metadata, and Vercel deployment with edge caching.",
+    role: "Full-Stack Engineer & UI/UX Designer — end-to-end product ownership: Figma design, Next.js frontend, custom CMS backend, PostgreSQL schema, SEO architecture, and Vercel deployment.",
+    outcome: "Fully live first UK hospitality client with a modern, high-performance site. The client team manages all content independently through the CMS. Local SEO optimised for Oxford dining searches. Fast, accessible, and mobile-first — delivering a digital experience that matches the quality of the venue.",
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Prisma", "Custom CMS", "Vercel", "SEO"],
+    images: ["/assets/TheSevenStar_LandingPage1.webp", "/assets/TheSevenStar_LandingPage2.webp", "/assets/TheSevenStar_LandingPage3.webp", "/assets/TheSevenStar_LandingPage4.webp"],
+    liveUrl: "#"
+  },
+  {
+    id: "coding-pandas",
+    name: "Coding Pandas",
+    tagline: "Interactive EdTech Platform",
+    category: "EdTech Platform",
+    year: "2024",
+    status: "Live",
+    color: "#ff3e3e",
+    overview: "Coding Pandas is an interactive learning platform that teaches Web Development and Data Structures & Algorithms. It features a complete code sandbox workspace, progress tracking, interactive quizzes, video modules, and a community support system.",
+    challenge: "Traditional online learning systems are passive and lead to low completion rates. Students get stuck installing dependencies locally, setting up editors, and managing configurations. The client wanted a fully browser-based coding setup that gets students coding immediately with zero setup, combined with deep performance analytics.",
+    solution: "Engineered an in-browser code editor and runner environment with sandboxed evaluation. Created custom learning paths where lessons are parsed interactively. Implemented live progress dashboards, student performance statistics, and dynamic code checking that runs automated unit tests on student submissions.",
+    designDecisions: [
+      "Dark workspace layout resembling VS Code to prepare students for real-world software tools.",
+      "Instant reward design highlighting successful test passing to motivate continuing lessons.",
+      "Responsive layout for studying lessons and concepts on mobile screens."
+    ],
+    architecture: "React, Node.js with isolated code runner environment, PostgreSQL with Prisma ORM, Tailwind CSS, Monaco Editor integration, and Vercel for hosting.",
+    role: "Full-Stack Engineer & Lead Designer — built the editor integrations, visual progression layout, and set up database schemas.",
+    outcome: "Helped 2000+ active students learn coding concepts with zero environment setup friction. Average completion rates increased by 50% compared to traditional video-only portals.",
+    techStack: ["React", "TypeScript", "Node.js", "PostgreSQL", "Prisma", "Monaco Editor", "Tailwind CSS"],
+    images: ["/assets/CodignPanda_LandignPage1.webp", "/assets/CodignPanda_LandignPage2.webp", "/assets/CodignPanda_LandignPage3.webp"],
+    liveUrl: "https://coding-pandas.vercel.app/"
+  },
+  {
+    id: "neatroots",
+    name: "NeatRoots",
+    tagline: "Course Management & IT Services",
+    category: "App Dev Courses",
+    year: "2024",
+    status: "Live",
+    color: "#4f46e5",
+    overview: "NeatRoots is a unified education and professional IT services platform. It offers online application development training courses along with high-performance consulting and development services for growing enterprises.",
+    challenge: "Managing separate systems for marketing agency services and educational academy courses led to brand confusion and high administrative overhead. The client needed a single, cohesive hub that highlights their professional projects while selling structured training courses.",
+    solution: "Built a centralized marketing website integrated with an academy platform. Designed catalog pages for purchasing courses, secure student portals to stream videos, and an interactive lead generation pipeline for potential IT service clients.",
+    designDecisions: [
+      "Modern clean marketing section to appeal to enterprise service clients.",
+      "Separate sleek layout for student learning portal to keep users focused on learning.",
+      "Clear call-to-actions targeting both prospective students and businesses."
+    ],
+    architecture: "Next.js 14 App Router, PostgreSQL with Prisma ORM, Tailwind CSS, and optimized video player widgets with secure stream delivery.",
+    role: "Lead Full-Stack Developer — designed branding structure, implemented course catalogs, and created secure API structures.",
+    outcome: "Unified brand presence resulting in a 40% increase in inbound consulting leads and a 30% increase in student course enrollments.",
+    techStack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Tailwind CSS", "Vercel"],
+    images: ["/assets/Neatroots_LandignPage1.webp", "/assets/Neatroots_LandignPage2.webp", "/assets/Neatroots_LandignPage3.webp"],
+    liveUrl: "https://neatroot.vercel.app/"
+  },
+  {
+    id: "onboarding-kyc",
+    name: "Onboarding KYC",
+    tagline: "Fintech User Onboarding & Verification",
+    category: "Fintech SaaS",
+    year: "2025",
+    status: "Live",
+    color: "#059669",
+    overview: "Onboarding KYC is a secure digital onboarding and user verification platform built for a Nigerian fintech client. It replaces manual compliance verifications with a modern, automated, and rule-based web onboarding flow.",
+    challenge: "The client was processing user registrations manually, which created significant verification delays, higher drop-off rates, and security risks. They needed a secure, automated web application that could process identities quickly, calculate user compliance risk, block fraud, and provide administrative control panels.",
+    solution: "Designed and engineered an end-to-end web onboarding flow. Created a custom rule-based scoring engine that evaluates user submissions, cross-references inputs, and flags risky accounts using built-in fraud detection logic. Developed secure user submission dashboards alongside a robust admin control panel to review and approve edge-case verifications manually.",
+    designDecisions: [
+      "Designed a clean progressive-step form structure to reduce cognitive load during detailed document collection.",
+      "Engineered visual alert states in the admin panel to highlight failed rules or suspicious user profiles.",
+      "Created highly responsive screens optimized for mobile-first users in Nigeria."
+    ],
+    architecture: "Next.js 14 App Router, Supabase Auth & Database, Prisma ORM, Tailwind CSS, custom compliance rule engine, and Vercel for scalable edge hosting.",
+    role: "Full-Stack Developer — owned dashboard engineering, created custom rule evaluation APIs, implemented security and fraud detection rules, and designed administrative controls.",
+    outcome: "Successfully delivered. The client has onboarded their first batch of customers seamlessly, reducing verification cycles from days to minutes. Secured ongoing partnership to build multiple additional systems spanning reporting dashboards and alerting tools.",
+    techStack: ["Next.js", "TypeScript", "Supabase", "Prisma", "Tailwind CSS", "Vercel"],
+    images: ["/assets/KYC-LandingPage1.webp", "/assets/KYC-LandingPage2.webp", "/assets/KYC-LandingPage3.webp"],
     liveUrl: "#"
   }
 ];

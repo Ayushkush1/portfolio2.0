@@ -52,7 +52,7 @@ const About: React.FC = () => {
 
   return (
     <section ref={containerRef} id="about" className="relative flex items-center justify-center overflow-hidden w-full pt-10 pb-12 md:pt-40 md:pb-32 bg-gradient-to-br from-background via-background to-primary/5">
-      <div className="container relative z-10 md:max-w-6xl mx-auto pb-10 md:pb-28">
+      <div className="container relative z-10 md:max-w-6xl md:mx-auto mx-0 md:px-0 px-5 pb-10 md:pb-28">
         {/* Hello Badge */}
         <motion.div
           className="text-center mb-16"

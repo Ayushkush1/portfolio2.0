@@ -65,7 +65,7 @@ const ProjectDetail = () => {
 
                 <main className="relative z-10 container  pt-24 md:pt-32 pb-26">
                     {/* Project Intro / Hero */}
-                    <div id="overview" className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start mb-12">
+                    <div id="overview" className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start md:mb-12">
                         {/* Title & Tagline Column */}
                         <div className="lg:col-span-8">
                             <motion.div
@@ -87,87 +87,90 @@ const ProjectDetail = () => {
 
                         {/* Top Link Column */}
                         <div className="lg:col-span-4 flex lg:justify-end items-end">
-                            {project.liveUrl !== "#" ? (
-                                <motion.div
-                                    className="group"
-                                    whileHover="hover"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.2 }}
-                                >
-                                    <Button
-                                        variant="hero"
-                                        size="lg"
-                                        className="group flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)] pl-5 pr-2"
-                                        asChild
+                            {/* URL CTA — hidden on mobile */}
+                            <div className="hidden lg:block">
+                                {project.liveUrl !== "#" ? (
+                                    <motion.div
+                                        className="group"
+                                        whileHover="hover"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ delay: 0.2 }}
                                     >
-                                        <a
-                                            href={project.liveUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
+                                        <Button
+                                            variant="hero"
+                                            size="lg"
+                                            className="group flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)] pl-5 pr-2"
+                                            asChild
                                         >
-                                            <div className="relative overflow-hidden h-6 w-fit text-white">
-                                                <motion.div
-                                                    className="flex flex-col items-center"
-                                                    variants={{
-                                                        hover: { y: -24 }
-                                                    }}
-                                                    initial={{ y: 0 }}
-                                                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                                                >
-                                                    <span className="w-full flex items-center justify-center whitespace-nowrap">
-                                                        Visit Live Project
-                                                    </span>
-                                                    <span className="w-full flex items-center justify-center font-semibold whitespace-nowrap">
-                                                        Visit Live Project
-                                                    </span>
-                                                </motion.div>
-                                            </div>
-                                            <motion.div
-                                                className="bg-white rounded-full p-2 flex items-center justify-center ml-2 group-hover:bg-orange-50 transition-colors duration-300 shadow-[0_0_15px_rgba(255,95,38,0.3)]"
-                                                animate={{
-                                                    boxShadow: [
-                                                        "0 0 15px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0)",
-                                                        "0 0 25px rgba(255, 95, 38, 0.5), 0 0 0 8px rgba(255, 95, 38, 0)",
-                                                        "0 0 15px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0)"
-                                                    ]
-                                                }}
-                                                transition={{
-                                                    duration: 2,
-                                                    repeat: Infinity,
-                                                    ease: "easeInOut"
-                                                }}
+                                            <a
+                                                href={project.liveUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
                                             >
-                                                <ArrowRight className="h-4 w-4 text-[#ff5f26] transition-all group-hover:rotate-0 -rotate-45 duration-300" />
-                                            </motion.div>
+                                                <div className="relative overflow-hidden h-6 w-fit text-white">
+                                                    <motion.div
+                                                        className="flex flex-col items-center"
+                                                        variants={{
+                                                            hover: { y: -24 }
+                                                        }}
+                                                        initial={{ y: 0 }}
+                                                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                                                    >
+                                                        <span className="w-full flex items-center justify-center whitespace-nowrap">
+                                                            Visit Live Project
+                                                        </span>
+                                                        <span className="w-full flex items-center justify-center font-semibold whitespace-nowrap">
+                                                            Visit Live Project
+                                                        </span>
+                                                    </motion.div>
+                                                </div>
+                                                <motion.div
+                                                    className="bg-white rounded-full p-2 flex items-center justify-center ml-2 group-hover:bg-orange-50 transition-colors duration-300 shadow-[0_0_15px_rgba(255,95,38,0.3)]"
+                                                    animate={{
+                                                        boxShadow: [
+                                                            "0 0 15px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0)",
+                                                            "0 0 25px rgba(255, 95, 38, 0.5), 0 0 0 8px rgba(255, 95, 38, 0)",
+                                                            "0 0 15px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0)"
+                                                        ]
+                                                    }}
+                                                    transition={{
+                                                        duration: 2,
+                                                        repeat: Infinity,
+                                                        ease: "easeInOut"
+                                                    }}
+                                                >
+                                                    <ArrowRight className="h-4 w-4 text-[#ff5f26] transition-all group-hover:rotate-0 -rotate-45 duration-300" />
+                                                </motion.div>
 
-                                            {/* Shimmer effect */}
-                                            <motion.div
-                                                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                                                initial={{ x: "-100%" }}
-                                                animate={{ x: "100%" }}
-                                                transition={{
-                                                    duration: 3,
-                                                    repeat: Infinity,
-                                                    ease: "easeInOut",
-                                                    delay: 2
-                                                }}
-                                            />
-                                        </a>
-                                    </Button>
-                                </motion.div>
-                            ) : (
-                                <span className="text-white/30 text-sm italic font-light block lg:pt-4">
-                                    Internal / Enterprise system (live URL restricted)
-                                </span>
-                            )}
+                                                {/* Shimmer effect */}
+                                                <motion.div
+                                                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                                                    initial={{ x: "-100%" }}
+                                                    animate={{ x: "100%" }}
+                                                    transition={{
+                                                        duration: 3,
+                                                        repeat: Infinity,
+                                                        ease: "easeInOut",
+                                                        delay: 2
+                                                    }}
+                                                />
+                                            </a>
+                                        </Button>
+                                    </motion.div>
+                                ) : (
+                                    <span className="text-white/30 text-sm italic font-light block lg:pt-4">
+                                        Internal / Enterprise system (live URL restricted)
+                                    </span>
+                                )}
+                            </div>
                         </div>
                     </div>
 
                     {/* Featured Large Screenshot */}
                     {project.images.length > 0 && (
                         <motion.div 
-                            className="w-full aspect-[16/10] md:aspect-[16/7] rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.6)] bg-white/5 mb-24 relative group"
+                            className="w-full aspect-[16/7] rounded-[1.5rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.6)] bg-white/5 mb-10 md:mb-24 relative group"
                             initial={{ opacity: 0, scale: 0.98 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.8, delay: 0.1 }}
@@ -182,24 +185,24 @@ const ProjectDetail = () => {
                     )}
 
                     {/* Metadata Overview Bar */}
-                    <div id="context" className="grid grid-cols-1 md:grid-cols-4 gap-8 py-10 border-y border-white/10 mb-24">
+                    <div id="context" className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 py-6 md:py-10 border-y border-white/10 mb-10 md:mb-24">
                         <div>
-                            <span className="block text-[10px] font-mono uppercase tracking-widest text-white/40 mb-2">My Role</span>
-                            <span className="text-white/80 font-light text-sm md:text-base leading-relaxed block">{project.role.split(" — ")[0]}</span>
+                            <span className="block text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-white/40 mb-1">My Role</span>
+                            <span className="text-white/80 font-light text-xs md:text-base leading-relaxed block">{project.role.split(" — ")[0]}</span>
                         </div>
                         <div>
-                            <span className="block text-[10px] font-mono uppercase tracking-widest text-white/40 mb-2">Platform / Category</span>
-                            <span className="text-white/80 font-light text-sm md:text-base block">{project.category}</span>
+                            <span className="block text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-white/40 mb-1">Platform / Category</span>
+                            <span className="text-white/80 font-light text-xs md:text-base block">{project.category}</span>
                         </div>
                         <div>
-                            <span className="block text-[10px] font-mono uppercase tracking-widest text-white/40 mb-2">Year</span>
-                            <span className="text-white/80 font-light text-sm md:text-base block">{project.year}</span>
+                            <span className="block text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-white/40 mb-1">Year</span>
+                            <span className="text-white/80 font-light text-xs md:text-base block">{project.year}</span>
                         </div>
                         <div>
-                            <span className="block text-[10px] font-mono uppercase tracking-widest text-white/40 mb-2">Core Tech</span>
-                            <div className="flex flex-wrap gap-1.5 mt-1">
+                            <span className="block text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-white/40 mb-1">Core Tech</span>
+                            <div className="flex flex-wrap gap-1 mt-1">
                                 {project.techStack.slice(0, 3).map((t, idx) => (
-                                    <span key={idx} className="text-[10px] text-white/70 bg-white/5 px-2.5 py-1 rounded-full border border-white/5 font-mono">
+                                    <span key={idx} className="text-[9px] md:text-[10px] text-white/70 bg-white/5 px-2 md:px-2.5 py-0.5 md:py-1 rounded-full border border-white/5 font-mono">
                                         {t}
                                     </span>
                                 ))}
@@ -291,7 +294,7 @@ const ProjectDetail = () => {
                                 {project.images.slice(1).map((img, i) => (
                                     <div 
                                         key={i} 
-                                        className="rounded-2xl overflow-hidden border border-white/10 aspect-video bg-gray-900 shadow-2xl"
+                                        className="rounded-[1.5rem] overflow-hidden border border-white/10 aspect-[16/7] bg-gray-900 shadow-2xl"
                                     >
                                         <img 
                                             src={img} 

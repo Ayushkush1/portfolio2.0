@@ -65,11 +65,11 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = 'black' }
         }}
       >
         <div className="absolute inset-0 pointer-events-none z-[4] bg-[length:250px]"></div>
-        <div className="gap-6 flex-none relative w-max h-max grid grid-rows-4 grid-cols-1 rotate-[-15deg] origin-center z-[2]">
+        <div className="md:gap-4 gap-2 flex-none relative w-max h-max grid grid-rows-4 grid-cols-1 rotate-[-15deg] origin-center z-[2]">
           {Array.from({ length: 4 }, (_, rowIndex) => (
             <div
               key={rowIndex}
-              className="flex gap-6 w-max"
+              className="flex gap-2 md:gap-4 w-max"
               style={{ willChange: 'transform, filter' }}
               ref={el => {
                 if (el) rowRefs.current[rowIndex] = el;

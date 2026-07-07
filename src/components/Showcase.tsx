@@ -5,7 +5,7 @@ import { featuredProducts, FeaturedProduct } from "@/data/projects";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-const ProductCard = ({ product }: { product: FeaturedProduct }) => {
+const ProductCard = ({ product, index }: { product: FeaturedProduct; index: number }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -29,17 +29,21 @@ const ProductCard = ({ product }: { product: FeaturedProduct }) => {
     const currentItem = product.sliderItems[currentIndex];
 
     return (
-        <div ref={containerRef} className="h-screen w-full flex items-center justify-center relative showcase-card-wrapper">
+        <div ref={containerRef} className="h-auto md:h-screen w-full flex items-start md:items-center justify-center relative showcase-card-wrapper py-3 md:py-0">
             <motion.div
                 style={{ scale, opacity, y }}
                 whileHover="hover"
-                className="relative flex flex-col md:flex-row h-auto w-full mx-auto gap-5 md:gap-10 group"
+                className={`relative flex flex-col md:flex-row h-auto w-full mx-auto gap-5 md:gap-8 group ${index % 2 === 1 ? "md:flex-row-reverse" : ""}`}
             >
-                {/* Left/Middle Column: Image Slider */}
-                <div className="w-full md:flex-1 flex flex-col justify-center h-full">
-                    <div className="w-full relative rounded-[3rem] overflow-hidden group/slider shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5">
+                {/* Image Column — tappable link on mobile, static on desktop */}
+                <Link
+                    to={`/work/${product.id}`}
+                    className="w-full md:flex-1 flex flex-col justify-center h-full -mx-4 md:mx-0 md:pointer-events-none"
+                    style={{ width: 'calc(100% + 2rem)' }}
+                >
+                    <div className="w-full relative rounded-2xl md:rounded-[3rem] overflow-hidden group/slider shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/5">
                         <div className="w-full h-auto relative">
-                            <img src={product.sliderItems[0].image} className="w-full h-auto invisible block" alt="" />
+                            <img src={product.sliderItems[0].image} className="w-full h-[190px] md:h-auto invisible block" alt="" />
                             <AnimatePresence>
                                 <motion.img
                                     key={currentIndex}
@@ -52,7 +56,7 @@ const ProductCard = ({ product }: { product: FeaturedProduct }) => {
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
                                     transition={{ duration: 1.0, ease: "easeInOut" }}
-                                    className="w-full h-full object-cover absolute inset-0"
+                                    className="w-full h-full object-cover object-top absolute inset-0"
                                 />
                             </AnimatePresence>
                         </div>
@@ -63,42 +67,58 @@ const ProductCard = ({ product }: { product: FeaturedProduct }) => {
                                 {product.sliderItems.map((_: any, idx: number) => (
                                     <button
                                         key={idx}
-                                        onClick={() => setCurrentIndex(idx)}
+                                        onClick={(e) => { e.preventDefault(); setCurrentIndex(idx); }}
                                         className={`w-2 h-2 rounded-full transition-all ${currentIndex === idx ? "bg-brand w-4" : "bg-white/40"
                                             }`}
                                     />
                                 ))}
                             </div>
                         )}
+
+                        {/* Mobile tap hint overlay */}
+                        <div className="absolute inset-0 bg-black/0 md:hidden" aria-hidden="true" />
                     </div>
-                </div>
+                </Link>
 
                 {/* Right Column: Content */}
-                <div className="w-full md:flex-none md:w-[250px] xl:w-[280px] flex flex-col h-full py-0 md:py-8 ">
+                <div className="w-full md:flex-none md:w-[250px] xl:w-[250px] flex flex-col h-full py-0 md:py-8">
                     {/* Top Content */}
                     <div className="flex flex-col justify-start">
-                        {/* Elegant Category Tag */}
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-[10px] md:text-xs font-semibold tracking-[0.2em] uppercase text-brand/90">
+                        {/* Mobile: category inline with title | Desktop: category above title */}
+                        <div className="flex items-start justify-between gap-2 mb-2 md:hidden">
+                            <h2
+                                className="text-2xl font-light text-white leading-[1.1] tracking-tight"
+                                style={{ fontFamily: "'Fraunces', serif" }}
+                            >
+                                {product.name}
+                            </h2>
+                            <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-brand/90 mt-1 shrink-0">
                                 {product.category}
                             </span>
                         </div>
 
-                        {/* Premium Title */}
-                        <h2
-                            className="text-3xl md:text-5xl font-light mb-4 md:mb-6 text-white leading-[1.1] tracking-tight"
-                            style={{ fontFamily: "'Fraunces', serif" }}
-                        >
-                            {product.name}
-                        </h2>
+                        {/* Desktop only: category above title */}
+                        <div className="hidden md:block">
+                            <div className="flex items-center gap-3 mb-4">
+                                <span className="text-xs font-semibold tracking-[0.2em] uppercase text-brand/90">
+                                    {product.category}
+                                </span>
+                            </div>
+                            <h2
+                                className="text-5xl font-light mb-6 text-white leading-[1.1] tracking-tight"
+                                style={{ fontFamily: "'Fraunces', serif" }}
+                            >
+                                {product.name}
+                            </h2>
+                        </div>
 
                         {/* Minimal Description */}
-                        <p className="text-gray-500 text-sm md:text-base leading-relaxed mb-6 md:mb-8 font-light">
+                        <p className="text-gray-500 text-xs md:text-base leading-relaxed mb-3 md:mb-8 font-light line-clamp-2 md:line-clamp-none">
                             {product.solution}
                         </p>
 
                         {/* Additional Content: Tech Stack */}
-                        <div className="flex flex-wrap gap-2 mb-6 md:mb-8">
+                        <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3 md:mb-8">
                             {product.techStack.slice(0, 3).map((tech, idx) => (
                                 <span
                                     key={idx}
@@ -110,8 +130,8 @@ const ProductCard = ({ product }: { product: FeaturedProduct }) => {
                         </div>
                     </div>
 
-                    {/* Bottom Action (Pinned to bottom) */}
-                    <div className="mt-auto pt-6 md:pt-8 border-t border-white/5">
+                    {/* Bottom Action — hidden on mobile, shown on desktop */}
+                    <div className="hidden md:block md:mt-auto md:pt-8 md:border-t border-white/5">
                         <motion.div className="w-fit" whileHover="hover">
                             <Button
                                 variant="hero"
@@ -185,7 +205,7 @@ const Showcase = () => {
             <div className="container relative z-10 flex flex-col gap-0">
 
                 {/* Section Header */}
-                <div className="flex flex-col md:flex-row justify-between items-end gap-6">
+                <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 mb-4 md:mb-0 text-center md:text-left">
                     <div>
                         <p className="text-brand text-sm md:text-base font-semibold tracking-widest uppercase mb-4">
                             Case Studies
@@ -260,10 +280,11 @@ const Showcase = () => {
                 </div>
 
                 {/* Projects List */}
-                {featuredProducts.map((product) => (
+                {featuredProducts.map((product, index) => (
                     <ProductCard
                         key={product.id}
                         product={product}
+                        index={index}
                     />
                 ))}
 
