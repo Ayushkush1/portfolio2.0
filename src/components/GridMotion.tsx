@@ -28,8 +28,9 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = 'black' }
       const inertiaFactors = [0.6, 0.4, 0.3, 0.2];
 
       // Ambient slow floating movement in the background (infinite loop)
-      const time = gsap.ticker.time * 0.30; // slightly faster slow speed
-      const ambientOffset = Math.sin(time) * 100; // gentle back-and-forth offset
+      // Expanded width mapping (ambientOffset scale: 100 -> 320) so the rows scroll completely to reveal all cards
+      const time = gsap.ticker.time * 0.15; // smooth slow speed
+      const ambientOffset = Math.sin(time) * 320; // wide back-and-forth offset
 
       rowRefs.current.forEach((row, index) => {
         if (row) {
@@ -40,7 +41,7 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = 'black' }
           gsap.to(row, {
             x: totalOffset,
             duration: baseDuration + inertiaFactors[index % inertiaFactors.length],
-            ease: 'power3.out',
+            ease: 'power2.out',
             overwrite: 'auto'
           });
         }
