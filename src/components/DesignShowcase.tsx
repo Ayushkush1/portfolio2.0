@@ -15,7 +15,7 @@ const designs = [
     "/assets/Catfy_LandignPage2.webp",
     "/assets/Erp_LandingPage2.webp",
     "/assets/Leadzenor_LandingPage2.webp",
-    "/assets/Karatrix_LandingPage2.webp",
+    "/assets/Karatrix_LandingPage3.webp",
     "/assets/TheSevenStar_LandingPage2.webp",
 ];
 
