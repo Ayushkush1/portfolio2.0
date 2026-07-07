@@ -7,8 +7,16 @@ const designs = [
     "/assets/Erp_Dashboard.webp",
     "/assets/Leadzenor_Dashboard.webp",
     "/assets/Karatrix_LandingPage1.webp",
-    "/assets/TheSevenStar_LandingPage.webp",
+    "/assets/TheSevenStar_LandingPage1.webp",
     "/assets/EricHost1.webp",
+    "/assets/Leadzenor_LandingPage1.webp",
+    "/assets/Karatrix_LandingPage2.webp",
+    "/assets/TheSevenStar_LandingPage3.webp",
+    "/assets/Catfy_LandignPage2.webp",
+    "/assets/Erp_LandingPage2.webp",
+    "/assets/Leadzenor_LandingPage2.webp",
+    "/assets/Karatrix_LandingPage2.webp",
+    "/assets/TheSevenStar_LandingPage2.webp",
 ];
 
 const DesignShowcase = () => {
