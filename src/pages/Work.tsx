@@ -1,10 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Contact from "@/components/Contact";
-import { caseStudies, portfolioProjects } from "@/data/projects";
+import { caseStudies } from "@/data/projects";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 

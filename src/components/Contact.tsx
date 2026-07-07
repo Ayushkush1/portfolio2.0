@@ -1,12 +1,10 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
     ArrowRight,
-    Globe,
     Twitter,
     Instagram,
     Linkedin,
     Github,
-    ExternalLink
 } from "lucide-react";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";

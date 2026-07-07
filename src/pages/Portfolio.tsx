@@ -1,7 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import React from "react";
 import { Link } from "react-router-dom";
 import Contact from "@/components/Contact";
 
@@ -57,7 +56,7 @@ const PortfolioPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                 >
                     <Link to="/">
-                        <motion.img src="/assets/ayush-kushwaha-logo.png" alt="Logo" className="h-6 w-auto brightness-0 invert" whileHover={{ scale: 1.05 }} />
+                        <motion.img src="/assets/ayush-kushwaha-logo.webp" alt="Logo" className="h-6 w-auto brightness-0 invert" whileHover={{ scale: 1.05 }} />
                     </Link>
                     <Link to="/">
                         <motion.button className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/5 border border-white/10 backdrop-blur cursor-pointer hover:bg-white hover:text-black transition-all duration-300">

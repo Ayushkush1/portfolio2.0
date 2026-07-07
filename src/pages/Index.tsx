@@ -1,15 +1,23 @@
+import { lazy, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
+
+// Critical above-the-fold: load eagerly
 import Navbar from "@/components/Navbar";
 import Heros from "@/components/Heros";
-import About from "@/components/About";
-import Showcase from "@/components/Showcase";
-import GithubActivity from "@/components/GithubActivity";
-import Experience from "@/components/Experience";
-import ServicesSection from "@/components/ServicesSection";
-import DesignShowcase from "@/components/DesignShowcase";
-import Process from "@/components/Process";
-import Testimonials from "@/components/Testimonials";
-import Contact from "@/components/Contact";
+
+// Everything below the fold: lazy-load so they don't block initial paint
+const About = lazy(() => import("@/components/About"));
+const Showcase = lazy(() => import("@/components/Showcase"));
+const Experience = lazy(() => import("@/components/Experience"));
+const ServicesSection = lazy(() => import("@/components/ServicesSection"));
+const DesignShowcase = lazy(() => import("@/components/DesignShowcase"));
+const Testimonials = lazy(() => import("@/components/Testimonials"));
+const Contact = lazy(() => import("@/components/Contact"));
+
+// Minimal inline placeholder so layout doesn't jump during load
+const SectionFallback = () => (
+  <div className="w-full min-h-[200px]" aria-hidden="true" />
+);
 
 const Index = () => {
   const title = "Ayush Kushwaha | Full-Stack Product Engineer";
@@ -49,15 +57,32 @@ const Index = () => {
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
       <main>
+        {/* Above the fold – no Suspense boundary needed */}
         <Navbar />
         <Heros />
-        <About />
-        <Showcase />
-        <Experience />
-        <ServicesSection />
-        <DesignShowcase />
-        <Testimonials />
-        <Contact />
+
+        {/* Below the fold – each section lazy loads independently */}
+        <Suspense fallback={<SectionFallback />}>
+          <About />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <Showcase />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <Experience />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <ServicesSection />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <DesignShowcase />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <Testimonials />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <Contact />
+        </Suspense>
       </main>
     </>
   );

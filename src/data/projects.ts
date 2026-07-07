@@ -52,9 +52,9 @@ export const featuredProducts: FeaturedProduct[] = [
     outcome: "Live platform with 10k+ catalogue views, cutting product listing time by 70%.",
     techStack: ["Next.js", "PostgreSQL", "Prisma", "Tailwind CSS", "AI APIs"],
     sliderItems: [
-      { image: "/assets/Catfy_LandignPage1.png", url: "https://catfy-catalog.vercel.app", name: "CATFY Landing" },
-      { image: "/assets/Catfy_LandignPage2.png", url: "https://catfy-catalog.vercel.app", name: "CATFY Dashboard" },
-      { image: "/assets/Catfy_LandignPage3.png", url: "https://catfy-catalog.vercel.app", name: "CATFY Dashboard" },
+      { image: "/assets/Catfy_LandignPage1.webp", url: "https://catfy-catalog.vercel.app", name: "CATFY Landing" },
+      { image: "/assets/Catfy_LandignPage2.webp", url: "https://catfy-catalog.vercel.app", name: "CATFY Dashboard" },
+      { image: "/assets/Catfy_LandignPage3.webp", url: "https://catfy-catalog.vercel.app", name: "CATFY Dashboard" },
     ],
     url: "https://catfy-catalog.vercel.app",
     isLarge: true,
@@ -70,9 +70,9 @@ export const featuredProducts: FeaturedProduct[] = [
     outcome: "Reduced lead response time by 60% and improved pipeline visibility for 3+ sales teams.",
     techStack: ["React", "Node.js", "PostgreSQL", "Prisma", "Supabase"],
     sliderItems: [
-      { image: "/assets/Leadzenor_LandingPage1.png", url: "#", name: "Leadzenor Landing" },
-      { image: "/assets/Leadzenor_LandingPage2.png", url: "#", name: "Leadzenor Dashboard" },
-      { image: "/assets/Leadzenor_Dashboard.png", url: "#", name: "Leadzenor Dashboard" },
+      { image: "/assets/Leadzenor_LandingPage1.webp", url: "#", name: "Leadzenor Landing" },
+      { image: "/assets/Leadzenor_LandingPage2.webp", url: "#", name: "Leadzenor Dashboard" },
+      { image: "/assets/Leadzenor_Dashboard.webp", url: "#", name: "Leadzenor Dashboard" },
     ],
     url: "#",
   },
@@ -87,9 +87,9 @@ export const featuredProducts: FeaturedProduct[] = [
     outcome: "Eliminated manual ledger errors, saving 15+ hours/week and enabling real-time inventory tracking.",
     techStack: ["Next.js", "Node.js", "PostgreSQL", "Prisma", "Docker"],
     sliderItems: [
-      { image: "/assets/Karatrix_LandingPage1.png", url: "#", name: "Karatrix Platform" },
-      { image: "/assets/Karatrix_LandingPage2.png", url: "#", name: "Karatrix Platform" },
-      { image: "/assets/Karatrix_Dashboard.png", url: "#", name: "Karatrix Dashboard" },
+      { image: "/assets/Karatrix_LandingPage1.webp", url: "#", name: "Karatrix Platform" },
+      { image: "/assets/Karatrix_LandingPage2.webp", url: "#", name: "Karatrix Platform" },
+      { image: "/assets/Karatrix_Dashboard.webp", url: "#", name: "Karatrix Dashboard" },
     ],
     url: "#",
     isLarge: true,
@@ -105,8 +105,8 @@ export const featuredProducts: FeaturedProduct[] = [
     outcome: "Streamlined operations across 5+ departments, reducing approval cycles by 45%.",
     techStack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "GitHub Actions"],
     sliderItems: [
-      { image: "/assets/Erp_LandinPage.png", url: "#", name: "IP ERP Platform" },
-      { image: "/assets/Erp_Dashboard.png", url: "#", name: "IP ERP Dashboard" },
+      { image: "/assets/Erp_LandinPage.webp", url: "#", name: "IP ERP Platform" },
+      { image: "/assets/Erp_Dashboard.webp", url: "#", name: "IP ERP Dashboard" },
     ],
     url: "#",
   },
@@ -118,9 +118,9 @@ export const showcaseProjects: Project[] = [
     description: "Building comprehensive SaaS platforms that automate manual workflows and streamline entire offline systems into powerful digital experiences.",
     category: "SaaS & Automation",
     sliderItems: [
-      { image: "/assets/Catfy_LandignPage1.png", url: "https://catfy-catalog.vercel.app", name: "Catfy Catalog SaaS" },
-      { image: "/assets/neatroots.png", url: "https://neatroot.vercel.app", name: "NeatRoots ERP" },
-      { image: "/assets/EricHost1.png", url: "https://main.erichost.app", name: "Erichost Dashboard" }
+      { image: "/assets/Catfy_LandignPage1.webp", url: "https://catfy-catalog.vercel.app", name: "Catfy Catalog SaaS" },
+      { image: "/assets/neatroots.webp", url: "https://neatroot.vercel.app", name: "NeatRoots ERP" },
+      { image: "/assets/EricHost1.webp", url: "https://main.erichost.app", name: "Erichost Dashboard" }
     ],
     stats: [
       { label: "Active Users", value: "10k+" },
@@ -136,9 +136,9 @@ export const showcaseProjects: Project[] = [
     description: "Transforming offline billing, inventory spreadsheets, and disjointed systems into unified, highly scalable cloud ERPs.",
     category: "CRM / ERP",
     sliderItems: [
-      { image: "/assets/neatroots.png", url: "https://neatroot.vercel.app", name: "NeatRoots ERP" },
-      { image: "/assets/Catfy_LandignPage1.png", url: "https://catfy-catalog.vercel.app", name: "Catfy Internal" },
-      { image: "/assets/coding-pandas.png", url: "https://coding-pandas.vercel.app", name: "EdTech CRM" }
+      { image: "/assets/neatroots.webp", url: "https://neatroot.vercel.app", name: "NeatRoots ERP" },
+      { image: "/assets/Catfy_LandignPage1.webp", url: "https://catfy-catalog.vercel.app", name: "Catfy Internal" },
+      { image: "/assets/coding-pandas.webp", url: "https://coding-pandas.vercel.app", name: "EdTech CRM" }
     ],
     stats: [
       { label: "Efficiency", value: "+45%" },
@@ -153,9 +153,9 @@ export const showcaseProjects: Project[] = [
     description: "Designing sleek, modern, and highly convertible user interfaces with premium aesthetics, micro-interactions, and flawless UX.",
     category: "UI/UX",
     sliderItems: [
-      { image: "/assets/EricHost1.png", url: "https://main.erichost.app", name: "Erichost" },
-      { image: "/assets/Catfy_LandignPage1.png", url: "https://catfy-catalog.vercel.app", name: "Catfy Landing" },
-      { image: "/assets/coding-pandas.png", url: "https://coding-pandas.vercel.app", name: "Coding Pandas" }
+      { image: "/assets/EricHost1.webp", url: "https://main.erichost.app", name: "Erichost" },
+      { image: "/assets/Catfy_LandignPage1.webp", url: "https://catfy-catalog.vercel.app", name: "Catfy Landing" },
+      { image: "/assets/coding-pandas.webp", url: "https://coding-pandas.vercel.app", name: "Coding Pandas" }
     ],
     stats: [
       { label: "Conversion", value: "+22%" },
@@ -171,9 +171,9 @@ export const showcaseProjects: Project[] = [
     description: "Developing blazing fast landing pages, corporate websites, and interactive EdTech platforms designed for scalable global reach.",
     category: "Websites",
     sliderItems: [
-      { image: "/assets/coding-pandas.png", url: "https://coding-pandas.vercel.app", name: "Coding Pandas" },
-      { image: "/assets/neatroots.png", url: "https://neatroot.vercel.app", name: "NeatRoots Site" },
-      { image: "/assets/EricHost1.png", url: "https://main.erichost.app", name: "EricHost" }
+      { image: "/assets/coding-pandas.webp", url: "https://coding-pandas.vercel.app", name: "Coding Pandas" },
+      { image: "/assets/neatroots.webp", url: "https://neatroot.vercel.app", name: "NeatRoots Site" },
+      { image: "/assets/EricHost1.webp", url: "https://main.erichost.app", name: "EricHost" }
     ],
     stats: [
       { label: "Reach", value: "50k+" },
@@ -225,7 +225,7 @@ export const caseStudies: CaseStudy[] = [
     role: "Solo Full-Stack Engineer & Product Designer — architecture, UI/UX design, backend APIs, database schema, and deployment.",
     outcome: "Live platform with 10k+ catalogue views. Businesses report 70% reduction in time spent creating product listings.",
     techStack: ["Next.js", "React", "TypeScript", "PostgreSQL", "Prisma", "Supabase", "Tailwind CSS", "Vercel"],
-    images: ["/assets/Catfy_LandignPage1.png", "/assets/Catfy_LandignPage2.png", "/assets/Catfy_LandignPage3.png"],
+    images: ["/assets/Catfy_LandignPage1.webp", "/assets/Catfy_LandignPage2.webp", "/assets/Catfy_LandignPage3.webp"],
     liveUrl: "https://catfy-catalog.vercel.app"
   },
   {
@@ -248,7 +248,7 @@ export const caseStudies: CaseStudy[] = [
     role: "Full-Stack Engineer & UI/UX Designer — designed the full product flow in Figma, built frontend and backend, and handled deployment.",
     outcome: "Reduced lead response time by 60% for active users. Currently used by 3+ sales teams with positive feedback on UX simplicity.",
     techStack: ["React", "Node.js", "PostgreSQL", "Prisma", "Supabase", "Docker", "Tailwind CSS"],
-    images: ["/assets/Leadzenor_LandingPage1.png", "/assets/Leadzenor_Dashboard.png", "/assets/Leadzenor_LandingPage2.png"],
+    images: ["/assets/Leadzenor_LandingPage1.webp", "/assets/Leadzenor_Dashboard.webp", "/assets/Leadzenor_LandingPage2.webp"],
     liveUrl: "#"
   },
   {
@@ -271,7 +271,7 @@ export const caseStudies: CaseStudy[] = [
     role: "Sole architect and engineer — designed the database schema, built all modules, and deployed the system on-premise for the business.",
     outcome: "Eliminated manual ledger errors entirely. Business saves 15+ hours/week on billing and reporting. Real-time inventory tracking across all product categories.",
     techStack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Docker", "Tailwind CSS"],
-    images: ["/assets/Karatrix_LandingPage1.png", "/assets/Karatrix_Dashboard.png", "/assets/Karatrix_LandingPage2.png"],
+    images: ["/assets/Karatrix_LandingPage1.webp", "/assets/Karatrix_Dashboard.webp", "/assets/Karatrix_LandingPage2.webp"],
     liveUrl: "#"
   },
   {
@@ -294,7 +294,7 @@ export const caseStudies: CaseStudy[] = [
     role: "Tech Lead — led architecture design, built the core workflow engine, and coordinated frontend component development.",
     outcome: "Streamlined operations across 5+ departments. Approval cycle time reduced by 45%. Full audit trail for all actions and decisions.",
     techStack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "GitHub Actions", "Vercel", "Tailwind CSS"],
-    images: ["/assets/Erp_LandinPage.png", "/assets/Erp_Dashboard.png"],
+    images: ["/assets/Erp_LandinPage.webp", "/assets/Erp_Dashboard.webp"],
     liveUrl: "#"
   }
 ];
@@ -314,7 +314,7 @@ export const portfolioProjects: PortfolioProject[] = [
     title: "Catfy",
     category: "Catalogue Builder",
     description: "A powerful catalogue builder tool that helps businesses create and manage digital catalogues efficiently.",
-    image: "/assets/Catfy_LandignPage1.png",
+    image: "/assets/Catfy_LandignPage1.webp",
     url: "https://catfy-catalog.vercel.app",
   },
   {
@@ -322,7 +322,7 @@ export const portfolioProjects: PortfolioProject[] = [
     title: "Coding Pandas",
     category: "EdTech Platform",
     description: "An interactive online classroom platform for mastering Web Development and Data Structures & Algorithms.",
-    image: "/assets/coding-pandas.png",
+    image: "/assets/coding-pandas.webp",
     url: "https://coding-pandas.vercel.app/",
   },
   {
@@ -330,7 +330,7 @@ export const portfolioProjects: PortfolioProject[] = [
     title: "NeatRoots",
     category: "App Dev Courses",
     description: "A comprehensive platform offering online app development courses and professional IT services.",
-    image: "/assets/neatroots.png",
+    image: "/assets/neatroots.webp",
     url: "https://neatroot.vercel.app/",
   },
   {
@@ -338,7 +338,7 @@ export const portfolioProjects: PortfolioProject[] = [
     title: "NinzaHost",
     category: "Web Hosting",
     description: "A modern web hosting platform featuring intuitive dashboard, server management, and seamless user experience.",
-    image: "/assets/ninzahost.png",
+    image: "/assets/ninzahost.webp",
     url: "https://ninzahost.com",
   },
   {
@@ -346,7 +346,7 @@ export const portfolioProjects: PortfolioProject[] = [
     title: "Erichost",
     category: "Hosting Platform",
     description: "A hosting service platform offering scalable deployments, domain management, and one-click Next.js app deployments.",
-    image: "/assets/EricHost1.png",
+    image: "/assets/EricHost1.webp",
     url: "https://main.erichost.app/",
   },
   {
@@ -354,7 +354,7 @@ export const portfolioProjects: PortfolioProject[] = [
     title: "Onboarding KYC",
     category: "API Integration",
     description: "Streamlined onboarding process for KYC verification with AI-driven document analysis.",
-    image: "/assets/onboarding-kyc.png",
+    image: "/assets/onboarding-kyc.webp",
     url: "https://onboarding-kyc.com",
   },
   {
@@ -362,7 +362,7 @@ export const portfolioProjects: PortfolioProject[] = [
     title: "RemoveQ",
     category: "AI Web App",
     description: "Advanced AI-powered background removal tool with batch processing and high-quality image editing capabilities.",
-    image: "/assets/removeq.png",
+    image: "/assets/removeq.webp",
     url: "https://removeq.com",
   },
   {
@@ -370,7 +370,7 @@ export const portfolioProjects: PortfolioProject[] = [
     title: "Web Agency",
     category: "SaaS Platform",
     description: "Comprehensive project management platform with team collaboration, task tracking, and analytics dashboard.",
-    image: "/assets/six-table.png",
+    image: "/assets/six-table.webp",
     url: "https://six-table.vercel.app/",
   },
   {
@@ -378,7 +378,7 @@ export const portfolioProjects: PortfolioProject[] = [
     title: "Blooger",
     category: "CMS Platform",
     description: "Modern blogging platform with rich text editor, SEO optimization, and content management system.",
-    image: "/assets/blooger.png",
+    image: "/assets/blooger.webp",
     url: "https://ayushkush1.github.io/Blooger/",
   },
   {
@@ -386,7 +386,7 @@ export const portfolioProjects: PortfolioProject[] = [
     title: "Movix",
     category: "Streaming UI",
     description: "Entertainment streaming platform with movie discovery, watchlists, and personalized recommendations.",
-    image: "/assets/movix.png",
+    image: "/assets/movix.webp",
     url: "https://ayushmovix.vercel.app/",
   },
   {
@@ -394,7 +394,7 @@ export const portfolioProjects: PortfolioProject[] = [
     title: "Proposal Pro",
     category: "Business SaaS",
     description: "Professional proposal creation tool with templates, e-signatures, and client management features.",
-    image: "/assets/proposal-pro.png",
+    image: "/assets/proposal-pro.webp",
     url: "https://proposal-pro-sable.vercel.app/",
   },
   {
@@ -402,7 +402,7 @@ export const portfolioProjects: PortfolioProject[] = [
     title: "Mobius",
     category: "Data Analytics",
     description: "Advanced analytics engine with real-time data visualization, custom reports, and business intelligence.",
-    image: "/assets/MobuisEngine.png",
+    image: "/assets/MobuisEngine.webp",
     url: "https://mobuis-engine-kappa.vercel.app/",
   },
   {
@@ -410,7 +410,7 @@ export const portfolioProjects: PortfolioProject[] = [
     title: "Portfolio",
     category: "Creative Design",
     description: "First iteration of personal portfolio showcasing creative design approach and interactive elements.",
-    image: "/assets/portfolio.png",
+    image: "/assets/portfolio.webp",
     url: "https://ayushkushwaha.vercel.app/",
   },
 ];

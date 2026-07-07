@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, ExternalLink, Code2, ShieldAlert, Cpu, Palette, Milestone } from "lucide-react";
+import { ArrowLeft, ArrowRight, Code2, ShieldAlert, Cpu, Palette, Milestone } from "lucide-react";
 import { caseStudies } from "@/data/projects";
 import Contact from "@/components/Contact";
 import { Button } from "@/components/ui/button";

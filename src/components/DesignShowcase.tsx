@@ -3,12 +3,12 @@ import { useRef } from "react";
 import GridMotion from "./GridMotion";
 
 const designs = [
-    "/assets/Catfy_LandignPage1.png",
-    "/assets/Erp_Dashboard.png",
-    "/assets/Leadzenor_Dashboard.png",
-    "/assets/Karatrix_LandingPage1.png",
-    "/assets/TheSevenStar_LandingPage.png",
-    "/assets/EricHost1.png",
+    "/assets/Catfy_LandignPage1.webp",
+    "/assets/Erp_Dashboard.webp",
+    "/assets/Leadzenor_Dashboard.webp",
+    "/assets/Karatrix_LandingPage1.webp",
+    "/assets/TheSevenStar_LandingPage.webp",
+    "/assets/EricHost1.webp",
 ];
 
 const DesignShowcase = () => {

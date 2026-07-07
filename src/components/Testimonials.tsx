@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Quote, Star, Users } from "lucide-react";
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const Testimonials = () => {
     const sectionRef = useRef<HTMLElement>(null);

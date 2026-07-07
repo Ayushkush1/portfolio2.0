@@ -1,11 +1,9 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Layers, ExternalLink } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { featuredProducts, FeaturedProduct } from "@/data/projects";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const ProductCard = ({ product }: { product: FeaturedProduct }) => {
     const [currentIndex, setCurrentIndex] = useState(0);

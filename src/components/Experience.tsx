@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { Github, Instagram, Linkedin, Twitter, Mail } from "lucide-react";
-import React, { useEffect, useRef } from "react";
+import { Github, Instagram, Linkedin, Mail } from "lucide-react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
