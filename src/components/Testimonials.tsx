@@ -5,6 +5,7 @@ import { useRef, useState, useEffect } from "react";
 const Testimonials = () => {
     const sectionRef = useRef<HTMLElement>(null);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [isHovered, setIsHovered] = useState(false);
     const { scrollYProgress } = useScroll({
         target: sectionRef,
         offset: ["start end", "end start"]
@@ -36,13 +37,14 @@ const Testimonials = () => {
         }
     ];
 
-    // Automatic slider for mobile
+    // Automatic slider
     useEffect(() => {
+        if (isHovered) return;
         const interval = setInterval(() => {
             setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
-        }, 3000);
+        }, 4000);
         return () => clearInterval(interval);
-    }, [testimonials.length]);
+    }, [testimonials.length, isHovered]);
 
     return (
         <section ref={sectionRef} id="testimonials" className="relative pt-12 md:pt-32 md:pb-10 bg-background overflow-hidden">
@@ -121,6 +123,8 @@ const Testimonials = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                     viewport={{ once: true }}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
                 >
                     <motion.div
                         className="absolute left-1/2 top-0 bottom-0 w-px bg-white/10 transform -translate-x-1/2 hidden lg:block"
@@ -129,7 +133,18 @@ const Testimonials = () => {
                         transition={{ duration: 1, delay: 0.6 }}
                         viewport={{ once: true }}
                         style={{ transformOrigin: "top" }}
-                    />
+                    >
+                        {/* Unique subtle progress indicator on the central line */}
+                        <motion.div 
+                            className="absolute top-0 left-0 w-full bg-white/40 shadow-[0_0_8px_rgba(255,255,255,0.1)] rounded-full"
+                            initial={false}
+                            animate={{
+                                height: `${100 / testimonials.length}%`,
+                                top: `${(activeIndex / testimonials.length) * 100}%`
+                            }}
+                            transition={{ type: "spring", stiffness: 150, damping: 20 }}
+                        />
+                    </motion.div>
 
                     {/* Left Testimonial */}
                     <motion.div
@@ -139,28 +154,37 @@ const Testimonials = () => {
                         transition={{ duration: 0.6, delay: 0.4 }}
                         viewport={{ once: true }}
                     >
-                        <div className="relative">
-                             <div className="flex gap-1 mb-6">
-                                {[...Array(5)].map((_, i) => (
-                                    <Star key={i} className="w-3 h-3 fill-brand text-brand" />
-                                ))}
-                            </div>
-                            <motion.div className="flex items-start gap-4 mb-10">
-                                <p className="text-gray-300 text-xl leading-relaxed italic">
-                                    "{testimonials[0].text}"
-                                </p>
-                                <Quote className="h-8 w-8 text-brand flex-shrink-0 mt-1 opacity-30" />
+                        <AnimatePresence mode="wait">
+                            <motion.div 
+                                key={activeIndex}
+                                className="relative w-full"
+                                initial={{ opacity: 0, filter: "blur(8px)", scale: 0.95, y: 15 }}
+                                animate={{ opacity: 1, filter: "blur(0px)", scale: 1, y: 0 }}
+                                exit={{ opacity: 0, filter: "blur(8px)", scale: 1.05, y: -15 }}
+                                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                                <div className="flex gap-1 mb-6">
+                                    {[...Array(testimonials[activeIndex].rating || 5)].map((_, i) => (
+                                        <Star key={i} className="w-3 h-3 fill-brand text-brand" />
+                                    ))}
+                                </div>
+                                <div className="flex items-start gap-4 mb-10">
+                                    <p className="text-gray-300 text-xl leading-relaxed italic">
+                                        "{testimonials[activeIndex].text}"
+                                    </p>
+                                    <Quote className="h-8 w-8 text-brand flex-shrink-0 mt-1 opacity-30" />
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500">
+                                        <Users className="w-4 h-4" />
+                                    </div>
+                                    <div>
+                                        <h4 className="font-semibold text-white text-base">{testimonials[activeIndex].name}</h4>
+                                        <p className="text-gray-400 text-sm">{testimonials[activeIndex].role}</p>
+                                    </div>
+                                </div>
                             </motion.div>
-                            <div className="flex items-center gap-4">
-                                <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500">
-                                    <Users className="w-4 h-4" />
-                                </div>
-                                <div>
-                                    <h4 className="font-semibold text-white text-base">{testimonials[0].name}</h4>
-                                    <p className="text-gray-400 text-sm">{testimonials[0].role}</p>
-                                </div>
-                            </div>
-                        </div>
+                        </AnimatePresence>
                     </motion.div>
 
                     {/* Right Testimonial */}
@@ -171,28 +195,37 @@ const Testimonials = () => {
                         transition={{ duration: 0.6, delay: 0.5 }}
                         viewport={{ once: true }}
                     >
-                        <div className="relative">
-                             <div className="flex gap-1 mb-6">
-                                {[...Array(5)].map((_, i) => (
-                                    <Star key={i} className="w-3 h-3 fill-brand text-brand" />
-                                ))}
-                            </div>
-                            <motion.div className="flex items-start gap-4 mb-10">
-                                <p className="text-gray-300 text-xl leading-relaxed italic">
-                                    "{testimonials[1].text}"
-                                </p>
-                                <Quote className="h-8 w-8 text-brand flex-shrink-0 mt-1 opacity-30" />
+                        <AnimatePresence mode="wait">
+                            <motion.div 
+                                key={(activeIndex + 1) % testimonials.length}
+                                className="relative w-full"
+                                initial={{ opacity: 0, filter: "blur(8px)", scale: 0.95, y: 15 }}
+                                animate={{ opacity: 1, filter: "blur(0px)", scale: 1, y: 0 }}
+                                exit={{ opacity: 0, filter: "blur(8px)", scale: 1.05, y: -15 }}
+                                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                                <div className="flex gap-1 mb-6">
+                                    {[...Array(testimonials[(activeIndex + 1) % testimonials.length].rating || 5)].map((_, i) => (
+                                        <Star key={i} className="w-3 h-3 fill-brand text-brand" />
+                                    ))}
+                                </div>
+                                <div className="flex items-start gap-4 mb-10">
+                                    <p className="text-gray-300 text-xl leading-relaxed italic">
+                                        "{testimonials[(activeIndex + 1) % testimonials.length].text}"
+                                    </p>
+                                    <Quote className="h-8 w-8 text-brand flex-shrink-0 mt-1 opacity-30" />
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500">
+                                        <Users className="w-4 h-4" />
+                                    </div>
+                                    <div>
+                                        <h4 className="font-semibold text-white text-base">{testimonials[(activeIndex + 1) % testimonials.length].name}</h4>
+                                        <p className="text-gray-400 text-sm">{testimonials[(activeIndex + 1) % testimonials.length].role}</p>
+                                    </div>
+                                </div>
                             </motion.div>
-                            <div className="flex items-center gap-4">
-                                <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500">
-                                    <Users className="w-4 h-4" />
-                                </div>
-                                <div>
-                                    <h4 className="font-semibold text-white text-base">{testimonials[1].name}</h4>
-                                    <p className="text-gray-400 text-sm">{testimonials[1].role}</p>
-                                </div>
-                            </div>
-                        </div>
+                        </AnimatePresence>
                     </motion.div>
                 </motion.div>
             </div>

@@ -68,8 +68,12 @@ const Hero = () => {
                         initial="hidden"
                         animate="show"
                     >
-                        {["Full-Stack Product", "Engineer, built", "to scale"].map((line, lineIdx) => (
-                            <span key={lineIdx} className="block w-full">
+                        {["Full-Stack", "Product Engineer", "built to scale."].map((line, lineIdx) => (
+                            <span
+                                key={lineIdx}
+                                className={`block w-full ${lineIdx === 0 || lineIdx === 2 ? "text-gray-400  pt-2 font-light" : "text-white"}`}
+                                style={lineIdx === 2 || lineIdx === 0 ? { fontFamily: "'Fraunces', serif" } : undefined}
+                            >
                                 {line.split(" ").map((word, wordIdx, array) => (
                                     <span key={wordIdx} className="inline-block whitespace-nowrap">
                                         {word.split("").map((char, charIdx) => (
@@ -79,7 +83,7 @@ const Hero = () => {
                                                     hidden: { opacity: 0, filter: "blur(12px)", y: 40, rotateX: -30 },
                                                     show: { opacity: 1, filter: "blur(0px)", y: 0, rotateX: 0, transition: { type: "spring", bounce: 0, duration: 1.2 } }
                                                 }}
-                                                className="inline-block"
+                                                className={`inline-block ${char === '.' && lineIdx === 2 ? 'text-brand not-italic font-bold' : ''}`}
                                             >
                                                 {char}
                                             </motion.span>
@@ -87,17 +91,6 @@ const Hero = () => {
                                         {wordIdx !== array.length - 1 && <span className="inline-block">&nbsp;</span>}
                                     </span>
                                 ))}
-                                {lineIdx === 2 && (
-                                    <motion.span
-                                        variants={{
-                                            hidden: { opacity: 0, filter: "blur(12px)", y: 40, rotateX: -30 },
-                                            show: { opacity: 1, filter: "blur(0px)", y: 0, rotateX: 0, transition: { type: "spring", bounce: 0, duration: 1.2 } }
-                                        }}
-                                        className="inline-block text-brand not-italic"
-                                    >
-                                        .
-                                    </motion.span>
-                                )}
                             </span>
                         ))}
                     </motion.p>
