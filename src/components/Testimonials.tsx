@@ -19,28 +19,32 @@ const Testimonials = () => {
             name: "Founder",
             role: "Erichost",
             text: "I'm thoroughly impressed with Ayush's designing creativity! He brought fresh ideas to our hosting platform and delivered beyond expectations. His creative approach to web design is exactly what Erichost needed.",
-            rating: 5
+            rating: 5,
+            avatar: "/avatar/erichost.jpg"
         },
         {
             id: 2,
             name: "Founder",
             role: "NinzaHost",
             text: "Ayush transformed our vision into a stunning web hosting platform. His technical expertise and attention to detail made NinzaHost stand out in the competitive hosting market. The user experience he created is simply outstanding!",
-            rating: 5
+            rating: 5,
+            avatar: "/avatar/ninzahost.png"
         },
         {
             id: 3,
-            name: "ANSHUL SINGH",
+            name: "Anshul Singh",
             role: "Senior Software Engineer",
-            text: "I’ve worked with Ayush on multiple projects, and he’s been a solid frontend developer throughout. He’s quick to pick things up, writes clean code, and always brings a positive attitude to the team. As a full stack developer handling APIs and databases, I really appreciated how smoothly we could collaborate. He’ll definitely be a great addition to any team.",
-            rating: 5
+            text: "I’ve worked with Ayush on multiple projects, and he’s been a solid frontend developer throughout. He’s quick to pick things up, writes clean code, and always brings a positive attitude to the team. He’ll definitely be a great addition to any team.",
+            rating: 5,
+            avatar: "/avatar/anshul.jpg"
         },
         {
             id: 4,
             name: "Vishal Vishwakarma",
             role: "CRO at Thomson Reuters",
             text: "I had the pleasure of working with Ayush during his internship, and I was impressed by his strong coding skills and sharp problem-solving ability. He consistently delivered quality work and showed great initiative. Highly recommended for any tech role.",
-            rating: 5
+            rating: 5,
+            avatar: "/avatar/vishal.jpg"
         }
     ];
 
@@ -106,6 +110,9 @@ const Testimonials = () => {
 
                             {/* Minimal Author Info */}
                             <div className="flex flex-col items-center">
+                                {testimonials[activeIndex].avatar && (
+                                    <img src={testimonials[activeIndex].avatar} alt={testimonials[activeIndex].name} className="w-12 h-12 rounded-full mb-3 object-cover border border-white/10" />
+                                )}
                                 <h4 className="text-white font-semibold text-base leading-none mb-2">{testimonials[activeIndex].name}</h4>
                                 <p className="text-gray-500 text-[10px] uppercase tracking-[0.2em]">{testimonials[activeIndex].role}</p>
                             </div>
@@ -182,8 +189,12 @@ const Testimonials = () => {
                                     <Quote className="h-8 w-8 text-brand flex-shrink-0 mt-1 opacity-30" />
                                 </div>
                                 <div className="flex items-center gap-4">
-                                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500">
-                                        <Users className="w-4 h-4" />
+                                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 overflow-hidden">
+                                        {testimonials[activeIndex].avatar ? (
+                                            <img src={testimonials[activeIndex].avatar} alt={testimonials[activeIndex].name} className="w-full h-full object-cover" />
+                                        ) : (
+                                            <Users className="w-4 h-4" />
+                                        )}
                                     </div>
                                     <div>
                                         <h4 className="font-semibold text-white text-base">{testimonials[activeIndex].name}</h4>
@@ -223,8 +234,12 @@ const Testimonials = () => {
                                     <Quote className="h-8 w-8 text-brand flex-shrink-0 mt-1 opacity-30" />
                                 </div>
                                 <div className="flex items-center gap-4">
-                                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500">
-                                        <Users className="w-4 h-4" />
+                                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 overflow-hidden">
+                                        {testimonials[(activeIndex + 1) % testimonials.length].avatar ? (
+                                            <img src={testimonials[(activeIndex + 1) % testimonials.length].avatar} alt={testimonials[(activeIndex + 1) % testimonials.length].name} className="w-full h-full object-cover" />
+                                        ) : (
+                                            <Users className="w-4 h-4" />
+                                        )}
                                     </div>
                                     <div>
                                         <h4 className="font-semibold text-white text-base">{testimonials[(activeIndex + 1) % testimonials.length].name}</h4>
