@@ -30,9 +30,16 @@ const Testimonials = () => {
         },
         {
             id: 3,
-            name: "CEO",
-            role: "SaaS Flow",
-            text: "Ayush is a rare talent who understands both the technical and business sides of a product. He helped us scale our platform from 0 to 10k users with ease. His work is simply incredible.",
+            name: "ANSHUL SINGH",
+            role: "Senior Software Engineer",
+            text: "I’ve worked with Ayush on multiple projects, and he’s been a solid frontend developer throughout. He’s quick to pick things up, writes clean code, and always brings a positive attitude to the team. As a full stack developer handling APIs and databases, I really appreciated how smoothly we could collaborate. He’ll definitely be a great addition to any team.",
+            rating: 5
+        },
+        {
+            id: 4,
+            name: "Vishal Vishwakarma",
+            role: "CRO at Thomson Reuters",
+            text: "I had the pleasure of working with Ayush during his internship, and I was impressed by his strong coding skills and sharp problem-solving ability. He consistently delivered quality work and showed great initiative. Highly recommended for any tech role.",
             rating: 5
         }
     ];

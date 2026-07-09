@@ -29,7 +29,7 @@ const ProductCard = ({ product, index }: { product: FeaturedProduct; index: numb
     const currentItem = product.sliderItems[currentIndex];
 
     return (
-        <div ref={containerRef} className="h-auto md:h-screen w-full flex items-start md:items-center justify-center relative showcase-card-wrapper py-3 md:py-0">
+        <div ref={containerRef} className="h-auto w-full flex items-start md:items-center justify-center relative showcase-card-wrapper py-3 md:py-24 lg:py-16">
             <motion.div
                 style={{ scale, opacity, y }}
                 whileHover="hover"
@@ -205,7 +205,7 @@ const Showcase = () => {
             <div className="container relative z-10 flex flex-col gap-0">
 
                 {/* Section Header */}
-                <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 mb-4 md:mb-0 text-center md:text-left">
+                <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 mb-4 md:mb-14 text-center md:text-left">
                     <div>
                         <p className="text-brand text-sm md:text-base font-semibold tracking-widest uppercase mb-4">
                             Case Studies
