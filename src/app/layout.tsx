@@ -71,6 +71,19 @@ export default function RootLayout({
     url: 'https://ayushkushwaha.com/'
   }
 
+  const navigationJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: [
+      {
+        '@type': 'SiteNavigationElement',
+        position: 1,
+        name: 'Work & Case Studies',
+        url: 'https://ayushkushwaha.com/work'
+      }
+    ]
+  }
+
   return (
     <html lang="en" className="dark">
       <head>
@@ -87,6 +100,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(navigationJsonLd) }}
         />
         <Providers>
           {children}
