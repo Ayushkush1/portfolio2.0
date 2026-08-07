@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     siteName: "Ayush Kushwaha Portfolio",
     images: [
       {
-        url: "https://ayushkushwaha.com/assets/ayush-kushwaha-logo.webp",
+        url: "https://ayushkushwaha.com/assets/og-image.webp",
         width: 1200,
         height: 630,
       }
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: "Ayush Kushwaha | Full-Stack Product Engineer",
     description: "Full-Stack Product Engineer building SaaS platforms, business systems, and exceptional user experiences. Based in India.",
     creator: "@awsm_ayush_",
-    images: ["https://ayushkushwaha.com/assets/ayush-kushwaha-logo.webp"],
+    images: ["https://ayushkushwaha.com/assets/og-image.webp"],
   },
   verification: {
     google: "4kD9H2fqRgqKEkOEOc1hEe17-BtCjDAoArqGcQXDkkw",

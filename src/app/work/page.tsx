@@ -10,7 +10,7 @@ export const metadata: Metadata = {
         url: "https://ayushkushwaha.com/work",
         images: [
             {
-                url: "https://ayushkushwaha.com/assets/ayush-kushwaha-logo.webp",
+                url: "https://ayushkushwaha.com/assets/og-image.webp",
                 width: 1200,
                 height: 630,
             }
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Work – Ayush Kushwaha | Full-Stack Product Engineer",
         description: "Selected case studies of SaaS platforms, ERP systems, and digital products built by Ayush Kushwaha.",
-        images: ["https://ayushkushwaha.com/assets/ayush-kushwaha-logo.webp"],
+        images: ["https://ayushkushwaha.com/assets/og-image.webp"],
     }
 };
 

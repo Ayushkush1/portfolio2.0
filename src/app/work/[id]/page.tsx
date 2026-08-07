@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             url: `https://ayushkushwaha.com/work/${project.id}`,
             images: [
                 {
-                    url: "https://ayushkushwaha.com/assets/ayush-kushwaha-logo.webp",
+                    url: "https://ayushkushwaha.com/assets/og-image.webp",
                     width: 1200,
                     height: 630,
                 }
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             card: "summary_large_image",
             title: `${project.name} Case Study | Ayush Kushwaha`,
             description: project.tagline,
-            images: ["https://ayushkushwaha.com/assets/ayush-kushwaha-logo.webp"],
+            images: ["https://ayushkushwaha.com/assets/og-image.webp"],
         }
     }
 }
