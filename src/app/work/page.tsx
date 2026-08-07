@@ -3,10 +3,10 @@ import WorkClient from "./WorkClient";
 
 export const metadata: Metadata = {
     title: "Work – Ayush Kushwaha | Full-Stack Product Engineer",
-    description: "Selected case studies of SaaS platforms, ERP systems, and digital products built by Ayush Kushwaha.",
+    description: "Explore a curated portfolio of scalable SaaS platforms, robust enterprise ERP systems, and high-performance digital products engineered by Ayush Kushwaha.",
     openGraph: {
         title: "Work – Ayush Kushwaha | Full-Stack Product Engineer",
-        description: "Selected case studies of SaaS platforms, ERP systems, and digital products built by Ayush Kushwaha.",
+        description: "Explore a curated portfolio of scalable SaaS platforms, robust enterprise ERP systems, and high-performance digital products engineered by Ayush Kushwaha.",
         url: "https://ayushkushwaha.com/work",
         images: [
             {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     twitter: {
         card: "summary_large_image",
         title: "Work – Ayush Kushwaha | Full-Stack Product Engineer",
-        description: "Selected case studies of SaaS platforms, ERP systems, and digital products built by Ayush Kushwaha.",
+        description: "Explore a curated portfolio of scalable SaaS platforms, robust enterprise ERP systems, and high-performance digital products engineered by Ayush Kushwaha.",
         images: ["https://ayushkushwaha.com/assets/og-image.webp"],
     }
 };

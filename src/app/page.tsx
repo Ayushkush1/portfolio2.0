@@ -12,10 +12,10 @@ import Contact from "@/components/Contact";
 
 export const metadata: Metadata = {
   title: "Ayush Kushwaha | Full-Stack Product Engineer",
-  description: "Full-Stack Product Engineer building SaaS platforms, business systems, and exceptional user experiences. Based in India.",
+  description: "Ayush Kushwaha is a Full-Stack Product Engineer specializing in scalable SaaS platforms, robust business CRMs, and premium web application development.",
   openGraph: {
     title: "Ayush Kushwaha | Full-Stack Product Engineer",
-    description: "Full-Stack Product Engineer building SaaS platforms, business systems, and exceptional user experiences. Based in India.",
+    description: "Ayush Kushwaha is a Full-Stack Product Engineer specializing in scalable SaaS platforms, robust business CRMs, and premium web application development.",
     url: "https://ayushkushwaha.com/",
     images: [
       {

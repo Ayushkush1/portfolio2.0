@@ -64,6 +64,8 @@ const Testimonials = () => {
             <motion.div 
                 style={{ x }}
                 className="absolute top-20 left-0 whitespace-nowrap text-[14rem] font-bold text-white/[0.02] select-none pointer-events-none hidden md:block"
+                aria-hidden="true"
+                data-nosnippet
             >
                 CLIENT FEEDBACK • REAL RESULTS • CLIENT FEEDBACK • REAL RESULTS
             </motion.div>
@@ -178,7 +180,7 @@ const Testimonials = () => {
                                 exit={{ opacity: 0, filter: "blur(8px)", scale: 1.05, y: -15 }}
                                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                             >
-                                <div className="flex gap-1 mb-6">
+                                <div className="flex gap-1 mb-6" aria-hidden="true" data-nosnippet>
                                     {[...Array(testimonials[activeIndex].rating || 5)].map((_, i) => (
                                         <Star key={i} className="w-3 h-3 fill-brand text-brand" />
                                     ))}
@@ -223,7 +225,7 @@ const Testimonials = () => {
                                 exit={{ opacity: 0, filter: "blur(8px)", scale: 1.05, y: -15 }}
                                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                             >
-                                <div className="flex gap-1 mb-6">
+                                <div className="flex gap-1 mb-6" aria-hidden="true" data-nosnippet>
                                     {[...Array(testimonials[(activeIndex + 1) % testimonials.length].rating || 5)].map((_, i) => (
                                         <Star key={i} className="w-3 h-3 fill-brand text-brand" />
                                     ))}
