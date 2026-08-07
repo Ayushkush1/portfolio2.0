@@ -113,7 +113,7 @@ const Experience = () => {
                                     transition={{ duration: 0.6, delay: 0.8 }}
                                     viewport={{ once: true }}
                                 >
-                                    <h3 className="text-base md:text-lg font-semibold text-foreground">Ayush Kushwaha</h3>
+                                    <h2 className="text-base md:text-lg font-semibold text-foreground">Ayush Kushwaha</h2>
                                     <p className="text-gray-500 text-[11px] md:text-xs">SaaS Engineer & Product Builder</p>
                                 </motion.div>
 
@@ -129,6 +129,7 @@ const Experience = () => {
                                     <motion.a
                                         href="https://www.linkedin.com/in/ayush-kushwaha-b3b76915b/"
                                         target="_blank"
+                                        aria-label="LinkedIn Profile"
                                         className="w-5 h-5 md:w-6 md:h-6 text-gray-400 transition-colors duration-300"
                                         whileHover={{
                                             scale: 1.15,
@@ -146,6 +147,7 @@ const Experience = () => {
                                     <motion.a
                                         href="https://github.com/Ayushkush1"
                                         target="_blank"
+                                        aria-label="GitHub Profile"
                                         className="w-5 h-5 md:w-6 md:h-6 text-gray-400 transition-colors duration-300"
                                         whileHover={{
                                             scale: 1.15,
@@ -163,6 +165,7 @@ const Experience = () => {
                                     <motion.a
                                         href="https://www.instagram.com/awsm_ayush_/"
                                         target="_blank"
+                                        aria-label="Instagram Profile"
                                         className="w-5 h-5 md:w-6 md:h-6 text-gray-400 transition-colors duration-300"
                                         whileHover={{
                                             scale: 1.15,
@@ -179,6 +182,7 @@ const Experience = () => {
                                     </motion.a>
                                     <motion.a
                                         href="mailto:ayushkushwaha381@gmail.com"
+                                        aria-label="Email Me"
                                         className="w-5 h-5 md:w-6 md:h-6 text-gray-400 transition-colors duration-300"
                                         whileHover={{
                                             scale: 1.15,

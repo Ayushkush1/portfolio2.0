@@ -114,7 +114,7 @@ const Testimonials = () => {
                                 {testimonials[activeIndex].avatar && (
                                     <img src={testimonials[activeIndex].avatar} alt={testimonials[activeIndex].name} className="w-12 h-12 rounded-full mb-3 object-cover border border-white/10" />
                                 )}
-                                <h4 className="text-white font-semibold text-base leading-none mb-2">{testimonials[activeIndex].name}</h4>
+                                <h3 className="text-white font-semibold text-base leading-none mb-2">{testimonials[activeIndex].name}</h3>
                                 <p className="text-gray-500 text-[10px] uppercase tracking-[0.2em]">{testimonials[activeIndex].role}</p>
                             </div>
                         </motion.div>
@@ -198,7 +198,7 @@ const Testimonials = () => {
                                         )}
                                     </div>
                                     <div>
-                                        <h4 className="font-semibold text-white text-base">{testimonials[activeIndex].name}</h4>
+                                        <h3 className="font-semibold text-white text-base">{testimonials[activeIndex].name}</h3>
                                         <p className="text-gray-400 text-sm">{testimonials[activeIndex].role}</p>
                                     </div>
                                 </div>
@@ -243,7 +243,7 @@ const Testimonials = () => {
                                         )}
                                     </div>
                                     <div>
-                                        <h4 className="font-semibold text-white text-base">{testimonials[(activeIndex + 1) % testimonials.length].name}</h4>
+                                        <h3 className="font-semibold text-white text-base">{testimonials[(activeIndex + 1) % testimonials.length].name}</h3>
                                         <p className="text-gray-400 text-sm">{testimonials[(activeIndex + 1) % testimonials.length].role}</p>
                                     </div>
                                 </div>

@@ -78,7 +78,7 @@ const ServicesSection = () => {
                                     0{service.id}<span className="text-brand">.</span>
                                 </motion.div>
 
-                                <motion.h3
+                                <motion.h2
                                     className="text-4xl md:text-5xl font-medium mb-6 tracking-tight text-white"
                                     style={{ fontFamily: "'Fraunces', serif" }}
                                     initial={{ opacity: 0, x: -20 }}
@@ -86,7 +86,7 @@ const ServicesSection = () => {
                                     transition={{ duration: 0.6, delay: 0.2 }}
                                 >
                                     {service.title}<span className="text-brand ml-1">.</span>
-                                </motion.h3>
+                                </motion.h2>
 
                                 <motion.p
                                     className="text-gray-500 text-base md:text-xl mb-10 max-w-lg leading-relaxed"

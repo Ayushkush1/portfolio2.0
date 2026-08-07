@@ -68,6 +68,7 @@ const ProductCard = ({ product, index }: { product: FeaturedProduct; index: numb
                                 {product.sliderItems.map((_: any, idx: number) => (
                                     <button
                                         key={idx}
+                                        aria-label={`Go to slide ${idx + 1}`}
                                         onClick={(e) => { e.preventDefault(); setCurrentIndex(idx); }}
                                         className={`w-2 h-2 rounded-full transition-all ${currentIndex === idx ? "bg-brand w-4" : "bg-white/40"
                                             }`}
@@ -87,12 +88,12 @@ const ProductCard = ({ product, index }: { product: FeaturedProduct; index: numb
                     <div className="flex flex-col justify-start">
                         {/* Mobile: category inline with title | Desktop: category above title */}
                         <div className="flex items-start justify-between gap-2 mb-2 md:hidden">
-                            <h2
+                            <h3
                                 className="text-2xl font-light text-white leading-[1.1] tracking-tight"
                                 style={{ fontFamily: "'Fraunces', serif" }}
                             >
                                 {product.name}
-                            </h2>
+                            </h3>
                             <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-brand/90 mt-1 shrink-0">
                                 {product.category}
                             </span>
@@ -105,12 +106,12 @@ const ProductCard = ({ product, index }: { product: FeaturedProduct; index: numb
                                     {product.category}
                                 </span>
                             </div>
-                            <h2
+                            <h3
                                 className="text-5xl font-light mb-6 text-white leading-[1.1] tracking-tight"
                                 style={{ fontFamily: "'Fraunces', serif" }}
                             >
                                 {product.name}
-                            </h2>
+                            </h3>
                         </div>
 
                         {/* Minimal Description */}
