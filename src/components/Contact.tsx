@@ -1,3 +1,4 @@
+"use client";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
     ArrowRight,
@@ -248,3 +249,4 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
 };
 
 export default Contact;
+

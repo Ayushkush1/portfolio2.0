@@ -1,8 +1,9 @@
+"use client";
 import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { featuredProducts, FeaturedProduct } from "@/data/projects";
-import { useNavigate, Link } from "react-router-dom";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 const ProductCard = ({ product, index }: { product: FeaturedProduct; index: number }) => {
@@ -37,7 +38,7 @@ const ProductCard = ({ product, index }: { product: FeaturedProduct; index: numb
             >
                 {/* Image Column — tappable link on mobile, static on desktop */}
                 <Link
-                    to={`/work/${product.id}`}
+                    href={`/work/${product.id}`}
                     className="w-full md:flex-1 flex flex-col justify-center h-full -mx-4 md:mx-0 md:pointer-events-none"
                     style={{ width: 'calc(100% + 2rem)' }}
                 >
@@ -139,7 +140,7 @@ const ProductCard = ({ product, index }: { product: FeaturedProduct; index: numb
                                 className="group/btn flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)] pl-5 pr-2 w-fit h-12"
                                 asChild
                             >
-                                <Link to={`/work/${product.id}`}>
+                                <Link href={`/work/${product.id}`}>
                                     <div className="relative overflow-hidden h-6 w-fit text-white">
                                         <motion.div
                                             className="flex flex-col items-center"
@@ -198,8 +199,6 @@ const ProductCard = ({ product, index }: { product: FeaturedProduct; index: numb
 };
 
 const Showcase = () => {
-    const navigate = useNavigate();
-
     return (
         <section id="work" className="relative bg-gradient-to-br from-background via-background to-primary/5 py-24 md:pt-32">
             <div className="container relative z-10 flex flex-col gap-0">
@@ -226,7 +225,7 @@ const Showcase = () => {
                             className="group/btn flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.3)] hover:shadow-[0_0_30px_rgba(255,95,38,0.5)] pl-5 pr-2 w-fit h-12"
                             asChild
                         >
-                            <Link to="/work">
+                            <Link href="/work">
                                 <div className="relative overflow-hidden h-6 w-fit text-white">
                                     <motion.div
                                         className="flex flex-col items-center"

@@ -1,3 +1,4 @@
+"use client";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -135,3 +136,4 @@ const ServicesSection = () => {
 };
 
 export default ServicesSection;
+

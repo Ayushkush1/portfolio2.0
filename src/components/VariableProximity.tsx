@@ -1,3 +1,4 @@
+"use client";
 import {
   forwardRef,
   useMemo,
@@ -208,3 +209,4 @@ const VariableProximity = forwardRef<HTMLSpanElement, VariableProximityProps>((p
 
 VariableProximity.displayName = 'VariableProximity';
 export default VariableProximity;
+

@@ -1,3 +1,4 @@
+"use client";
 import { motion } from "framer-motion";
 import { Github, Instagram, Linkedin, Mail } from "lucide-react";
 import { useEffect, useRef } from "react";
@@ -295,3 +296,4 @@ const Experience = () => {
 
 
 export default Experience;
+

@@ -1,3 +1,4 @@
+"use client";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, useScroll, useTransform, useMotionValue, animate } from "framer-motion";
@@ -280,3 +281,4 @@ const Hero = () => {
 };
 
 export default Hero;
+

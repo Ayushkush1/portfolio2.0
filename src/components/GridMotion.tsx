@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useRef, FC, ReactNode } from 'react';
 import { gsap } from 'gsap';
 
@@ -9,7 +10,7 @@ interface GridMotionProps {
 const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = 'black' }) => {
   const gridRef = useRef<HTMLDivElement>(null);
   const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const mouseXRef = useRef<number>(window.innerWidth / 2);
+  const mouseXRef = useRef<number>(typeof window !== 'undefined' ? window.innerWidth / 2 : 0);
 
   const totalItems = 28;
   const defaultItems = Array.from({ length: totalItems }, (_, index) => `Item ${index + 1}`);
@@ -104,3 +105,4 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = 'black' }
 };
 
 export default GridMotion;
+

@@ -1,7 +1,8 @@
+"use client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowLeft } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 const navItems = [
     { href: "#home", label: "Home", id: "home" },
@@ -61,7 +62,7 @@ const Navbar = ({
     const [activeSection, setActiveSection] = useState(sectionsToTrack[0]?.label || "Home");
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
-    const navigate = useNavigate();
+    const router = useRouter();
 
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -121,7 +122,7 @@ const Navbar = ({
         }
 
         if (sectionId === 'portfolio' || sectionId === 'work') {
-            navigate(sectionId === 'work' ? '/work' : '/portfolio');
+            router.push(sectionId === 'work' ? '/work' : '/portfolio');
             setIsMenuOpen(false);
             return;
         }
@@ -160,7 +161,7 @@ const Navbar = ({
                         onClick={(e) => {
                             e.preventDefault();
                             if (backTo || isProjectDetail) {
-                                navigate("/");
+                                router.push("/");
                             } else {
                                 scrollToSection('home');
                             }
@@ -208,7 +209,7 @@ const Navbar = ({
                             <motion.button
                                 aria-label="Go back"
                                 className="inline-flex h-[38px] w-[38px] items-center justify-center rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 text-foreground border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-white/20 hover:shadow-[0_4px_30px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden relative group"
-                                onClick={() => navigate(backTo || "/work")}
+                                onClick={() => router.push(backTo || "/work")}
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.3 }}

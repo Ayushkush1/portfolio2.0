@@ -1,26 +1,21 @@
-import { lazy, Suspense, useEffect } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { SpeedInsights } from "@vercel/speed-insights/react";
+import { usePathname } from "next/navigation";
 import Lenis from "@studio-freight/lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Lazy-load all pages – only Index (home) matters for first-load speed
-import Index from "./pages/Index";
-const Portfolio = lazy(() => import("./pages/Portfolio"));
-const Work = lazy(() => import("./pages/Work"));
-const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
-const NotFound = lazy(() => import("./pages/NotFound"));
+export function Providers({ children }: { children: React.ReactNode }) {
+  const [queryClient] = useState(() => new QueryClient());
+  const pathname = usePathname();
 
-const queryClient = new QueryClient();
-
-const App = () => {
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -48,26 +43,21 @@ const App = () => {
     };
   }, []);
 
+  useEffect(() => {
+    // Refresh ScrollTrigger on route change since Next.js does soft navigation
+    const timeout = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+    return () => clearTimeout(timeout);
+  }, [pathname]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        {children}
         <Toaster />
         <Sonner />
-        <BrowserRouter>
-          <Suspense>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/portfolio" element={<Portfolio />} />
-              <Route path="/work" element={<Work />} />
-              <Route path="/work/:id" element={<ProjectDetail />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </BrowserRouter>
-        <SpeedInsights />
       </TooltipProvider>
     </QueryClientProvider>
   );
-};
-
-export default App;
+}

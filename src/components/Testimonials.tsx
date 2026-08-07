@@ -1,3 +1,4 @@
+"use client";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Quote, Star, Users } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
@@ -256,3 +257,4 @@ const Testimonials = () => {
 };
 
 export default Testimonials;
+

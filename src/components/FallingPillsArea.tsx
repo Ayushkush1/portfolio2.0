@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useEffect, useState } from 'react';
 import Matter from 'matter-js';
 import { LayoutGrid, PenTool, Search, Film, FlaskConical, Goal } from 'lucide-react';
@@ -232,3 +233,4 @@ const FallingPillsArea: React.FC = () => {
 };
 
 export default FallingPillsArea;
+
