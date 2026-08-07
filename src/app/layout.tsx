@@ -5,19 +5,23 @@ import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
 
 export const metadata: Metadata = {
-  title: "Ayush Kushwaha | Web & UI/UX Designer",
-  description: "Freelance Web & UI/UX Designer crafting beautiful, user-centered digital experiences. Based in India, specializing in modern web design, development, and user interface design.",
+  metadataBase: new URL("https://ayushkushwaha.com/"),
+  alternates: {
+    canonical: '/',
+  },
+  title: "Ayush Kushwaha | Full-Stack Product Engineer",
+  description: "Full-Stack Product Engineer building SaaS platforms, business systems, and exceptional user experiences. Based in India.",
   authors: [{ name: "Ayush Kushwaha" }],
-  keywords: "UI/UX Designer, Web Designer, Frontend Developer, Freelance Designer, India, React Developer, Modern Web Design",
+  keywords: "Full-Stack Engineer, Product Engineer, SaaS Developer, React Developer, Next.js Developer, India, Web Development",
   openGraph: {
-    title: "Ayush Kushwaha | Web & UI/UX Designer",
-    description: "Freelance Web & UI/UX Designer crafting beautiful, user-centered digital experiences. Based in India, specializing in modern web design, development, and user interface design.",
+    title: "Ayush Kushwaha | Full-Stack Product Engineer",
+    description: "Full-Stack Product Engineer building SaaS platforms, business systems, and exceptional user experiences. Based in India.",
     type: "website",
     url: "https://ayushkushwaha.com/",
     siteName: "Ayush Kushwaha Portfolio",
     images: [
       {
-        url: "https://ayushkushwaha.com/assets/ayush-kushwaha.webp",
+        url: "https://ayushkushwaha.com/assets/ayush-kushwaha-logo.webp",
         width: 1200,
         height: 630,
       }
@@ -25,10 +29,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ayush Kushwaha | Web & UI/UX Designer",
-    description: "Freelance Web & UI/UX Designer crafting beautiful, user-centered digital experiences. Based in India, specializing in modern web design, development, and user interface design.",
+    title: "Ayush Kushwaha | Full-Stack Product Engineer",
+    description: "Full-Stack Product Engineer building SaaS platforms, business systems, and exceptional user experiences. Based in India.",
     creator: "@awsm_ayush_",
-    images: ["https://ayushkushwaha.com/assets/ayush-kushwaha.webp"],
+    images: ["https://ayushkushwaha.com/assets/ayush-kushwaha-logo.webp"],
   },
   verification: {
     google: "4kD9H2fqRgqKEkOEOc1hEe17-BtCjDAoArqGcQXDkkw",
@@ -51,7 +55,7 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Ayush Kushwaha',
-    jobTitle: 'Web & UI/UX Designer',
+    jobTitle: 'Full-Stack Product Engineer',
     url: 'https://ayushkushwaha.com/',
     sameAs: [
       'https://github.com/ayushkushwaha', 

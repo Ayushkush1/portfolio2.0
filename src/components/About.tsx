@@ -91,7 +91,7 @@ const About: React.FC = () => {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
           >
-            <h1 ref={textRef} className="text-[1.7rem] md:text-5xl lg:text-5xl font-thin text-foreground mb-0 md:mb-6 flex flex-wrap justify-center text-center" style={{ lineHeight: "1.2" }}>
+            <h2 ref={textRef} className="text-[1.7rem] md:text-5xl lg:text-5xl font-thin text-foreground mb-0 md:mb-6 flex flex-wrap justify-center text-center" style={{ lineHeight: "1.2" }}>
               {words.map((word, i) => {
                 const start = i / words.length;
                 const end = start + (1 / words.length);
@@ -101,7 +101,7 @@ const About: React.FC = () => {
                   </WordReveal>
                 );
               })}
-            </h1>
+            </h2>
           </motion.div>
 
           {/* Falling Skills Pills - Desktop Only (physics on hover) */}

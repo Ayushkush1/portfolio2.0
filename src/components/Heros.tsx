@@ -57,7 +57,7 @@ const Hero = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
                 >
-                    <motion.p
+                    <motion.h1
                         className="text-[2.2rem] sm:text-[2.6rem] md:text-6xl font-bold leading-tight tracking-tight max-w-xl flex flex-wrap"
                         variants={{
                             hidden: { opacity: 1 },
@@ -94,7 +94,7 @@ const Hero = () => {
                                 ))}
                             </span>
                         ))}
-                    </motion.p>
+                    </motion.h1>
                 </motion.div>
 
                 {/* Right side - portrait and bio */}
@@ -235,9 +235,9 @@ const Hero = () => {
                 </motion.div>
 
                 {/* Oversized name – VariableProximity weight morph on hover */}
-                <motion.h1
+                <motion.div
                     className="pointer-events-none absolute bottom-4 lg:bottom-[-1rem] left-0 w-full select-none text-[20vw] md:text-[19vw] leading-none tracking-tighter text-foreground/[0.025] hidden md:block"
-                   
+                    aria-hidden="true"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 1.2 }}
@@ -274,7 +274,7 @@ const Hero = () => {
                             }}
                         />
                     </motion.div>
-                </motion.h1>
+                </motion.div>
             </div>
         </section>
     );

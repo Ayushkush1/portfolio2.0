@@ -205,6 +205,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                                     key={index}
                                     href={link.href}
                                     target="_blank"
+                                    aria-label={link.label}
                                     className="w-12 h-12 md:w-12 md:h-12 rounded-full md:rounded-2xl border border-white/10 bg-white/5 backdrop-blur flex items-center justify-center text-gray-400 hover:text-brand hover:border-brand/40 hover:bg-brand/5 transition-all duration-500 group/link"
                                     whileHover={{ scale: 1.1, y: -5 }}
                                     whileTap={{ scale: 0.95 }}
@@ -218,7 +219,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                         <motion.div
                             className="text-center md:text-right order-1 md:order-3"
                         >
-                            <div className="text-gray-400/60 text-[10px] font-bold uppercase tracking-widest mb-1">
+                            <div className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-1">
                                 Start a conversation
                             </div>
                             <motion.a
@@ -234,9 +235,9 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                         <div className="flex flex-col items-center md:items-start gap-2 order-3 md:order-1">
                             <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20">
                                 <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                                <span className="text-[10px] uppercase tracking-widest font-bold text-green-500/80">Available for hire</span>
+                                <span className="text-[10px] uppercase tracking-widest font-bold text-green-500/90">Available for hire</span>
                             </div>
-                            <div className="text-gray-500 text-sm font-medium">
+                            <div className="text-gray-400 text-sm font-medium">
                                 © Ayush Kushwaha, 2026 • All rights reserved
                             </div>
                         </div>

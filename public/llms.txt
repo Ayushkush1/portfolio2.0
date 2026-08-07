@@ -1,0 +1,17 @@
+# Ayush Kushwaha
+
+Ayush Kushwaha is a Full-Stack Product Engineer building SaaS platforms, business systems, and exceptional user experiences. He is based in India.
+
+## Contact Information
+- Website: [https://ayushkushwaha.com/](https://ayushkushwaha.com/)
+- Work/Projects: [https://ayushkushwaha.com/work](https://ayushkushwaha.com/work)
+- GitHub: [https://github.com/ayushkushwaha](https://github.com/ayushkushwaha)
+- Twitter: [https://twitter.com/awsm_ayush_](https://twitter.com/awsm_ayush_)
+- LinkedIn: [https://linkedin.com/in/ayushkushwaha](https://linkedin.com/in/ayushkushwaha)
+
+## Overview
+This site serves as the digital portfolio for Ayush Kushwaha, showcasing selected case studies of SaaS platforms, ERP systems, and digital products built from the ground up.
+
+## Key Links
+- [Home](https://ayushkushwaha.com/)
+- [Work](https://ayushkushwaha.com/work)

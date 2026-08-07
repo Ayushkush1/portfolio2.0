@@ -1,28 +1,31 @@
 import { MetadataRoute } from 'next'
+import { portfolioProjects, caseStudies } from '@/data/projects'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://ayushkushwaha.com'
-  
+
+  const allProjects = [...portfolioProjects, ...caseStudies]
+
+  const projectUrls = allProjects.map((project) => ({
+    url: `${baseUrl}/work/${project.id}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }))
+
   return [
     {
-      url: `${baseUrl}/`,
+      url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: 'weekly',
       priority: 1,
-    },
-    {
-      url: `${baseUrl}/portfolio`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
     },
     {
       url: `${baseUrl}/work`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
+      changeFrequency: 'weekly',
+      priority: 0.9,
     },
-    // For a real production app, you would fetch your project IDs here and map over them to generate dynamic URLs
-    // e.g. { url: `${baseUrl}/work/project-slug`, lastModified: new Date(), ... }
+    ...projectUrls,
   ]
 }
