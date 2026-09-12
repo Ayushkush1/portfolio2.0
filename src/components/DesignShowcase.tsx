@@ -35,14 +35,7 @@ const DesignShowcase = () => {
             <div className="w-full max-w-7xl mx-auto px-6 md:px-12 xl:px-16 relative z-10 mb-10 md:mb-16">
                 <div className="flex flex-col md:flex-row justify-between items-end gap-8">
                     <div>
-                        <motion.p
-                            className="text-brand text-sm md:text-base font-semibold tracking-widest uppercase mb-4"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                        >
-                            Design Portfolio
-                        </motion.p>
+                       
                         <motion.h2
                             className="text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.1]"
                             style={{ fontFamily: "'Fraunces', serif" }}
@@ -62,7 +55,7 @@ const DesignShowcase = () => {
                         </motion.h2>
                     </div>
                     <motion.p 
-                        className="text-gray-500 max-w-md font-light leading-relaxed md:text-right"
+                        className="text-gray-500 max-w-md font-normal leading-relaxed md:text-right"
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}

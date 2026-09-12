@@ -1,252 +1,169 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, LayoutGrid, Rows } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import Image from "next/image";
 
 import Contact from "@/components/Contact";
 import { caseStudies } from "@/data/projects";
 import Navbar from "@/components/Navbar";
-import { Button } from "@/components/ui/button";
 
 const workIndicatorSections = [
     { id: "projects-list", label: "Projects" },
     { id: "contact", label: "Contact" }
 ];
 
-interface DisplayProject {
+/* ─── Single card ───────────────────────────────────────────── */
+function ProjectCard({
+    id,
+    name,
+    category,
+    image,
+    heightClass,
+}: {
     id: string;
-    title: string;
+    name: string;
     category: string;
-    description: string;
     image: string;
-    url: string;
-    year: string;
-    role: string;
-    techStack: string[];
+    heightClass: string;
+}) {
+    const router = useRouter();
+    return (
+        <div className="flex flex-col gap-4">
+            <div
+                className={`group relative block cursor-none w-full overflow-hidden ${heightClass}`}
+                style={{ borderRadius: "40px" }}
+                onClick={() => router.push(`/work/${id}`)}
+            >
+                {/* Full-width fit — shows complete hero, crops from bottom only */}
+                <div className="absolute inset-0 overflow-hidden" style={{ borderRadius: "40px" }}>
+                    <img
+                        src={image}
+                        alt={name}
+                        className="w-full h-auto block transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                        onError={(e) => {
+                            (e.target as HTMLImageElement).src = "/placeholder.svg";
+                        }}
+                    />
+                </div>
+            </div>
+            <div className="ml-3">
+                <h3 className="text-xl md:text-2xl font-normal text-white">
+                    {name}
+                </h3>
+                <p className="text-[11px] font-medium tracking-[0.18em] uppercase text-white/50 mt-1">
+                    {category}
+                </p>
+            </div>
+        </div>
+    );
 }
 
-const WorkClient = () => {
-    const router = useRouter();
-    const [viewMode, setViewMode] = useState<"editorial" | "grid">("editorial");
+/* ─── Row: big card left + small card right (alternates) ────── */
+function ProjectRow({
+    big,
+    small,
+    reverse = false,
+}: {
+    big: { id: string; name: string; category: string; image: string };
+    small: { id: string; name: string; category: string; image: string };
+    reverse?: boolean;
+}) {
+    return (
+        <motion.div
+            className={`flex gap-6 md:gap-10 w-full items-start ${reverse ? "flex-row-reverse" : "flex-row"}`}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+            {/* Big card — 62% */}
+            <div style={{ flex: "0 0 62%" }}>
+                <ProjectCard
+                    {...big}
+                    heightClass="h-[340px] md:h-[500px]"
+                />
+            </div>
+            {/* Small card — 38% */}
+            <div className="flex-1">
+                <ProjectCard
+                    {...small}
+                    heightClass="h-[210px] md:h-[300px]"
+                />
+            </div>
+        </motion.div>
+    );
+}
 
-    const displayProjects: DisplayProject[] = caseStudies.map(cs => ({
+/* ─── Page ──────────────────────────────────────────────────── */
+const WorkClient = () => {
+    const projects = caseStudies.map(cs => ({
         id: cs.id,
-        title: cs.name,
+        name: cs.name,
         category: cs.category,
-        description: cs.tagline,
         image: cs.images[0],
-        url: `/work/${cs.id}`,
-        year: cs.year,
-        role: cs.role,
-        techStack: cs.techStack,
     }));
 
-    const handleProjectClick = (project: DisplayProject) => {
-        router.push(project.url);
-    };
+    // Pair up projects into rows
+    const rows: [typeof projects[0], typeof projects[0]][] = [];
+    for (let i = 0; i + 1 < projects.length; i += 2) {
+        rows.push([projects[i], projects[i + 1]]);
+    }
+    // If odd number of projects, handle the last one as a full-width card
+    const hasOrphan = projects.length % 2 !== 0;
+    const orphan = hasOrphan ? projects[projects.length - 1] : null;
 
     return (
-        <section className="relative min-h-screen bg-background text-white selection:bg-brand selection:text-white">
-            {/* Minimal ambient top light */}
+        <section className="relative min-h-screen bg-background text-white">
+            {/* Ambient glow */}
             <div
                 className="pointer-events-none fixed inset-0 z-0"
                 style={{ background: "radial-gradient(circle at 50% 0%, rgba(255, 95, 38, 0.03) 0%, transparent 50%)" }}
             />
 
-            {/* Header */}
             <Navbar backTo="/" customIndicatorSections={workIndicatorSections} />
 
-            <div id="projects-list" className="container relative z-10 pt-32">
-                {/* Hero Statement with Layout Toggle */}
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12 md:mb-20">
-                    <div>
-                        <motion.p
-                            className="text-brand text-xs font-mono uppercase tracking-[0.2em] mb-2 md:mb-4"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.5 }}
-                        >
-                            Selected Projects
-                        </motion.p>
-                        <motion.h1
-                            className="text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.1]"
-                            style={{ fontFamily: "'Fraunces', serif" }}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.1 }}
-                        >
-                            Selected products <br />
-                            <span className="italic text-gray-400">built to scale<span className="text-brand">.</span></span>
-                        </motion.h1>
-                    </div>
-                    
-                    {/* View Mode Switcher */}
-                    <motion.div 
-                        className="hidden md:flex items-center gap-2 bg-white/[0.03] border border-white/5 rounded-full p-1 self-end md:self-auto"
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
+            <div id="projects-list" className="container relative z-10 pt-32 pb-24">
+                {/* Header */}
+                <div className="mb-12 md:mb-20">
+                    <motion.h1
+                        className="text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.1]"
+                        style={{ fontFamily: "'Fraunces', serif" }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
                     >
-                        <button
-                            onClick={() => setViewMode("editorial")}
-                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-                                viewMode === "editorial" 
-                                    ? "bg-brand text-white shadow-[0_0_15px_rgba(255,95,38,0.3)]" 
-                                    : "text-white/40 hover:text-white/80"
-                            }`}
-                        >
-                            <Rows className="w-3.5 h-3.5" />
-                            <span>Rows</span>
-                        </button>
-                        <button
-                            onClick={() => setViewMode("grid")}
-                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-                                viewMode === "grid" 
-                                    ? "bg-brand text-white shadow-[0_0_15px_rgba(255,95,38,0.3)]" 
-                                    : "text-white/40 hover:text-white/80"
-                            }`}
-                        >
-                            <LayoutGrid className="w-3.5 h-3.5" />
-                            <span>Grid</span>
-                        </button>
-                    </motion.div>
+                        Selected products <br />
+                        <span className="italic text-gray-400">
+                            built to scale<span className="text-brand">.</span>
+                        </span>
+                    </motion.h1>
                 </div>
 
-                {viewMode === "editorial" ? (
-                    <div className="flex flex-col gap-y-12 md:gap-y-36 mb-40 px-2 md:px-10">
-                    {displayProjects.map((project, index) => {
-                        const isEven = index % 2 === 0;
-                        return (
-                            <motion.article
-                                key={project.id}
-                                className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-4 lg:gap-16 items-center group cursor-pointer border-b border-white/5 pb-8 lg:pb-0 lg:border-none`}
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                whileHover="hover"
-                                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                                viewport={{ once: true, margin: "-100px" }}
-                                onClick={() => handleProjectClick(project)}
-                            >
-                                <div className="w-full lg:w-[80%] relative w-[calc(100%+2rem)] shrink-0">
-                                    <div className="w-full rounded-[1rem] md:rounded-[3rem] overflow-hidden bg-neutral-900/40 relative border-y md:border border-white/5 shadow-2xl aspect-[21/10] md:aspect-[21/10]">
-                                        <Image
-                                            src={project.image}
-                                            alt={project.title}
-                                            fill
-                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 80vw"
-                                            priority={index === 0}
-                                            className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                                        />
-                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-700 pointer-events-none" />
-                                    </div>
-                                    <div 
-                                        className={`absolute top-4 ${isEven ? '-left-4 lg:-left-12' : '-right-4 lg:-right-12'} font-bold text-5xl md:text-8xl opacity-15 mix-blend-difference font-mono pointer-events-none transition-all duration-700 group-hover:opacity-30 z-10`} 
-                                        style={{ WebkitTextStroke: '1px rgba(255,255,255,0.8)', color: 'transparent' }}
-                                    >
-                                        0{index + 1}
-                                    </div>
-                                </div>
+                {/* Project pairs */}
+                <div className="flex flex-col gap-16 md:gap-24">
+                    {rows.map(([big, small], i) => (
+                        <ProjectRow
+                            key={big.id}
+                            big={big}
+                            small={small}
+                            reverse={i % 2 === 1}
+                        />
+                    ))}
 
-                                <div className="w-full lg:w-1/4 flex flex-col justify-center text-left">
-                                     <div className="flex items-start justify-between gap-2 mb-2 lg:hidden w-full">
-                                         <h2 className="text-2xl font-light text-white leading-tight" style={{ fontFamily: "'Fraunces', serif" }}>
-                                             {project.title}
-                                         </h2>
-                                         <span className="text-[10px] font-mono tracking-widest text-brand uppercase mt-1.5 shrink-0">
-                                             {project.category}
-                                         </span>
-                                     </div>
-
-                                    <div className="hidden lg:block">
-                                         <div className="flex items-center gap-3 mb-4">
-                                             <span className="text-[10px] font-mono tracking-widest text-brand uppercase">
-                                                 {project.category}
-                                             </span>
-                                         </div>
-                                         <h2 className="text-3xl md:text-4xl font-light text-white mb-1 leading-tight" style={{ fontFamily: "'Fraunces', serif" }}>
-                                             {project.title}
-                                         </h2>
-                                    </div>
-                                    
-                                    <p className="text-white/50 text-xs md:text-sm leading-relaxed mb-4 lg:mb-6 font-light">
-                                        {project.description}
-                                    </p>
-
-                                    <div className="flex flex-wrap gap-1.5 mb-2 lg:hidden">
-                                        {project.techStack.slice(0, 3).map((tech, idx) => (
-                                            <span key={idx} className="px-2.5 py-0.5 rounded-full border border-white/5 bg-white/[0.02] text-[9px] text-white/50 tracking-wider uppercase">
-                                                {tech}
-                                            </span>
-                                        ))}
-                                    </div>
-
-                                    <div className="hidden lg:grid grid-cols-1 gap-5 pt-6 border-t border-white/10 mb-8">
-                                        <div>
-                                            <span className="block text-[9px] font-mono tracking-widest text-white/40 uppercase mb-1">Role</span>
-                                            <span className="text-xs text-white/80 font-light">{project.role.split('—')[0].trim()}</span>
-                                        </div>
-                                        <div>
-                                            <span className="block text-[9px] font-mono tracking-widest text-white/40 uppercase mb-1">Tech Stack</span>
-                                            <span className="text-xs text-white/80 font-light">{project.techStack.slice(0, 3).join(', ')}</span>
-                                        </div>
-                                    </div>
-
-                                     <div className="mt-2 w-fit mx-auto lg:mx-0 hidden lg:block">
-                                         <Button variant="hero" size="lg" className="group flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)] pl-5 pr-2">
-                                             <div className="relative overflow-hidden h-6 w-fit text-white">
-                                                 <motion.div className="flex flex-col items-center" variants={{ hover: { y: -24 } }} initial={{ y: 0 }} transition={{ duration: 0.3, ease: "easeInOut" }}>
-                                                     <span className="w-full flex items-center justify-center whitespace-nowrap text-sm font-medium h-6 leading-6">Explore Case Study</span>
-                                                     <span className="w-full flex items-center justify-center font-semibold whitespace-nowrap text-sm h-6 leading-6">Explore Case Study</span>
-                                                 </motion.div>
-                                             </div>
-                                             <motion.div
-                                                 className="bg-white rounded-full p-1.5 flex items-center justify-center ml-2.5 group-hover:bg-orange-50 transition-colors duration-300 shadow-[0_0_10px_rgba(255,95,38,0.3)]"
-                                                 animate={{ boxShadow: [ "0 0 10px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0)", "0 0 18px rgba(255, 95, 38, 0.5), 0 0 0 6px rgba(255, 95, 38, 0)", "0 0 10px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0)" ] }}
-                                                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                                             >
-                                                 <ArrowUpRight className="h-3.5 w-3.5 text-[#ff5f26] transition-all group-hover:rotate-45 duration-300" />
-                                             </motion.div>
-                                             <motion.div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent" initial={{ x: "-100%" }} animate={{ x: "100%" }} transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 2 }} />
-                                         </Button>
-                                     </div>
-                                </div>
-                            </motion.article>
-                        );
-                    })}
+                    {/* Orphan — full width if odd count */}
+                    {orphan && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-80px" }}
+                            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                            className="w-full md:w-[62%]"
+                        >
+                            <ProjectCard {...orphan} heightClass="h-[340px] md:h-[500px]" />
+                        </motion.div>
+                    )}
                 </div>
-                ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-40">
-                        {displayProjects.map((project, index) => (
-                            <motion.div
-                                key={project.id}
-                                className="relative rounded-2xl md:rounded-[2.5rem] overflow-hidden bg-neutral-900/40 border border-white/5 shadow-2xl cursor-pointer group aspect-[16/7]"
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                whileHover="hover"
-                                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                                viewport={{ once: true, margin: "-50px" }}
-                                onClick={() => handleProjectClick(project)}
-                            >
-                                <Image
-                                    src={project.image}
-                                    alt={project.title}
-                                    fill
-                                    priority={index < 2}
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                    className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 md:p-8">
-                                    <span className="text-[10px] font-mono tracking-widest text-brand uppercase">{project.category}</span>
-                                    <h3 className="text-xl md:text-2xl font-light text-white leading-tight" style={{ fontFamily: "'Fraunces', serif" }}>{project.title}</h3>
-                                </div>
-                                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300 pointer-events-none" />
-                            </motion.div>
-                        ))}
-                    </div>
-                )}
             </div>
 
             <Contact />

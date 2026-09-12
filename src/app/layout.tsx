@@ -2,7 +2,8 @@ import type { Metadata, Viewport } from 'next'
 import '../index.css'
 import { Providers } from '@/components/Providers'
 import { Analytics } from "@vercel/analytics/react"
-import { SpeedInsights } from "@vercel/speed-insights/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import CursorDot from '@/components/CursorDot'
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ayushkushwaha.com/"),
@@ -105,6 +106,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(navigationJsonLd) }}
         />
+        <CursorDot />
         <Providers>
           {children}
         </Providers>
