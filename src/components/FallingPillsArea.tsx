@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useEffect, useState } from 'react';
-import Matter from 'matter-js';
+// Type-only: the physics library itself is loaded on demand (desktop, when the section is reached)
+import type Matter from 'matter-js';
 import { LayoutGrid, PenTool, Search, Film, FlaskConical, Goal } from 'lucide-react';
 
 /* ─── pill data ─────────────────────────────────────────────── */
@@ -55,9 +56,12 @@ const FallingPillsArea: React.FC = () => {
   const [started, setStarted] = useState(false);
   const startedRef = useRef(false); // ref for use inside event handlers
 
-  const trigger = () => {
+  const matterRef = useRef<typeof Matter | null>(null);
+
+  const trigger = async () => {
     if (startedRef.current) return;
     startedRef.current = true;
+    matterRef.current = (await import('matter-js')).default;
     setStarted(true);
   };
 
@@ -74,12 +78,13 @@ const FallingPillsArea: React.FC = () => {
 
   /* ── physics engine ────────────────────────────────────────── */
   useEffect(() => {
-    if (!started) return;
+    const M = matterRef.current;
+    if (!started || !M) return;
     if (!containerRef.current || !canvasContainerRef.current) return;
 
     const {
       Engine, Render, World, Bodies, Runner, Mouse, MouseConstraint,
-    } = Matter;
+    } = M;
 
     const containerRect = containerRef.current.getBoundingClientRect();
     const W = containerRect.width;
@@ -120,8 +125,8 @@ const FallingPillsArea: React.FC = () => {
       });
 
       /* small random horizontal nudge so they don't all fall straight down */
-      Matter.Body.setVelocity(body, { x: (Math.random() - 0.5) * 3, y: -(Math.random() * 1.5) });
-      Matter.Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.06);
+      M.Body.setVelocity(body, { x: (Math.random() - 0.5) * 3, y: -(Math.random() * 1.5) });
+      M.Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.06);
 
       pillBodies.push(body);
     });

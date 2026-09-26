@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     siteName: "Ayush Kushwaha Portfolio",
     images: [
       {
-        url: "https://ayushkushwaha.com/assets/og-image.webp",
+        url: "https://ayushkushwaha.com/assets/og-image.jpg",
         width: 1200,
         height: 630,
       }
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: "Ayush Kushwaha | Product Designer & Full-Stack Engineer",
     description: "I design and build SaaS products, business platforms and premium websites — UI/UX, motion, architecture and deployment. Available for freelance projects.",
     creator: "@kushwaha_ayush",
-    images: ["https://ayushkushwaha.com/assets/og-image.webp"],
+    images: ["https://ayushkushwaha.com/assets/og-image.jpg"],
   },
   verification: {
     google: "4kD9H2fqRgqKEkOEOc1hEe17-BtCjDAoArqGcQXDkkw",

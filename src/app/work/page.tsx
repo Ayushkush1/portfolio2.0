@@ -11,7 +11,7 @@ export const metadata: Metadata = {
         url: "https://ayushkushwaha.com/work",
         images: [
             {
-                url: "https://ayushkushwaha.com/assets/og-image.webp",
+                url: "https://ayushkushwaha.com/assets/og-image.jpg",
                 width: 1200,
                 height: 630,
             }
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Work – Ayush Kushwaha | Product Designer & Full-Stack Engineer",
         description: "SaaS products, business platforms and client websites designed and built by Ayush Kushwaha.",
-        images: ["https://ayushkushwaha.com/assets/og-image.webp"],
+        images: ["https://ayushkushwaha.com/assets/og-image.jpg"],
     }
 };
 

@@ -1,15 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { MotionConfig } from "framer-motion";
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const [queryClient] = useState(() => new QueryClient());
   const pathname = usePathname();
 
   useEffect(() => {
@@ -67,15 +62,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, [pathname]);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      {/* Honour the OS "reduce motion" setting for every Framer Motion animation */}
-      <MotionConfig reducedMotion="user">
-        <TooltipProvider>
-          {children}
-          <Toaster />
-          <Sonner />
-        </TooltipProvider>
-      </MotionConfig>
-    </QueryClientProvider>
+    // Honour the OS "reduce motion" setting for every Framer Motion animation
+    <MotionConfig reducedMotion="user">{children}</MotionConfig>
   );
 }

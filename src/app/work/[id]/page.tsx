@@ -13,15 +13,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     
     return {
         title: `${project.name} Case Study | Ayush Kushwaha`,
-        description: project.tagline,
+        description: `${project.tagline} — a case study by Ayush Kushwaha.`,
         alternates: { canonical: `/work/${project.id}` },
         openGraph: {
             title: `${project.name} Case Study | Ayush Kushwaha`,
-            description: project.tagline,
+            description: `${project.tagline} — a case study by Ayush Kushwaha.`,
             url: `https://ayushkushwaha.com/work/${project.id}`,
             images: [
                 {
-                    url: "https://ayushkushwaha.com/assets/og-image.webp",
+                    url: `https://ayushkushwaha.com/assets/og/${project.id}.jpg`,
                     width: 1200,
                     height: 630,
                 }
@@ -30,8 +30,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         twitter: {
             card: "summary_large_image",
             title: `${project.name} Case Study | Ayush Kushwaha`,
-            description: project.tagline,
-            images: ["https://ayushkushwaha.com/assets/og-image.webp"],
+            description: `${project.tagline} — a case study by Ayush Kushwaha.`,
+            images: [`https://ayushkushwaha.com/assets/og/${project.id}.jpg`],
         }
     }
 }
