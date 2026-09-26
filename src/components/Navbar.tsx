@@ -147,16 +147,10 @@ const Navbar = ({
 
     return (
         <>
-            <motion.header
-                className="fixed top-0 left-0 w-full z-50 flex items-center justify-between py-8 px-6 xl:px-16 2xl:px-24 pointer-events-none"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-            >
-                <AnimatePresence>
-                    <motion.a
+            <header className="nav-in fixed top-0 left-0 w-full z-50 flex items-center justify-between py-8 px-6 xl:px-16 2xl:px-24 pointer-events-none">
+                    <a
                         href="#"
-                        className="pointer-events-auto"
+                        className="nav-logo-in pointer-events-auto"
                         aria-label="Ayush home"
                         onClick={(e) => {
                             e.preventDefault();
@@ -166,27 +160,15 @@ const Navbar = ({
                                 scrollToSection('home');
                             }
                         }}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, x: -20, filter: "blur(4px)", transition: { duration: 0.3 } }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
                     >
                         <img
                             src="/assets/ayush-kushwaha-logo.webp"
                             alt="Ayush Kushwaha Logo"
                             className="h-8 w-auto brightness-0 invert"
                         />
-                    </motion.a>
-                </AnimatePresence>
+                    </a>
 
-                <AnimatePresence>
-                    <motion.div 
-                        className="flex items-center gap-2 lg:gap-3 pointer-events-auto ml-auto"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 20, filter: "blur(4px)", transition: { duration: 0.3 } }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
-                    >
+                    <div className="nav-actions-in flex items-center gap-2 lg:gap-3 pointer-events-auto ml-auto">
                         {/* Glassmorphism Text Pill */}
                         <div className="flex items-center justify-center h-[38px] min-w-[80px] px-4 rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)]">
                             <div className="relative flex items-center justify-center overflow-hidden w-full h-full">
@@ -249,9 +231,8 @@ const Navbar = ({
                                 </AnimatePresence>
                             </motion.button>
                         )}
-                    </motion.div>
-                </AnimatePresence>
-            </motion.header>
+                    </div>
+            </header>
 
 
 

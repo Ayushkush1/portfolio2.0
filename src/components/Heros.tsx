@@ -96,25 +96,33 @@ const Hero = () => {
     };
 
 
-    const renderChars = (line: string, lineIdx: number) =>
-        line.split(" ").map((word, wordIdx, array) => (
+    const HEADLINE = ["I design & build", ROTATING_WORDS[0], "and premium websites."];
+    // Global letter index per line, so the stagger runs across the whole headline
+    const lineStart = HEADLINE.map((_, i) =>
+        HEADLINE.slice(0, i).reduce((n, l) => n + l.replace(/ /g, "").length, 0)
+    );
+
+    // CSS-driven letter reveal: starts on first paint, no JavaScript needed
+    const renderChars = (line: string, lineIdx: number) => {
+        let n = lineStart[lineIdx];
+        return line.split(" ").map((word, wordIdx, array) => (
             <span key={wordIdx} className="inline-block whitespace-nowrap">
                 {word.split("").map((char, charIdx) => (
-                    <motion.span
+                    <span
                         key={charIdx}
-                        variants={{
-                            hidden: { opacity: 0, filter: "blur(12px)", y: 40, rotateX: -30 },
-                            show: { opacity: 1, filter: "blur(0px)", y: 0, rotateX: 0, transition: { type: "spring", bounce: 0, duration: 1.2 } }
+                        className={`hero-char ${char === '.' && lineIdx === 2 ? 'text-brand not-italic font-bold' : ''} ${char === '&' ? 'font-extralight' : ''}`}
+                        style={{
+                            animationDelay: `${0.1 + n++ * 0.02}s`,
+                            ...(char === '&' ? { fontFamily: 'var(--font-sans, ui-sans-serif, system-ui, sans-serif)' } : {}),
                         }}
-                        className={`inline-block ${char === '.' && lineIdx === 2 ? 'text-brand not-italic font-bold' : ''} ${char === '&' ? 'font-extralight' : ''}`}
-                        style={char === '&' ? { fontFamily: 'var(--font-sans, ui-sans-serif, system-ui, sans-serif)' } : undefined}
                     >
                         {char}
-                    </motion.span>
+                    </span>
                 ))}
                 {wordIdx !== array.length - 1 && <span className="inline-block">&nbsp;</span>}
             </span>
         ));
+    };
 
     return (
         <section id="home" ref={containerRef} aria-label="Hero – Product Designer & Full-Stack Engineer" className="relative overflow-hidden pt-[7rem] md:pt-24">
@@ -129,24 +137,9 @@ const Hero = () => {
 
             <div className="container relative z-10 grid min-h-[70vh] lg:min-h-[80vh] grid-cols-1 items-start md:items-center lg:gap-10 md:gap-4 gap-8 pt-8 md:pt-36 pb-12 md:pb-40 md:py-20 md:grid-cols-2">
                 {/* Left copy */}
-                <motion.div
-                    initial={{ opacity: 0, x: -50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.15 }}
-                >
-                    <motion.h1
-                        className="text-[2.2rem] sm:text-[2.6rem] lg:text-6xl font-bold leading-tight tracking-tight max-w-xl flex flex-wrap"
-                        variants={{
-                            hidden: { opacity: 1 },
-                            show: {
-                                opacity: 1,
-                                transition: { staggerChildren: 0.02, delayChildren: 0.1 }
-                            }
-                        }}
-                        initial="hidden"
-                        animate="show"
-                    >
-                        {["I design & build", ROTATING_WORDS[0], "and premium websites."].map((line, lineIdx) => (
+                <div className="hero-left">
+                    <h1 className="text-[2.2rem] sm:text-[2.6rem] lg:text-6xl font-bold leading-tight tracking-tight max-w-xl flex flex-wrap">
+                        {HEADLINE.map((line, lineIdx) => (
                             <span
                                 key={lineIdx}
                                 className={`block w-full ${lineIdx === 0 ? "pb-2" : "-mb-1"} ${lineIdx === 0 || lineIdx === 2 ? "text-gray-400  pt-2 font-light" : "text-white"}`}
@@ -159,23 +152,12 @@ const Hero = () => {
                                 )}
                             </span>
                         ))}
-                    </motion.h1>
-
-                </motion.div>
+                    </h1>
+                </div>
 
                 {/* Right side - portrait and bio */}
-                <motion.div
-                    className="flex flex-col items-start justify-center -mt-8 md:mt-0 gap-4 md:gap-6 md:items-end w-full"
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.15 }}
-                >
-                    <motion.div
-                        className="w-full max-w-full md:max-w-[310px] flex flex-col gap-2 md:gap-4 md:text-right"
-                        initial={{ opacity: 0, x: 40, filter: "blur(10px)" }}
-                        animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                        transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                    >
+                <div className="hero-right flex flex-col items-start justify-center -mt-8 md:mt-0 gap-4 md:gap-6 md:items-end w-full">
+                    <div className="hero-intro w-full max-w-full md:max-w-[310px] flex flex-col gap-2 md:gap-4 md:text-right">
                         <motion.div
                             className="flex gap-8 w-full justify-start md:justify-end pb-4 md:pb-2 md:border-b md:border-white/5 order-2 md:order-1"
                             variants={{
@@ -216,7 +198,7 @@ const Hero = () => {
                         <p className="text-md text-gray-300 leading-relaxed order-1 md:order-2">
                             Product designer and full-stack engineer. <br/> I take products from first sketch to production: interface design, motion, architecture and deployment for founders, agencies and growing businesses.
                         </p>
-                    </motion.div>
+                    </div>
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -264,7 +246,7 @@ const Hero = () => {
                             </motion.div>
                         </motion.div>
                     </motion.div>
-                </motion.div>
+                </div>
 
                 {/* Oversized name – VariableProximity weight morph on hover */}
                 <motion.div
