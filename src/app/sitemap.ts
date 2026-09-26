@@ -1,12 +1,10 @@
 import { MetadataRoute } from 'next'
-import { portfolioProjects, caseStudies } from '@/data/projects'
+import { caseStudies } from '@/data/projects'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://ayushkushwaha.com'
 
-  const allProjects = [...portfolioProjects, ...caseStudies]
-
-  const projectUrls = allProjects.map((project) => ({
+  const projectUrls = caseStudies.map((project) => ({
     url: `${baseUrl}/work/${project.id}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,

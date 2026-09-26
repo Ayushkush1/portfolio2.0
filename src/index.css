@@ -129,3 +129,10 @@ All colors MUST be HSL.
     -ms-overflow-style: none;
   }
 }
+/* Decorative loops stop entirely when the visitor prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-ring,
+  .animate-shimmer {
+    animation: none;
+  }
+}

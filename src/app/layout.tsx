@@ -7,16 +7,13 @@ import CursorDot from '@/components/CursorDot'
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ayushkushwaha.com/"),
-  alternates: {
-    canonical: '/',
-  },
-  title: "Ayush Kushwaha | Full-Stack Product Engineer",
-  description: "Full-Stack Product Engineer building SaaS platforms, business systems, and exceptional user experiences. Based in India.",
+  title: "Ayush Kushwaha | Product Designer & Full-Stack Engineer",
+  description: "I design and build SaaS products, business platforms and premium websites — UI/UX, motion, architecture and deployment. Available for freelance projects.",
   authors: [{ name: "Ayush Kushwaha" }],
-  keywords: "Full-Stack Engineer, Product Engineer, SaaS Developer, React Developer, Next.js Developer, India, Web Development",
+  keywords: "Product Designer, UI/UX Designer, Full-Stack Engineer, Freelance Developer, SaaS Development, Next.js Developer, Web Design, India",
   openGraph: {
-    title: "Ayush Kushwaha | Full-Stack Product Engineer",
-    description: "Full-Stack Product Engineer building SaaS platforms, business systems, and exceptional user experiences. Based in India.",
+    title: "Ayush Kushwaha | Product Designer & Full-Stack Engineer",
+    description: "I design and build SaaS products, business platforms and premium websites — UI/UX, motion, architecture and deployment. Available for freelance projects.",
     type: "website",
     url: "https://ayushkushwaha.com/",
     siteName: "Ayush Kushwaha Portfolio",
@@ -30,9 +27,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ayush Kushwaha | Full-Stack Product Engineer",
-    description: "Full-Stack Product Engineer building SaaS platforms, business systems, and exceptional user experiences. Based in India.",
-    creator: "@awsm_ayush_",
+    title: "Ayush Kushwaha | Product Designer & Full-Stack Engineer",
+    description: "I design and build SaaS products, business platforms and premium websites — UI/UX, motion, architecture and deployment. Available for freelance projects.",
+    creator: "@kushwaha_ayush",
     images: ["https://ayushkushwaha.com/assets/og-image.webp"],
   },
   verification: {
@@ -56,12 +53,12 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Ayush Kushwaha',
-    jobTitle: 'Full-Stack Product Engineer',
+    jobTitle: 'Product Designer & Full-Stack Engineer',
     url: 'https://ayushkushwaha.com/',
     sameAs: [
-      'https://github.com/ayushkushwaha', 
-      'https://twitter.com/awsm_ayush_',
-      'https://linkedin.com/in/ayushkushwaha'
+      'https://github.com/Ayushkush1',
+      'https://x.com/kushwaha_ayush',
+      'https://www.linkedin.com/in/ayush-kushwaha-b3b76915b/'
     ],
   }
 
@@ -88,8 +85,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap"
           rel="stylesheet"
         />
       </head>

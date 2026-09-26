@@ -1,22 +1,28 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function CursorDot() {
   const dotRef = useRef<HTMLDivElement>(null)
   const pos = useRef({ x: -100, y: -100 })
   const smooth = useRef({ x: -100, y: -100 })
   const rafRef = useRef<number | null>(null)
+  const [enabled, setEnabled] = useState(false)
+
+  // Only for real mouse pointers — touch devices have no cursor to follow
+  useEffect(() => {
+    const mq = window.matchMedia('(hover: hover) and (pointer: fine)')
+    const update = () => setEnabled(mq.matches)
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
 
   useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      pos.current = { x: e.clientX, y: e.clientY }
-    }
-
-    window.addEventListener('mousemove', onMove)
+    if (!enabled) return
 
     const animate = () => {
-      // Lerp for smoothness — 0.10 = nice silky lag
+      // Lerp for smoothness — 0.05 = nice silky lag
       smooth.current.x += (pos.current.x - smooth.current.x) * 0.05
       smooth.current.y += (pos.current.y - smooth.current.y) * 0.05
 
@@ -24,16 +30,28 @@ export default function CursorDot() {
         dotRef.current.style.transform = `translate(${smooth.current.x - 6}px, ${smooth.current.y - 6}px)`
       }
 
-      rafRef.current = requestAnimationFrame(animate)
+      // Stop the loop once the dot has caught up; the next mousemove restarts it
+      const settled =
+        Math.abs(pos.current.x - smooth.current.x) < 0.1 &&
+        Math.abs(pos.current.y - smooth.current.y) < 0.1
+      rafRef.current = settled ? null : requestAnimationFrame(animate)
     }
 
-    rafRef.current = requestAnimationFrame(animate)
+    const onMove = (e: MouseEvent) => {
+      pos.current = { x: e.clientX, y: e.clientY }
+      if (rafRef.current === null) rafRef.current = requestAnimationFrame(animate)
+    }
+
+    window.addEventListener('mousemove', onMove, { passive: true })
 
     return () => {
       window.removeEventListener('mousemove', onMove)
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
+      rafRef.current = null
     }
-  }, [])
+  }, [enabled])
+
+  if (!enabled) return null
 
   return (
     <div

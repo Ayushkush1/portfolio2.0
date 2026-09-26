@@ -1,52 +1,11 @@
 "use client";
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { featuredProducts, FeaturedProduct } from "@/data/projects";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-/* ─── Single card: image only + text BELOW ─────────────────── */
-function ProjectCard({
-  product,
-  className = "",
-}: {
-  product: FeaturedProduct;
-  className?: string;
-}) {
-  return (
-    <div className={`flex flex-col gap-4 ${className}`}>
-      {/* Card — image only, fully rounded */}
-      <Link
-        href={`/work/${product.id}`}
-        className="group relative block overflow-hidden rounded-[20px] cursor-none w-full flex-1 min-h-0"
-        style={{ borderRadius: "20px" }}
-      >
-        <img
-          src={product.sliderItems[0]?.image}
-          alt={product.name}
-          className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = "/placeholder.svg";
-          }}
-        />
-      </Link>
-
-      {/* Text BELOW the card — floating outside */}
-      <div>
-        <h3
-          className="text-xl md:text-2xl font-light text-white leading-tight tracking-tight"
-          style={{ fontFamily: "'Fraunces', serif" }}
-        >
-          {product.name}
-        </h3>
-        <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-brand/80 mt-1">
-          {product.category}
-        </p>
-      </div>
-    </div>
-  );
-}
 
 /* ─── Row: big card + small card, text below each ──────────── */
 function ShowcaseRow({
@@ -79,16 +38,14 @@ function ShowcaseRow({
           className="group relative block cursor-none w-full h-[340px] md:h-[500px]"
           style={{ borderRadius: "40px", overflow: "hidden" }}
         >
-          {/* Full-width fit — shows complete hero, crops from bottom only */}
+          {/* Tall cover fills the card; crops from the bottom only */}
           <div className="absolute inset-0 overflow-hidden">
-            <img
-              src={big.sliderItems[0]?.image}
+            <Image
+              src={big.cover ?? big.sliderItems[0]?.image}
               alt={big.name}
-              className="w-full h-auto block transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-              style={{ display: 'block' }}
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = "/placeholder.svg";
-              }}
+              fill
+              sizes="(max-width: 768px) 62vw, 850px"
+              className="object-cover object-left-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             />
           </div>
         </Link>
@@ -109,16 +66,14 @@ function ShowcaseRow({
           className="group relative block cursor-none w-full h-[210px] md:h-[300px]"
           style={{ borderRadius: "40px", overflow: "hidden" }}
         >
-          {/* Full-width fit — shows complete hero, crops from bottom only */}
+          {/* Tall cover fills the card; crops from the bottom only */}
           <div className="absolute inset-0 overflow-hidden">
-            <img
-              src={small.sliderItems[0]?.image}
+            <Image
+              src={small.cover ?? small.sliderItems[0]?.image}
               alt={small.name}
-              className="w-full h-auto block transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-              style={{ display: 'block' }}
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = "/placeholder.svg";
-              }}
+              fill
+              sizes="(max-width: 768px) 38vw, 520px"
+              className="object-cover object-left-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             />
           </div>
         </Link>
@@ -186,25 +141,12 @@ const Showcase = () => {
                     </span>
                   </motion.div>
                 </div>
-                <motion.div
-                  className="bg-white rounded-full p-1.5 flex items-center justify-center ml-2.5 bg-orange-50 transition-colors duration-300 shadow-[0_0_10px_rgba(255,95,38,0.2)]"
-                  animate={{
-                    boxShadow: [
-                      "0 0 10px rgba(255, 95, 38, 0.2), 0 0 0 0 rgba(255, 95, 38, 0)",
-                      "0 0 18px rgba(255, 95, 38, 0.4), 0 0 0 6px rgba(255, 95, 38, 0)",
-                      "0 0 10px rgba(255, 95, 38, 0.2), 0 0 0 0 rgba(255, 95, 38, 0)",
-                    ],
-                  }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                >
+                <div className="relative bg-white rounded-full p-1.5 flex items-center justify-center ml-2.5 bg-orange-50 transition-colors duration-300 shadow-[0_0_10px_rgba(255,95,38,0.2)]">
+                  {/* Pulse ring — transform/opacity only, so it runs on the compositor */}
+                  <span aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-full ring-2 ring-[#ff5f26]/40 animate-pulse-ring" />
                   <ArrowRight className="h-3.5 w-3.5 text-[#ff5f26] transition-all group-hover/btn:rotate-0 -rotate-45 duration-300" />
-                </motion.div>
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                  initial={{ x: "-100%" }}
-                  animate={{ x: "100%" }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-                />
+                </div>
+                <div aria-hidden="true" className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer [animation-delay:1.5s]" />
               </Link>
             </Button>
           </motion.div>

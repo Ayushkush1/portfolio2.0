@@ -1,9 +1,9 @@
 "use client";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion, useScroll, useTransform, useMotionValue, animate } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, animate, AnimatePresence, useReducedMotion } from "framer-motion";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState, Fragment } from "react";
 
 import VariableProximity from "./VariableProximity";
 
@@ -18,6 +18,64 @@ const CountUp = ({ to, duration = 2 }: { to: number, duration?: number }) => {
     }, [count, to, duration]);
 
     return <motion.span>{rounded}</motion.span>;
+};
+
+const ROTATING_WORDS = ["startup MVPs", "SaaS products", "custom CRMs", "ERP systems"];
+
+// Renders "&" in the sans face so the serif ampersand doesn't pull focus
+const withQuietAmpersand = (text: string) =>
+    text.split(/(&)/).map((part, i) =>
+        part === "&" ? (
+            <span key={i} className="font-extralight" style={{ fontFamily: "var(--font-sans, ui-sans-serif, system-ui, sans-serif)" }}>&amp;</span>
+        ) : (
+            <Fragment key={i}>{part}</Fragment>
+        )
+    );
+
+// Bold hero line: plays the shared char intro first, then cycles through ROTATING_WORDS
+const RotatingLine = ({ renderIntro }: { renderIntro: (text: string) => React.ReactNode }) => {
+    const [index, setIndex] = useState(0);
+    const [hasCycled, setHasCycled] = useState(false);
+    const reduceMotion = useReducedMotion();
+
+    useEffect(() => {
+        if (reduceMotion) return;
+        let interval: ReturnType<typeof setInterval>;
+        const start = setTimeout(() => {
+            interval = setInterval(() => {
+                setHasCycled(true);
+                setIndex((i) => (i + 1) % ROTATING_WORDS.length);
+            }, 2800);
+        }, 1800);
+        return () => {
+            clearTimeout(start);
+            clearInterval(interval);
+        };
+    }, [reduceMotion]);
+
+    return (
+        <span className="relative block w-full overflow-hidden pb-2 -mb-2">
+            <span className="sr-only">{ROTATING_WORDS.join(", ")}</span>
+            <AnimatePresence mode="wait" initial={false}>
+                {!hasCycled ? (
+                    <motion.span key="intro" className="block whitespace-nowrap" aria-hidden="true" exit={{ y: "-100%", opacity: 0, transition: { duration: 0.35, ease: [0.4, 0, 1, 1] } }}>
+                        {renderIntro(ROTATING_WORDS[0])}
+                    </motion.span>
+                ) : (
+                    <motion.span
+                        key={index}
+                        className="block whitespace-nowrap"
+                        aria-hidden="true"
+                        initial={{ y: "100%", opacity: 0 }}
+                        animate={{ y: 0, opacity: 1, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }}
+                        exit={{ y: "-100%", opacity: 0, transition: { duration: 0.35, ease: [0.4, 0, 1, 1] } }}
+                    >
+                        {withQuietAmpersand(ROTATING_WORDS[index])}
+                    </motion.span>
+                )}
+            </AnimatePresence>
+        </span>
+    );
 };
 
 const Hero = () => {
@@ -38,8 +96,28 @@ const Hero = () => {
     };
 
 
+    const renderChars = (line: string, lineIdx: number) =>
+        line.split(" ").map((word, wordIdx, array) => (
+            <span key={wordIdx} className="inline-block whitespace-nowrap">
+                {word.split("").map((char, charIdx) => (
+                    <motion.span
+                        key={charIdx}
+                        variants={{
+                            hidden: { opacity: 0, filter: "blur(12px)", y: 40, rotateX: -30 },
+                            show: { opacity: 1, filter: "blur(0px)", y: 0, rotateX: 0, transition: { type: "spring", bounce: 0, duration: 1.2 } }
+                        }}
+                        className={`inline-block ${char === '.' && lineIdx === 2 ? 'text-brand not-italic font-bold' : ''} ${char === '&' ? 'font-extralight' : ''}`}
+                        style={char === '&' ? { fontFamily: 'var(--font-sans, ui-sans-serif, system-ui, sans-serif)' } : undefined}
+                    >
+                        {char}
+                    </motion.span>
+                ))}
+                {wordIdx !== array.length - 1 && <span className="inline-block">&nbsp;</span>}
+            </span>
+        ));
+
     return (
-        <section id="home" ref={containerRef} aria-label="Hero – Product Developer" className="relative overflow-hidden pt-[7rem] md:pt-24">
+        <section id="home" ref={containerRef} aria-label="Hero – Product Designer & Full-Stack Engineer" className="relative overflow-hidden pt-[7rem] md:pt-24">
             {/* Ambient brand light */}
             <div
                 className="pointer-events-none absolute inset-0"
@@ -52,49 +130,37 @@ const Hero = () => {
             <div className="container relative z-10 grid min-h-[70vh] lg:min-h-[80vh] grid-cols-1 items-start md:items-center lg:gap-10 md:gap-4 gap-8 pt-8 md:pt-36 pb-12 md:pb-40 md:py-20 md:grid-cols-2">
                 {/* Left copy */}
                 <motion.div
-                    className="pt-6"
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
+                    transition={{ duration: 0.8, delay: 0.15 }}
                 >
                     <motion.h1
-                        className="text-[2.2rem] sm:text-[2.6rem] md:text-6xl font-bold leading-tight tracking-tight max-w-xl flex flex-wrap"
+                        className="text-[2.2rem] sm:text-[2.6rem] lg:text-6xl font-bold leading-tight tracking-tight max-w-xl flex flex-wrap"
                         variants={{
                             hidden: { opacity: 1 },
                             show: {
                                 opacity: 1,
-                                transition: { staggerChildren: 0.02, delayChildren: 0.2 }
+                                transition: { staggerChildren: 0.02, delayChildren: 0.1 }
                             }
                         }}
                         initial="hidden"
                         animate="show"
                     >
-                        {["Full-Stack", "Product Engineer", "built to scale."].map((line, lineIdx) => (
+                        {["I design & build", ROTATING_WORDS[0], "and premium websites."].map((line, lineIdx) => (
                             <span
                                 key={lineIdx}
-                                className={`block w-full ${lineIdx === 0 || lineIdx === 2 ? "text-gray-400  pt-2 font-light" : "text-white"}`}
+                                className={`block w-full ${lineIdx === 0 ? "pb-2" : "-mb-1"} ${lineIdx === 0 || lineIdx === 2 ? "text-gray-400  pt-2 font-light" : "text-white"}`}
                                 style={lineIdx === 2 || lineIdx === 0 ? { fontFamily: "'Fraunces', serif" } : undefined}
                             >
-                                {line.split(" ").map((word, wordIdx, array) => (
-                                    <span key={wordIdx} className="inline-block whitespace-nowrap">
-                                        {word.split("").map((char, charIdx) => (
-                                            <motion.span
-                                                key={charIdx}
-                                                variants={{
-                                                    hidden: { opacity: 0, filter: "blur(12px)", y: 40, rotateX: -30 },
-                                                    show: { opacity: 1, filter: "blur(0px)", y: 0, rotateX: 0, transition: { type: "spring", bounce: 0, duration: 1.2 } }
-                                                }}
-                                                className={`inline-block ${char === '.' && lineIdx === 2 ? 'text-brand not-italic font-bold' : ''}`}
-                                            >
-                                                {char}
-                                            </motion.span>
-                                        ))}
-                                        {wordIdx !== array.length - 1 && <span className="inline-block">&nbsp;</span>}
-                                    </span>
-                                ))}
+                                {lineIdx === 1 ? (
+                                    <RotatingLine renderIntro={(text) => renderChars(text, lineIdx)} />
+                                ) : (
+                                    renderChars(line, lineIdx)
+                                )}
                             </span>
                         ))}
                     </motion.h1>
+
                 </motion.div>
 
                 {/* Right side - portrait and bio */}
@@ -102,13 +168,13 @@ const Hero = () => {
                     className="flex flex-col items-start justify-center -mt-8 md:mt-0 gap-4 md:gap-6 md:items-end w-full"
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.5 }}
+                    transition={{ duration: 0.8, delay: 0.15 }}
                 >
                     <motion.div
                         className="w-full max-w-full md:max-w-[310px] flex flex-col gap-2 md:gap-4 md:text-right"
                         initial={{ opacity: 0, x: 40, filter: "blur(10px)" }}
                         animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                        transition={{ duration: 1.2, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <motion.div
                             className="flex gap-8 w-full justify-start md:justify-end pb-4 md:pb-2 md:border-b md:border-white/5 order-2 md:order-1"
@@ -132,7 +198,7 @@ const Hero = () => {
                                 <span className="text-2xl md:text-3xl font-black text-white flex items-start">
                                     <CountUp to={20} /><span className="text-brand text-xl font-black ml-[2px] mt-[2px]">+</span>
                                 </span>
-                                <span className="text-[10px] uppercase leading-3 text-gray-400/60 tracking-wide font-medium mt-1">Products Built</span>
+                                <span className="text-[10px] uppercase leading-3 text-gray-400/60 tracking-wide font-medium mt-1">Projects Shipped</span>
                             </motion.div>
                             <motion.div
                                 className="flex flex-col justify-center items-start md:items-end p-0"
@@ -148,7 +214,7 @@ const Hero = () => {
                             </motion.div>
                         </motion.div>
                         <p className="text-md text-gray-300 leading-relaxed order-1 md:order-2">
-                            I design, build, and scale modern digital products from SaaS platforms and business systems to high performance web applications and user centric experiences.
+                            Product designer and full-stack engineer. <br/> I take products from first sketch to production: interface design, motion, architecture and deployment for founders, agencies and growing businesses.
                         </p>
                     </motion.div>
                     <motion.div
@@ -169,35 +235,11 @@ const Hero = () => {
                                     className="group flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)]"
                                     onClick={openWhatsApp}
                                 >
-                                    <motion.div
-                                        className="bg-white rounded-full p-2 flex items-center justify-center mr-2 group-hover:bg-orange-50 transition-colors duration-300 shadow-[0_0_15px_rgba(255,95,38,0.3)]"
-                                        animate={{
-                                            boxShadow: [
-                                                "0 0 15px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0.4)",
-                                                "0 0 25px rgba(255, 95, 38, 0.5), 0 0 0 8px rgba(255, 95, 38, 0)",
-                                                "0 0 15px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0)"
-                                            ]
-                                        }}
-                                        transition={{
-                                            duration: 2,
-                                            repeat: Infinity,
-                                            ease: "easeInOut"
-                                        }}
-                                        whileHover={{
-
-                                        }}
-                                    >
-                                        <motion.div
-
-                                            transition={{
-                                                duration: 8,
-                                                repeat: Infinity,
-                                                ease: "linear"
-                                            }}
-                                        >
-                                            <ArrowRight className="h-6 w-6 text-[#ff5f26] transition-all group-hover:rotate-0 -rotate-45 duration-300" />
-                                        </motion.div>
-                                    </motion.div>
+                                    <div className="relative bg-white rounded-full p-2 flex items-center justify-center mr-2 group-hover:bg-orange-50 transition-colors duration-300 shadow-[0_0_15px_rgba(255,95,38,0.3)]">
+                                        {/* Pulse ring — transform/opacity only, so it runs on the compositor */}
+                                        <span aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-full ring-2 ring-[#ff5f26]/40 animate-pulse-ring" />
+                                        <ArrowRight className="h-6 w-6 text-[#ff5f26] transition-all group-hover:rotate-0 -rotate-45 duration-300" />
+                                    </div>
                                     <div className="relative overflow-hidden h-6 w-fit text-white">
                                         <motion.div
                                             className="flex flex-col items-center"
@@ -217,17 +259,7 @@ const Hero = () => {
                                     </div>
 
                                     {/* Shimmer effect */}
-                                    <motion.div
-                                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                                        initial={{ x: "-100%" }}
-                                        animate={{ x: "100%" }}
-                                        transition={{
-                                            duration: 3,
-                                            repeat: Infinity,
-                                            ease: "easeInOut",
-                                            delay: 2
-                                        }}
-                                    />
+                                    <div aria-hidden="true" className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer [animation-delay:2s]" />
                                 </Button>
                             </motion.div>
                         </motion.div>
@@ -236,7 +268,7 @@ const Hero = () => {
 
                 {/* Oversized name – VariableProximity weight morph on hover */}
                 <motion.div
-                    className="pointer-events-none absolute bottom-4 lg:bottom-[-1rem] left-0 w-full select-none text-[20vw] md:text-[19vw] leading-none tracking-tighter text-foreground/[0.025] hidden md:block"
+                    className="pointer-events-none absolute bottom-10 lg:bottom-4 left-0 w-full select-none text-[20vw] md:text-[19vw] leading-none tracking-tighter text-foreground/[0.025] hidden md:block"
                     aria-hidden="true"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}

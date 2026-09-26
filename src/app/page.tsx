@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Heros from "@/components/Heros";
 import About from "@/components/About";
 import Showcase from "@/components/Showcase";
+import ClientWebsites from "@/components/ClientWebsites";
 import Experience from "@/components/Experience";
 import ServicesSection from "@/components/ServicesSection";
 import DesignShowcase from "@/components/DesignShowcase";
@@ -11,11 +12,12 @@ import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 
 export const metadata: Metadata = {
-  title: "Ayush Kushwaha | Full-Stack Product Engineer",
-  description: "Ayush Kushwaha is a Full-Stack Product Engineer specializing in scalable SaaS platforms, robust business CRMs, and premium web application development.",
+  alternates: { canonical: '/' },
+  title: "Ayush Kushwaha | Product Designer & Full-Stack Engineer",
+  description: "I design and build SaaS products, business platforms and premium websites — UI/UX, motion, architecture and deployment. Available for freelance projects.",
   openGraph: {
-    title: "Ayush Kushwaha | Full-Stack Product Engineer",
-    description: "Ayush Kushwaha is a Full-Stack Product Engineer specializing in scalable SaaS platforms, robust business CRMs, and premium web application development.",
+    title: "Ayush Kushwaha | Product Designer & Full-Stack Engineer",
+    description: "I design and build SaaS products, business platforms and premium websites — UI/UX, motion, architecture and deployment. Available for freelance projects.",
     url: "https://ayushkushwaha.com/",
     images: [
       {
@@ -27,8 +29,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ayush Kushwaha | Full-Stack Product Engineer",
-    description: "Full-Stack Product Engineer building SaaS platforms, business systems, and exceptional user experiences. Based in India.",
+    title: "Ayush Kushwaha | Product Designer & Full-Stack Engineer",
+    description: "I design and build SaaS products, business platforms and premium websites — UI/UX, motion, architecture and deployment. Available for freelance projects.",
     images: ["https://ayushkushwaha.com/assets/og-image.webp"],
   }
 };
@@ -40,6 +42,7 @@ export default function Home() {
       <Heros />
       <About />
       <Showcase />
+      <ClientWebsites />
       <Experience />
       <ServicesSection />
       <DesignShowcase />

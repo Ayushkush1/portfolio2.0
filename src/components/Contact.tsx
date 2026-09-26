@@ -48,7 +48,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
          {
             icon: Twitter,
             label: "Twitter / X",
-            href: "https://twitter.com"
+            href: "https://x.com/kushwaha_ayush"
         },
         {
             icon: Instagram,
@@ -131,23 +131,11 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                                 className="group flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)]"
                                 onClick={openWhatsApp}
                             >
-                                <motion.div
-                                    className="bg-white rounded-full p-2 flex items-center justify-center mr-2 group-hover:bg-orange-50 transition-colors duration-300 shadow-[0_0_15px_rgba(255,95,38,0.3)]"
-                                    animate={{
-                                        boxShadow: [
-                                            "0 0 15px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0.4)",
-                                            "0 0 25px rgba(255, 95, 38, 0.5), 0 0 0 8px rgba(255, 95, 38, 0)",
-                                            "0 0 15px rgba(255, 95, 38, 0.3), 0 0 0 0 rgba(255, 95, 38, 0)"
-                                        ]
-                                    }}
-                                    transition={{
-                                        duration: 2,
-                                        repeat: Infinity,
-                                        ease: "easeInOut"
-                                    }}
-                                >
+                                <div className="relative bg-white rounded-full p-2 flex items-center justify-center mr-2 group-hover:bg-orange-50 transition-colors duration-300 shadow-[0_0_15px_rgba(255,95,38,0.3)]">
+                                    {/* Pulse ring — transform/opacity only, so it runs on the compositor */}
+                                    <span aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-full ring-2 ring-[#ff5f26]/40 animate-pulse-ring" />
                                     <ArrowRight className="h-6 w-6 text-[#ff5f26] transition-all group-hover:rotate-0 -rotate-45 duration-300" />
-                                </motion.div>
+                                </div>
                                 <div className="relative overflow-hidden h-6 w-fit text-white">
                                     <motion.div
                                         className="flex flex-col items-center"
@@ -166,17 +154,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                                     </motion.div>
                                 </div>
                                 {/* Shimmer effect */}
-                                <motion.div
-                                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                                    initial={{ x: "-100%" }}
-                                    animate={{ x: "100%" }}
-                                    transition={{
-                                        duration: 3,
-                                        repeat: Infinity,
-                                        ease: "easeInOut",
-                                        delay: 2
-                                    }}
-                                />
+                                <div aria-hidden="true" className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer [animation-delay:2s]" />
                             </Button>
                         </motion.div>
                     </motion.div>

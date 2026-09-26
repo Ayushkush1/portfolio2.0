@@ -1,16 +1,17 @@
 # Ayush Kushwaha
 
-Ayush Kushwaha is a Full-Stack Product Engineer building SaaS platforms, business systems, and exceptional user experiences. He is based in India.
+Ayush Kushwaha is a product designer and full-stack engineer based in India, available for freelance projects. Ayush designs and builds SaaS products, business platforms and premium websites, covering UI/UX, motion, architecture and deployment.
 
 ## Contact Information
 - Website: [https://ayushkushwaha.com/](https://ayushkushwaha.com/)
 - Work/Projects: [https://ayushkushwaha.com/work](https://ayushkushwaha.com/work)
-- GitHub: [https://github.com/ayushkushwaha](https://github.com/ayushkushwaha)
-- Twitter: [https://twitter.com/awsm_ayush_](https://twitter.com/awsm_ayush_)
-- LinkedIn: [https://linkedin.com/in/ayushkushwaha](https://linkedin.com/in/ayushkushwaha)
+- Email: [ayushkushwaha381@gmail.com](mailto:ayushkushwaha381@gmail.com)
+- GitHub: [https://github.com/Ayushkush1](https://github.com/Ayushkush1)
+- X: [https://x.com/kushwaha_ayush](https://x.com/kushwaha_ayush)
+- LinkedIn: [https://www.linkedin.com/in/ayush-kushwaha-b3b76915b/](https://www.linkedin.com/in/ayush-kushwaha-b3b76915b/)
 
 ## Overview
-This site serves as the digital portfolio for Ayush Kushwaha, showcasing selected case studies of SaaS platforms, ERP systems, and digital products built from the ground up.
+This site is the portfolio of Ayush Kushwaha. It showcases case studies of SaaS products, business platforms, ERP systems and client websites that Ayush designed and built, including AgencyOS, CATFY, Leadzenor, Karatrix, an ERP for an IP law firm, and the Seven Stars pub website.
 
 ## Key Links
 - [Home](https://ayushkushwaha.com/)

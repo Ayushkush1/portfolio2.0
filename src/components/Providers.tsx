@@ -6,6 +6,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
+import { MotionConfig } from "framer-motion";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
@@ -15,6 +16,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     let lenisInstance: any;
     
     const initSmoothScroll = async () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       const Lenis = (await import("@studio-freight/lenis")).default;
       const gsap = (await import("gsap")).default;
       const ScrollTrigger = (await import("gsap/ScrollTrigger")).ScrollTrigger;
@@ -66,11 +68,14 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        {children}
-        <Toaster />
-        <Sonner />
-      </TooltipProvider>
+      {/* Honour the OS "reduce motion" setting for every Framer Motion animation */}
+      <MotionConfig reducedMotion="user">
+        <TooltipProvider>
+          {children}
+          <Toaster />
+          <Sonner />
+        </TooltipProvider>
+      </MotionConfig>
     </QueryClientProvider>
   );
 }

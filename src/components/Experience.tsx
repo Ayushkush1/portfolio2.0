@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Github, Instagram, Linkedin, Mail } from "lucide-react";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
@@ -99,7 +100,7 @@ const Experience = () => {
                                     }}
                                 >
                                     <div className="w-full md:w-[90%] mx-auto relative rounded-3xl overflow-hidden shadow-2xl shadow-foreground/5 h-[400px] md:h-[500px] lg:h-[560px] scale-95">
-                                        <img src="assets/ayush-kushwaha.webp" className="w-full h-full object-cover object-top" alt="Ayush Kushwaha" />
+                                        <Image src="/assets/ayush-kushwaha.webp" alt="Ayush Kushwaha" fill sizes="(max-width: 768px) 100vw, 45vw" className="object-cover object-top" />
                                     </div>
                                 </motion.div>
                             </div>
@@ -114,7 +115,7 @@ const Experience = () => {
                                     viewport={{ once: true }}
                                 >
                                     <h2 className="text-base md:text-lg font-semibold text-foreground">Ayush Kushwaha</h2>
-                                    <p className="text-gray-500 text-[11px] md:text-xs">SaaS Engineer & Product Builder</p>
+                                    <p className="text-gray-500 text-[11px] md:text-xs">Product Designer & Full-Stack Engineer</p>
                                 </motion.div>
 
                                 {/* Social Links */}

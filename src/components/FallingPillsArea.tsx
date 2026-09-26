@@ -5,12 +5,12 @@ import { LayoutGrid, PenTool, Search, Film, FlaskConical, Goal } from 'lucide-re
 
 /* ─── pill data ─────────────────────────────────────────────── */
 const PILLS = [
-  { icon: <LayoutGrid size={16} />, label: 'Design systems',  color: '#ff5f26', rotate:  6 },
-  { icon: <PenTool    size={16} />, label: 'SaaS Builder',    color: '#10b981', rotate:  3 },
-  { icon: <Search     size={16} />, label: 'Research',        color: '#3b82f6', rotate: -6 },
-  { icon: <Film       size={16} />, label: 'Animation',       color: '#22c55e', rotate: -6 },
-  { icon: <FlaskConical size={16} />, label: 'Prototyping',   color: '#ec4899', rotate: -3 },
-  { icon: <Goal       size={16} />, label: 'Strategy',        color: '#f59e0b', rotate:  6 },
+  { icon: <LayoutGrid size={16} />, label: 'UI/UX Design',    color: '#ff5f26', rotate:  6 },
+  { icon: <PenTool    size={16} />, label: 'SaaS Products',   color: '#10b981', rotate:  3 },
+  { icon: <Search     size={16} />, label: 'Design Systems',  color: '#3b82f6', rotate: -6 },
+  { icon: <Film       size={16} />, label: 'Motion & GSAP',   color: '#22c55e', rotate: -6 },
+  { icon: <FlaskConical size={16} />, label: 'Next.js',       color: '#ec4899', rotate: -3 },
+  { icon: <Goal       size={16} />, label: 'Architecture',    color: '#f59e0b', rotate:  6 },
 ];
 
 /* ─── static pill visual (no framer-motion) ─────────────────── */

@@ -44,7 +44,7 @@ const About: React.FC = () => {
     offset: ["start 85%", "end 65%"],
   });
 
-  const statementText = "I help startups turn ideas into market-ready MVPs, boosting conversions and user engagement through scalable architecture, product strategy, and modern full-stack development.";
+  const statementText = "I help founders and businesses turn ideas into products people enjoy using designing every screen, crafting the motion, and engineering everything behind it, from first wireframe to production.";
   const words = statementText.split(" ");
 
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -150]);
@@ -53,7 +53,7 @@ const About: React.FC = () => {
 
   return (
     <section ref={containerRef} id="about" className="relative flex items-center justify-center overflow-hidden w-full pt-10 pb-12 md:pt-40 md:pb-32 bg-gradient-to-br from-background via-background to-primary/5">
-      <div className="container relative z-10 md:max-w-6xl md:mx-auto mx-0 md:px-0 px-5 pb-10 md:pb-28">
+      <div className="container relative z-10 md:max-w-7xl md:mx-auto mx-0 md:px-0 px-5 pb-10 md:pb-28">
         {/* Hello Badge */}
         <motion.div
           className="text-center mb-16"
@@ -85,7 +85,7 @@ const About: React.FC = () => {
         <div className="relative flex items-center justify-center">
           {/* Central Text */}
           <motion.div
-            className="text-center md:max-w-[790px] px-6 py-8 md:px-8 md:py-4 md:bg-transparent bg-white/5 backdrop-blur-xl md:backdrop-blur-none border border-white/10 md:border-none rounded-[2.5rem] md:rounded-none shadow-2xl md:shadow-none"
+            className="text-center md:max-w-[850px] px-6 py-8 md:px-8 md:py-4 md:bg-transparent bg-white/5 backdrop-blur-xl md:backdrop-blur-none border border-white/10 md:border-none rounded-[2.5rem] md:rounded-none shadow-2xl md:shadow-none"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -120,9 +120,9 @@ const About: React.FC = () => {
               >
                 {[1, 2, 3].map((i) => (
                   <div key={`r1-${i}`} className="flex gap-4">
-                    <PillBadge icon={<LayoutGrid className="size-4" />} label="Design systems" color="#ff5f26" />
-                    <PillBadge icon={<PenTool className="size-4" />} label="SaaS Builder" color="#10b981" />
-                    <PillBadge icon={<Search className="size-4" />} label="Research" color="#3b82f6" />
+                    <PillBadge icon={<LayoutGrid className="size-4" />} label="UI/UX Design" color="#ff5f26" />
+                    <PillBadge icon={<PenTool className="size-4" />} label="SaaS Products" color="#10b981" />
+                    <PillBadge icon={<Search className="size-4" />} label="Design Systems" color="#3b82f6" />
                   </div>
                 ))}
               </motion.div>
@@ -136,9 +136,9 @@ const About: React.FC = () => {
               >
                 {[1, 2, 3].map((i) => (
                   <div key={`r2-${i}`} className="flex gap-4">
-                    <PillBadge icon={<Film className="size-4" />} label="Animation" color="#22c55e" />
-                    <PillBadge icon={<FlaskConical className="size-4" />} label="Prototyping" color="#ec4899" />
-                    <PillBadge icon={<Goal className="size-4" />} label="Strategy" color="#f59e0b" />
+                    <PillBadge icon={<Film className="size-4" />} label="Motion & GSAP" color="#22c55e" />
+                    <PillBadge icon={<FlaskConical className="size-4" />} label="Next.js" color="#ec4899" />
+                    <PillBadge icon={<Goal className="size-4" />} label="Architecture" color="#f59e0b" />
                   </div>
                 ))}
               </motion.div>

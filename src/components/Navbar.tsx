@@ -16,6 +16,7 @@ const indicatorSections = [
     { id: "home", label: "Home" },
     { id: "about", label: "About" },
     { id: "work", label: "Projects" },
+    { id: "websites", label: "Websites" },
     { id: "experience", label: "Experience" },
     { id: "services", label: "Services" },
     { id: "design", label: "Design" },
@@ -121,8 +122,8 @@ const Navbar = ({
             return;
         }
 
-        if (sectionId === 'portfolio' || sectionId === 'work') {
-            router.push(sectionId === 'work' ? '/work' : '/portfolio');
+        if (sectionId === 'work') {
+            router.push('/work');
             setIsMenuOpen(false);
             return;
         }

@@ -3,11 +3,12 @@ import Navbar from "@/components/Navbar";
 import Contact from "@/components/Contact";
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/blog' },
   title: "Blog | Ayush Kushwaha",
-  description: "Thoughts, tutorials, and case studies on Full-Stack Product Engineering.",
+  description: "Thoughts, tutorials, and case studies on product design and full-stack engineering.",
   openGraph: {
     title: "Blog | Ayush Kushwaha",
-    description: "Thoughts, tutorials, and case studies on Full-Stack Product Engineering.",
+    description: "Thoughts, tutorials, and case studies on product design and full-stack engineering.",
     url: "https://ayushkushwaha.com/blog",
     images: [
       {
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Blog | Ayush Kushwaha",
-    description: "Thoughts, tutorials, and case studies on Full-Stack Product Engineering.",
+    description: "Thoughts, tutorials, and case studies on product design and full-stack engineering.",
     images: ["https://ayushkushwaha.com/assets/og-image.webp"],
   }
 };
