@@ -20,7 +20,6 @@ const indicatorSections = [
     { id: "experience", label: "Experience" },
     { id: "services", label: "Services" },
     { id: "design", label: "Design" },
-    { id: "process", label: "Process" },
     { id: "testimonials", label: "Testimonials" },
     { id: "contact", label: "Contact" }
 ];

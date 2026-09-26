@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
+import InquiryDialog from "@/components/InquiryDialog";
 
 interface ContactProps {
     title?: string;
@@ -118,7 +119,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.7 }}
                         viewport={{ once: true }}
-                        className="flex flex-col gap-4 items-center pt-4"
+                        className="flex flex-col sm:flex-row gap-4 items-center justify-center pt-4"
                     >
                         {/* Primary WhatsApp Button */}
                         <motion.div
@@ -157,6 +158,17 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                                 <div aria-hidden="true" className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer [animation-delay:2s]" />
                             </Button>
                         </motion.div>
+
+                        {/* Secondary: structured brief that opens in WhatsApp */}
+                        <InquiryDialog>
+                            <button
+                                type="button"
+                                className="group flex h-[52px] items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-7 text-white transition-all duration-300 hover:border-brand/60 hover:bg-brand/10"
+                            >
+                                Start a project
+                                <ArrowRight className="h-4 w-4 -rotate-45 text-brand transition-transform duration-300 group-hover:rotate-0" />
+                            </button>
+                        </InquiryDialog>
                     </motion.div>
                 </div>
 

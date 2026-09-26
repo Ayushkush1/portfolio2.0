@@ -9,6 +9,13 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 
 const WHATSAPP_NUMBER = "918738954475";
 
@@ -16,38 +23,45 @@ const PROJECT_TYPES = ["SaaS product", "Startup MVP", "CRM / ERP", "Website", "U
 const BUDGETS = ["Under ₹50K", "₹50K – ₹1.5L", "₹1.5L – ₹3L", "₹3L+", "Not sure yet"];
 const TIMELINES = ["ASAP", "Within 1 month", "1 – 3 months", "Flexible"];
 
-function ChipGroup({
+const LABEL = "mb-2 block text-[10px] font-medium uppercase tracking-[0.18em] text-white/50";
+const FIELD = "w-full rounded-2xl border border-white/10 bg-white/[0.03] px-4 text-sm text-white placeholder:text-gray-600 outline-none transition-colors focus:border-brand/60";
+
+function SelectField({
     label,
+    placeholder,
     options,
     value,
     onChange,
 }: {
     label: string;
+    placeholder: string;
     options: string[];
     value: string;
     onChange: (v: string) => void;
 }) {
     return (
-        <fieldset>
-            <legend className="mb-3 text-[11px] font-medium uppercase tracking-[0.18em] text-white/50">{label}</legend>
-            <div className="flex flex-wrap gap-2">
-                {options.map((option) => (
-                    <button
-                        key={option}
-                        type="button"
-                        aria-pressed={value === option}
-                        onClick={() => onChange(value === option ? "" : option)}
-                        className={`rounded-full border px-4 py-2 text-sm transition-all duration-300 ${
-                            value === option
-                                ? "border-brand bg-brand text-white shadow-[0_0_20px_rgba(255,95,38,0.3)]"
-                                : "border-white/10 bg-white/[0.03] text-gray-300 hover:border-white/25 hover:text-white"
-                        }`}
-                    >
-                        {option}
-                    </button>
-                ))}
-            </div>
-        </fieldset>
+        <div>
+            <span className={LABEL}>{label}</span>
+            <Select value={value} onValueChange={onChange}>
+                <SelectTrigger
+                    aria-label={label}
+                    className={`${FIELD} h-12 ring-offset-0 focus:ring-0 focus:ring-offset-0 data-[placeholder]:text-gray-600 [&>svg]:text-brand [&>svg]:opacity-80`}
+                >
+                    <SelectValue placeholder={placeholder} />
+                </SelectTrigger>
+                <SelectContent className="z-[100] rounded-2xl border-white/10 bg-[#0b1020] text-white">
+                    {options.map((option) => (
+                        <SelectItem
+                            key={option}
+                            value={option}
+                            className="rounded-xl py-2.5 text-sm focus:bg-brand/15 focus:text-white"
+                        >
+                            {option}
+                        </SelectItem>
+                    ))}
+                </SelectContent>
+            </Select>
+        </div>
     );
 }
 
@@ -68,11 +82,11 @@ const InquiryDialog = ({ children }: { children: React.ReactNode }) => {
             `Hi Ayush! I'm ${name.trim()}.`,
             "",
             `Project: ${type}`,
-            budget && `Budget: ${budget}`,
-            timeline && `Timeline: ${timeline}`,
+            ...(budget ? [`Budget: ${budget}`] : []),
+            ...(timeline ? [`Timeline: ${timeline}`] : []),
             "",
             details.trim(),
-        ].filter((line) => line !== false && line !== undefined) as string[];
+        ];
         const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`;
         window.open(url, "_blank", "noopener,noreferrer");
         setOpen(false);
@@ -83,11 +97,11 @@ const InquiryDialog = ({ children }: { children: React.ReactNode }) => {
             <DialogTrigger asChild>{children}</DialogTrigger>
             <DialogContent
                 data-lenis-prevent
-                className="max-h-[90vh] overflow-y-auto sm:max-w-[640px] rounded-[32px] sm:rounded-[32px] border-white/10 bg-[#070b16]/95 backdrop-blur-xl p-6 md:p-10 text-left"
+                className="w-[calc(100vw-32px)] sm:max-w-[600px] rounded-[32px] sm:rounded-[32px] border-white/10 bg-[#070b16]/95 backdrop-blur-xl p-6 md:p-8 text-left"
             >
                 <DialogHeader className="text-left space-y-2">
                     <DialogTitle
-                        className="text-3xl md:text-4xl font-light tracking-tight text-white"
+                        className="text-3xl font-light tracking-tight text-white"
                         style={{ fontFamily: "'Fraunces', serif" }}
                     >
                         Start a project<span className="text-brand">.</span>
@@ -97,46 +111,44 @@ const InquiryDialog = ({ children }: { children: React.ReactNode }) => {
                     </DialogDescription>
                 </DialogHeader>
 
-                <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-7">
-                    <label className="block">
-                        <span className="mb-3 block text-[11px] font-medium uppercase tracking-[0.18em] text-white/50">Your name</span>
-                        <input
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
-                            autoComplete="name"
-                            placeholder="Jane from Acme"
-                            className="w-full rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3.5 text-white placeholder:text-gray-600 outline-none transition-colors focus:border-brand/60"
-                        />
-                    </label>
+                <form onSubmit={handleSubmit} className="mt-2 flex flex-col gap-5">
+                    <div className="grid gap-5 sm:grid-cols-2">
+                        <label className="block">
+                            <span className={LABEL}>Your name</span>
+                            <input
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                required
+                                autoComplete="name"
+                                placeholder="Jane from Acme"
+                                className={`${FIELD} h-12`}
+                            />
+                        </label>
+                        <SelectField label="What are we building?" placeholder="Choose a type" options={PROJECT_TYPES} value={type} onChange={setType} />
+                        <SelectField label="Budget" placeholder="Optional" options={BUDGETS} value={budget} onChange={setBudget} />
+                        <SelectField label="Timeline" placeholder="Optional" options={TIMELINES} value={timeline} onChange={setTimeline} />
+                    </div>
 
-                    <ChipGroup label="What are we building?" options={PROJECT_TYPES} value={type} onChange={setType} />
-                    <ChipGroup label="Budget" options={BUDGETS} value={budget} onChange={setBudget} />
-                    <ChipGroup label="Timeline" options={TIMELINES} value={timeline} onChange={setTimeline} />
-
                     <label className="block">
-                        <span className="mb-3 block text-[11px] font-medium uppercase tracking-[0.18em] text-white/50">Tell me about it</span>
+                        <span className={LABEL}>Tell me about it</span>
                         <textarea
                             value={details}
                             onChange={(e) => setDetails(e.target.value)}
                             required
-                            rows={4}
-                            placeholder="What you're building, who it's for, and anything you already have (designs, a site, a deadline)."
-                            className="w-full resize-none rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3.5 text-white placeholder:text-gray-600 outline-none transition-colors focus:border-brand/60"
+                            rows={3}
+                            placeholder="What you're building, who it's for, and anything you already have."
+                            className={`${FIELD} resize-none py-3`}
                         />
                     </label>
 
                     <button
                         type="submit"
                         disabled={!canSend}
-                        className="group flex w-full items-center justify-center gap-3 rounded-full bg-brand px-6 py-4 font-medium text-white shadow-[0_0_20px_rgba(255,95,38,0.35)] transition-all duration-300 hover:bg-[#ff4d1a] hover:shadow-[0_0_30px_rgba(255,95,38,0.55)] disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
+                        className="group flex w-full items-center justify-center gap-3 rounded-full bg-brand px-6 py-3.5 font-medium text-white shadow-[0_0_20px_rgba(255,95,38,0.35)] transition-all duration-300 hover:bg-[#ff4d1a] hover:shadow-[0_0_30px_rgba(255,95,38,0.55)] disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
                     >
                         Send via WhatsApp
                         <ArrowRight className="h-4 w-4 -rotate-45 transition-transform duration-300 group-hover:rotate-0" />
                     </button>
-                    {!canSend && (
-                        <p className="-mt-4 text-center text-xs text-gray-500">Add your name, project type and a short brief to continue.</p>
-                    )}
                 </form>
             </DialogContent>
         </Dialog>
