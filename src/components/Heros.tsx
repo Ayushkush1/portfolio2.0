@@ -161,7 +161,7 @@ const Hero = () => {
                         <motion.div
                             className="flex gap-8 w-full justify-start md:justify-end pb-4 md:pb-2 md:border-b md:border-white/5 order-2 md:order-1"
                             variants={{
-                                hidden: { opacity: 0 },
+                                hidden: { opacity: 0.001 },
                                 show: {
                                     opacity: 1,
                                     transition: { staggerChildren: 0.2, delayChildren: 1.0 }
@@ -173,7 +173,7 @@ const Hero = () => {
                             <motion.div
                                 className="flex flex-col justify-center items-start md:items-end p-0"
                                 variants={{
-                                    hidden: { opacity: 0, scale: 0.8, y: 15 },
+                                    hidden: { opacity: 0.001, scale: 0.8, y: 15 },
                                     show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 200, damping: 15 } }
                                 }}
                             >
@@ -185,7 +185,7 @@ const Hero = () => {
                             <motion.div
                                 className="flex flex-col justify-center items-start md:items-end p-0"
                                 variants={{
-                                    hidden: { opacity: 0, scale: 0.8, y: 15 },
+                                    hidden: { opacity: 0.001, scale: 0.8, y: 15 },
                                     show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 200, damping: 15 } }
                                 }}
                             >
@@ -200,7 +200,7 @@ const Hero = () => {
                         </p>
                     </div>
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0.001, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.9 }}
                     >
@@ -252,7 +252,7 @@ const Hero = () => {
                 <motion.div
                     className="pointer-events-none absolute bottom-10 lg:bottom-4 left-0 w-full select-none text-[20vw] md:text-[19vw] leading-none tracking-tighter text-foreground/[0.025] hidden md:block"
                     aria-hidden="true"
-                    initial={{ opacity: 0 }}
+                    initial={{ opacity: 0.001 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1, delay: 1.2 }}
                 >
