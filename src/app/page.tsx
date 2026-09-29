@@ -10,6 +10,7 @@ import ServicesSection from "@/components/ServicesSection";
 import DesignShowcase from "@/components/DesignShowcase";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
+import { JsonLd, serviceJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   alternates: { canonical: '/' },
@@ -38,6 +39,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main>
+      <JsonLd data={serviceJsonLd} />
       <Navbar />
       <Heros />
       <About />

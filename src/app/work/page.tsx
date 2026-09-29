@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import WorkClient from "./WorkClient";
+import { caseStudies } from "@/data/projects";
+import { JsonLd, breadcrumbJsonLd, PERSON_ID, SITE_URL, WEBSITE_ID } from "@/lib/seo";
 
 export const metadata: Metadata = {
     alternates: { canonical: '/work' },
@@ -26,31 +28,32 @@ export const metadata: Metadata = {
 };
 
 export default function WorkPage() {
-    const breadcrumbJsonLd = {
+    // The page as a list of case studies, each credited to the same Person node
+    const collectionJsonLd = {
         "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-            {
+        "@type": "CollectionPage",
+        name: "Selected work — Ayush Kushwaha",
+        url: `${SITE_URL}/work`,
+        isPartOf: { "@id": WEBSITE_ID },
+        author: { "@id": PERSON_ID },
+        mainEntity: {
+            "@type": "ItemList",
+            itemListElement: caseStudies.map((project, i) => ({
                 "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://ayushkushwaha.com/"
-            },
-            {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Work",
-                "item": "https://ayushkushwaha.com/work"
-            }
-        ]
+                position: i + 1,
+                url: `${SITE_URL}/work/${project.id}`,
+                name: project.name,
+            })),
+        },
     };
 
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-            />
+            <JsonLd data={breadcrumbJsonLd([
+                { name: "Home", path: "/" },
+                { name: "Work", path: "/work" },
+            ])} />
+            <JsonLd data={collectionJsonLd} />
             <WorkClient />
         </>
     );

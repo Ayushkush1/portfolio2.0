@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import ProjectDetailClient from "./ProjectDetailClient";
 import { caseStudies } from "@/data/projects";
+import { JsonLd, breadcrumbJsonLd, PERSON_ID, SITE_URL, WEBSITE_ID } from "@/lib/seo";
 
 type Props = {
     params: Promise<{ id: string }>
@@ -50,54 +51,32 @@ export default async function ProjectDetailPage({ params }: Props) {
         return <ProjectDetailClient id={resolvedParams.id} />;
     }
 
-    const breadcrumbJsonLd = {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-            {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://ayushkushwaha.com/"
-            },
-            {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Work",
-                "item": "https://ayushkushwaha.com/work"
-            },
-            {
-                "@type": "ListItem",
-                "position": 3,
-                "name": project.name,
-                "item": `https://ayushkushwaha.com/work/${project.id}`
-            }
-        ]
-    };
-
     const creativeWorkJsonLd = {
         "@context": "https://schema.org",
         "@type": "CreativeWork",
-        "name": project.name,
-        "description": project.tagline,
-        "creator": {
-            "@type": "Person",
-            "name": "Ayush Kushwaha"
-        },
-        "url": `https://ayushkushwaha.com/work/${project.id}`,
-        "image": `https://ayushkushwaha.com${project.images[0]}`
+        "@id": `${SITE_URL}/work/${project.id}#work`,
+        name: `${project.name} — ${project.tagline}`,
+        headline: project.tagline,
+        description: project.overview,
+        url: `${SITE_URL}/work/${project.id}`,
+        image: `${SITE_URL}/assets/og/${project.id}.jpg`,
+        dateCreated: project.year,
+        genre: project.category,
+        keywords: project.techStack.join(", "),
+        creator: { "@id": PERSON_ID },
+        author: { "@id": PERSON_ID },
+        isPartOf: { "@id": WEBSITE_ID },
+        ...(project.liveUrl !== "#" && { sameAs: project.liveUrl }),
     };
 
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkJsonLd) }}
-            />
+            <JsonLd data={breadcrumbJsonLd([
+                { name: "Home", path: "/" },
+                { name: "Work", path: "/work" },
+                { name: project.name, path: `/work/${project.id}` },
+            ])} />
+            <JsonLd data={creativeWorkJsonLd} />
             <ProjectDetailClient id={resolvedParams.id} />
         </>
     );

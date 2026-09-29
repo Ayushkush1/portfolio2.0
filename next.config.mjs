@@ -18,6 +18,9 @@ const nextConfig = {
         destination: 'https://ayushkushwaha.com/:path*',
         permanent: true,
       },
+      // Retired URLs from the old portfolio, kept alive for existing links and Google's index
+      { source: '/portfolio', destination: '/work', permanent: true },
+      { source: '/work/:id(\\d+)', destination: '/work', permanent: true },
     ];
   },
 };

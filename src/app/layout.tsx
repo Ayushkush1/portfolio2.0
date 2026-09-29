@@ -4,6 +4,7 @@ import { Providers } from '@/components/Providers'
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import CursorDot from '@/components/CursorDot'
+import { JsonLd, personJsonLd, websiteJsonLd } from '@/lib/seo'
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ayushkushwaha.com/"),
@@ -49,39 +50,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const personJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Ayush Kushwaha',
-    jobTitle: 'Product Designer & Full-Stack Engineer',
-    url: 'https://ayushkushwaha.com/',
-    sameAs: [
-      'https://github.com/Ayushkush1',
-      'https://x.com/kushwaha_ayush',
-      'https://www.linkedin.com/in/ayush-kushwaha-b3b76915b/'
-    ],
-  }
-
-  const websiteJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: 'Ayush Kushwaha Portfolio',
-    url: 'https://ayushkushwaha.com/'
-  }
-
-  const navigationJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    itemListElement: [
-      {
-        '@type': 'SiteNavigationElement',
-        position: 1,
-        name: 'Work & Case Studies',
-        url: 'https://ayushkushwaha.com/work'
-      }
-    ]
-  }
-
   return (
     <html lang="en" className="dark">
       <head>
@@ -93,18 +61,8 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(navigationJsonLd) }}
-        />
+        <JsonLd data={personJsonLd} />
+        <JsonLd data={websiteJsonLd} />
         <CursorDot />
         <Providers>
           {children}
