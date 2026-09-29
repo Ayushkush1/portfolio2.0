@@ -5,6 +5,7 @@ import { Github, Instagram, Linkedin, Mail } from "lucide-react";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { track } from "@/lib/analytics";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -183,6 +184,7 @@ const Experience = () => {
                                     </motion.a>
                                     <motion.a
                                         href="mailto:ayushkushwaha381@gmail.com"
+                                        onClick={() => track("email_click", { location: "experience" })}
                                         aria-label="Email Me"
                                         className="w-5 h-5 md:w-6 md:h-6 text-gray-400 transition-colors duration-300"
                                         whileHover={{

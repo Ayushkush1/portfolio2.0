@@ -57,9 +57,9 @@ function ProjectCard({
                 </div>
             </div>
             <div className="ml-3">
-                <h3 className="text-xl md:text-2xl font-normal text-white">
+                <h2 className="text-xl md:text-2xl font-normal text-white">
                     {name}
-                </h3>
+                </h2>
                 <p className="text-[11px] font-medium tracking-[0.18em] uppercase text-white/50 mt-1">
                     {category}
                 </p>
@@ -141,7 +141,7 @@ const WorkClient = () => {
     const orphan = hasOrphan ? projects[projects.length - 1] : null;
 
     return (
-        <section className="relative min-h-screen bg-background text-white">
+        <main className="relative min-h-screen bg-background text-white">
             {/* Ambient glow */}
             <div
                 className="pointer-events-none fixed inset-0 z-0"
@@ -253,7 +253,7 @@ const WorkClient = () => {
             </AnimatePresence>
 
             <Contact />
-        </section>
+        </main>
     );
 };
 

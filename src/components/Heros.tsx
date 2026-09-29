@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform, useMotionValue, animate, AnimatePresen
 import { useRef, useEffect, useState, Fragment } from "react";
 
 import VariableProximity from "./VariableProximity";
+import { track } from "@/lib/analytics";
 
 
 const CountUp = ({ to, duration = 2 }: { to: number, duration?: number }) => {
@@ -92,6 +93,7 @@ const Hero = () => {
         const phoneNumber = "918738954475";
         const message = "Hello Ayush, I'm interested in your services.";
         const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        track("whatsapp_click", { location: "hero" });
         window.open(whatsappURL, '_blank');
     };
 

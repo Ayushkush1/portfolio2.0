@@ -9,6 +9,7 @@ import { caseStudies } from "@/data/projects";
 import Contact from "@/components/Contact";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
+import { track } from "@/lib/analytics";
 
 export default function ProjectDetailClient({ id }: { id: string }) {
     const project = caseStudies.find((c) => c.id === id);
@@ -77,7 +78,7 @@ export default function ProjectDetailClient({ id }: { id: string }) {
                                     transition={{ delay: 0.2 }}
                                 >
                                     <Button variant="hero" size="lg" className="group flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)] pl-5 pr-2" asChild>
-                                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" onClick={() => track("live_project_click", { project: project.name })}>
                                             <div className="relative overflow-hidden h-6 w-fit text-white">
                                                 <motion.div className="flex flex-col items-center" variants={{ hover: { y: -24 } }} initial={{ y: 0 }} transition={{ duration: 0.3, ease: "easeInOut" }}>
                                                     <span className="w-full flex items-center justify-center whitespace-nowrap">Visit Live Project</span>
@@ -118,19 +119,19 @@ export default function ProjectDetailClient({ id }: { id: string }) {
 
                 <div id="context" className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 py-6 md:py-10 border-y border-white/10 mb-10 md:mb-24">
                     <div>
-                        <span className="block text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-white/40 mb-1">My Role</span>
+                        <span className="block text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-white/60 mb-1">My Role</span>
                         <span className="text-white/80 font-light text-xs md:text-base leading-relaxed block">{project.role.split(" — ")[0]}</span>
                     </div>
                     <div>
-                        <span className="block text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-white/40 mb-1">Platform / Category</span>
+                        <span className="block text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-white/60 mb-1">Platform / Category</span>
                         <span className="text-white/80 font-light text-xs md:text-base block">{project.category}</span>
                     </div>
                     <div>
-                        <span className="block text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-white/40 mb-1">Year</span>
+                        <span className="block text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-white/60 mb-1">Year</span>
                         <span className="text-white/80 font-light text-xs md:text-base block">{project.year}</span>
                     </div>
                     <div>
-                        <span className="block text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-white/40 mb-1">Core Tech</span>
+                        <span className="block text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-white/60 mb-1">Core Tech</span>
                         <div className="flex flex-wrap gap-1 mt-1">
                             {project.techStack.slice(0, 3).map((t, idx) => (
                                 <span key={idx} className="text-[9px] md:text-[10px] text-white/70 bg-white/5 px-2 md:px-2.5 py-0.5 md:py-1 rounded-full border border-white/5 font-mono">

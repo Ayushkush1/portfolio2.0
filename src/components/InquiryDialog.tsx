@@ -16,6 +16,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { track } from "@/lib/analytics";
 
 const WHATSAPP_NUMBER = "918738954475";
 
@@ -88,12 +89,14 @@ const InquiryDialog = ({ children }: { children: React.ReactNode }) => {
             details.trim(),
         ];
         const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`;
+        // GA4's recommended lead event, so it can be marked as a key event (conversion)
+        track("generate_lead", { project_type: type, budget: budget || "not given", timeline: timeline || "not given" });
         window.open(url, "_blank", "noopener,noreferrer");
         setOpen(false);
     };
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={open} onOpenChange={(next) => { if (next) track("inquiry_open"); setOpen(next); }}>
             <DialogTrigger asChild>{children}</DialogTrigger>
             <DialogContent
                 data-lenis-prevent

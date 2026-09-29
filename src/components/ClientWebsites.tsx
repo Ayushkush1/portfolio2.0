@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { clientWebsites } from "@/data/projects";
+import { track } from "@/lib/analytics";
 
 const PREVIEW_W = 500;
 const PREVIEW_H = 307;
@@ -91,6 +92,7 @@ const ClientWebsites = ({ hideHeader = false }: { hideHeader?: boolean }) => {
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label={`Visit ${site.name} website`}
+                            onClick={() => track("website_visit", { site: site.name })}
                             data-site-index={i}
                             onMouseEnter={(e) => {
                                 pointer.current = { x: e.clientX, y: e.clientY };

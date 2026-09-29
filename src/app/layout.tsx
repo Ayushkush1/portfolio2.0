@@ -4,6 +4,7 @@ import { Providers } from '@/components/Providers'
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import CursorDot from '@/components/CursorDot'
+import GoogleAnalytics from '@/components/GoogleAnalytics'
 import { JsonLd, personJsonLd, websiteJsonLd } from '@/lib/seo'
 
 export const metadata: Metadata = {
@@ -69,6 +70,7 @@ export default function RootLayout({
         </Providers>
         <Analytics />
         <SpeedInsights />
+        <GoogleAnalytics />
       </body>
     </html>
   )

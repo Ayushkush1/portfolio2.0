@@ -55,7 +55,7 @@ const DesignShowcase = () => {
                         </motion.h2>
                     </div>
                     <motion.p 
-                        className="text-gray-500 max-w-md font-normal leading-relaxed md:text-right"
+                        className="text-gray-400 max-w-md font-normal leading-relaxed md:text-right"
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}

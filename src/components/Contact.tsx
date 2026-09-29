@@ -10,6 +10,7 @@ import {
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import InquiryDialog from "@/components/InquiryDialog";
+import { track } from "@/lib/analytics";
 
 interface ContactProps {
     title?: string;
@@ -31,6 +32,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
         const phoneNumber = "918738954475"; // Your WhatsApp number
         const message = "Hi Ayush! I'm interested in discussing a project with you. Can we schedule a free intro call?";
         const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        track("whatsapp_click", { location: "contact" });
         window.open(whatsappURL, '_blank');
     };
 
@@ -59,7 +61,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
     ];
 
     return (
-        <section ref={ref} id="contact" className="relative min-h-screen py-12 md:py-0 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5 text-foreground">
+        <section ref={ref} id="contact" aria-label="Contact" className="relative min-h-screen py-12 md:py-0 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5 text-foreground">
 
             <div className="relative z-10 w-full max-w-7xl mx-auto px-4 flex flex-col items-center justify-center py-12 md:py-10">
                 {/* Top Badge */}
@@ -83,7 +85,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
 
                 {/* Main Content - Centered */}
                 <div className="flex flex-col justify-center items-center text-center space-y-4 md:space-y-6 px-6 py-10 md:py-0 bg-white/5 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none border border-white/10 md:border-none rounded-[3rem] md:rounded-none shadow-2xl md:shadow-none w-[88vw] mx-auto md:w-full">
-                    <motion.h1
+                    <motion.h2
                         className={`font-bold leading-tight ${
                             title.length > 20
                                 ? "text-[2.2rem] md:text-6xl lg:text-7xl max-w-5xl mx-auto"
@@ -95,7 +97,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                         viewport={{ once: true }}
                     >
                         {title}
-                    </motion.h1>
+                    </motion.h2>
 
                     <motion.div
                         className="max-w-lg space-y-6"
@@ -195,6 +197,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                                     key={index}
                                     href={link.href}
                                     target="_blank"
+                                    onClick={() => track("social_click", { network: link.label, location: "footer" })}
                                     aria-label={link.label}
                                     className="w-12 h-12 md:w-12 md:h-12 rounded-full md:rounded-2xl border border-white/10 bg-white/5 backdrop-blur flex items-center justify-center text-gray-400 hover:text-brand hover:border-brand/40 hover:bg-brand/5 transition-all duration-500 group/link"
                                     whileHover={{ scale: 1.1, y: -5 }}
@@ -214,6 +217,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                             </div>
                             <motion.a
                                 href="mailto:ayushkushwaha381@gmail.com"
+                                onClick={() => track("email_click", { location: "footer" })}
                                 className="text-gray-300 hover:text-brand text-sm font-medium transition-all duration-300 block"
                                 
                             >
