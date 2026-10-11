@@ -70,7 +70,7 @@ const ClientWebsites = ({ hideHeader = false, limit }: { hideHeader?: boolean; l
                         ]}
                     />
                     <ScrollBlurText
-                        className="text-gray-500 max-w-sm leading-relaxed md:text-right"
+                        className="text-gray-400 max-w-sm leading-relaxed md:text-right"
                         text="Marketing sites and landing pages for brands in travel, education, SaaS and more."
                     />
                 </div>

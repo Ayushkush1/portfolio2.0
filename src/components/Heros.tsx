@@ -182,7 +182,7 @@ const Hero = () => {
                                 <span className="text-2xl md:text-3xl font-black text-white flex items-start">
                                     <CountUp to={20} /><span className="text-brand text-xl font-black ml-[2px] mt-[2px]">+</span>
                                 </span>
-                                <span className="text-[10px] uppercase leading-3 text-gray-400/60 tracking-wide font-medium mt-1">Projects Shipped</span>
+                                <span className="text-[10px] uppercase leading-3 text-gray-400 tracking-wide font-medium mt-1">Projects Shipped</span>
                             </motion.div>
                             <motion.div
                                 className="flex flex-col justify-center items-start md:items-end p-0"
@@ -194,7 +194,7 @@ const Hero = () => {
                                 <span className="text-2xl md:text-3xl font-black text-white flex items-start">
                                     <CountUp to={3} /><span className="text-brand text-xl font-black ml-[2px] mt-[2px]">+</span>
                                 </span>
-                                <span className="text-[10px] uppercase leading-3 text-gray-400/60 tracking-wide font-medium mt-1">Years Exp.</span>
+                                <span className="text-[10px] uppercase leading-3 text-gray-400 tracking-wide font-medium mt-1">Years Exp.</span>
                             </motion.div>
                         </motion.div>
                         <p className="text-md text-gray-300 leading-relaxed order-1 md:order-2">

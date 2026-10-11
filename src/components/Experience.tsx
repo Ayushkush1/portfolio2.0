@@ -97,7 +97,7 @@ const Experience = () => {
                                     {...fadeUp(0.2)}
                                 >
                                     <h2 className="text-base md:text-lg font-semibold text-foreground">Ayush Kushwaha</h2>
-                                    <p className="text-gray-500 text-[11px] md:text-xs">Product Designer & Full-Stack Engineer</p>
+                                    <p className="text-gray-400 text-[11px] md:text-xs">Product Designer & Full-Stack Engineer</p>
                                 </motion.div>
 
                                 {/* Social Links */}
@@ -207,7 +207,7 @@ const Experience = () => {
 
                             {/* Description */}
                             <ScrollBlurText
-                                className="text-gray-600 text-[17px] leading-relaxed mb-12"
+                                className="text-gray-400 text-[17px] leading-relaxed mb-12"
                                 text="Building high-performance SaaS platforms, internal business systems, and modern web applications that drive operational efficiency. With a strong focus on scalable architecture and exceptional user experiences."
                             />
                         </div>
@@ -228,7 +228,7 @@ const Experience = () => {
                                         </p>
                                     </div>
                                     <div className="w-[30%] md:flex-1 text-center">
-                                        <p className="text-gray-500 text-[10px] md:text-sm whitespace-nowrap overflow-hidden text-ellipsis">
+                                        <p className="text-gray-400 text-[10px] md:text-sm whitespace-nowrap overflow-hidden text-ellipsis">
                                             {exp.company}
                                         </p>
                                     </div>

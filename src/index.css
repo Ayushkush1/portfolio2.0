@@ -369,8 +369,8 @@ All colors MUST be HSL.
   animation: bp-draw 0.6s cubic-bezier(0.65, 0, 0.35, 1) 1.1s forwards;
 }
 @keyframes bp-draw { to { stroke-dashoffset: 0; } }
-[data-pos="top"]    .bp-note { left: 4px; bottom: calc(100% + 44px); }
-[data-pos="top"]    .bp-arrow { left: 6px; top: calc(100% + 2px); }
+[data-pos="top"]    .bp-note { left: 4px; bottom: calc(100% + 66px); } /* clears the heading spec tag */
+[data-pos="top"]    .bp-arrow { left: 6px; top: calc(100% + 4px); }
 [data-pos="bottom"] .bp-note { left: 4px; top: calc(100% + 44px); }
 [data-pos="bottom"] .bp-arrow { left: 6px; bottom: calc(100% + 2px); transform: scaleY(-1); }
 [data-pos="right"]  .bp-note { left: calc(100% + 56px); top: -6px; }
@@ -378,6 +378,12 @@ All colors MUST be HSL.
 [data-pos="left"]   .bp-note { right: calc(100% + 56px); top: -6px; text-align: right; }
 [data-pos="left"]   .bp-note-code { margin-left: auto; }
 [data-pos="left"]   .bp-arrow { left: calc(100% + 4px); top: 6px; }
+[data-pos="inside"] .bp-note {
+  left: 20px; top: 20px; padding: 10px 14px 12px; border-radius: 16px;
+  background: hsl(222 60% 6% / 0.88); border: 1px solid hsl(var(--bp) / 0.35);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+[data-pos="inside"] .bp-arrow { display: none; }
 
 /* Sections get their outline and name */
 [data-blueprint] main section[id] { outline: 1px dashed hsl(var(--bp) / 0.3); outline-offset: -10px; }

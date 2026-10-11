@@ -83,7 +83,7 @@ const ServicesSection = () => {
                                 />
 
                                 <ScrollBlurText
-                                    className="text-gray-500 text-base md:text-xl mb-10 max-w-lg leading-relaxed"
+                                    className="text-gray-400 text-base md:text-xl mb-10 max-w-lg leading-relaxed"
                                     text={service.description}
                                 />
 

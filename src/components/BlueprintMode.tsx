@@ -57,6 +57,56 @@ function buildNode(item: Omit<Item, "node">): HTMLDivElement {
     return node;
 }
 
+// ── Collision-free note placement ────────────────────────────────
+// A note tries its preferred side first, then the others, and settles on the first one where it
+// covers no text, image, control or other note — so notes stay readable as the layout evolves.
+// "inside" (top-left corner of the element, on a dark backing) is the fallback for wide elements
+const POSITIONS = ["top", "bottom", "right", "left", "inside"] as const;
+const OBSTACLES = "h1, h2, h3, h4, p, a, button, li, img, input, label";
+const PAD = 8;
+
+type Box = { left: number; top: number; right: number; bottom: number };
+const overlap = (a: Box, b: Box) =>
+    Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left) + PAD) *
+    Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) + PAD);
+
+function fitNote(target: HTMLElement, node: HTMLDivElement, layer: HTMLElement) {
+    const note = node.querySelector<HTMLElement>(".bp-note");
+    if (!note) return;
+    const preferred = target.dataset.bpPos ?? "top";
+    const order = [preferred, ...POSITIONS.filter((p) => p !== preferred)];
+
+    // Everything a note must not cover: real content (minus the target's own wrappers and
+    // decorative layers) plus notes that have already been placed
+    const main = document.querySelector("main") ?? document.body;
+    const boxes: Box[] = [];
+    main.querySelectorAll<HTMLElement>(OBSTACLES).forEach((el) => {
+        // Skip the target's own wrappers/content, decorative layers and the fixed navbar (content scrolls under it)
+        if (el.contains(target) || target.contains(el) || el.closest('[aria-hidden="true"], header')) return;
+        const r = el.getBoundingClientRect();
+        if (r.width > 2 && r.height > 2) boxes.push(r);
+    });
+    // Spec tags on headings and image size labels are part of the drawing too
+    layer.querySelectorAll<HTMLElement>(".bp-item-heading .bp-tag, .bp-item-image .bp-tag").forEach((t) => {
+        if (t.offsetParent) boxes.push(t.getBoundingClientRect());
+    });
+    layer.querySelectorAll<HTMLElement>('.bp-item-note[data-fitted="1"] .bp-note').forEach((n) => {
+        if (n !== note) boxes.push(n.getBoundingClientRect());
+    });
+
+    let best = { pos: preferred, score: Infinity };
+    for (const pos of order) {
+        node.dataset.pos = pos;
+        const r = note.getBoundingClientRect();
+        const offscreen = (r.left < PAD || r.right > window.innerWidth - PAD) ? 1e9 : 0;
+        const score = offscreen + boxes.reduce((sum, b) => sum + overlap(r, b), 0);
+        if (score < best.score) best = { pos, score };
+        if (score === 0) break;
+    }
+    node.dataset.pos = best.pos;
+    node.dataset.fitted = "1";
+}
+
 const BlueprintMode = () => {
     // Toggled from the navbar's BlueprintSwitch (or the B key) through the shared store
     const on = useBlueprint();
@@ -130,6 +180,8 @@ const BlueprintMode = () => {
                 node.style.transform = `translate(${r.left}px, ${r.top}px)`;
                 node.style.width = `${r.width}px`;
                 node.style.height = `${r.height}px`;
+                // Place each note once it's near the viewport (and again after a resize)
+                if (kind === "note" && node.dataset.fitted !== "1" && r.top < vh && r.bottom > 0) fitNote(el, node, layer);
                 if (kind === "image") {
                     const size = node.querySelector<HTMLElement>(".bp-size");
                     const label = `IMG ${Math.round(r.width)}×${Math.round(r.height)}`;
@@ -139,13 +191,27 @@ const BlueprintMode = () => {
             raf = requestAnimationFrame(place);
         };
 
+        const refit = () => layer.querySelectorAll<HTMLElement>(".bp-item-note").forEach((n) => { n.dataset.fitted = "0"; });
+        window.addEventListener("resize", refit);
+
         scan();
         place();
-        // Content can mount late (lazy sections, hover previews, route changes): rescan often
-        const rescan = window.setInterval(scan, 400);
+        // Content can mount late (lazy sections, hover previews, route changes): rescan often.
+        // Visible notes also re-check their spot, since surrounding content may still be animating in;
+        // placement depends only on layout, so once it settles a note keeps the same side.
+        const rescan = window.setInterval(() => {
+            scan();
+            const vh = window.innerHeight;
+            items.forEach(({ el, kind, node }) => {
+                if (kind !== "note") return;
+                const r = el.getBoundingClientRect();
+                if (r.top < vh && r.bottom > 0) node.dataset.fitted = "0";
+            });
+        }, 400);
         return () => {
             cancelAnimationFrame(raf);
             window.clearInterval(rescan);
+            window.removeEventListener("resize", refit);
             layer.querySelectorAll(".bp-item").forEach((n) => n.remove());
         };
     }, [on, pathname]);

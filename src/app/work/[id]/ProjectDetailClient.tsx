@@ -93,7 +93,7 @@ export default function ProjectDetailClient({ id }: { id: string }) {
                                     </Button>
                                 </motion.div>
                             ) : (
-                                <span className="text-white/30 text-sm italic font-light block lg:pt-4">Internal / Enterprise system</span>
+                                <span className="text-white/55 text-sm italic font-light block lg:pt-4">Internal / Enterprise system</span>
                             )}
                         </div>
                     </div>

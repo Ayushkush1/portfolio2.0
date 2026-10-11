@@ -1,6 +1,6 @@
 "use client";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { Quote, Star, Users } from "lucide-react";
+import { Quote, Users } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import MaskReveal from "@/components/ui/mask-reveal";
 import { DURATION, EASE, VIEWPORT, fadeUp } from "@/lib/motion";
@@ -21,34 +21,30 @@ const Testimonials = () => {
     const testimonials = [
         {
             id: 1,
-            name: "Founder",
-            role: "Erichost",
+            name: "Founder, Erichost",
+            role: "Web hosting platform",
             text: "I'm thoroughly impressed with Ayush's designing creativity! He brought fresh ideas to our hosting platform and delivered beyond expectations. His creative approach to web design is exactly what Erichost needed.",
-            rating: 5,
             avatar: "/avatar/erichost.jpg"
         },
         {
             id: 2,
-            name: "Founder",
-            role: "NinzaHost",
+            name: "Founder, NinzaHost",
+            role: "Web hosting platform",
             text: "Ayush transformed our vision into a stunning web hosting platform. His technical expertise and attention to detail made NinzaHost stand out in the competitive hosting market. The user experience he created is simply outstanding!",
-            rating: 5,
             avatar: "/avatar/ninzahost.png"
         },
         {
             id: 3,
             name: "Anshul Singh",
             role: "Senior Software Engineer",
-            text: "I’ve worked with Ayush on multiple projects, and he’s been a solid frontend developer throughout. He’s quick to pick things up, writes clean code, and always brings a positive attitude to the team. He’ll definitely be a great addition to any team.",
-            rating: 5,
+            text: "I’ve worked with Ayush on multiple projects, and he owns the whole product from the interface and motion down to clean, maintainable code. He picks up anything new remarkably fast, and every team he’s part of ships better because of it.",
             avatar: "/avatar/anshul.jpg"
         },
         {
             id: 4,
             name: "Vishal Vishwakarma",
             role: "CRO at Thomson Reuters",
-            text: "I had the pleasure of working with Ayush during his internship, and I was impressed by his strong coding skills and sharp problem-solving ability. He consistently delivered quality work and showed great initiative. Highly recommended for any tech role.",
-            rating: 5,
+            text: "Ayush pairs sharp problem-solving with a real eye for product. He consistently delivered high-quality work, took initiative without being asked, and made complex things feel simple for users. I’d recommend him for any serious product build.",
             avatar: "/avatar/vishal.jpg"
         }
     ];
@@ -100,15 +96,14 @@ const Testimonials = () => {
                 </div>
 
                 {/* --- MOBILE AUTO-SLIDING UI --- */}
-                <div className="md:hidden relative h-[350px] px-2 flex items-center justify-center">
-                    <AnimatePresence mode="wait">
+                <div className="md:hidden relative h-[350px] px-2 grid place-items-center">
+                    <AnimatePresence initial={false}>
                         <motion.div 
                             key={activeIndex}
-                            className="relative flex flex-col w-full text-center items-center"
-                            initial={{ opacity: 0, x: 20, scale: 0.95 }}
-                            animate={{ opacity: 1, x: 0, scale: 1 }}
-                            exit={{ opacity: 0, x: -20, scale: 0.95 }}
-                            transition={{ duration: DURATION.base, ease: EASE.inOut }}
+                            className="relative flex flex-col w-full text-center items-center [grid-area:1/1]"
+                            initial={{ opacity: 0, x: 24 }}
+                            animate={{ opacity: 1, x: 0, transition: { duration: DURATION.base, ease: EASE.out, delay: 0.12 } }}
+                            exit={{ opacity: 0, x: -24, transition: { duration: 0.4, ease: EASE.in } }}
                         >
                             {/* Huge Quote Mark Background */}
                             <Quote className="absolute top-[-20px] left-1/2 -translate-x-1/2 w-24 h-24 text-brand/5 -rotate-6 pointer-events-none" />
@@ -174,22 +169,16 @@ const Testimonials = () => {
 
                     {/* Left Testimonial */}
                     <motion.div
-                        className="md:p-16 lg:pr-24 flex items-start"
+                        className="md:p-16 lg:pr-24 grid items-start"
                     >
-                        <AnimatePresence mode="wait">
+                        <AnimatePresence initial={false}>
                             <motion.div 
                                 key={activeIndex}
-                                className="relative w-full"
-                                initial={{ opacity: 0, filter: "blur(8px)", scale: 0.95, y: 15 }}
-                                animate={{ opacity: 1, filter: "blur(0px)", scale: 1, y: 0 }}
-                                exit={{ opacity: 0, filter: "blur(8px)", scale: 1.05, y: -15 }}
-                                transition={{ duration: DURATION.base, ease: EASE.out }}
+                                className="relative w-full [grid-area:1/1]"
+                                initial={{ opacity: 0, filter: "blur(6px)", y: 14 }}
+                                animate={{ opacity: 1, filter: "blur(0px)", y: 0, transition: { duration: DURATION.base, ease: EASE.out, delay: 0.15 } }}
+                                exit={{ opacity: 0, filter: "blur(6px)", y: -14, transition: { duration: 0.45, ease: EASE.in } }}
                             >
-                                <div className="flex gap-1 mb-6" aria-hidden="true" data-nosnippet>
-                                    {[...Array(testimonials[activeIndex].rating || 5)].map((_, i) => (
-                                        <Star key={i} className="w-3 h-3 fill-brand text-brand" />
-                                    ))}
-                                </div>
                                 <div className="flex items-start gap-4 mb-10">
                                     <p className="text-paper-foreground/80 text-xl lg:text-2xl leading-relaxed italic font-light" style={{ fontFamily: "'Fraunces', serif" }}>
                                         "{testimonials[activeIndex].text}"
@@ -215,22 +204,16 @@ const Testimonials = () => {
 
                     {/* Right Testimonial */}
                     <motion.div
-                        className="md:px-16 md:pt-16 md:pb-12 lg:pl-24 flex items-end"
+                        className="md:px-16 md:pt-16 md:pb-12 lg:pl-24 grid items-end"
                     >
-                        <AnimatePresence mode="wait">
+                        <AnimatePresence initial={false}>
                             <motion.div 
                                 key={(activeIndex + 1) % testimonials.length}
-                                className="relative w-full"
-                                initial={{ opacity: 0, filter: "blur(8px)", scale: 0.95, y: 15 }}
-                                animate={{ opacity: 1, filter: "blur(0px)", scale: 1, y: 0 }}
-                                exit={{ opacity: 0, filter: "blur(8px)", scale: 1.05, y: -15 }}
-                                transition={{ duration: DURATION.base, ease: EASE.out }}
+                                className="relative w-full [grid-area:1/1]"
+                                initial={{ opacity: 0, filter: "blur(6px)", y: 14 }}
+                                animate={{ opacity: 1, filter: "blur(0px)", y: 0, transition: { duration: DURATION.base, ease: EASE.out, delay: 0.15 } }}
+                                exit={{ opacity: 0, filter: "blur(6px)", y: -14, transition: { duration: 0.45, ease: EASE.in } }}
                             >
-                                <div className="flex gap-1 mb-6" aria-hidden="true" data-nosnippet>
-                                    {[...Array(testimonials[(activeIndex + 1) % testimonials.length].rating || 5)].map((_, i) => (
-                                        <Star key={i} className="w-3 h-3 fill-brand text-brand" />
-                                    ))}
-                                </div>
                                 <div className="flex items-start gap-4 mb-10">
                                     <p className="text-paper-foreground/80 text-xl lg:text-2xl leading-relaxed italic font-light" style={{ fontFamily: "'Fraunces', serif" }}>
                                         "{testimonials[(activeIndex + 1) % testimonials.length].text}"
