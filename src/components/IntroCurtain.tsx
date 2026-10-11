@@ -1,8 +1,15 @@
-// First-visit intro for the homepage: only the "ak" signature, writing itself on a dark stage.
-// As the curtain lifts to reveal the hero, the signature flies into the navbar and lands
-// exactly on the logo, which then takes over. Pure HTML/CSS + a tiny inline script, so it
-// covers the page from the very first paint without waiting for React to hydrate.
-// Plays once per session and never for reduced-motion users (styles live in index.css).
+// First-visit intro for the homepage — the signature, and nothing else:
+//   1. Write: the "ak" signature writes itself left → right with a soft pen edge
+//   2. Glint: one band of brand-orange light sweeps through the stroke (masked to the signature)
+//   3. Land:  the dark stage fades away while the signature flies onto the navbar logo
+//
+// Every moving part is a transform/opacity CSS animation, so it runs on the GPU compositor and
+// stays smooth while the page boots underneath. The inline script only flips the phase and
+// measures the logo for the flight. Plays once per session, never for reduced-motion users.
+// Styles: index.css "First-visit intro".
+
+const REVEAL_AT = 2250; // ms — after the write (≈1.55s) and the glint (≈2.15s)
+const DONE_AT = REVEAL_AT + 1150;
 
 const INTRO_SCRIPT = `(function(){try{
   if(location.pathname!=='/'||sessionStorage.getItem('ak-intro')||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
@@ -10,7 +17,7 @@ const INTRO_SCRIPT = `(function(){try{
   d.dataset.intro='play';
   sessionStorage.setItem('ak-intro','1');
   setTimeout(function(){
-    // Measure where the signature is and where the navbar logo sits, then fly between them
+    // Fly the signature from centre stage onto the navbar logo
     var s=document.querySelector('.intro-sig'), t=document.querySelector('.nav-logo img');
     if(s&&t){
       var a=s.getBoundingClientRect(), b=t.getBoundingClientRect();
@@ -19,16 +26,26 @@ const INTRO_SCRIPT = `(function(){try{
       s.style.setProperty('--fs',String(b.width/a.width));
     }
     d.dataset.intro='reveal';
-  },1700);
-  setTimeout(function(){delete d.dataset.intro},2750);
+  },${REVEAL_AT});
+  setTimeout(function(){delete d.dataset.intro},${DONE_AT});
 }catch(e){}})();`;
 
 const IntroCurtain = () => (
   <>
     <script dangerouslySetInnerHTML={{ __html: INTRO_SCRIPT }} />
-    <div className="intro-curtain" aria-hidden="true" />
-    {/* eslint-disable-next-line @next/next/no-img-element */}
-    <img src="/assets/ayush-kushwaha-logo.webp" alt="" aria-hidden="true" className="intro-sig" width={274} height={108} />
+    <div className="intro-stage" aria-hidden="true" />
+
+    {/* Signature: a soft-edged window slides across it (the image counter-slides, so it stays put
+        and appears left → right); then an orange glint, masked to the stroke, passes through it */}
+    <span className="intro-sig" aria-hidden="true">
+      <span className="intro-sig-window">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/ayush-kushwaha-logo.webp" alt="" width={274} height={108} />
+      </span>
+      <span className="intro-sig-glint">
+        <span className="intro-sig-glint-band" />
+      </span>
+    </span>
   </>
 );
 

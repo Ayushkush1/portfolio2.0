@@ -236,46 +236,71 @@ All colors MUST be HSL.
 .nav-light .nav-glass .bg-foreground { background-color: hsl(var(--paper-foreground)); }
 
 /* ── First-visit intro (see IntroCurtain) ────────────────────────
-   html[data-intro="play"]   → curtain + signature writes itself, hero entrances paused
-   html[data-intro="reveal"] → curtain lifts while the signature flies into the navbar logo slot
-   The inline script measures both rects and sets --fx/--fy/--fs on .intro-sig. */
-.intro-curtain, .intro-sig { display: none; }
-[data-intro] .intro-curtain {
+   Minimal: the signature writes itself, an orange glint passes through it, then the stage fades
+   while the signature flies onto the navbar logo (script sets --fx/--fy/--fs on .intro-sig).
+   Transform/opacity animations only, so it stays smooth while the page boots underneath. */
+.intro-stage, .intro-sig { display: none; }
+[data-intro] .intro-stage {
   display: block; position: fixed; inset: 0; z-index: 200;
   background: hsl(var(--background));
 }
 [data-intro="play"] body { overflow: hidden; }
+[data-intro="reveal"] .intro-stage { animation: intro-stage-out 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.15s forwards; }
+@keyframes intro-stage-out { to { opacity: 0; } }
 
-/* The signature lives above the curtain (not inside it), so the lift never clips it */
+/* The signature sits above the stage, centred */
 [data-intro] .intro-sig {
   display: block; position: fixed; z-index: 201; left: 50%; top: 50%;
-  width: clamp(200px, 24vw, 320px); height: auto;
-  margin-left: calc(clamp(200px, 24vw, 320px) / -2); margin-top: -60px;
-  transform-origin: 0 0;
-  filter: brightness(0) invert(1);
-  /* "Written" by sweeping a soft-edged mask left → right along the stroke */
-  -webkit-mask-image: linear-gradient(90deg, #000 42%, transparent 58%);
-          mask-image: linear-gradient(90deg, #000 42%, transparent 58%);
-  -webkit-mask-size: 260% 100%; mask-size: 260% 100%;
-  -webkit-mask-position: 100% 0; mask-position: 100% 0;
-  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
-  animation: intro-write 1.2s cubic-bezier(0.65, 0, 0.35, 1) 0.25s forwards;
+  width: clamp(220px, 26vw, 340px);
+  margin-left: calc(clamp(220px, 26vw, 340px) / -2); margin-top: -64px;
+  overflow: hidden; line-height: 0; transform-origin: 0 0;
 }
-@keyframes intro-write { to { -webkit-mask-position: 0% 0; mask-position: 0% 0; } }
 
-/* Flight: from centre stage into the exact box of the navbar logo */
+/* 1. Write — a window (40px wider than the mark, soft-faded on its leading edge) slides in from
+   the left while the image counter-slides the same distance: the mark stays still and is
+   revealed stroke by stroke. */
+.intro-sig-window {
+  display: block; width: calc(100% + 40px);
+  -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 40px), transparent);
+          mask-image: linear-gradient(90deg, #000 calc(100% - 40px), transparent);
+  transform: translateX(-100%);
+  animation: intro-window 1.25s cubic-bezier(0.65, 0, 0.35, 1) 0.3s forwards;
+}
+.intro-sig img {
+  display: block; width: calc(100% - 40px); height: auto; filter: brightness(0) invert(1);
+  transform: translateX(calc(100% + 40px));
+  animation: intro-window 1.25s cubic-bezier(0.65, 0, 0.35, 1) 0.3s forwards;
+}
+@keyframes intro-window { to { transform: translateX(0); } }
+
+/* 2. Glint — the signature itself is the mask; an orange band of light travels through it */
+.intro-sig-glint {
+  position: absolute; inset: 0; overflow: hidden;
+  -webkit-mask: url(/assets/ayush-kushwaha-logo.webp) center / 100% 100% no-repeat;
+          mask: url(/assets/ayush-kushwaha-logo.webp) center / 100% 100% no-repeat;
+}
+.intro-sig-glint-band {
+  position: absolute; top: 0; bottom: 0; left: -55%; width: 55%;
+  background: linear-gradient(90deg, transparent, hsl(var(--brand)) 28%, hsl(28 100% 78%) 50%, hsl(var(--brand)) 72%, transparent);
+  transform: translateX(0);
+  animation: intro-glint 0.75s cubic-bezier(0.45, 0, 0.25, 1) 1.45s forwards;
+}
+@keyframes intro-glint { to { transform: translateX(290%); } }
+
+/* 3. Land — from centre stage into the exact box of the navbar logo */
 [data-intro="reveal"] .intro-sig {
   transform: translate(var(--fx, 0px), var(--fy, 0px)) scale(var(--fs, 0.3));
   transition: transform 1s cubic-bezier(0.76, 0, 0.24, 1);
 }
-[data-intro="reveal"] .intro-curtain { animation: intro-lift 1s cubic-bezier(0.76, 0, 0.24, 1) forwards; }
-@keyframes intro-lift { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 100% 0); } }
+
+/* Blueprint notes still use the mask write-in keyframes */
+@keyframes intro-write { to { -webkit-mask-position: 0% 0; mask-position: 0% 0; } }
 
 /* The real navbar logo waits until the signature has landed on it */
 [data-intro] .nav-logo img { opacity: 0; }
 
-/* Hold the hero's CSS entrances until the curtain starts lifting.
-   (The navbar settles behind the curtain so its logo position can be measured.) */
+/* Hold the hero's CSS entrances until the stage starts fading.
+   (The navbar settles behind the stage so its logo position can be measured.) */
 [data-intro="play"] :is(.hero-char, .hero-left, .hero-right, .hero-intro) {
   animation-play-state: paused;
 }
