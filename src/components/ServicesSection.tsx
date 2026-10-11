@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import MaskReveal from "@/components/ui/mask-reveal";
+import { ScrollBlurText } from "@/components/ui/scroll-reveal";
 import { DURATION, EASE, STAGGER, fadeUp } from "@/lib/motion";
 
 const ServicesSection = () => {
@@ -41,7 +42,7 @@ const ServicesSection = () => {
                 <div className="flex flex-col lg:flex-row relative">
 
                     {/* Left Sticky Number */}
-                    <div className="hidden lg:flex w-1/2 sticky top-0 h-screen items-center justify-start lg:pl-2 xl:pl-4">
+                    <div data-bp-note="sticky index — one chapter per service" data-bp-pos="right" className="hidden lg:flex w-1/2 sticky top-0 h-screen items-center justify-start lg:pl-2 xl:pl-4">
                         <motion.div
                             key={activeId}
                             initial={{ opacity: 0, scale: 0.9, x: -20 }}
@@ -81,12 +82,10 @@ const ServicesSection = () => {
                                     lines={[<>{service.title}<span className="text-brand ml-1">.</span></>]}
                                 />
 
-                                <motion.p
+                                <ScrollBlurText
                                     className="text-gray-500 text-base md:text-xl mb-10 max-w-lg leading-relaxed"
-                                    {...fadeUp(0.15)}
-                                >
-                                    {service.description}
-                                </motion.p>
+                                    text={service.description}
+                                />
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12">
                                     {service.features.map((feature, idx) => (

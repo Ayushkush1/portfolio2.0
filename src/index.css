@@ -234,3 +234,164 @@ All colors MUST be HSL.
 }
 .nav-light .nav-glass .text-foreground { color: hsl(var(--paper-foreground)); }
 .nav-light .nav-glass .bg-foreground { background-color: hsl(var(--paper-foreground)); }
+
+/* ── First-visit intro (see IntroCurtain) ────────────────────────
+   html[data-intro="play"]   → curtain + signature writes itself, hero entrances paused
+   html[data-intro="reveal"] → curtain lifts while the signature flies into the navbar logo slot
+   The inline script measures both rects and sets --fx/--fy/--fs on .intro-sig. */
+.intro-curtain, .intro-sig { display: none; }
+[data-intro] .intro-curtain {
+  display: block; position: fixed; inset: 0; z-index: 200;
+  background: hsl(var(--background));
+}
+[data-intro="play"] body { overflow: hidden; }
+
+/* The signature lives above the curtain (not inside it), so the lift never clips it */
+[data-intro] .intro-sig {
+  display: block; position: fixed; z-index: 201; left: 50%; top: 50%;
+  width: clamp(200px, 24vw, 320px); height: auto;
+  margin-left: calc(clamp(200px, 24vw, 320px) / -2); margin-top: -60px;
+  transform-origin: 0 0;
+  filter: brightness(0) invert(1);
+  /* "Written" by sweeping a soft-edged mask left → right along the stroke */
+  -webkit-mask-image: linear-gradient(90deg, #000 42%, transparent 58%);
+          mask-image: linear-gradient(90deg, #000 42%, transparent 58%);
+  -webkit-mask-size: 260% 100%; mask-size: 260% 100%;
+  -webkit-mask-position: 100% 0; mask-position: 100% 0;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  animation: intro-write 1.2s cubic-bezier(0.65, 0, 0.35, 1) 0.25s forwards;
+}
+@keyframes intro-write { to { -webkit-mask-position: 0% 0; mask-position: 0% 0; } }
+
+/* Flight: from centre stage into the exact box of the navbar logo */
+[data-intro="reveal"] .intro-sig {
+  transform: translate(var(--fx, 0px), var(--fy, 0px)) scale(var(--fs, 0.3));
+  transition: transform 1s cubic-bezier(0.76, 0, 0.24, 1);
+}
+[data-intro="reveal"] .intro-curtain { animation: intro-lift 1s cubic-bezier(0.76, 0, 0.24, 1) forwards; }
+@keyframes intro-lift { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 100% 0); } }
+
+/* The real navbar logo waits until the signature has landed on it */
+[data-intro] .nav-logo img { opacity: 0; }
+
+/* Hold the hero's CSS entrances until the curtain starts lifting.
+   (The navbar settles behind the curtain so its logo position can be measured.) */
+[data-intro="play"] :is(.hero-char, .hero-left, .hero-right, .hero-intro) {
+  animation-play-state: paused;
+}
+
+/* ── Blueprint mode (see BlueprintMode) ──────────────────────────
+   The design + engineering layer, drawn over the live site in blueprint cyan. */
+:root {
+  --bp: 199 100% 68%;
+}
+.bp-layer {
+  position: fixed; inset: 0; z-index: 45; pointer-events: none; /* above content, below the navbar (z-50) */
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.45s ease, visibility 0s linear 0.45s;
+}
+[data-blueprint] .bp-layer { opacity: 1; visibility: visible; transition: opacity 0.45s ease; }
+
+/* Grid paper: fine 16px lines + stronger 80px lines */
+.bp-paper {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(hsl(var(--bp) / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--bp) / 0.05) 1px, transparent 1px),
+    linear-gradient(hsl(var(--bp) / 0.11) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--bp) / 0.11) 1px, transparent 1px);
+  background-size: 16px 16px, 16px 16px, 80px 80px, 80px 80px;
+}
+
+/* Layout columns grow down from the top, one after another */
+.bp-columns { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.bp-columns span {
+  background: hsl(var(--bp) / 0.045);
+  border-inline: 1px solid hsl(var(--bp) / 0.16);
+  transform: scaleY(0); transform-origin: top;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bp-columns span:nth-child(n + 5) { display: none; }
+@media (min-width: 768px) {
+  .bp-columns { grid-template-columns: repeat(12, 1fr); gap: 24px; }
+  .bp-columns span:nth-child(n + 5) { display: block; }
+}
+[data-blueprint] .bp-columns span { transform: scaleY(1); }
+
+.bp-legend {
+  position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%);
+  font: 500 10px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
+  color: hsl(var(--bp) / 0.8);
+}
+.bp-legend span { color: hsl(var(--bp)); font-weight: 700; }
+.bp-legend kbd { border: 1px solid hsl(var(--bp) / 0.5); border-radius: 3px; padding: 0 4px; }
+@media (max-width: 767px) { .bp-legend { display: none; } }
+
+/* Measured items — positioned every frame by BlueprintMode */
+.bp-item { position: absolute; top: 0; left: 0; will-change: transform; }
+.bp-tag {
+  position: absolute; left: -1px; bottom: 100%; margin-bottom: 4px;
+  font: 600 10px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.04em;
+  color: hsl(222 84% 5%); background: hsl(var(--bp));
+  padding: 4px 6px; border-radius: 3px; white-space: nowrap;
+}
+.bp-item-heading { outline: 1px dashed hsl(var(--bp) / 0.75); outline-offset: 2px; }
+.bp-item-image { outline: 1px solid hsl(var(--bp) / 0.6); background: hsl(222 60% 7% / 0.3); }
+.bp-cross { position: absolute; inset: 0; width: 100%; height: 100%; }
+.bp-cross line { stroke: hsl(var(--bp) / 0.35); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.bp-size { top: 10px; left: 10px; bottom: auto; margin: 0; }
+
+/* Handwritten design notes, written in like the intro signature */
+.bp-note {
+  position: absolute; width: max-content; max-width: 280px;
+  font-family: 'Caveat', cursive; font-size: 24px; font-weight: 600; line-height: 1.05;
+  color: hsl(var(--bp));
+  text-shadow: 0 1px 10px hsl(222 84% 4% / 0.9);
+}
+.bp-note-ink {
+  -webkit-mask-image: linear-gradient(90deg, #000 45%, transparent 55%); mask-image: linear-gradient(90deg, #000 45%, transparent 55%);
+  -webkit-mask-size: 240% 100%; mask-size: 240% 100%;
+  -webkit-mask-position: 100% 0; mask-position: 100% 0;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  animation: intro-write 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.35s forwards;
+}
+.bp-note-code {
+  display: block; width: max-content; margin-top: 8px;
+  font: 500 11px/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: hsl(var(--bp)); background: hsl(var(--bp) / 0.12); border: 1px solid hsl(var(--bp) / 0.25);
+  padding: 3px 7px; border-radius: 4px;
+}
+.bp-arrow { position: absolute; width: 50px; height: 34px; }
+.bp-arrow path {
+  stroke: hsl(var(--bp)); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 80; stroke-dashoffset: 80;
+  animation: bp-draw 0.6s cubic-bezier(0.65, 0, 0.35, 1) 1.1s forwards;
+}
+@keyframes bp-draw { to { stroke-dashoffset: 0; } }
+[data-pos="top"]    .bp-note { left: 4px; bottom: calc(100% + 44px); }
+[data-pos="top"]    .bp-arrow { left: 6px; top: calc(100% + 2px); }
+[data-pos="bottom"] .bp-note { left: 4px; top: calc(100% + 44px); }
+[data-pos="bottom"] .bp-arrow { left: 6px; bottom: calc(100% + 2px); transform: scaleY(-1); }
+[data-pos="right"]  .bp-note { left: calc(100% + 56px); top: -6px; }
+[data-pos="right"]  .bp-arrow { right: calc(100% + 4px); top: 6px; transform: scaleX(-1); }
+[data-pos="left"]   .bp-note { right: calc(100% + 56px); top: -6px; text-align: right; }
+[data-pos="left"]   .bp-note-code { margin-left: auto; }
+[data-pos="left"]   .bp-arrow { left: calc(100% + 4px); top: 6px; }
+
+/* Sections get their outline and name */
+[data-blueprint] main section[id] { outline: 1px dashed hsl(var(--bp) / 0.3); outline-offset: -10px; }
+[data-blueprint] main section[id]::before {
+  content: "§ " attr(id);
+  position: absolute; top: 18px; right: 22px; z-index: 30;
+  font: 600 10px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: 0.14em; text-transform: uppercase; color: hsl(var(--bp));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bp-note-ink { animation: none; -webkit-mask-image: none; mask-image: none; }
+  .bp-arrow path { animation: none; stroke-dashoffset: 0; }
+  .bp-columns span { transition: none; }
+}
+/* Phones have no room for side annotations: keep grid, specs and wireframes only */
+@media (max-width: 767px) { .bp-item-note { display: none !important; } }

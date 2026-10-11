@@ -11,7 +11,7 @@ export const EASE: { out: Bezier; in: Bezier; inOut: Bezier } = {
 
 export const DURATION = {
   fast: 0.3, // hovers, small UI state
-  base: 0.7, // text & element reveals
+  base: 0.9, // text & element reveals
   slow: 1.1, // headline mask reveals, large surfaces
 };
 

@@ -6,13 +6,16 @@ import { ArrowRight } from "lucide-react";
 import { clientWebsites } from "@/data/projects";
 import { track } from "@/lib/analytics";
 import MaskReveal from "@/components/ui/mask-reveal";
+import { ScrollBlurText } from "@/components/ui/scroll-reveal";
 import { DURATION, EASE, fadeUp } from "@/lib/motion";
 
 const PREVIEW_W = 500;
 const PREVIEW_H = 307;
 const PREVIEW_GAP = 80; // clears the 120px cursor lens (see CursorDot)
 
-const ClientWebsites = ({ hideHeader = false }: { hideHeader?: boolean }) => {
+// `limit` shows only the first N sites (the homepage shows a shortlist; /work shows all)
+const ClientWebsites = ({ hideHeader = false, limit }: { hideHeader?: boolean; limit?: number }) => {
+    const sites = limit ? clientWebsites.slice(0, limit) : clientWebsites;
     const [active, setActive] = useState<number | null>(null);
     const listRef = useRef<HTMLDivElement>(null);
 
@@ -66,12 +69,10 @@ const ClientWebsites = ({ hideHeader = false }: { hideHeader?: boolean }) => {
                             </span>,
                         ]}
                     />
-                    <motion.p
+                    <ScrollBlurText
                         className="text-gray-500 max-w-sm leading-relaxed md:text-right"
-                        {...fadeUp(0.2)}
-                    >
-                        Marketing sites and landing pages for brands in travel, education, SaaS and more.
-                    </motion.p>
+                        text="Marketing sites and landing pages for brands in travel, education, SaaS and more."
+                    />
                 </div>
                 )}
 
@@ -82,7 +83,7 @@ const ClientWebsites = ({ hideHeader = false }: { hideHeader?: boolean }) => {
                     onMouseMove={handleMouseMove}
                     onMouseLeave={() => setActive(null)}
                 >
-                    {clientWebsites.map((site, i) => (
+                    {sites.map((site, i) => (
                         <motion.a
                             key={site.id}
                             href={site.url}
@@ -149,6 +150,7 @@ const ClientWebsites = ({ hideHeader = false }: { hideHeader?: boolean }) => {
 
             {/* Floating preview — follows the cursor over the list on desktop */}
             <motion.div
+                data-bp-skip
                 className="pointer-events-none fixed left-0 top-0 z-50 hidden lg:block"
                 style={{ x, y, width: PREVIEW_W, height: PREVIEW_H }}
                 aria-hidden="true"
@@ -156,13 +158,16 @@ const ClientWebsites = ({ hideHeader = false }: { hideHeader?: boolean }) => {
                 <AnimatePresence>
                     {active !== null && (
                         <motion.div
+                            data-bp-note="a live preview trails the cursor"
+                            data-bp-code="useSpring(mouseX, { stiffness: 220 })"
+                            data-bp-pos="bottom"
                             className="absolute inset-0 overflow-hidden rounded-[32px] border border-white/10 bg-[#0d1117] shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
                             initial={{ opacity: 0, scale: 0.85, rotate: -3 }}
                             animate={{ opacity: 1, scale: 1, rotate: 0 }}
                             exit={{ opacity: 0, scale: 0.85, rotate: 3 }}
                             transition={{ duration: DURATION.fast, ease: EASE.out }}
                         >
-                            {clientWebsites.map((site, i) => (
+                            {sites.map((site, i) => (
                                 <Image
                                     key={site.id}
                                     src={site.image}

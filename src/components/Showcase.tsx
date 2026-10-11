@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MaskReveal from "@/components/ui/mask-reveal";
+import { CurtainReveal } from "@/components/ui/scroll-reveal";
 import { fadeUp } from "@/lib/motion";
 
 /* ─── Row: big card + small card, text below each ──────────── */
@@ -14,10 +15,13 @@ function ShowcaseRow({
   big,
   small,
   reverse = false,
+  annotate = false,
 }: {
   big: FeaturedProduct;
   small: FeaturedProduct;
   reverse?: boolean;
+  /** Blueprint mode note on the first row's small card (open space above it) */
+  annotate?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -25,12 +29,11 @@ function ShowcaseRow({
     offset: ["start end", "end start"],
   });
   const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
-  const opacity = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0]);
 
   return (
     <motion.div
       ref={ref}
-      style={{ opacity, y }}
+      style={{ y }}
       className={`flex gap-6 md:gap-10 w-full items-start ${reverse ? "flex-row-reverse" : "flex-row"}`}
     >
       {/* Big card — 62% width, taller */}
@@ -44,8 +47,8 @@ function ShowcaseRow({
           className="group relative block cursor-none w-full h-[340px] md:h-[500px]"
           style={{ borderRadius: "40px", overflow: "hidden" }}
         >
-          {/* Tall cover fills the card; crops from the bottom only */}
-          <div className="absolute inset-0 overflow-hidden">
+          {/* Tall cover fills the card; opens like a curtain as the row scrolls in */}
+          <CurtainReveal className="absolute inset-0 overflow-hidden">
             <Image
               src={big.cover ?? big.sliderItems[0]?.image}
               alt={big.name}
@@ -53,7 +56,7 @@ function ShowcaseRow({
               sizes="(max-width: 768px) 62vw, 850px"
               className="object-cover object-left-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             />
-          </div>
+          </CurtainReveal>
         </Link>
         </ViewTransition>
         <div className="ml-3">
@@ -72,13 +75,17 @@ function ShowcaseRow({
         <ViewTransition name={`project-${small.id}`} share="project-morph" default="none">
         <Link
           href={`/work/${small.id}`}
+          {...(annotate && {
+            "data-bp-note": "click → the card morphs into its case study",
+            "data-bp-code": `<ViewTransition name="project-${small.id}" />`,
+          })}
           data-cursor="View"
           data-cursor-ring={`${small.name} · ${small.category}`}
           className="group relative block cursor-none w-full h-[210px] md:h-[300px]"
           style={{ borderRadius: "40px", overflow: "hidden" }}
         >
-          {/* Tall cover fills the card; crops from the bottom only */}
-          <div className="absolute inset-0 overflow-hidden">
+          {/* Tall cover fills the card; opens like a curtain as the row scrolls in */}
+          <CurtainReveal className="absolute inset-0 overflow-hidden">
             <Image
               src={small.cover ?? small.sliderItems[0]?.image}
               alt={small.name}
@@ -86,7 +93,7 @@ function ShowcaseRow({
               sizes="(max-width: 768px) 38vw, 520px"
               className="object-cover object-left-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             />
-          </div>
+          </CurtainReveal>
         </Link>
         </ViewTransition>
         <div className="ml-3">
@@ -173,6 +180,7 @@ const Showcase = () => {
               big={big}
               small={small}
               reverse={i % 2 === 1}
+              annotate={i === 0}
             />
           ))}
         </div>

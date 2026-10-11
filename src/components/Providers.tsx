@@ -19,8 +19,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
       gsap.registerPlugin(ScrollTrigger);
       
       lenisInstance = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        // Distance-based smoothing (like adam-ewa.pl): the page glides toward the target
+        // with continuous momentum, so scroll-scrubbed reveals flow between sections
+        lerp: 0.1,
         orientation: "vertical",
         gestureOrientation: "vertical",
         smoothWheel: true,

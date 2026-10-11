@@ -10,6 +10,7 @@ import {
   Goal
 } from "lucide-react";
 import FallingPillsArea from "./FallingPillsArea";
+import { ScrollBlurText } from "./ui/scroll-reveal";
 import { DURATION, EASE, VIEWPORT, fadeUp } from "@/lib/motion";
 
 
@@ -23,15 +24,6 @@ const PillBadge: React.FC<{ icon: React.ReactNode; label: string; color: string 
   </div>
 );
 
-const WordReveal = ({ children, progress, range }: { children: React.ReactNode, progress: any, range: [number, number] }) => {
-  const opacity = useTransform(progress, range, [0.15, 1]);
-  return (
-    <motion.span style={{ opacity }} className="inline-block mr-[0.25em] mb-[0.1em] text-center">
-      {children}
-    </motion.span>
-  );
-};
-
 const About: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -39,14 +31,8 @@ const About: React.FC = () => {
     offset: ["start end", "end start"],
   });
 
-  const textRef = useRef<HTMLHeadingElement>(null);
-  const { scrollYProgress: textScrollYProgress } = useScroll({
-    target: textRef,
-    offset: ["start 85%", "end 65%"],
-  });
 
   const statementText = "I help founders and businesses turn ideas into products people enjoy using designing every screen, crafting the motion, and engineering everything behind it, from first wireframe to production.";
-  const words = statementText.split(" ");
 
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -150]);
   const y2 = useTransform(scrollYProgress, [0, 1], [0, -100]);
@@ -83,20 +69,18 @@ const About: React.FC = () => {
         <div className="relative flex items-center justify-center">
           {/* Central Text */}
           <motion.div
+            data-bp-note="words sharpen as you scroll — read at your pace"
+            data-bp-code="useScroll → useSpring → blur(8px → 0)"
             className="text-center md:max-w-[850px] px-6 py-8 md:px-8 md:py-4 md:bg-transparent bg-white/5 backdrop-blur-xl md:backdrop-blur-none border border-white/10 md:border-none rounded-[2.5rem] md:rounded-none shadow-2xl md:shadow-none"
             {...fadeUp(0.1)}
           >
-            <h2 ref={textRef} className="text-[1.7rem] md:text-5xl lg:text-5xl font-thin text-foreground mb-0 md:mb-6 flex flex-wrap justify-center text-center" style={{ lineHeight: "1.2" }}>
-              {words.map((word, i) => {
-                const start = i / words.length;
-                const end = start + (1 / words.length);
-                return (
-                  <WordReveal key={i} progress={textScrollYProgress} range={[start, end]}>
-                    {word}
-                  </WordReveal>
-                );
-              })}
-            </h2>
+            {/* Words sharpen out of a blur, scrubbed to the scroll */}
+            <ScrollBlurText
+              as="h2"
+              text={statementText}
+              className="text-[1.7rem] md:text-5xl lg:text-5xl font-thin text-foreground mb-0 md:mb-6 text-center"
+              style={{ lineHeight: "1.2" }}
+            />
           </motion.div>
 
           {/* Falling Skills Pills - Desktop Only (physics on hover) */}

@@ -183,7 +183,7 @@ export default function CursorDot() {
           >
             {/* Frosted glass — blurs and deepens the work underneath instead of covering it */}
             <div
-              className="absolute inset-[6px] rounded-full bg-[#0b0f19]/30 shadow-[inset_0_1px_1px_rgba(255,255,255,0.25),0_20px_50px_rgba(0,0,0,0.45)]"
+              className="absolute inset-[6px] rounded-full bg-[#0b0f19]/55 shadow-[inset_0_1px_1px_rgba(255,255,255,0.25),0_20px_50px_rgba(0,0,0,0.45)]"
               style={{ backdropFilter: 'blur(10px) saturate(1.6)', WebkitBackdropFilter: 'blur(10px) saturate(1.6)' }}
             />
 
@@ -217,7 +217,7 @@ export default function CursorDot() {
                   style={{ transformBox: 'view-box', transformOrigin: `${LENS / 2}px ${LENS / 2}px` }}
                 >
                   <text
-                    className={`fill-white/60 text-[7.5px] font-medium uppercase transition-opacity duration-700 ${open ? 'opacity-100' : 'opacity-0'}`}
+                    className={`fill-white/80 text-[7.5px] font-medium uppercase transition-opacity duration-700 ${open ? 'opacity-100' : 'opacity-0'}`}
                     style={{ letterSpacing: '0.22em' }}
                   >
                     <textPath href="#cursor-orbit" textLength={TEXT_C - 4} lengthAdjust="spacing">

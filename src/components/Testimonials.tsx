@@ -67,6 +67,8 @@ const Testimonials = () => {
             {/* The page's one light surface: a change of chapter before the closing contact section */}
             <motion.div
                 data-nav-theme="light"
+                data-bp-note="the one light surface = a chapter break"
+                data-bp-code='data-nav-theme="light"'
                 style={{ scale: sheetScale }}
                 className="relative overflow-hidden rounded-[2.5rem] md:rounded-[4rem] bg-paper text-paper-foreground pt-14 md:pt-24 md:pb-6"
             >

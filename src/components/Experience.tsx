@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { track } from "@/lib/analytics";
 import MaskReveal from "@/components/ui/mask-reveal";
+import { ScrollBlurText } from "@/components/ui/scroll-reveal";
 import { fadeUp, STAGGER } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -205,12 +206,10 @@ const Experience = () => {
                             />
 
                             {/* Description */}
-                            <motion.p
+                            <ScrollBlurText
                                 className="text-gray-600 text-[17px] leading-relaxed mb-12"
-                                {...fadeUp(0.2)}
-                            >
-                                Building high-performance SaaS platforms, internal business systems, and modern web applications that drive operational efficiency. With a strong focus on scalable architecture and exceptional user experiences.
-                            </motion.p>
+                                text="Building high-performance SaaS platforms, internal business systems, and modern web applications that drive operational efficiency. With a strong focus on scalable architecture and exceptional user experiences."
+                            />
                         </div>
 
                         {/* Experience Table */}

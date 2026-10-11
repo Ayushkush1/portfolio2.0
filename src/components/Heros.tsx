@@ -140,7 +140,7 @@ const Hero = () => {
             <div className="container relative z-10 grid min-h-[70vh] lg:min-h-[80vh] grid-cols-1 items-start md:items-center lg:gap-10 md:gap-4 gap-8 pt-8 md:pt-36 pb-12 md:pb-40 md:py-20 md:grid-cols-2">
                 {/* Left copy */}
                 <div className="hero-left">
-                    <h1 className="text-[2.2rem] sm:text-[2.6rem] lg:text-6xl font-bold leading-tight tracking-tight max-w-xl flex flex-wrap">
+                    <h1 data-bp-note="serif + sans — warmth meets clarity" data-bp-code="Fraunces 300 · system sans 700" data-bp-pos="bottom" className="text-[2.2rem] sm:text-[2.6rem] lg:text-6xl font-bold leading-tight tracking-tight max-w-xl flex flex-wrap">
                         {HEADLINE.map((line, lineIdx) => (
                             <span
                                 key={lineIdx}
@@ -216,6 +216,9 @@ const Hero = () => {
                                 <Button
                                     variant="hero"
                                     size="lg"
+                                    data-bp-note="one primary action, zero forms"
+                                    data-bp-code="wa.me → WhatsApp chat"
+                                    data-bp-pos="left"
                                     className="group flex items-center relative overflow-hidden transition-all duration-300 hover:bg-[#ff4d1a] shadow-[0_0_20px_rgba(255,95,38,0.4)] hover:shadow-[0_0_30px_rgba(255,95,38,0.6)]"
                                     onClick={openWhatsApp}
                                 >

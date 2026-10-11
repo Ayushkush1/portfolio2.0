@@ -1,9 +1,8 @@
 "use client";
-import { motion } from "framer-motion";
 import { useRef } from "react";
 import GridMotion from "./GridMotion";
 import MaskReveal from "./ui/mask-reveal";
-import { fadeUp } from "@/lib/motion";
+import { ScrollBlurText } from "@/components/ui/scroll-reveal";
 
 // Every image shows once across the two fully-visible middle rows:
 // the first half goes in the upper middle row, the rest in the lower one.
@@ -46,17 +45,20 @@ const DesignShowcase = () => {
                             ]}
                         />
                     </div>
-                    <motion.p
+                    <ScrollBlurText
                         className="text-gray-400 max-w-md font-normal leading-relaxed md:text-right"
-                        {...fadeUp(0.2)}
-                    >
-                        From wireframes to highly polished interfaces, I craft designs that balance beautiful aesthetics with frictionless functionality.
-                    </motion.p>
+                        text="From wireframes to highly polished interfaces, I craft designs that balance beautiful aesthetics with frictionless functionality."
+                    />
                 </div>
             </div>
 
             {/* Interactive GridMotion Container */}
-            <div className="w-full h-[500px] md:h-[700px] relative z-20">
+            <div
+                data-bp-skip
+                data-bp-note="endless marquee — never slows, never reverses"
+                data-bp-code="gsap.ticker + utils.wrap()"
+                className="w-full h-[500px] md:h-[700px] relative z-20"
+            >
                 <GridMotion items={designs} gradientColor="transparent" />
             </div>
         </section>

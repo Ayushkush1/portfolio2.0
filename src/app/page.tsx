@@ -11,6 +11,8 @@ import DesignShowcase from "@/components/DesignShowcase";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import { JsonLd, serviceJsonLd } from "@/lib/seo";
+import IntroCurtain from "@/components/IntroCurtain";
+import StatusStrip from "@/components/StatusStrip";
 
 export const metadata: Metadata = {
   alternates: { canonical: '/' },
@@ -39,14 +41,16 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main>
+      <IntroCurtain />
       <JsonLd data={serviceJsonLd} />
       <Navbar />
       <Heros />
+      <StatusStrip />
       <About />
       {/* Pacing: proof first (products → design range → websites), then what I do & who I am */}
       <Showcase />
       <DesignShowcase />
-      <ClientWebsites />
+      <ClientWebsites limit={6} />
       <ServicesSection />
       <Experience />
       <Testimonials />

@@ -1,8 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import BlueprintSwitch from "./BlueprintSwitch";
 
 const navItems = [
     { href: "#home", label: "Home", id: "home" },
@@ -62,6 +63,14 @@ const Navbar = ({
     const [activeSection, setActiveSection] = useState(sectionsToTrack[0]?.label || "Home");
     const [isScrolled, setIsScrolled] = useState(false);
     const [isOnLight, setIsOnLight] = useState(false);
+
+    // Section label pill glides to each new label's width instead of snapping,
+    // so the buttons beside it slide smoothly rather than jumping
+    const labelMeasureRef = useRef<HTMLSpanElement>(null);
+    const [labelWidth, setLabelWidth] = useState<number | null>(null);
+    useLayoutEffect(() => {
+        if (labelMeasureRef.current) setLabelWidth(labelMeasureRef.current.offsetWidth);
+    }, [activeSection]);
     const [isMobile, setIsMobile] = useState(false);
     const router = useRouter();
 
@@ -179,9 +188,22 @@ const Navbar = ({
                     </a>
 
                     <div className="nav-actions-in flex items-center gap-2 lg:gap-3 pointer-events-auto ml-auto">
+                        {/* Live ⇄ Blueprint: see the site as designed & engineered */}
+                        <BlueprintSwitch />
+
                         {/* Glassmorphism Text Pill */}
-                        <div className="nav-glass flex items-center justify-center h-[38px] min-w-[80px] px-4 rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)]">
+                        <div
+                            style={{
+                                width: labelWidth ? Math.max(80, labelWidth + 32) : undefined,
+                                // Inline so it wins over .nav-glass's shorthand transition in index.css
+                                transition: "width 0.6s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.5s, border-color 0.5s, color 0.5s",
+                            }}
+                            className="nav-glass flex items-center justify-center h-[38px] min-w-[80px] px-4 rounded-full bg-[hsl(222_47%_7%/0.5)] backdrop-blur-xl backdrop-saturate-200 border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)]">
                             <div className="relative flex items-center justify-center overflow-hidden w-full h-full">
+                                {/* Invisible copy of the label, measured to size the pill */}
+                                <span ref={labelMeasureRef} aria-hidden="true" className="invisible absolute whitespace-nowrap text-sm font-medium tracking-wide">
+                                    {activeSection}
+                                </span>
                                 <AnimatePresence mode="popLayout">
                                     <motion.span
                                         key={activeSection}
@@ -189,7 +211,7 @@ const Navbar = ({
                                         initial="initial"
                                         animate="animate"
                                         exit="exit"
-                                        className="text-sm font-medium tracking-wide text-foreground"
+                                        className="whitespace-nowrap text-sm font-medium tracking-wide text-foreground"
                                     >
                                         {activeSection}
                                     </motion.span>
@@ -200,7 +222,7 @@ const Navbar = ({
                         {backTo || isProjectDetail ? (
                             <motion.button
                                 aria-label="Go back"
-                                className="nav-glass inline-flex h-[38px] w-[38px] items-center justify-center rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 text-foreground border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-white/20 hover:shadow-[0_4px_30px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden relative group"
+                                className="nav-glass inline-flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[hsl(222_47%_7%/0.5)] backdrop-blur-xl backdrop-saturate-200 text-foreground border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-white/20 hover:shadow-[0_4px_30px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden relative group"
                                 onClick={() => router.push(backTo || "/work")}
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
@@ -211,7 +233,7 @@ const Navbar = ({
                         ) : (
                             <motion.button
                                 aria-label="Open menu"
-                                className="nav-glass inline-flex h-[38px] w-[38px] items-center justify-center rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 text-foreground border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-white/20 hover:shadow-[0_4px_30px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden relative group"
+                                className="nav-glass inline-flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[hsl(222_47%_7%/0.5)] backdrop-blur-xl backdrop-saturate-200 text-foreground border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-white/20 hover:shadow-[0_4px_30px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden relative group"
                                 onClick={handleMenuToggle}
                             >
                                 <AnimatePresence mode="wait">
