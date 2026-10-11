@@ -160,14 +160,12 @@ const FallingPillsArea: React.FC = () => {
       if (running) return;
       running = true;
       Runner.run(runner, engine);
-      Render.run(render);
       animFrameRef.current = requestAnimationFrame(loop);
     };
     const stop = () => {
       if (!running) return;
       running = false;
       Runner.stop(runner);
-      Render.stop(render);
       cancelAnimationFrame(animFrameRef.current);
     };
     const io = new IntersectionObserver(([entry]) => (entry.isIntersecting ? start() : stop()));
