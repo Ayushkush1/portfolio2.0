@@ -370,7 +370,7 @@ export interface ClientWebsite {
 export const clientWebsites: ClientWebsite[] = [
   { id: "seven-stars", name: "Seven Stars", industry: "Pub & Restaurant", role: "Lead & Design", image: "/assets/sites/seven-stars.webp", url: "https://sevenstarsatmarshbaldon.co.uk" },
   { id: "kokalachi", name: "Kokalachi", industry: "Travel & Group Trips", role: "Lead & Design", image: "/assets/sites/kokalachi.webp", url: "https://kokalachi.com" },
-  { id: "little-flower-schools", name: "Little Flower Schools", industry: "Education", role: "Design & Development", image: "/assets/sites/little-flower-schools.webp", url: "https://lfcs-school.vercel.app" },
+  { id: "little-flower-schools", name: "Little Flower Schools", industry: "Education", role: "Design & Development", image: "/assets/sites/little-flower-schools.webp", url: "https://lfcsschools.com" },
   { id: "cp-atlas", name: "CP Atlas", industry: "Startup SaaS", role: "Design & Development", image: "/assets/sites/cp-atlas.webp", url: "https://cp-crm-lyart.vercel.app" },
   { id: "coding-pandas-studio", name: "Coding Pandas Studio", industry: "Software Agency", role: "Design & Development", image: "/assets/sites/coding-pandas-studio.webp", url: "https://cp-portfolio-eight.vercel.app" },
   { id: "coding-pandas", name: "Coding Pandas", industry: "EdTech", role: "Design & Development", image: "/assets/sites/coding-pandas.webp", url: "https://coding-pandas.vercel.app" },
