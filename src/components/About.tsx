@@ -32,7 +32,7 @@ const About: React.FC = () => {
   });
 
 
-  const statementText = "I help founders and businesses turn ideas into products people enjoy using — designing every screen, crafting the motion, and engineering everything behind it, from first wireframe to production.";
+  const statementText = "I help founders and businesses turn ideas into products people enjoy using designing every screen, crafting the motion, and engineering everything behind it, from first wireframe to production.";
 
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -150]);
   const y2 = useTransform(scrollYProgress, [0, 1], [0, -100]);
