@@ -60,7 +60,7 @@ function buildNode(item: Omit<Item, "node">): HTMLDivElement {
 // ── Collision-free note placement ────────────────────────────────
 // A note tries its preferred side first, then the others, and settles on the first one where it
 // covers no text, image, control or other note — so notes stay readable as the layout evolves.
-// "inside" (top-left corner of the element, on a dark backing) is the fallback for wide elements
+// "inside" (bottom-left corner of the element, on a dark backing) is the fallback for wide elements
 const POSITIONS = ["top", "bottom", "right", "left", "inside"] as const;
 const OBSTACLES = "h1, h2, h3, h4, p, a, button, li, img, input, label";
 const PAD = 8;
@@ -180,8 +180,8 @@ const BlueprintMode = () => {
                 node.style.transform = `translate(${r.left}px, ${r.top}px)`;
                 node.style.width = `${r.width}px`;
                 node.style.height = `${r.height}px`;
-                // Place each note once it's near the viewport (and again after a resize)
-                if (kind === "note" && node.dataset.fitted !== "1" && r.top < vh && r.bottom > 0) fitNote(el, node, layer);
+                // Place each note before it can be seen (and again after a resize / re-check)
+                if (kind === "note" && node.dataset.fitted !== "1") fitNote(el, node, layer);
                 if (kind === "image") {
                     const size = node.querySelector<HTMLElement>(".bp-size");
                     const label = `IMG ${Math.round(r.width)}×${Math.round(r.height)}`;
@@ -205,7 +205,7 @@ const BlueprintMode = () => {
             items.forEach(({ el, kind, node }) => {
                 if (kind !== "note") return;
                 const r = el.getBoundingClientRect();
-                if (r.top < vh && r.bottom > 0) node.dataset.fitted = "0";
+                if (r.bottom > -200 && r.top < vh + 200) node.dataset.fitted = "0";
             });
         }, 400);
         return () => {

@@ -180,7 +180,7 @@ const Hero = () => {
                                 }}
                             >
                                 <span className="text-2xl md:text-3xl font-black text-white flex items-start">
-                                    <CountUp to={20} /><span className="text-brand text-xl font-black ml-[2px] mt-[2px]">+</span>
+                                    <CountUp to={40} /><span className="text-brand text-xl font-black ml-[2px] mt-[2px]">+</span>
                                 </span>
                                 <span className="text-[10px] uppercase leading-3 text-gray-400 tracking-wide font-medium mt-1">Projects Shipped</span>
                             </motion.div>
