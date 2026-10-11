@@ -162,6 +162,30 @@ export interface CaseStudy {
 
 export const caseStudies: CaseStudy[] = [
   {
+    id: "catfy",
+    cover: "/assets/covers/catfy.webp",
+    name: "CATFY",
+    tagline: "Digital Catalogue Builder",
+    category: "SaaS Platform",
+    year: "2025",
+    status: "Live",
+    color: "#ff5f26",
+    overview: "CATFY is a multi-tenant SaaS for designing, publishing and sharing product catalogues. Businesses build catalogues in a visual editor, share them as live links, export them as PDFs, and pay through tiered subscriptions.",
+    challenge: "Most small businesses still make catalogues in Canva or PowerPoint and send them as PDFs. The file is out of date as soon as a price or product changes, it is heavy to send over WhatsApp, and the business never learns which products customers actually looked at.",
+    solution: "I designed and built the whole product: a drag-and-drop catalogue editor built on Craft.js, a theme system with a live style customiser for colours, fonts and spacing, and products that can be sorted by priority tags like bestseller or new. Catalogues can be public, private or restricted, and export to PDF through a headless browser so the PDF matches the web version exactly. Around that sit Stripe subscriptions across four tiers with coupons, team workspaces with email invites, view analytics, and an admin panel for running the platform.",
+    designDecisions: [
+      "Visual, block-based editor instead of forms, so non-designers can see the catalogue take shape as they build it.",
+      "One theme system drives both the live web catalogue and the PDF export, so there is never a second version to maintain.",
+      "Plan limits are enforced in the product itself, so the upgrade prompt appears exactly where the user hits a limit.",
+    ],
+    architecture: "Next.js 14 App Router with TypeScript, PostgreSQL via Prisma, Supabase for auth and storage, Stripe for billing, Playwright and Puppeteer for PDF rendering, Resend and Nodemailer for email, deployed on Vercel.",
+    role: "Solo Product Designer & Full-Stack Engineer — product design, UI, database schema, APIs, billing and deployment (173 of 186 commits).",
+    outcome: "Live product with public landing, pricing, editor, billing and admin areas, designed and engineered end to end by one person.",
+    techStack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Supabase", "Stripe", "Craft.js", "Playwright", "Tailwind CSS"],
+    images: ["/assets/Catfy_LandignPage1.webp", "/assets/Catfy_LandignPage2.webp", "/assets/Catfy_LandignPage3.webp", "/assets/Catfy_LandignPage4.webp"],
+    liveUrl: "https://catfy-catalog.vercel.app"
+  },
+  {
     id: "agencyos",
     cover: "/assets/covers/agencyos.webp",
     name: "AgencyOS",
@@ -185,30 +209,6 @@ export const caseStudies: CaseStudy[] = [
     techStack: ["Next.js", "React 19", "TypeScript", "PostgreSQL", "Prisma", "Socket.io", "Redis", "BullMQ", "NextAuth", "Tailwind CSS"],
     images: ["/assets/AgencyOS_1.webp", "/assets/AgencyOS_2.webp", "/assets/AgencyOS_3.webp", "/assets/AgencyOS_4.webp", "/assets/AgencyOS_5.webp"],
     liveUrl: "#"
-  },
-  {
-    id: "catfy",
-    cover: "/assets/covers/catfy.webp",
-    name: "CATFY",
-    tagline: "Digital Catalogue Builder",
-    category: "SaaS Platform",
-    year: "2025",
-    status: "Live",
-    color: "#ff5f26",
-    overview: "CATFY is a multi-tenant SaaS for designing, publishing and sharing product catalogues. Businesses build catalogues in a visual editor, share them as live links, export them as PDFs, and pay through tiered subscriptions.",
-    challenge: "Most small businesses still make catalogues in Canva or PowerPoint and send them as PDFs. The file is out of date as soon as a price or product changes, it is heavy to send over WhatsApp, and the business never learns which products customers actually looked at.",
-    solution: "I designed and built the whole product: a drag-and-drop catalogue editor built on Craft.js, a theme system with a live style customiser for colours, fonts and spacing, and products that can be sorted by priority tags like bestseller or new. Catalogues can be public, private or restricted, and export to PDF through a headless browser so the PDF matches the web version exactly. Around that sit Stripe subscriptions across four tiers with coupons, team workspaces with email invites, view analytics, and an admin panel for running the platform.",
-    designDecisions: [
-      "Visual, block-based editor instead of forms, so non-designers can see the catalogue take shape as they build it.",
-      "One theme system drives both the live web catalogue and the PDF export, so there is never a second version to maintain.",
-      "Plan limits are enforced in the product itself, so the upgrade prompt appears exactly where the user hits a limit.",
-    ],
-    architecture: "Next.js 14 App Router with TypeScript, PostgreSQL via Prisma, Supabase for auth and storage, Stripe for billing, Playwright and Puppeteer for PDF rendering, Resend and Nodemailer for email, deployed on Vercel.",
-    role: "Solo Product Designer & Full-Stack Engineer — product design, UI, database schema, APIs, billing and deployment (173 of 186 commits).",
-    outcome: "Live product with public landing, pricing, editor, billing and admin areas, designed and engineered end to end by one person.",
-    techStack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Supabase", "Stripe", "Craft.js", "Playwright", "Tailwind CSS"],
-    images: ["/assets/Catfy_LandignPage1.webp", "/assets/Catfy_LandignPage2.webp", "/assets/Catfy_LandignPage3.webp", "/assets/Catfy_LandignPage4.webp"],
-    liveUrl: "https://catfy-catalog.vercel.app"
   },
   {
     id: "leadzenor",
