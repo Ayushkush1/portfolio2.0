@@ -2,13 +2,14 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { MotionConfig } from "framer-motion";
+import { MotionConfig, frame, cancelFrame } from "framer-motion";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   useEffect(() => {
     let lenisInstance: any;
+    let lenisStep: ((data: { timestamp: number }) => void) | null = null;
     
     const initSmoothScroll = async () => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -32,17 +33,18 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
       lenisInstance.on("scroll", ScrollTrigger.update);
 
-      const ticker = (time: number) => {
-        lenisInstance.raf(time * 1000);
-      };
-
-      gsap.ticker.add(ticker);
+      // Drive Lenis from Framer Motion's frame loop, in the "update" step — before any
+      // render-step style writes. Scrolling with clean styles avoids a forced reflow inside
+      // Lenis's scrollTo every frame (the main remaining source of scroll micro-stutter).
+      lenisStep = ({ timestamp }) => lenisInstance.raf(timestamp);
+      frame.update(lenisStep, true);
       gsap.ticker.lagSmoothing(0);
     };
 
     initSmoothScroll();
 
     return () => {
+      if (lenisStep) cancelFrame(lenisStep);
       if (lenisInstance) {
         lenisInstance.destroy();
       }
