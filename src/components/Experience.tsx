@@ -6,31 +6,17 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { track } from "@/lib/analytics";
+import MaskReveal from "@/components/ui/mask-reveal";
+import { fadeUp, STAGGER } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Experience = () => {
     const sectionRef = useRef<HTMLElement>(null);
     const imageRef = useRef<HTMLDivElement>(null);
-    const bgTextRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         let ctx = gsap.context(() => {
-            // Reveal background text
-            gsap.fromTo(bgTextRef.current, 
-                { opacity: 0, y: 30 },
-                { 
-                    opacity: 1, 
-                    y: 0, 
-                    duration: 1.5, 
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: sectionRef.current,
-                        start: "top 80%",
-                    }
-                }
-            );
-
             // Parallax for profile image
             gsap.to(imageRef.current, {
                 y: -50,
@@ -81,10 +67,7 @@ const Experience = () => {
                     <div className="lg:-rotate-2 order-1 w-full">
                         <motion.div
                             className="flex flex-col pt-6 lg:pt-12"
-                            initial={{ opacity: 0, x: -50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                            viewport={{ once: true }}
+                            {...fadeUp()}
                             >
                                                  {/* Profile Image Wrapper for GSAP Parallax */}
                             <div
@@ -110,10 +93,7 @@ const Experience = () => {
                                 {/* Name & Title */}
                                 <motion.div
                                     className="mb-2"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.6, delay: 0.8 }}
-                                    viewport={{ once: true }}
+                                    {...fadeUp(0.2)}
                                 >
                                     <h2 className="text-base md:text-lg font-semibold text-foreground">Ayush Kushwaha</h2>
                                     <p className="text-gray-500 text-[11px] md:text-xs">Product Designer & Full-Stack Engineer</p>
@@ -122,10 +102,7 @@ const Experience = () => {
                                 {/* Social Links */}
                                 <motion.div
                                     className="flex gap-3 md:gap-4 justify-center"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.6, delay: 0.9 }}
-                                    viewport={{ once: true }}
+                                    {...fadeUp(0.2 + STAGGER)}
                                 >
 
                                     <motion.a
@@ -208,41 +185,29 @@ const Experience = () => {
                     {/* Right Side - Content */}
                     <motion.div
                         className="order-2 pt-10 pb-8 px-6 lg:pt-24 lg:px-0 w-full bg-white/5 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none border border-white/10 md:border-none rounded-[3rem] md:rounded-none shadow-2xl md:shadow-none"
-                        initial={{ opacity: 0, x: 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        viewport={{ once: true }}
                     >
                         {/* Header */}
                         <div className="mb-12">
                             <motion.p
                                 className="text-gray-400 text-lg mb-4 italic"
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.2 }}
-                                viewport={{ once: true }}
+                                {...fadeUp()}
                             >
                                 My Experiences
                             </motion.p>
-                            <motion.h2
+                            <MaskReveal
                                 className="text-4xl md:text-5xl lg:text-[3rem] tracking-tight mb-8 leading-[1.1] text-gray-500"
                                 style={{ fontFamily: "'Fraunces', serif" }}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.3 }}
-                                viewport={{ once: true }}
-                            >
-                                Pushing boundaries{" "}
-                                <span className="text-white font-normal">since 2023<span className="text-[#ff5f26] text-[3rem]">.</span></span>
-                            </motion.h2>
+                                delay={0.1}
+                                lines={[
+                                    "Pushing boundaries",
+                                    <span key="l2" className="text-white font-normal">since 2023<span className="text-brand">.</span></span>,
+                                ]}
+                            />
 
                             {/* Description */}
                             <motion.p
                                 className="text-gray-600 text-[17px] leading-relaxed mb-12"
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.4 }}
-                                viewport={{ once: true }}
+                                {...fadeUp(0.2)}
                             >
                                 Building high-performance SaaS platforms, internal business systems, and modern web applications that drive operational efficiency. With a strong focus on scalable architecture and exceptional user experiences.
                             </motion.p>
@@ -251,19 +216,12 @@ const Experience = () => {
                         {/* Experience Table */}
                         <motion.div
                             className="space-y-0 rounded-2xl px-4 shadow-sm"
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.5 }}
-                            viewport={{ once: true }}
                         >
                             {experiences.map((exp, index) => (
                                 <motion.div
                                     key={exp.id}
                                     className="flex justify-between items-center py-4 border-b border-gray-100/10 last:border-b-0  transition-colors duration-200  px-4 -mx-4"
-                                    initial={{ opacity: 0, x: 20 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-                                    viewport={{ once: true }}
+                                    {...fadeUp(0.25 + index * STAGGER)}
                                 >
                                     <div className="w-[40%] md:flex-1">
                                         <p className="font-medium text-gray-200 text-[10px] md:text-sm whitespace-nowrap overflow-hidden text-ellipsis">
@@ -287,14 +245,6 @@ const Experience = () => {
                 </div>
 
 
-            </div>
-
-            {/* Background decoration */}
-            <div
-                ref={bgTextRef}
-                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5 hidden md:block"
-            >
-                Experience
             </div>
         </section>
     );

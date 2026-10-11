@@ -2,6 +2,8 @@
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Quote, Star, Users } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
+import MaskReveal from "@/components/ui/mask-reveal";
+import { DURATION, EASE, VIEWPORT, fadeUp } from "@/lib/motion";
 
 const Testimonials = () => {
     const sectionRef = useRef<HTMLElement>(null);
@@ -13,6 +15,8 @@ const Testimonials = () => {
     });
 
     const x = useTransform(scrollYProgress, [0, 1], [100, -100]);
+    // The paper sheet settles from slightly inset to full size as it scrolls in
+    const sheetScale = useTransform(scrollYProgress, [0, 0.3], [0.94, 1]);
 
     const testimonials = [
         {
@@ -59,32 +63,38 @@ const Testimonials = () => {
     }, [testimonials.length, isHovered]);
 
     return (
-        <section ref={sectionRef} id="testimonials" className="relative pt-12 md:pt-32 md:pb-10 bg-background overflow-hidden">
+        <section ref={sectionRef} id="testimonials" className="relative bg-background px-2 md:px-4 py-4 md:py-8">
+            {/* The page's one light surface: a change of chapter before the closing contact section */}
+            <motion.div
+                data-nav-theme="light"
+                style={{ scale: sheetScale }}
+                className="relative overflow-hidden rounded-[2.5rem] md:rounded-[4rem] bg-paper text-paper-foreground pt-14 md:pt-24 md:pb-6"
+            >
             {/* Moving Background Text (Desktop) */}
             <motion.div 
                 style={{ x }}
-                className="absolute top-20 left-0 whitespace-nowrap text-[14rem] font-bold text-white/[0.02] select-none pointer-events-none hidden md:block"
+                className="absolute top-20 left-0 whitespace-nowrap text-[14rem] font-bold text-paper-foreground/[0.04] select-none pointer-events-none hidden md:block"
                 aria-hidden="true"
                 data-nosnippet
             >
                 CLIENT FEEDBACK • REAL RESULTS • CLIENT FEEDBACK • REAL RESULTS
             </motion.div>
 
-            <div className="container relative z-10 max-w-7xl mx-auto px-4 pb-16">
+            <div className="container relative z-10 max-w-7xl mx-auto px-4 pb-14 md:pb-0">
                 {/* Header */}
                 <div className="text-center mb-8 md:mb-32 px-4">
                     <motion.p
                         className="text-brand text-xs md:text-sm font-bold tracking-[0.3em] uppercase mb-4"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        viewport={{ once: true }}
+                        {...fadeUp()}
                     >
                         Success Stories
                     </motion.p>
-                    <h2 className="text-[2.2rem] md:text-7xl font-bold tracking-tight text-white mb-6" style={{ fontFamily: "'Fraunces', serif" }}>
-                        Loved by <span className="text-gray-500 italic font-light">visionaries<span className="text-brand">.</span></span>
-                    </h2>
+                    <MaskReveal
+                        className="text-[2.2rem] md:text-7xl font-bold tracking-tight text-paper-foreground mb-6"
+                        style={{ fontFamily: "'Fraunces', serif" }}
+                        delay={0.1}
+                        lines={[<>Loved by <span className="text-paper-foreground/45 italic font-light">visionaries<span className="text-brand">.</span></span></>]}
+                    />
                 </div>
 
                 {/* --- MOBILE AUTO-SLIDING UI --- */}
@@ -96,7 +106,7 @@ const Testimonials = () => {
                             initial={{ opacity: 0, x: 20, scale: 0.95 }}
                             animate={{ opacity: 1, x: 0, scale: 1 }}
                             exit={{ opacity: 0, x: -20, scale: 0.95 }}
-                            transition={{ duration: 0.6, ease: "easeInOut" }}
+                            transition={{ duration: DURATION.base, ease: EASE.inOut }}
                         >
                             {/* Huge Quote Mark Background */}
                             <Quote className="absolute top-[-20px] left-1/2 -translate-x-1/2 w-24 h-24 text-brand/5 -rotate-6 pointer-events-none" />
@@ -107,17 +117,17 @@ const Testimonials = () => {
                             </div>
 
                             {/* Large Typography Text (No Box) */}
-                            <p className="text-lg font-extralight text-gray-400 leading-relaxed mb-8 tracking-wider italic max-w-[90vw]">
+                            <p className="text-lg font-light text-paper-foreground/75 leading-relaxed mb-8 italic max-w-[90vw]" style={{ fontFamily: "'Fraunces', serif" }}>
                                 "{testimonials[activeIndex].text}"
                             </p>
 
                             {/* Minimal Author Info */}
                             <div className="flex flex-col items-center">
                                 {testimonials[activeIndex].avatar && (
-                                    <img src={testimonials[activeIndex].avatar} alt={testimonials[activeIndex].name} className="w-12 h-12 rounded-full mb-3 object-cover border border-white/10" />
+                                    <img src={testimonials[activeIndex].avatar} alt={testimonials[activeIndex].name} className="w-12 h-12 rounded-full mb-3 object-cover border border-paper-foreground/10" />
                                 )}
-                                <h3 className="text-white font-semibold text-base leading-none mb-2">{testimonials[activeIndex].name}</h3>
-                                <p className="text-gray-500 text-[10px] uppercase tracking-[0.2em]">{testimonials[activeIndex].role}</p>
+                                <h3 className="text-paper-foreground font-semibold text-base leading-none mb-2">{testimonials[activeIndex].name}</h3>
+                                <p className="text-paper-foreground/50 text-[10px] uppercase tracking-[0.2em]">{testimonials[activeIndex].role}</p>
                             </div>
                         </motion.div>
                     </AnimatePresence>
@@ -127,7 +137,7 @@ const Testimonials = () => {
                         {testimonials.map((_, i) => (
                             <div 
                                 key={i}
-                                className={`h-1 rounded-full transition-all duration-500 ${i === activeIndex ? 'w-8 bg-brand' : 'w-2 bg-white/10'}`}
+                                className={`h-1 rounded-full transition-all duration-500 ${i === activeIndex ? 'w-8 bg-brand' : 'w-2 bg-paper-foreground/10'}`}
                             />
                         ))}
                     </div>
@@ -136,24 +146,21 @@ const Testimonials = () => {
                 {/* --- DESKTOP ORIGINAL UI (Preserved) --- */}
                 <motion.div
                     className="hidden md:grid lg:grid-cols-2 gap-16 md:gap-0 relative min-h-[600px]"
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
+                    {...fadeUp(0.2)}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                 >
                     <motion.div
-                        className="absolute left-1/2 top-0 bottom-0 w-px bg-white/10 transform -translate-x-1/2 hidden lg:block"
+                        className="absolute left-1/2 top-0 bottom-0 w-px bg-paper-foreground/10 transform -translate-x-1/2 hidden lg:block"
                         initial={{ scaleY: 0 }}
                         whileInView={{ scaleY: 1 }}
-                        transition={{ duration: 1, delay: 0.6 }}
-                        viewport={{ once: true }}
+                        transition={{ duration: DURATION.slow, ease: EASE.out, delay: 0.3 }}
+                        viewport={VIEWPORT}
                         style={{ transformOrigin: "top" }}
                     >
                         {/* Unique subtle progress indicator on the central line */}
                         <motion.div 
-                            className="absolute top-0 left-0 w-full bg-white/40 shadow-[0_0_8px_rgba(255,255,255,0.1)] rounded-full"
+                            className="absolute top-0 left-0 w-full bg-brand rounded-full"
                             initial={false}
                             animate={{
                                 height: `${100 / testimonials.length}%`,
@@ -166,10 +173,6 @@ const Testimonials = () => {
                     {/* Left Testimonial */}
                     <motion.div
                         className="md:p-16 lg:pr-24 flex items-start"
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
-                        viewport={{ once: true }}
                     >
                         <AnimatePresence mode="wait">
                             <motion.div 
@@ -178,7 +181,7 @@ const Testimonials = () => {
                                 initial={{ opacity: 0, filter: "blur(8px)", scale: 0.95, y: 15 }}
                                 animate={{ opacity: 1, filter: "blur(0px)", scale: 1, y: 0 }}
                                 exit={{ opacity: 0, filter: "blur(8px)", scale: 1.05, y: -15 }}
-                                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                                transition={{ duration: DURATION.base, ease: EASE.out }}
                             >
                                 <div className="flex gap-1 mb-6" aria-hidden="true" data-nosnippet>
                                     {[...Array(testimonials[activeIndex].rating || 5)].map((_, i) => (
@@ -186,13 +189,13 @@ const Testimonials = () => {
                                     ))}
                                 </div>
                                 <div className="flex items-start gap-4 mb-10">
-                                    <p className="text-gray-300 text-xl leading-relaxed italic">
+                                    <p className="text-paper-foreground/80 text-xl lg:text-2xl leading-relaxed italic font-light" style={{ fontFamily: "'Fraunces', serif" }}>
                                         "{testimonials[activeIndex].text}"
                                     </p>
                                     <Quote className="h-8 w-8 text-brand flex-shrink-0 mt-1 opacity-30" />
                                 </div>
                                 <div className="flex items-center gap-4">
-                                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 overflow-hidden">
+                                    <div className="w-10 h-10 rounded-full bg-paper-foreground/5 border border-paper-foreground/10 flex items-center justify-center text-paper-foreground/50 overflow-hidden">
                                         {testimonials[activeIndex].avatar ? (
                                             <img src={testimonials[activeIndex].avatar} alt={testimonials[activeIndex].name} className="w-full h-full object-cover" />
                                         ) : (
@@ -200,8 +203,8 @@ const Testimonials = () => {
                                         )}
                                     </div>
                                     <div>
-                                        <h3 className="font-semibold text-white text-base">{testimonials[activeIndex].name}</h3>
-                                        <p className="text-gray-400 text-sm">{testimonials[activeIndex].role}</p>
+                                        <h3 className="font-semibold text-paper-foreground text-base">{testimonials[activeIndex].name}</h3>
+                                        <p className="text-paper-foreground/55 text-sm">{testimonials[activeIndex].role}</p>
                                     </div>
                                 </div>
                             </motion.div>
@@ -210,11 +213,7 @@ const Testimonials = () => {
 
                     {/* Right Testimonial */}
                     <motion.div
-                        className="md:p-16 lg:pl-24 flex items-end"
-                        initial={{ opacity: 0, x: 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6, delay: 0.5 }}
-                        viewport={{ once: true }}
+                        className="md:px-16 md:pt-16 md:pb-12 lg:pl-24 flex items-end"
                     >
                         <AnimatePresence mode="wait">
                             <motion.div 
@@ -223,7 +222,7 @@ const Testimonials = () => {
                                 initial={{ opacity: 0, filter: "blur(8px)", scale: 0.95, y: 15 }}
                                 animate={{ opacity: 1, filter: "blur(0px)", scale: 1, y: 0 }}
                                 exit={{ opacity: 0, filter: "blur(8px)", scale: 1.05, y: -15 }}
-                                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                                transition={{ duration: DURATION.base, ease: EASE.out }}
                             >
                                 <div className="flex gap-1 mb-6" aria-hidden="true" data-nosnippet>
                                     {[...Array(testimonials[(activeIndex + 1) % testimonials.length].rating || 5)].map((_, i) => (
@@ -231,13 +230,13 @@ const Testimonials = () => {
                                     ))}
                                 </div>
                                 <div className="flex items-start gap-4 mb-10">
-                                    <p className="text-gray-300 text-xl leading-relaxed italic">
+                                    <p className="text-paper-foreground/80 text-xl lg:text-2xl leading-relaxed italic font-light" style={{ fontFamily: "'Fraunces', serif" }}>
                                         "{testimonials[(activeIndex + 1) % testimonials.length].text}"
                                     </p>
                                     <Quote className="h-8 w-8 text-brand flex-shrink-0 mt-1 opacity-30" />
                                 </div>
                                 <div className="flex items-center gap-4">
-                                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 overflow-hidden">
+                                    <div className="w-10 h-10 rounded-full bg-paper-foreground/5 border border-paper-foreground/10 flex items-center justify-center text-paper-foreground/50 overflow-hidden">
                                         {testimonials[(activeIndex + 1) % testimonials.length].avatar ? (
                                             <img src={testimonials[(activeIndex + 1) % testimonials.length].avatar} alt={testimonials[(activeIndex + 1) % testimonials.length].name} className="w-full h-full object-cover" />
                                         ) : (
@@ -245,8 +244,8 @@ const Testimonials = () => {
                                         )}
                                     </div>
                                     <div>
-                                        <h3 className="font-semibold text-white text-base">{testimonials[(activeIndex + 1) % testimonials.length].name}</h3>
-                                        <p className="text-gray-400 text-sm">{testimonials[(activeIndex + 1) % testimonials.length].role}</p>
+                                        <h3 className="font-semibold text-paper-foreground text-base">{testimonials[(activeIndex + 1) % testimonials.length].name}</h3>
+                                        <p className="text-paper-foreground/55 text-sm">{testimonials[(activeIndex + 1) % testimonials.length].role}</p>
                                     </div>
                                 </div>
                             </motion.div>
@@ -254,6 +253,7 @@ const Testimonials = () => {
                     </motion.div>
                 </motion.div>
             </div>
+            </motion.div>
         </section>
     );
 };

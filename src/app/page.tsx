@@ -43,11 +43,12 @@ export default function Home() {
       <Navbar />
       <Heros />
       <About />
+      {/* Pacing: proof first (products → design range → websites), then what I do & who I am */}
       <Showcase />
-      <ClientWebsites />
-      <Experience />
-      <ServicesSection />
       <DesignShowcase />
+      <ClientWebsites />
+      <ServicesSection />
+      <Experience />
       <Testimonials />
       <Contact />
     </main>

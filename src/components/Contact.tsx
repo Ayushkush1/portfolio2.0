@@ -11,6 +11,8 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import InquiryDialog from "@/components/InquiryDialog";
 import { track } from "@/lib/analytics";
+import MaskReveal from "@/components/ui/mask-reveal";
+import { fadeUp } from "@/lib/motion";
 
 interface ContactProps {
     title?: string;
@@ -67,17 +69,10 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                 {/* Top Badge */}
                 <motion.div
                     className="text-center mb-20"
-                    initial={{ opacity: 0, y: -20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
+                    {...fadeUp()}
                 >
                     <motion.div
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/10 backdrop-blur"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        viewport={{ once: true }}
                     >
                         <span className="text-muted-foreground text-sm">2 spots available</span>
                     </motion.div>
@@ -85,26 +80,18 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
 
                 {/* Main Content - Centered */}
                 <div className="flex flex-col justify-center items-center text-center space-y-4 md:space-y-6 px-6 py-10 md:py-0 bg-white/5 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none border border-white/10 md:border-none rounded-[3rem] md:rounded-none shadow-2xl md:shadow-none w-[88vw] mx-auto md:w-full">
-                    <motion.h2
+                    <MaskReveal
                         className={`font-bold leading-tight ${
                             title.length > 20
                                 ? "text-[2.2rem] md:text-6xl lg:text-7xl max-w-5xl mx-auto"
                                 : "text-[2.5rem] md:text-8xl"
                         }`}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
-                        viewport={{ once: true }}
-                    >
-                        {title}
-                    </motion.h2>
+                        lines={[title]}
+                    />
 
                     <motion.div
                         className="max-w-lg space-y-6"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.5 }}
-                        viewport={{ once: true }}
+                        {...fadeUp(0.15)}
                     >
                         <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
                             {description !== undefined ? description : (
@@ -117,10 +104,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                     </motion.div>
 
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.7 }}
-                        viewport={{ once: true }}
+                        {...fadeUp(0.25)}
                         className="flex flex-col sm:flex-row gap-4 items-center justify-center pt-4"
                     >
                         {/* Primary WhatsApp Button */}
@@ -177,13 +161,14 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                 {/* Footer */}
                 <motion.footer
                     className="pb-6 pt-8 md:pt-40 w-full relative group"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.8 }}
-                    viewport={{ once: true }}
+                    {...fadeUp()}
                 >
-                    {/* Ghost Watermark - Desktop Only */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[16vw] font-black text-white/[0.01] select-none pointer-events-none tracking-tighter hidden md:block">
+                    {/* The site's only watermark: bookends the hero's oversized name, same face & weight */}
+                    <div
+                        aria-hidden="true"
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[16vw] leading-none text-foreground/[0.035] select-none pointer-events-none tracking-tighter hidden md:block"
+                        style={{ fontFamily: '"Roboto Flex", sans-serif', fontVariationSettings: "'wght' 800, 'opsz' 110" }}
+                    >
                         KUSHWAHA
                     </div>
 

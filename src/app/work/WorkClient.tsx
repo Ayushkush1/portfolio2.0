@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, ViewTransition } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import Contact from "@/components/Contact";
 import ClientWebsites from "@/components/ClientWebsites";
@@ -37,13 +37,16 @@ function ProjectCard({
     image: string;
     heightClass: string;
 }) {
-    const router = useRouter();
     return (
         <div className="flex flex-col gap-4">
-            <div
+            {/* Shares its name with the case study hero, so the card morphs into it on navigation */}
+            <ViewTransition name={`project-${id}`} share="project-morph" default="none">
+            <Link
+                href={`/work/${id}`}
+                data-cursor="View"
+                data-cursor-ring={`${name} · ${category}`}
                 className={`group relative block cursor-none w-full overflow-hidden ${heightClass}`}
                 style={{ borderRadius: "40px" }}
-                onClick={() => router.push(`/work/${id}`)}
             >
                 {/* Tall cover fills the card; crops from the bottom only */}
                 <div className="absolute inset-0 overflow-hidden" style={{ borderRadius: "40px" }}>
@@ -55,7 +58,8 @@ function ProjectCard({
                         className="object-cover object-left-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     />
                 </div>
-            </div>
+            </Link>
+            </ViewTransition>
             <div className="ml-3">
                 <h2 className="text-xl md:text-2xl font-normal text-white">
                     {name}

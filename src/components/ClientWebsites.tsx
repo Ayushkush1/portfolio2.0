@@ -5,9 +5,12 @@ import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motio
 import { ArrowRight } from "lucide-react";
 import { clientWebsites } from "@/data/projects";
 import { track } from "@/lib/analytics";
+import MaskReveal from "@/components/ui/mask-reveal";
+import { DURATION, EASE, fadeUp } from "@/lib/motion";
 
 const PREVIEW_W = 500;
 const PREVIEW_H = 307;
+const PREVIEW_GAP = 80; // clears the 120px cursor lens (see CursorDot)
 
 const ClientWebsites = ({ hideHeader = false }: { hideHeader?: boolean }) => {
     const [active, setActive] = useState<number | null>(null);
@@ -24,7 +27,7 @@ const ClientWebsites = ({ hideHeader = false }: { hideHeader?: boolean }) => {
     const handleMouseMove = (e: React.MouseEvent) => {
         pointer.current = { x: e.clientX, y: e.clientY };
         const maxX = window.innerWidth - PREVIEW_W - 24;
-        mouseX.set(Math.min(e.clientX + 32, maxX));
+        mouseX.set(Math.min(e.clientX + PREVIEW_GAP, maxX));
         mouseY.set(e.clientY - PREVIEW_H / 2);
     };
 
@@ -53,25 +56,19 @@ const ClientWebsites = ({ hideHeader = false }: { hideHeader?: boolean }) => {
                 {/* Section Header */}
                 {!hideHeader && (
                 <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 mb-10 md:mb-20 text-center md:text-left">
-                    <motion.h2
+                    <MaskReveal
                         className="text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.1]"
                         style={{ fontFamily: "'Fraunces', serif" }}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        Websites crafted <br />
-                        <span className="italic text-gray-400">
-                            for real businesses<span className="text-brand">.</span>
-                        </span>
-                    </motion.h2>
+                        lines={[
+                            "Websites crafted",
+                            <span key="l2" className="italic text-gray-400">
+                                for real businesses<span className="text-brand">.</span>
+                            </span>,
+                        ]}
+                    />
                     <motion.p
                         className="text-gray-500 max-w-sm leading-relaxed md:text-right"
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.15 }}
+                        {...fadeUp(0.2)}
                     >
                         Marketing sites and landing pages for brands in travel, education, SaaS and more.
                     </motion.p>
@@ -94,15 +91,15 @@ const ClientWebsites = ({ hideHeader = false }: { hideHeader?: boolean }) => {
                             aria-label={`Visit ${site.name} website`}
                             onClick={() => track("website_visit", { site: site.name })}
                             data-site-index={i}
+                            data-cursor="Visit"
+                            data-cursor-icon="external"
+                            data-cursor-ring={`${site.name} · ${site.industry}`}
                             onMouseEnter={(e) => {
                                 pointer.current = { x: e.clientX, y: e.clientY };
                                 setActive(i);
                             }}
                             className="group/row relative block cursor-none border-b border-white/10"
-                            initial={{ opacity: 0, y: 24 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.4 }}
-                            transition={{ duration: 0.6, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                            {...fadeUp(i * 0.05)}
                         >
                             {/* Brand line sweeps in along the divider on hover */}
                             <span className="pointer-events-none absolute -bottom-px left-0 h-px w-full origin-left scale-x-0 bg-brand transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/row:scale-x-100" />
@@ -163,7 +160,7 @@ const ClientWebsites = ({ hideHeader = false }: { hideHeader?: boolean }) => {
                             initial={{ opacity: 0, scale: 0.85, rotate: -3 }}
                             animate={{ opacity: 1, scale: 1, rotate: 0 }}
                             exit={{ opacity: 0, scale: 0.85, rotate: 3 }}
-                            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                            transition={{ duration: DURATION.fast, ease: EASE.out }}
                         >
                             {clientWebsites.map((site, i) => (
                                 <Image
@@ -180,17 +177,6 @@ const ClientWebsites = ({ hideHeader = false }: { hideHeader?: boolean }) => {
                         </motion.div>
                     )}
                 </AnimatePresence>
-            </motion.div>
-
-            {/* Background decoration */}
-            <motion.div
-                className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5 hidden md:block"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 1, delay: 1 }}
-            >
-                Websites
             </motion.div>
         </section>
     );

@@ -10,6 +10,7 @@ import {
   Goal
 } from "lucide-react";
 import FallingPillsArea from "./FallingPillsArea";
+import { DURATION, EASE, VIEWPORT, fadeUp } from "@/lib/motion";
 
 
 /* ── simple pill badge for mobile marquee ────────────────────── */
@@ -57,26 +58,23 @@ const About: React.FC = () => {
         {/* Hello Badge */}
         <motion.div
           className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          {...fadeUp()}
         >
           <div className="inline-flex items-center gap-3">
             <motion.span
               className="h-px w-12 bg-border"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={VIEWPORT}
+              transition={{ duration: DURATION.slow, ease: EASE.out, delay: 0.1 }}
             />
             <span className="text-xl font-serif text-muted-foreground italic tracking-wide">Hello!</span>
             <motion.span
               className="h-px w-12 bg-border"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={VIEWPORT}
+              transition={{ duration: DURATION.slow, ease: EASE.out, delay: 0.1 }}
             />
           </div>
         </motion.div>
@@ -86,10 +84,7 @@ const About: React.FC = () => {
           {/* Central Text */}
           <motion.div
             className="text-center md:max-w-[850px] px-6 py-8 md:px-8 md:py-4 md:bg-transparent bg-white/5 backdrop-blur-xl md:backdrop-blur-none border border-white/10 md:border-none rounded-[2.5rem] md:rounded-none shadow-2xl md:shadow-none"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+            {...fadeUp(0.1)}
           >
             <h2 ref={textRef} className="text-[1.7rem] md:text-5xl lg:text-5xl font-thin text-foreground mb-0 md:mb-6 flex flex-wrap justify-center text-center" style={{ lineHeight: "1.2" }}>
               {words.map((word, i) => {
@@ -146,17 +141,6 @@ const About: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Background section name */}
-      <motion.div
-        className="pointer-events-none absolute bottom-0 left-0 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5 hidden md:block"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{ duration: 1, delay: 1.2 }}
-      >
-        About
-      </motion.div>
     </section>
   );
 };

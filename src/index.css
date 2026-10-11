@@ -55,6 +55,8 @@ All colors MUST be HSL.
 
     /* Brand & effects */
     --brand: 24 95% 56%;
+    --paper: 40 30% 94%;
+    --paper-foreground: 228 20% 9%;
     --brand-foreground: 0 0% 100%;
     --gradient-hero: radial-gradient(80% 60% at 70% 40%, hsl(var(--brand) / 0.25) 0%, transparent 60%);
     --shadow-glow: 0 12px 30px hsl(var(--brand) / 0.30);
@@ -100,6 +102,8 @@ All colors MUST be HSL.
 
     /* Brand & effects */
     --brand: 24 95% 56%;
+    --paper: 40 30% 94%;
+    --paper-foreground: 228 20% 9%;
     --brand-foreground: 0 0% 100%;
     --gradient-hero: radial-gradient(80% 60% at 70% 40%, hsl(var(--brand) / 0.25) 0%, transparent 60%);
     --shadow-glow: 0 12px 30px hsl(var(--brand) / 0.30);
@@ -167,3 +171,66 @@ All colors MUST be HSL.
     animation: none;
   }
 }
+
+/* ── Page transitions: project card → case study hero ────────────
+   The card and the hero share a view-transition name (see Showcase,
+   WorkClient, ProjectDetailClient), so the browser morphs one into
+   the other. Same expo-out curve as the rest of the site's motion. */
+::view-transition-group(.project-morph) {
+  animation-duration: 800ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Card and hero have different aspect ratios: crop instead of stretching */
+::view-transition-image-pair(.project-morph) {
+  overflow: hidden;
+  border-radius: 40px;
+}
+::view-transition-old(.project-morph),
+::view-transition-new(.project-morph) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  animation-duration: 500ms;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+/* A soft blur mid-flight hides scaling artifacts while the images crossfade */
+::view-transition-image-pair(.project-morph) {
+  animation: morph-soften 800ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes morph-soften {
+  35% { filter: blur(2px); }
+}
+/* The rest of the page crossfades quickly so the morph is the focus */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 350ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-image-pair(*) {
+    animation: none !important;
+  }
+}
+
+/* ── Navbar over light surfaces ──────────────────────────────────
+   Navbar adds .nav-light while the header floats over an element with
+   data-nav-theme="light" (the Testimonials paper sheet). */
+.nav-logo img,
+.nav-glass,
+.nav-glass .text-foreground,
+.nav-glass .bg-foreground {
+  transition: filter 0.5s, background-color 0.5s, border-color 0.5s, color 0.5s,
+    transform 0.3s, box-shadow 0.3s, width 0.3s; /* keep the buttons' existing hover transitions */
+}
+.nav-light .nav-logo img { filter: brightness(0); }
+.nav-light .nav-glass {
+  background-color: hsl(var(--paper-foreground) / 0.06);
+  border-color: hsl(var(--paper-foreground) / 0.12);
+  color: hsl(var(--paper-foreground));
+}
+.nav-light .nav-glass .text-foreground { color: hsl(var(--paper-foreground)); }
+.nav-light .nav-glass .bg-foreground { background-color: hsl(var(--paper-foreground)); }

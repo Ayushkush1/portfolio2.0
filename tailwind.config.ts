@@ -29,6 +29,10 @@ export default {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
 				},
+				paper: {
+					DEFAULT: 'hsl(var(--paper))',
+					foreground: 'hsl(var(--paper-foreground))'
+				},
 				brand: {
 					DEFAULT: 'hsl(var(--brand))',
 					foreground: 'hsl(var(--brand-foreground))'

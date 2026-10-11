@@ -16,10 +16,10 @@ const indicatorSections = [
     { id: "home", label: "Home" },
     { id: "about", label: "About" },
     { id: "work", label: "Projects" },
-    { id: "websites", label: "Websites" },
-    { id: "experience", label: "Experience" },
-    { id: "services", label: "Services" },
     { id: "design", label: "Design" },
+    { id: "websites", label: "Websites" },
+    { id: "services", label: "Services" },
+    { id: "experience", label: "Experience" },
     { id: "testimonials", label: "Testimonials" },
     { id: "contact", label: "Contact" }
 ];
@@ -61,6 +61,7 @@ const Navbar = ({
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState(sectionsToTrack[0]?.label || "Home");
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isOnLight, setIsOnLight] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
     const router = useRouter();
 
@@ -77,6 +78,15 @@ const Navbar = ({
             const scrollPosition = window.scrollY + window.innerHeight * 0.4; // Trigger earlier
 
             setIsScrolled(window.scrollY > 50);
+
+            // Flip to dark ink while the header floats over a light surface (data-nav-theme="light")
+            const probeY = 40;
+            setIsOnLight(
+                Array.from(document.querySelectorAll<HTMLElement>('[data-nav-theme="light"]')).some((el) => {
+                    const r = el.getBoundingClientRect();
+                    return r.top <= probeY && r.bottom >= probeY;
+                })
+            );
 
             let current = sectionsToTrack[0]?.label || "Home";
             // Check if at the very bottom
@@ -147,10 +157,10 @@ const Navbar = ({
 
     return (
         <>
-            <header className="nav-in fixed top-0 left-0 w-full z-50 flex items-center justify-between py-8 px-6 xl:px-16 2xl:px-24 pointer-events-none">
+            <header className={`nav-in ${isOnLight ? "nav-light" : ""} fixed top-0 left-0 w-full z-50 flex items-center justify-between py-8 px-6 xl:px-16 2xl:px-24 pointer-events-none`}>
                     <a
                         href="#"
-                        className="nav-logo-in pointer-events-auto"
+                        className="nav-logo-in nav-logo pointer-events-auto"
                         aria-label="Ayush home"
                         onClick={(e) => {
                             e.preventDefault();
@@ -170,7 +180,7 @@ const Navbar = ({
 
                     <div className="nav-actions-in flex items-center gap-2 lg:gap-3 pointer-events-auto ml-auto">
                         {/* Glassmorphism Text Pill */}
-                        <div className="flex items-center justify-center h-[38px] min-w-[80px] px-4 rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)]">
+                        <div className="nav-glass flex items-center justify-center h-[38px] min-w-[80px] px-4 rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)]">
                             <div className="relative flex items-center justify-center overflow-hidden w-full h-full">
                                 <AnimatePresence mode="popLayout">
                                     <motion.span
@@ -190,7 +200,7 @@ const Navbar = ({
                         {backTo || isProjectDetail ? (
                             <motion.button
                                 aria-label="Go back"
-                                className="inline-flex h-[38px] w-[38px] items-center justify-center rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 text-foreground border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-white/20 hover:shadow-[0_4px_30px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden relative group"
+                                className="nav-glass inline-flex h-[38px] w-[38px] items-center justify-center rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 text-foreground border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-white/20 hover:shadow-[0_4px_30px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden relative group"
                                 onClick={() => router.push(backTo || "/work")}
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
@@ -201,7 +211,7 @@ const Navbar = ({
                         ) : (
                             <motion.button
                                 aria-label="Open menu"
-                                className="inline-flex h-[38px] w-[38px] items-center justify-center rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 text-foreground border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-white/20 hover:shadow-[0_4px_30px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden relative group"
+                                className="nav-glass inline-flex h-[38px] w-[38px] items-center justify-center rounded-full bg-white/10 backdrop-blur-xl backdrop-saturate-200 text-foreground border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-white/20 hover:shadow-[0_4px_30px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden relative group"
                                 onClick={handleMenuToggle}
                             >
                                 <AnimatePresence mode="wait">
@@ -294,16 +304,6 @@ const Navbar = ({
                                 </motion.a>
                             ))}
                         </motion.nav>
-
-                        <motion.div
-                            className="pointer-events-none absolute bottom-0 -left-28 lg:-left-1/3 w-full select-none text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5 text-center"
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true, amount: 0.1 }}
-                            transition={{ duration: 1, delay: 1.2 }}
-                        >
-                            Menu
-                        </motion.div>
                     </motion.div>
                 )}
             </AnimatePresence>

@@ -1,11 +1,13 @@
 "use client";
-import { useRef } from "react";
+import { useRef, ViewTransition } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { featuredProducts, FeaturedProduct } from "@/data/projects";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import MaskReveal from "@/components/ui/mask-reveal";
+import { fadeUp } from "@/lib/motion";
 
 /* ─── Row: big card + small card, text below each ──────────── */
 function ShowcaseRow({
@@ -33,8 +35,12 @@ function ShowcaseRow({
     >
       {/* Big card — 62% width, taller */}
       <div className="flex flex-col gap-4" style={{ flex: "0 0 62%" }}>
+        {/* Shares its name with the case study hero, so the card morphs into it on navigation */}
+        <ViewTransition name={`project-${big.id}`} share="project-morph" default="none">
         <Link
           href={`/work/${big.id}`}
+          data-cursor="View"
+          data-cursor-ring={`${big.name} · ${big.category}`}
           className="group relative block cursor-none w-full h-[340px] md:h-[500px]"
           style={{ borderRadius: "40px", overflow: "hidden" }}
         >
@@ -49,6 +55,7 @@ function ShowcaseRow({
             />
           </div>
         </Link>
+        </ViewTransition>
         <div className="ml-3">
           <h3 className="text-xl md:text-2xl font-normal text-white">
             {big.name}
@@ -61,8 +68,12 @@ function ShowcaseRow({
 
       {/* Small card — 38% width, shorter height */}
       <div className="flex flex-col gap-4 flex-1">
+        {/* Shares its name with the case study hero, so the card morphs into it on navigation */}
+        <ViewTransition name={`project-${small.id}`} share="project-morph" default="none">
         <Link
           href={`/work/${small.id}`}
+          data-cursor="View"
+          data-cursor-ring={`${small.name} · ${small.category}`}
           className="group relative block cursor-none w-full h-[210px] md:h-[300px]"
           style={{ borderRadius: "40px", overflow: "hidden" }}
         >
@@ -77,6 +88,7 @@ function ShowcaseRow({
             />
           </div>
         </Link>
+        </ViewTransition>
         <div className="ml-3">
           <h3 className="text-xl md:text-2xl font-normal text-white">
             {small.name}
@@ -107,18 +119,19 @@ const Showcase = () => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 mb-10 md:mb-16 text-center md:text-left">
           <div>
-            <h2
+            <MaskReveal
               className="text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.1]"
               style={{ fontFamily: "'Fraunces', serif" }}
-            >
-              Selected products <br />
-              <span className="italic text-gray-400">
-                built to scale<span className="text-brand">.</span>
-              </span>
-            </h2>
+              lines={[
+                "Selected products",
+                <span key="l2" className="italic text-gray-400">
+                  built to scale<span className="text-brand">.</span>
+                </span>,
+              ]}
+            />
           </div>
 
-          <motion.div className="w-fit" whileHover="hover">
+          <motion.div className="w-fit" whileHover="hover" {...fadeUp(0.2)}>
             <Button
               variant="hero"
               size="lg"
@@ -164,17 +177,6 @@ const Showcase = () => {
           ))}
         </div>
       </div>
-
-      {/* Background watermark */}
-      <motion.div
-        className="pointer-events-none absolute bottom-0 left-0 w-full select-none pb-5 text-[15vw] sm:text-[6vw] md:text-[8vw] leading-none font-extrabold tracking-tight text-foreground/5 hidden md:block"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{ duration: 1, delay: 1.2 }}
-      >
-        Projects
-      </motion.div>
     </section>
   );
 };

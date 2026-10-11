@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, ViewTransition } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -100,11 +100,10 @@ export default function ProjectDetailClient({ id }: { id: string }) {
                 </div>
 
                 {project.images.length > 0 && (
-                    <motion.div 
+                    // Same name as the clicked card: the card morphs into this hero, so no entrance animation here
+                    <ViewTransition name={`project-${project.id}`} share="project-morph" default="none">
+                    <div 
                         className="w-full aspect-[16/7] rounded-[1.5rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.6)] bg-white/5 mb-10 md:mb-24 relative group"
-                        initial={{ opacity: 0, scale: 0.98 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, delay: 0.1 }}
                     >
                         <Image 
                             src={project.images[0]} 
@@ -114,7 +113,8 @@ export default function ProjectDetailClient({ id }: { id: string }) {
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
                             className="object-cover object-top group-hover:scale-[1.01] transition-transform duration-700 ease-out"
                         />
-                    </motion.div>
+                    </div>
+                    </ViewTransition>
                 )}
 
                 <div id="context" className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 py-6 md:py-10 border-y border-white/10 mb-10 md:mb-24">

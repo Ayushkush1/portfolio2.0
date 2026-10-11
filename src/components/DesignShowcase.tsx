@@ -2,6 +2,8 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import GridMotion from "./GridMotion";
+import MaskReveal from "./ui/mask-reveal";
+import { fadeUp } from "@/lib/motion";
 
 // Every image shows once across the two fully-visible middle rows:
 // the first half goes in the upper middle row, the rest in the lower one.
@@ -33,30 +35,20 @@ const DesignShowcase = () => {
                 <div className="flex flex-col md:flex-row justify-between items-end gap-8">
                     <div>
                        
-                        <motion.h2
+                        <MaskReveal
                             className="text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.1]"
                             style={{ fontFamily: "'Fraunces', serif" }}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.1 }}
-                        >
-                            Elevating user{" "}
-                            <br className="hidden md:block" />
-                            <span 
-                                className="italic text-gray-400" 
-                                style={{ fontFamily: "'Fraunces', serif" }}
-                            >
-                                experiences<span className="text-[#ff5f26]">.</span>
-                            </span>
-                        </motion.h2>
+                            lines={[
+                                "Elevating user",
+                                <span key="l2" className="italic text-gray-400">
+                                    experiences<span className="text-brand">.</span>
+                                </span>,
+                            ]}
+                        />
                     </div>
-                    <motion.p 
+                    <motion.p
                         className="text-gray-400 max-w-md font-normal leading-relaxed md:text-right"
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
+                        {...fadeUp(0.2)}
                     >
                         From wireframes to highly polished interfaces, I craft designs that balance beautiful aesthetics with frictionless functionality.
                     </motion.p>
