@@ -13,6 +13,7 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = 'black' }
   const mouseXRef = useRef<number>(typeof window !== 'undefined' ? window.innerWidth / 2 : 0);
 
   const totalItems = 28;
+  const itemsPerRow = 7;
   const defaultItems = Array.from({ length: totalItems }, (_, index) => `Item ${index + 1}`);
   const combinedItems = items.length > 0 ? items.slice(0, totalItems) : defaultItems;
 
@@ -23,29 +24,29 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = 'black' }
       mouseXRef.current = e.clientX;
     };
 
-    const updateMotion = (): void => {
-      const maxMoveAmount = 300;
-      const baseDuration = 0.8;
-      const inertiaFactors = [0.6, 0.4, 0.3, 0.2];
+    const maxMoveAmount = 300;
+    const scrollSpeed = 40; // px per second, constant marquee speed
+    const inertiaFactors = [0.06, 0.08, 0.1, 0.12];
+    const smoothedMouse = [0, 0, 0, 0];
 
-      // Ambient slow floating movement in the background (infinite loop)
-      // Expanded width mapping (ambientOffset scale: 100 -> 320) so the rows scroll completely to reveal all cards
-      const time = gsap.ticker.time * 0.15; // smooth slow speed
-      const ambientOffset = Math.sin(time) * 320; // wide back-and-forth offset
+    const updateMotion = (): void => {
+      // Continuous one-way marquee: rows never slow down or reverse.
+      // Each row holds 3 copies of its cards, so wrapping by one copy's width is seamless.
+      const travelled = gsap.ticker.time * scrollSpeed;
+      const targetMouse = (mouseXRef.current / window.innerWidth) * maxMoveAmount - maxMoveAmount / 2;
 
       rowRefs.current.forEach((row, index) => {
-        if (row) {
-          const direction = index % 2 === 0 ? 1 : -1;
-          const mouseOffset = ((mouseXRef.current / window.innerWidth) * maxMoveAmount - maxMoveAmount / 2);
-          const totalOffset = (mouseOffset + ambientOffset) * direction;
+        if (!row) return;
+        const direction = index % 2 === 0 ? 1 : -1;
+        const first = row.children[0] as HTMLElement | undefined;
+        const nextSet = row.children[itemsPerRow] as HTMLElement | undefined;
+        if (!first || !nextSet) return;
+        const period = nextSet.offsetLeft - first.offsetLeft;
 
-          gsap.to(row, {
-            x: totalOffset,
-            duration: baseDuration + inertiaFactors[index % inertiaFactors.length],
-            ease: 'power2.out',
-            overwrite: 'auto'
-          });
-        }
+        smoothedMouse[index] += (targetMouse - smoothedMouse[index]) * inertiaFactors[index];
+        const loop = gsap.utils.wrap(-period / 2, period / 2, travelled * direction);
+
+        gsap.set(row, { x: loop + smoothedMouse[index] * direction });
       });
     };
 
@@ -77,12 +78,12 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = 'black' }
                 if (el) rowRefs.current[rowIndex] = el;
               }}
             >
-              {Array.from({ length: 7 }, (_, itemIndex) => {
-                const content = combinedItems[rowIndex * 7 + itemIndex];
+              {Array.from({ length: itemsPerRow * 3 }, (_, itemIndex) => {
+                const content = combinedItems[rowIndex * itemsPerRow + (itemIndex % itemsPerRow)];
                 return (
                   <div key={itemIndex} className="relative shrink-0">
                     <div className="relative w-[360px] sm:w-[400px] md:w-[590px] h-[170px] sm:h-[180px] md:h-[270px] overflow-hidden rounded-[20px] md:rounded-3xl bg-[#111] border border-white/5 flex items-center justify-center text-white text-[1.5rem] shadow-2xl">
-5                     {typeof content === 'string' && (content.startsWith('http') || content.startsWith('/assets/') || content.endsWith('.png') || content.endsWith('.jpg') || content.endsWith('.jpeg')) ? (
+                      {typeof content === 'string' && (content.startsWith('http') || content.startsWith('/assets/') || content.endsWith('.png') || content.endsWith('.jpg') || content.endsWith('.jpeg')) ? (
                         <img
                           src={content}
                           alt="Design Showcase"

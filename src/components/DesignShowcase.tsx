@@ -4,22 +4,27 @@ import { useRef } from "react";
 import GridMotion from "./GridMotion";
 
 const designs = [
-    "/assets/Leadzenor_Dashboard.webp",
-    "/assets/TheSevenStar_LandingPage1.webp",
+    // Row 1
+    "/assets/AgencyOS_1.webp",
     "/assets/Catfy_LandignPage1.webp",
+    "/assets/TheSevenStar_LandingPage1.webp",
     "/assets/Karatrix_LandingPage1.webp",
-    "/assets/EricHost1.webp",
+
+    // Row 2
     "/assets/Erp_Dashboard.webp",
+    "/assets/Catfy_LandignPage2.webp",
+    "/assets/CodignPanda_LandignPage1.webp",
     "/assets/Leadzenor_LandingPage1.webp",
+
+    // Row 3
+    "/assets/Erp_LandinPage1.webp",
+    "/assets/EricHost1.webp",
+    "/assets/Leadzenor_LandingPage2.webp",
+
+    // Row 4
+    "/assets/Catfy_LandignPage3.webp",
     "/assets/Karatrix_LandingPage2.webp",
     "/assets/TheSevenStar_LandingPage3.webp",
-    "/assets/Catfy_LandignPage2.webp",
-    "/assets/Erp_LandinPage1.webp",
-    "/assets/TheSevenStar_LandingPage2.webp",
-    "/assets/Leadzenor_LandingPage2.webp",
-    "/assets/CodignPanda_LandignPage1.webp",
-    "/assets/CodignPanda_LandignPage2.webp",
-   
 ];
 
 const DesignShowcase = () => {
