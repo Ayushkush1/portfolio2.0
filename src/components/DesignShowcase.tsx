@@ -3,37 +3,29 @@ import { motion } from "framer-motion";
 import { useRef } from "react";
 import GridMotion from "./GridMotion";
 
+// Every image shows once across the two fully-visible middle rows:
+// the first half goes in the upper middle row, the rest in the lower one.
+// The top & bottom rows reuse these automatically, so just add or remove lines here.
 const designs = [
-    // Row 1
     "/assets/AgencyOS_1.webp",
     "/assets/Catfy_LandignPage1.webp",
     "/assets/TheSevenStar_LandingPage1.webp",
     "/assets/Karatrix_LandingPage1.webp",
-
-    // Row 2
-    "/assets/Erp_Dashboard.webp",
-    "/assets/Catfy_LandignPage2.webp",
+    "/assets/sites/kokalachi.webp",
+    "/assets/sites/little-flower-schools.webp",
     "/assets/CodignPanda_LandignPage1.webp",
     "/assets/Leadzenor_LandingPage1.webp",
-
-    // Row 3
+    "/assets/sites/cp-atlas.webp",
     "/assets/Erp_LandinPage1.webp",
+    "/assets/sites/coding-pandas-studio.webp",
     "/assets/EricHost1.webp",
-    "/assets/Leadzenor_LandingPage2.webp",
-
-    // Row 4
-    "/assets/Catfy_LandignPage3.webp",
-    "/assets/Karatrix_LandingPage2.webp",
-    "/assets/TheSevenStar_LandingPage3.webp",
+    "/assets/sites/neatroots.webp",
+    "/assets/sites/seven-stars.webp",
+    "/assets/sites/coding-pandas.webp",
 ];
 
 const DesignShowcase = () => {
     const containerRef = useRef<HTMLElement>(null);
-
-    // Create 28 items by repeating designs
-    const gridItems = Array.from({ length: 28 }, (_, index) => {
-        return designs[index % designs.length];
-    });
 
     return (
         <section id="design" ref={containerRef} className="py-24 md:py-32 bg-background relative overflow-hidden">
@@ -73,7 +65,7 @@ const DesignShowcase = () => {
 
             {/* Interactive GridMotion Container */}
             <div className="w-full h-[500px] md:h-[700px] relative z-20">
-                <GridMotion items={gridItems} gradientColor="transparent" />
+                <GridMotion items={designs} gradientColor="transparent" />
             </div>
         </section>
     );
