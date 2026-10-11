@@ -37,7 +37,10 @@ const ClientWebsites = ({ hideHeader = false, limit }: { hideHeader?: boolean; l
     // Scrolling with a still cursor fires no mouse events, so re-check what is under the pointer
     useEffect(() => {
         if (active === null) return;
-        const onScroll = () => {
+        // Throttled: hit-testing on every scroll frame forces layout and stutters the scroll
+        let pending: ReturnType<typeof setTimeout> | null = null;
+        const check = () => {
+            pending = null;
             const { x, y } = pointer.current;
             const row = document.elementFromPoint(x, y)?.closest<HTMLElement>("[data-site-index]");
             if (row && listRef.current?.contains(row)) {
@@ -46,8 +49,12 @@ const ClientWebsites = ({ hideHeader = false, limit }: { hideHeader?: boolean; l
                 setActive(null);
             }
         };
+        const onScroll = () => { if (pending === null) pending = setTimeout(check, 100); };
         window.addEventListener("scroll", onScroll, { passive: true });
-        return () => window.removeEventListener("scroll", onScroll);
+        return () => {
+            window.removeEventListener("scroll", onScroll);
+            if (pending) clearTimeout(pending);
+        };
     }, [active]);
 
     return (

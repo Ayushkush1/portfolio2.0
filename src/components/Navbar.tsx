@@ -82,44 +82,58 @@ const Navbar = ({
     }, []);
 
     useEffect(() => {
-        const handleScroll = () => {
-            const sections = sectionsToTrack.map(item => document.getElementById(item.id));
-            const scrollPosition = window.scrollY + window.innerHeight * 0.4; // Trigger earlier
-
-            setIsScrolled(window.scrollY > 50);
-
-            // Flip to dark ink while the header floats over a light surface (data-nav-theme="light")
-            const probeY = 40;
-            setIsOnLight(
-                Array.from(document.querySelectorAll<HTMLElement>('[data-nav-theme="light"]')).some((el) => {
-                    const r = el.getBoundingClientRect();
-                    return r.top <= probeY && r.bottom >= probeY;
-                })
-            );
-
-            let current = sectionsToTrack[0]?.label || "Home";
-            // Check if at the very bottom
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
-                current = "Contact";
-            } else {
-                for (let i = sections.length - 1; i >= 0; i--) {
-                    const section = sections[i];
-                    if (section && section.offsetTop <= scrollPosition) {
-                        current = sectionsToTrack[i].label;
-                        break;
-                    }
-                }
-            }
-
-            if (activeSection !== current) {
-                setActiveSection(current);
-            }
+        // Section positions are measured once (and whenever the page resizes), then scrolling
+        // only compares numbers against window.scrollY — no layout reads inside the scroll loop.
+        let tops: number[] = [];
+        let lightRanges: [number, number][] = [];
+        let docHeight = 0;
+        const measure = () => {
+            const y = window.scrollY;
+            tops = sectionsToTrack.map((item) => {
+                const el = document.getElementById(item.id);
+                return el ? el.getBoundingClientRect().top + y : Infinity;
+            });
+            lightRanges = Array.from(document.querySelectorAll<HTMLElement>('[data-nav-theme="light"]')).map((el) => {
+                const r = el.getBoundingClientRect();
+                return [r.top + y, r.bottom + y];
+            });
+            docHeight = document.documentElement.scrollHeight;
         };
 
-        window.addEventListener("scroll", handleScroll, { passive: true });
-        handleScroll();
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, [activeSection, sectionsToTrack, isProjectDetail]);
+        let frame = 0;
+        const update = () => {
+            frame = 0;
+            const y = window.scrollY;
+            setIsScrolled(y > 50);
+
+            // Dark ink while the header floats over a light surface (data-nav-theme="light")
+            const probe = y + 40;
+            setIsOnLight(lightRanges.some(([top, bottom]) => top <= probe && bottom >= probe));
+
+            let current = sectionsToTrack[0]?.label || "Home";
+            if (window.innerHeight + y >= docHeight - 100) {
+                current = "Contact";
+            } else {
+                const line = y + window.innerHeight * 0.4; // trigger a little early
+                for (let i = tops.length - 1; i >= 0; i--) {
+                    if (tops[i] <= line) { current = sectionsToTrack[i].label; break; }
+                }
+            }
+            setActiveSection(current);
+        };
+        const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
+
+        measure();
+        update();
+        const ro = new ResizeObserver(() => { measure(); onScroll(); });
+        ro.observe(document.body);
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => {
+            window.removeEventListener("scroll", onScroll);
+            ro.disconnect();
+            if (frame) cancelAnimationFrame(frame);
+        };
+    }, [sectionsToTrack, isProjectDetail]);
 
     const handleMenuToggle = () => {
         setIsMenuOpen(!isMenuOpen);

@@ -40,33 +40,55 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = 'black' }
     const inertiaFactors = [0.06, 0.08, 0.1, 0.12];
     const smoothedMouse = [0, 0, 0, 0];
 
+    // Row loop widths are measured once (and on resize) — never inside the frame loop,
+    // where reading layout right after writing transforms forces a synchronous reflow.
+    const periods = [0, 0, 0, 0];
+    const measure = () => {
+      rowRefs.current.forEach((row, index) => {
+        if (!row) return;
+        const first = row.children[0] as HTMLElement | undefined;
+        const nextSet = row.children[rowLengthsRef.current[index]] as HTMLElement | undefined;
+        if (first && nextSet) periods[index] = nextSet.offsetLeft - first.offsetLeft;
+      });
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    rowRefs.current.forEach((row) => row && ro.observe(row));
+
+    // Fast transform writers (no tween objects per frame)
+    const setX = rowRefs.current.map((row) => (row ? gsap.quickSetter(row, "x", "px") : null));
+
+    // Only animate while the grid is on screen
+    let visible = false;
+    const io = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }, { rootMargin: "100px 0px" });
+    if (gridRef.current) io.observe(gridRef.current);
+
     const updateMotion = (): void => {
+      if (!visible) return;
       // Continuous one-way marquee: rows never slow down or reverse.
       // Each row holds repeated copies of its cards, so wrapping by one copy's width is seamless.
       const travelled = gsap.ticker.time * scrollSpeed;
       const targetMouse = (mouseXRef.current / window.innerWidth) * maxMoveAmount - maxMoveAmount / 2;
 
-      rowRefs.current.forEach((row, index) => {
-        if (!row) return;
+      for (let index = 0; index < setX.length; index++) {
+        const set = setX[index];
+        const period = periods[index];
+        if (!set || !period) continue;
         const direction = index % 2 === 0 ? 1 : -1;
-        const first = row.children[0] as HTMLElement | undefined;
-        const nextSet = row.children[rowLengthsRef.current[index]] as HTMLElement | undefined;
-        if (!first || !nextSet) return;
-        const period = nextSet.offsetLeft - first.offsetLeft;
-
         smoothedMouse[index] += (targetMouse - smoothedMouse[index]) * inertiaFactors[index];
         const loop = gsap.utils.wrap(-period / 2, period / 2, travelled * direction);
-
-        gsap.set(row, { x: loop + smoothedMouse[index] * direction });
-      });
+        set(loop + smoothedMouse[index] * direction);
+      }
     };
 
     const removeAnimationLoop = gsap.ticker.add(updateMotion);
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       removeAnimationLoop();
+      ro.disconnect();
+      io.disconnect();
     };
   }, []);
 
@@ -84,7 +106,7 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = 'black' }
             <div
               key={rowIndex}
               className="flex gap-2 md:gap-4 w-max"
-              style={{ willChange: 'transform, filter' }}
+              style={{ willChange: 'transform' }}
               ref={el => {
                 if (el) rowRefs.current[rowIndex] = el;
               }}

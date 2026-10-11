@@ -1,7 +1,7 @@
 "use client";
-import { motion, MotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, MotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import { CSSProperties, ReactNode, useRef } from "react";
-import { REVEAL_OFFSET, SCRUB } from "./scroll-reveal";
+import { SCRUB, useRevealProgress } from "./scroll-reveal";
 
 interface MaskRevealProps {
   as?: "h1" | "h2" | "h3" | "p";
@@ -32,8 +32,7 @@ const Line = ({ progress, index, delay, children }: { progress: MotionValue<numb
 const MaskReveal = ({ as = "h2", lines, className, style, delay = 0 }: MaskRevealProps) => {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: REVEAL_OFFSET });
-  const progress = useSpring(scrollYProgress, SCRUB);
+  const progress = useSpring(useRevealProgress(ref), SCRUB);
   const Tag = as;
 
   if (reduce) {

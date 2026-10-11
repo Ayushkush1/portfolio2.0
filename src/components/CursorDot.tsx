@@ -105,14 +105,15 @@ export default function CursorDot() {
     }
     const onOver = (e: MouseEvent) => updateTarget(e.target as Element)
 
-    // Scrolling with a still mouse moves elements under the pointer without any mouse events
-    let scrollFrame: number | null = null
+    // Scrolling with a still mouse moves elements under the pointer without any mouse events.
+    // Hit-testing every scroll frame forces layout mid-scroll, so check at most every 120ms.
+    let scrollFrame: ReturnType<typeof setTimeout> | null = null
     const onScroll = () => {
       if (scrollFrame !== null || pos.current.x < 0) return
-      scrollFrame = requestAnimationFrame(() => {
+      scrollFrame = setTimeout(() => {
         scrollFrame = null
         updateTarget(document.elementFromPoint(pos.current.x, pos.current.y))
-      })
+      }, 120)
     }
 
     const onLeave = () => setHidden(true)
@@ -138,7 +139,7 @@ export default function CursorDot() {
       root.removeEventListener('mouseleave', onLeave)
       root.removeEventListener('mouseenter', onEnter)
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
-      if (scrollFrame) cancelAnimationFrame(scrollFrame)
+      if (scrollFrame) clearTimeout(scrollFrame)
       rafRef.current = null
     }
   }, [enabled])

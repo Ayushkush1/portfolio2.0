@@ -142,24 +142,39 @@ const FallingPillsArea: React.FC = () => {
     World.add(engine.world, [floor, leftWall, rightWall, mouseConstraint, ...pillBodies]);
 
     const runner = Runner.create();
-    Runner.run(runner, engine);
-    Render.run(render);
 
-    /* sync DOM elements to physics bodies each frame */
+    /* sync DOM elements to physics bodies each frame — transform only, so no layout per frame */
     const loop = () => {
       pillBodies.forEach((body, i) => {
         const el = physicsPillRefs.current[i];
         if (el) {
-          el.style.left      = `${body.position.x}px`;
-          el.style.top       = `${body.position.y}px`;
-          el.style.transform = `translate(-50%, -50%) rotate(${body.angle}rad)`;
+          el.style.transform = `translate3d(${body.position.x}px, ${body.position.y}px, 0) translate(-50%, -50%) rotate(${body.angle}rad)`;
         }
       });
       animFrameRef.current = requestAnimationFrame(loop);
     };
-    animFrameRef.current = requestAnimationFrame(loop);
+
+    /* run the simulation only while the area is on screen */
+    let running = false;
+    const start = () => {
+      if (running) return;
+      running = true;
+      Runner.run(runner, engine);
+      Render.run(render);
+      animFrameRef.current = requestAnimationFrame(loop);
+    };
+    const stop = () => {
+      if (!running) return;
+      running = false;
+      Runner.stop(runner);
+      Render.stop(render);
+      cancelAnimationFrame(animFrameRef.current);
+    };
+    const io = new IntersectionObserver(([entry]) => (entry.isIntersecting ? start() : stop()));
+    io.observe(containerRef.current);
 
     return () => {
+      io.disconnect();
       cancelAnimationFrame(animFrameRef.current);
       Render.stop(render);
       Runner.stop(runner);
