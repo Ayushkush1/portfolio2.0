@@ -132,14 +132,15 @@ export const CurtainReveal = ({
   children: ReactNode;
   className?: string;
   style?: CSSProperties;
-  /** Corner radius kept on the clip while it opens, so edges match the card */
+  /** Corner radius kept on the clip while it opens, so edges match the card.
+      A parent's --card-radius wins, so the card can change it per breakpoint. */
   radius?: number;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
   const progress = useSpring(useRevealProgress(ref), SCRUB);
   const inset = useTransform(progress, [0, 1], [50, 0]);
-  const clipPath = useTransform(inset, (v) => `inset(${v}% 0% ${v}% 0% round ${radius}px)`);
+  const clipPath = useTransform(inset, (v) => `inset(${v}% 0% ${v}% 0% round var(--card-radius, ${radius}px))`);
   const scale = useTransform(progress, [0, 1], [1.18, 1]);
 
   return (

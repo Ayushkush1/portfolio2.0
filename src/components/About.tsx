@@ -71,7 +71,7 @@ const About: React.FC = () => {
           <motion.div
             data-bp-note="words sharpen as you scroll — read at your pace"
             data-bp-code="useScroll → useSpring → blur(8px → 0)"
-            className="text-center md:max-w-[850px] px-6 py-8 md:px-8 md:py-4 md:bg-transparent bg-white/5 backdrop-blur-xl md:backdrop-blur-none border border-white/10 md:border-none rounded-[2.5rem] md:rounded-none shadow-2xl md:shadow-none"
+            className="text-center md:max-w-[850px] px-6 py-8 md:px-8 md:py-4 md:bg-transparent bg-white/5 backdrop-blur-xl md:backdrop-blur-none border border-white/10 md:border-none rounded-3xl md:rounded-none shadow-2xl md:shadow-none"
             {...fadeUp(0.1)}
           >
             {/* Words sharpen out of a blur, scrubbed to the scroll */}

@@ -65,7 +65,7 @@ function ShowcaseRow({
           href={`/work/${big.id}`}
           data-cursor="View"
           data-cursor-ring={`${big.name} · ${big.category}`}
-          className="group relative block cursor-none w-full aspect-[4/5] md:aspect-auto md:h-[500px] rounded-[40px] overflow-hidden"
+          className="group relative block cursor-none w-full aspect-[4/5] md:aspect-auto md:h-[500px] [--card-radius:24px] md:[--card-radius:40px] rounded-[var(--card-radius)] overflow-hidden"
         >
           {/* Tall cover fills the card; opens like a curtain as the row scrolls in */}
           <CurtainReveal className="absolute inset-0 overflow-hidden">
@@ -94,7 +94,7 @@ function ShowcaseRow({
           })}
           data-cursor="View"
           data-cursor-ring={`${small.name} · ${small.category}`}
-          className="group relative block cursor-none w-full aspect-[4/3] md:aspect-auto md:h-[300px] rounded-[40px] overflow-hidden"
+          className="group relative block cursor-none w-full aspect-[4/3] md:aspect-auto md:h-[300px] [--card-radius:24px] md:[--card-radius:40px] rounded-[var(--card-radius)] overflow-hidden"
         >
           {/* Tall cover fills the card; opens like a curtain as the row scrolls in */}
           <CurtainReveal className="absolute inset-0 overflow-hidden">

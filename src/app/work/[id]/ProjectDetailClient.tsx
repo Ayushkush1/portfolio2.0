@@ -119,7 +119,7 @@ export default function ProjectDetailClient({ id }: { id: string }) {
                     // Same name as the clicked card: the card morphs into this hero, so no entrance animation here
                     <ViewTransition name={`project-${project.id}`} share="project-morph" default="none">
                     <div 
-                        className="w-full aspect-[4/3] md:aspect-[16/7] rounded-[1.5rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.6)] bg-white/5 mb-10 md:mb-24 relative group"
+                        className="w-full aspect-[4/3] md:aspect-[16/7] rounded-[20px] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.6)] bg-white/5 mb-10 md:mb-24 relative group"
                     >
                         <Image 
                             src={project.images[0]} 
@@ -206,7 +206,7 @@ export default function ProjectDetailClient({ id }: { id: string }) {
                                     <button
                                         type="button"
                                         aria-label={`Open ${project.name} screen ${i + 2} full size`}
-                                        className="group block w-full rounded-[1.5rem] overflow-hidden border border-white/10 aspect-[16/10] md:aspect-[16/7] bg-gray-900 shadow-2xl relative cursor-zoom-in"
+                                        className="group block w-full rounded-2xl md:rounded-[1.5rem] overflow-hidden border border-white/10 aspect-[16/10] md:aspect-[16/7] bg-gray-900 shadow-2xl relative cursor-zoom-in"
                                     >
                                         <Image 
                                             src={img} 
@@ -225,7 +225,7 @@ export default function ProjectDetailClient({ id }: { id: string }) {
                     </div>
                 )}
 
-                <div id="decisions" className="p-6 md:p-12 rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.01] to-white/[0.04] mb-24">
+                <div id="decisions" className="p-6 md:p-12 rounded-3xl md:rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.01] to-white/[0.04] mb-24">
                     <h2 className="text-3xl md:text-4xl font-light mb-8 flex items-center gap-3 text-white" style={{ fontFamily: "'Fraunces', serif" }}>
                         <Palette className="w-6 h-6 text-purple-400" />
                         UX & Design Decisions

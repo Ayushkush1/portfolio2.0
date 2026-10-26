@@ -84,7 +84,7 @@ const Experience = () => {
                                         damping: 25 
                                     }}
                                 >
-                                    <div className="w-full md:w-[90%] mx-auto relative rounded-3xl overflow-hidden shadow-2xl shadow-foreground/5 h-[400px] md:h-[500px] lg:h-[560px] scale-95">
+                                    <div className="w-full md:w-[90%] mx-auto relative rounded-[20px] md:rounded-3xl overflow-hidden shadow-2xl shadow-foreground/5 h-[400px] md:h-[500px] lg:h-[560px] scale-95">
                                         <Image src="/assets/ayush-kushwaha.webp" alt="Ayush Kushwaha" fill sizes="(max-width: 768px) 100vw, 45vw" className="object-cover object-top" />
                                     </div>
                                 </motion.div>
@@ -185,7 +185,7 @@ const Experience = () => {
 
                     {/* Right Side - Content */}
                     <motion.div
-                        className="order-2 pt-10 pb-6 px-6 lg:pt-24 lg:px-0 w-full bg-white/5 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none border border-white/10 md:border-none rounded-[3rem] md:rounded-none shadow-2xl md:shadow-none"
+                        className="order-2 pt-10 pb-6 px-6 lg:pt-24 lg:px-0 w-full bg-white/5 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none border border-white/10 md:border-none rounded-3xl md:rounded-none shadow-2xl md:shadow-none"
                     >
                         {/* Header */}
                         <div className="mb-6 md:mb-12">

@@ -181,11 +181,6 @@ const Navbar = ({
     return (
         <>
             <header className={`nav-in ${isOnLight ? "nav-light" : ""} fixed top-0 left-0 w-full z-50 flex items-center justify-between py-5 md:py-8 px-5 md:px-6 xl:px-16 2xl:px-24 pointer-events-none`}>
-                    {/* Phones: once scrolled, a soft scrim lifts the bar off the content passing under it */}
-                    <div
-                        aria-hidden="true"
-                        className={`nav-scrim md:hidden absolute inset-x-0 top-0 h-[calc(100%+24px)] -z-10 transition-opacity duration-500 ${isScrolled ? "opacity-100" : "opacity-0"}`}
-                    />
                     <a
                         href="#"
                         className="nav-logo-in nav-logo pointer-events-auto"

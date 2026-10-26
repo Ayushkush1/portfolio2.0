@@ -158,8 +158,8 @@ const Hero = () => {
                 </div>
 
                 {/* Right side - portrait and bio */}
-                <div className="hero-right flex flex-col items-start justify-center -mt-2 md:mt-0 gap-4 md:gap-6 md:items-end w-full">
-                    <div className="hero-intro w-full max-w-full md:max-w-[310px] flex flex-col gap-2 md:gap-4 md:text-right">
+                <div className="hero-right flex flex-col items-start justify-center mt-3 md:mt-0 gap-7 md:gap-6 md:items-end w-full">
+                    <div className="hero-intro w-full max-w-full md:max-w-[310px] flex flex-col gap-8 md:gap-4 md:text-right">
                         <motion.div
                             className="flex gap-8 w-full justify-start md:justify-end pb-4 md:pb-2 md:border-b md:border-white/5 order-2 md:order-1"
                             variants={{

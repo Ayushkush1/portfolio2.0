@@ -170,7 +170,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                     {...fadeUp()}
                     data-bp-note="the footer is the drawing's title block"
                     data-bp-code="sheet 01 / 01 · rev 2026"
-                    className="relative mt-14 md:mt-20 overflow-hidden rounded-[28px] md:rounded-[40px] border border-white/10"
+                    className="relative mt-14 md:mt-20 overflow-hidden rounded-3xl md:rounded-[40px] border border-white/10"
                 >
                     {/* Row 1: status, time, response, back to top */}
                     <div className="grid grid-cols-2 lg:grid-cols-4 border-b border-white/10 [&>*]:border-white/10 [&>*:nth-child(odd)]:border-r lg:[&>*]:border-r lg:[&>*:last-child]:border-r-0 [&>*:nth-child(-n+2)]:border-b lg:[&>*:nth-child(-n+2)]:border-b-0">

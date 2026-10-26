@@ -38,7 +38,7 @@ const BookCallDialog = ({ children, location }: { children: ReactElement; locati
             <DialogTrigger asChild>{children}</DialogTrigger>
             <DialogContent
                 data-lenis-prevent
-                className="w-[calc(100vw-32px)] sm:max-w-[1040px] rounded-[32px] sm:rounded-[32px] border-white/10 bg-[#070b16]/95 backdrop-blur-xl px-6 md:px-8 text-left"
+                className="w-[calc(100vw-32px)] sm:max-w-[1040px] rounded-3xl sm:rounded-[32px] border-white/10 bg-[#070b16]/95 backdrop-blur-xl px-6 md:px-8 text-left"
             >
                 <DialogHeader className="text-left space-y-2">
                     <DialogTitle className="text-3xl font-light tracking-tight text-white" style={{ fontFamily: "'Fraunces', serif" }}>

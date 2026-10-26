@@ -145,7 +145,7 @@ const ClientWebsites = ({ hideHeader = false, limit }: { hideHeader?: boolean; l
                                 </span>
 
                                 {/* Phones & tablets: the preview spans the full row instead of trailing a cursor */}
-                                <div className="lg:hidden col-span-2 relative mt-5 aspect-[16/10] overflow-hidden rounded-[24px] border border-white/10">
+                                <div className="lg:hidden col-span-2 relative mt-5 aspect-[16/10] overflow-hidden rounded-2xl md:rounded-[24px] border border-white/10">
                                     <Image
                                         src={site.image}
                                         alt={`${site.name} website`}

@@ -66,7 +66,7 @@ const Testimonials = () => {
                 data-bp-note="the one light surface = a chapter break"
                 data-bp-code='data-nav-theme="light"'
                 style={{ scale: sheetScale }}
-                className="relative overflow-hidden rounded-[2.5rem] md:rounded-[4rem] bg-paper text-paper-foreground pt-14 md:pt-24 md:pb-6"
+                className="relative overflow-hidden rounded-[28px] md:rounded-[4rem] bg-paper text-paper-foreground pt-14 md:pt-24 md:pb-6"
             >
             {/* Moving Background Text (Desktop) */}
             <motion.div 

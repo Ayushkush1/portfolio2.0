@@ -66,8 +66,22 @@ function SelectField({
     );
 }
 
-const InquiryDialog = ({ children }: { children: React.ReactNode }) => {
-    const [open, setOpen] = useState(false);
+// Uncontrolled with a trigger as children, or controlled via open/onOpenChange (no trigger needed)
+const InquiryDialog = ({
+    children,
+    open: controlledOpen,
+    onOpenChange,
+}: {
+    children?: React.ReactNode;
+    open?: boolean;
+    onOpenChange?: (open: boolean) => void;
+}) => {
+    const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
+    const open = controlledOpen ?? uncontrolledOpen;
+    const setOpen = (next: boolean) => {
+        setUncontrolledOpen(next);
+        onOpenChange?.(next);
+    };
     const [name, setName] = useState("");
     const [type, setType] = useState("");
     const [budget, setBudget] = useState("");
@@ -97,10 +111,10 @@ const InquiryDialog = ({ children }: { children: React.ReactNode }) => {
 
     return (
         <Dialog open={open} onOpenChange={(next) => { if (next) track("inquiry_open"); setOpen(next); }}>
-            <DialogTrigger asChild>{children}</DialogTrigger>
+            {children && <DialogTrigger asChild>{children}</DialogTrigger>}
             <DialogContent
                 data-lenis-prevent
-                className="w-[calc(100vw-32px)] max-h-[calc(100dvh-32px)] overflow-y-auto sm:max-w-[600px] rounded-[32px] sm:rounded-[32px] border-white/10 bg-[#070b16]/95 backdrop-blur-xl p-6 md:p-8 text-left"
+                className="w-[calc(100vw-32px)] max-h-[calc(100dvh-32px)] overflow-y-auto sm:max-w-[600px] rounded-3xl sm:rounded-[32px] border-white/10 bg-[#070b16]/95 backdrop-blur-xl p-6 md:p-8 text-left"
             >
                 <DialogHeader className="text-left space-y-2">
                     <DialogTitle

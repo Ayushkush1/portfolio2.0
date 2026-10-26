@@ -46,11 +46,10 @@ function ProjectCard({
                 href={`/work/${id}`}
                 data-cursor="View"
                 data-cursor-ring={`${name} · ${category}`}
-                className={`group relative block cursor-none w-full overflow-hidden ${heightClass}`}
-                style={{ borderRadius: "40px" }}
+                className={`group relative block cursor-none w-full overflow-hidden rounded-[24px] md:rounded-[40px] ${heightClass}`}
             >
                 {/* Tall cover fills the card; crops from the bottom only */}
-                <div className="absolute inset-0 overflow-hidden" style={{ borderRadius: "40px" }}>
+                <div className="absolute inset-0 overflow-hidden rounded-[24px] md:rounded-[40px]">
                     <Image
                         src={image}
                         alt={name}
