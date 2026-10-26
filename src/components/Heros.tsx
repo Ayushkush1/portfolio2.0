@@ -137,7 +137,7 @@ const Hero = () => {
                 }}
             />
 
-            <div className="container relative z-10 grid min-h-[70vh] lg:min-h-[80vh] grid-cols-1 items-start md:items-center lg:gap-10 md:gap-4 gap-8 pt-8 md:pt-36 pb-12 md:pb-40 md:py-20 md:grid-cols-2">
+            <div className="container relative z-10 grid min-h-[70vh] lg:min-h-[80vh] grid-cols-1 content-start md:content-normal items-start md:items-center lg:gap-10 md:gap-4 gap-8 pt-8 md:pt-36 pb-12 md:pb-40 md:py-20 md:grid-cols-2">
                 {/* Left copy */}
                 <div className="hero-left">
                     <h1 data-bp-note="serif + sans — warmth meets clarity" data-bp-code="Fraunces 300 · system sans 700" data-bp-pos="bottom" className="text-[2.2rem] sm:text-[2.6rem] lg:text-6xl font-bold leading-tight tracking-tight max-w-xl flex flex-wrap">
@@ -158,7 +158,7 @@ const Hero = () => {
                 </div>
 
                 {/* Right side - portrait and bio */}
-                <div className="hero-right flex flex-col items-start justify-center -mt-8 md:mt-0 gap-4 md:gap-6 md:items-end w-full">
+                <div className="hero-right flex flex-col items-start justify-center -mt-2 md:mt-0 gap-4 md:gap-6 md:items-end w-full">
                     <div className="hero-intro w-full max-w-full md:max-w-[310px] flex flex-col gap-2 md:gap-4 md:text-right">
                         <motion.div
                             className="flex gap-8 w-full justify-start md:justify-end pb-4 md:pb-2 md:border-b md:border-white/5 order-2 md:order-1"
@@ -182,7 +182,7 @@ const Hero = () => {
                                 <span className="text-2xl md:text-3xl font-black text-white flex items-start">
                                     <CountUp to={40} /><span className="text-brand text-xl font-black ml-[2px] mt-[2px]">+</span>
                                 </span>
-                                <span className="text-[10px] uppercase leading-3 text-gray-400 tracking-wide font-medium mt-1">Projects Shipped</span>
+                                <span className="text-xs md:text-[11px] uppercase leading-3 text-gray-400 tracking-wide font-medium mt-1.5 md:mt-1">Projects Shipped</span>
                             </motion.div>
                             <motion.div
                                 className="flex flex-col justify-center items-start md:items-end p-0"
@@ -194,10 +194,14 @@ const Hero = () => {
                                 <span className="text-2xl md:text-3xl font-black text-white flex items-start">
                                     <CountUp to={3} /><span className="text-brand text-xl font-black ml-[2px] mt-[2px]">+</span>
                                 </span>
-                                <span className="text-[10px] uppercase leading-3 text-gray-400 tracking-wide font-medium mt-1">Years Exp.</span>
+                                <span className="text-xs md:text-[11px] uppercase leading-3 text-gray-400 tracking-wide font-medium mt-1.5 md:mt-1">Years Exp.</span>
                             </motion.div>
                         </motion.div>
-                        <p className="text-md text-gray-300 leading-relaxed order-1 md:order-2">
+                        {/* Phones get a shorter version of the bio below */}
+                        <p className="md:hidden text-[17px] text-gray-300 leading-relaxed order-1">
+                            Product designer and full-stack engineer. I take products from first sketch to production for founders and growing businesses.
+                        </p>
+                        <p className="hidden md:block text-md text-gray-300 leading-relaxed md:order-2">
                             Product designer and full-stack engineer. <br/> I take products from first sketch to production: interface design, motion, architecture and deployment for founders, agencies and growing businesses.
                         </p>
                     </div>

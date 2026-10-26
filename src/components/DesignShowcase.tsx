@@ -29,13 +29,13 @@ const DesignShowcase = () => {
     const containerRef = useRef<HTMLElement>(null);
 
     return (
-        <section id="design" ref={containerRef} className="py-24 md:py-32 bg-background relative overflow-hidden">
-            <div className="w-full max-w-7xl mx-auto px-6 md:px-12 xl:px-16 relative z-10 mb-10 md:mb-16">
-                <div className="flex flex-col md:flex-row justify-between items-end gap-8">
+        <section id="design" ref={containerRef} className="py-16 md:py-32 bg-background relative overflow-hidden">
+            <div className="w-full max-w-7xl mx-auto px-5 md:px-12 xl:px-16 relative z-10 mb-10 md:mb-16">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-5 md:gap-8">
                     <div>
                        
                         <MaskReveal
-                            className="text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.1]"
+                            className="text-display md:text-5xl lg:text-6xl font-light text-white tracking-tight md:leading-[1.1]"
                             style={{ fontFamily: "'Fraunces', serif" }}
                             lines={[
                                 "Elevating user",
@@ -46,7 +46,7 @@ const DesignShowcase = () => {
                         />
                     </div>
                     <ScrollBlurText
-                        className="text-gray-400 max-w-md font-normal leading-relaxed md:text-right"
+                        className="text-gray-400 text-[17px] md:text-base max-w-md font-normal leading-relaxed md:text-right"
                         text="From wireframes to highly polished interfaces, I craft designs that balance beautiful aesthetics with frictionless functionality."
                     />
                 </div>
@@ -57,7 +57,7 @@ const DesignShowcase = () => {
                 data-bp-skip
                 data-bp-note="endless marquee — never slows, never reverses"
                 data-bp-code="gsap.ticker + utils.wrap()"
-                className="w-full h-[500px] md:h-[700px] relative z-20"
+                className="w-full h-[440px] md:h-[700px] relative z-20"
             >
                 <GridMotion items={designs} gradientColor="transparent" />
             </div>

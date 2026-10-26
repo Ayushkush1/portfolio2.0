@@ -233,6 +233,21 @@ All colors MUST be HSL.
   color: hsl(var(--paper-foreground));
 }
 .nav-light .nav-glass .text-foreground { color: hsl(var(--paper-foreground)); }
+
+/* Phone navbar scrim: page colour fading out downwards, blurred under the bar.
+   Over the paper sheet it takes the paper colour so the dark ink stays readable. */
+.nav-scrim {
+  --scrim: var(--background);
+  background: linear-gradient(to bottom, hsl(var(--scrim) / 0.97) 0%, hsl(var(--scrim) / 0.9) 70%, hsl(var(--scrim) / 0) 100%);
+  -webkit-backdrop-filter: blur(12px);
+          backdrop-filter: blur(12px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent);
+          mask-image: linear-gradient(to bottom, #000 78%, transparent);
+}
+.nav-light .nav-scrim { --scrim: var(--paper); }
+
+/* Sticky mobile call-to-action: clears the iPhone home indicator */
+.safe-bottom { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
 .nav-light .nav-glass .bg-foreground { background-color: hsl(var(--paper-foreground)); }
 
 /* ── First-visit intro (see IntroCurtain) ────────────────────────

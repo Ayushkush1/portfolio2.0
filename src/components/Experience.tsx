@@ -59,10 +59,10 @@ const Experience = () => {
     ];
 
     return (
-        <section ref={sectionRef} id="experience" className="relative py-12 pt-20 md:py-24 md:pt-40 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
+        <section ref={sectionRef} id="experience" className="relative py-12 pt-16 md:py-24 md:pt-40 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5">
 
 
-            <div className="container relative z-10 max-w-7xl mx-auto px-4 pb-12 md:pb-32">
+            <div className="container relative z-10 max-w-7xl mx-auto md:px-4 pb-8 md:pb-32">
                 <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
                     {/* Left Side - Profile Image & Info */}
                     <div className="lg:-rotate-2 order-1 w-full">
@@ -90,19 +90,19 @@ const Experience = () => {
                                 </motion.div>
                             </div>
 
-                            <div className="flex justify-between px-4 md:px-12 -mt-2 lg:-mt-4">
+                            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-1 md:gap-3 px-2 md:px-12 -mt-2 lg:-mt-4">
                                 {/* Name & Title */}
                                 <motion.div
                                     className="mb-2"
                                     {...fadeUp(0.2)}
                                 >
                                     <h2 className="text-base md:text-lg font-semibold text-foreground">Ayush Kushwaha</h2>
-                                    <p className="text-gray-400 text-[11px] md:text-xs">Product Designer & Full-Stack Engineer</p>
+                                    <p className="text-gray-400 text-sm md:text-xs">Product Designer & Full-Stack Engineer</p>
                                 </motion.div>
 
                                 {/* Social Links */}
                                 <motion.div
-                                    className="flex gap-3 md:gap-4 justify-center"
+                                    className="flex gap-0 md:gap-4 justify-start md:justify-center -ml-2.5 md:ml-0"
                                     {...fadeUp(0.2 + STAGGER)}
                                 >
 
@@ -110,7 +110,7 @@ const Experience = () => {
                                         href="https://www.linkedin.com/in/ayush-kushwaha-b3b76915b/"
                                         target="_blank"
                                         aria-label="LinkedIn Profile"
-                                        className="w-5 h-5 md:w-6 md:h-6 text-gray-400 transition-colors duration-300"
+                                        className="flex items-center justify-center w-10 h-10 p-2.5 md:p-0 md:w-6 md:h-6 text-gray-400 transition-colors duration-300"
                                         whileHover={{
                                             scale: 1.15,
                                             color: "rgb(var(--brand-rgb, 251, 146, 60))"
@@ -128,7 +128,7 @@ const Experience = () => {
                                         href="https://github.com/Ayushkush1"
                                         target="_blank"
                                         aria-label="GitHub Profile"
-                                        className="w-5 h-5 md:w-6 md:h-6 text-gray-400 transition-colors duration-300"
+                                        className="flex items-center justify-center w-10 h-10 p-2.5 md:p-0 md:w-6 md:h-6 text-gray-400 transition-colors duration-300"
                                         whileHover={{
                                             scale: 1.15,
                                             color: "rgb(var(--brand-rgb, 251, 146, 60))"
@@ -146,7 +146,7 @@ const Experience = () => {
                                         href="https://www.instagram.com/awsm_ayush_/"
                                         target="_blank"
                                         aria-label="Instagram Profile"
-                                        className="w-5 h-5 md:w-6 md:h-6 text-gray-400 transition-colors duration-300"
+                                        className="flex items-center justify-center w-10 h-10 p-2.5 md:p-0 md:w-6 md:h-6 text-gray-400 transition-colors duration-300"
                                         whileHover={{
                                             scale: 1.15,
                                             color: "rgb(var(--brand-rgb, 251, 146, 60))"
@@ -164,7 +164,7 @@ const Experience = () => {
                                         href="mailto:ayushkushwaha381@gmail.com"
                                         onClick={() => track("email_click", { location: "experience" })}
                                         aria-label="Email Me"
-                                        className="w-5 h-5 md:w-6 md:h-6 text-gray-400 transition-colors duration-300"
+                                        className="flex items-center justify-center w-10 h-10 p-2.5 md:p-0 md:w-6 md:h-6 text-gray-400 transition-colors duration-300"
                                         whileHover={{
                                             scale: 1.15,
                                             color: "rgb(var(--brand-rgb, 251, 146, 60))"
@@ -185,10 +185,10 @@ const Experience = () => {
 
                     {/* Right Side - Content */}
                     <motion.div
-                        className="order-2 pt-10 pb-8 px-6 lg:pt-24 lg:px-0 w-full bg-white/5 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none border border-white/10 md:border-none rounded-[3rem] md:rounded-none shadow-2xl md:shadow-none"
+                        className="order-2 pt-10 pb-6 px-6 lg:pt-24 lg:px-0 w-full bg-white/5 md:bg-transparent backdrop-blur-xl md:backdrop-blur-none border border-white/10 md:border-none rounded-[3rem] md:rounded-none shadow-2xl md:shadow-none"
                     >
                         {/* Header */}
-                        <div className="mb-12">
+                        <div className="mb-6 md:mb-12">
                             <motion.p
                                 className="text-gray-400 text-lg mb-4 italic"
                                 {...fadeUp()}
@@ -207,7 +207,7 @@ const Experience = () => {
 
                             {/* Description */}
                             <ScrollBlurText
-                                className="text-gray-400 text-[17px] leading-relaxed mb-12"
+                                className="text-gray-400 text-[17px] leading-relaxed md:mb-12"
                                 text="Building high-performance SaaS platforms, internal business systems, and modern web applications that drive operational efficiency. With a strong focus on scalable architecture and exceptional user experiences."
                             />
                         </div>
@@ -219,22 +219,25 @@ const Experience = () => {
                             {experiences.map((exp, index) => (
                                 <motion.div
                                     key={exp.id}
-                                    className="flex justify-between items-center py-4 border-b border-gray-100/10 last:border-b-0  transition-colors duration-200  px-4 -mx-4"
+                                    className="flex justify-between items-start md:items-center gap-4 py-4 border-b border-gray-100/10 last:border-b-0  transition-colors duration-200  px-4 -mx-4"
                                     {...fadeUp(0.25 + index * STAGGER)}
                                 >
-                                    <div className="w-[40%] md:flex-1">
-                                        <p className="font-medium text-gray-200 text-[10px] md:text-sm whitespace-nowrap overflow-hidden text-ellipsis">
+                                    <div className="min-w-0 md:flex-1">
+                                        <p className="font-medium text-gray-100 md:text-gray-200 text-base md:text-sm">
                                             {exp.role}
                                         </p>
-                                    </div>
-                                    <div className="w-[30%] md:flex-1 text-center">
-                                        <p className="text-gray-400 text-[10px] md:text-sm whitespace-nowrap overflow-hidden text-ellipsis">
+                                        <p className="md:hidden mt-0.5 text-gray-400 text-[15px]">
                                             {exp.company}
                                         </p>
                                     </div>
-                                    <div className="w-[30%] md:flex-1 text-right">
-                                        <p className="text-gray-400 text-[10px] md:text-sm whitespace-nowrap">
-                                            {exp.period}
+                                    <div className="hidden md:block md:flex-1 text-center">
+                                        <p className="text-gray-400 text-sm whitespace-nowrap overflow-hidden text-ellipsis">
+                                            {exp.company}
+                                        </p>
+                                    </div>
+                                    <div className="shrink-0 md:flex-1 text-right">
+                                        <p className="text-gray-400 text-sm whitespace-nowrap pt-0.5 md:pt-0">
+                                            {exp.period.trim()}
                                         </p>
                                     </div>
                                 </motion.div>

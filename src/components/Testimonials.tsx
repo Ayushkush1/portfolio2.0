@@ -124,7 +124,7 @@ const Testimonials = () => {
                                     <img src={testimonials[activeIndex].avatar} alt={testimonials[activeIndex].name} className="w-12 h-12 rounded-full mb-3 object-cover border border-paper-foreground/10" />
                                 )}
                                 <h3 className="text-paper-foreground font-semibold text-base leading-none mb-2">{testimonials[activeIndex].name}</h3>
-                                <p className="text-paper-foreground/50 text-[10px] uppercase tracking-[0.2em]">{testimonials[activeIndex].role}</p>
+                                <p className="text-paper-foreground/70 text-xs uppercase tracking-[0.12em]">{testimonials[activeIndex].role}</p>
                             </div>
                         </motion.div>
                     </AnimatePresence>

@@ -60,14 +60,14 @@ const ClientWebsites = ({ hideHeader = false, limit }: { hideHeader?: boolean; l
     return (
         <section
             id="websites"
-            className="relative pt-8 md:pt-16 pb-24 md:pb-44 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5"
+            className="relative pt-8 md:pt-16 pb-20 md:pb-44 overflow-hidden bg-gradient-to-br from-background via-background to-primary/5"
         >
             <div className="container relative z-10">
                 {/* Section Header */}
                 {!hideHeader && (
-                <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 mb-10 md:mb-20 text-center md:text-left">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8 md:mb-20 text-left">
                     <MaskReveal
-                        className="text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.1]"
+                        className="text-display md:text-5xl lg:text-6xl font-light text-white tracking-tight md:leading-[1.1]"
                         style={{ fontFamily: "'Fraunces', serif" }}
                         lines={[
                             "Websites crafted",
@@ -77,7 +77,7 @@ const ClientWebsites = ({ hideHeader = false, limit }: { hideHeader?: boolean; l
                         ]}
                     />
                     <ScrollBlurText
-                        className="text-gray-400 max-w-sm leading-relaxed md:text-right"
+                        className="text-gray-400 text-[17px] md:text-base max-w-sm leading-relaxed md:text-right"
                         text="Marketing sites and landing pages for brands in travel, education, SaaS and more."
                     />
                 </div>
@@ -112,31 +112,25 @@ const ClientWebsites = ({ hideHeader = false, limit }: { hideHeader?: boolean; l
                             {/* Brand line sweeps in along the divider on hover */}
                             <span className="pointer-events-none absolute -bottom-px left-0 h-px w-full origin-left scale-x-0 bg-brand transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/row:scale-x-100" />
 
-                            <div className="grid grid-cols-[auto_1fr_auto] lg:grid-cols-[72px_1fr_240px_220px_52px] items-center gap-x-4 md:gap-x-6 py-6 md:py-8 transition-opacity duration-500 lg:group-hover/list:opacity-30 lg:group-hover/row:!opacity-100">
-                                <span className="font-mono text-xs text-brand/60 transition-colors duration-300 group-hover/row:text-brand self-start pt-2 lg:self-center lg:pt-0">
+                            <div className="grid grid-cols-[1fr_auto] lg:grid-cols-[72px_1fr_240px_220px_52px] items-center gap-x-4 md:gap-x-6 py-8 transition-opacity duration-500 lg:group-hover/list:opacity-30 lg:group-hover/row:!opacity-100">
+                                <span className="hidden lg:block font-mono text-xs text-brand/60 transition-colors duration-300 group-hover/row:text-brand">
                                     {String(i + 1).padStart(2, "0")}
                                 </span>
 
                                 <div className="min-w-0">
+                                    <span className="lg:hidden mb-2 block font-mono text-[13px] text-brand/90">
+                                        {String(i + 1).padStart(2, "0")}
+                                    </span>
                                     <h3
-                                        className="text-3xl md:text-5xl lg:text-6xl font-light tracking-tight text-gray-300 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/row:text-white lg:group-hover/row:translate-x-3"
+                                        className="text-[2rem] leading-[1.1] md:text-5xl lg:text-6xl font-light tracking-tight text-white lg:text-gray-300 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/row:text-white lg:group-hover/row:translate-x-3"
                                         style={{ fontFamily: "'Fraunces', serif" }}
                                     >
                                         {site.name}
                                     </h3>
-                                    {/* Mobile meta + thumbnail */}
-                                    <p className="lg:hidden mt-2 text-[10px] font-medium tracking-[0.18em] uppercase text-white/50">
+                                    {/* Mobile meta */}
+                                    <p className="lg:hidden mt-2 text-xs font-medium tracking-[0.12em] uppercase text-white/65">
                                         {site.industry} <span className="text-brand/70 mx-1">/</span> {site.role}
                                     </p>
-                                    <div className="lg:hidden relative mt-4 aspect-[16/10] overflow-hidden rounded-[24px] border border-white/10">
-                                        <Image
-                                            src={site.image}
-                                            alt={`${site.name} website`}
-                                            fill
-                                            sizes="(max-width: 1024px) 85vw, 1px"
-                                            className="object-cover object-top"
-                                        />
-                                    </div>
                                 </div>
 
                                 <span className="hidden lg:block text-[11px] font-medium tracking-[0.18em] uppercase text-white/50">
@@ -146,9 +140,20 @@ const ClientWebsites = ({ hideHeader = false, limit }: { hideHeader?: boolean; l
                                     {site.role}
                                 </span>
 
-                                <span className="self-start lg:self-center flex h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-full border border-white/10 text-gray-400 transition-all duration-500 group-hover/row:bg-brand group-hover/row:border-brand group-hover/row:text-white">
+                                <span className="self-start mt-6 lg:mt-0 lg:self-center flex h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-full border border-white/10 text-gray-400 transition-all duration-500 group-hover/row:bg-brand group-hover/row:border-brand group-hover/row:text-white">
                                     <ArrowRight className="h-4 w-4 -rotate-45 transition-transform duration-500 group-hover/row:rotate-0" />
                                 </span>
+
+                                {/* Phones & tablets: the preview spans the full row instead of trailing a cursor */}
+                                <div className="lg:hidden col-span-2 relative mt-5 aspect-[16/10] overflow-hidden rounded-[24px] border border-white/10">
+                                    <Image
+                                        src={site.image}
+                                        alt={`${site.name} website`}
+                                        fill
+                                        sizes="(max-width: 1024px) 100vw, 1px"
+                                        className="object-cover object-top"
+                                    />
+                                </div>
                             </div>
                         </motion.a>
                     ))}

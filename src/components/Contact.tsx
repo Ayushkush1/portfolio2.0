@@ -41,7 +41,7 @@ const SIGN_OFF = [
     { label: "Copyright", value: "© 2026 Ayush Kushwaha" },
 ];
 
-const label = "block text-[10px] md:text-[11px] font-medium uppercase tracking-[0.18em] text-white/40 mb-2";
+const label = "block text-xs md:text-[11px] font-medium uppercase tracking-[0.14em] md:tracking-[0.18em] text-white/60 md:text-white/40 mb-2";
 // Title-block cell padding
 const cell = "p-4 md:p-6";
 
@@ -106,7 +106,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
         : [title];
 
     return (
-        <section ref={ref} id="contact" aria-label="Contact" className="relative overflow-hidden bg-gradient-to-br from-background via-background to-primary/5 text-foreground pt-24 md:pt-40">
+        <section ref={ref} id="contact" aria-label="Contact" className="relative overflow-hidden bg-gradient-to-br from-background via-background to-primary/5 text-foreground pt-20 md:pt-40">
             <div className="container relative z-10">
                 {/* ── Closing line: headline left, actions right, one row ── */}
                 <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
@@ -188,7 +188,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                             <span className={label}>Local time</span>
                             <span className="whitespace-nowrap text-base md:text-lg text-white" style={serif}>
                                 <span className="tabular-nums">{time ?? "--:--"}</span>
-                                <span className="ml-2 text-sm text-white/45 font-sans">IST · India</span>
+                                <span className="ml-2 text-sm text-white/55 md:text-white/45 font-sans">IST · India</span>
                             </span>
                         </div>
                         <div className={cell}>
@@ -221,10 +221,11 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                                     type="button"
                                     onClick={copyEmail}
                                     aria-label={`Copy email address ${EMAIL}`}
-                                    className="group flex w-full items-center justify-between gap-4 text-left"
+                                    className="group flex w-full flex-col items-start gap-4 text-left sm:flex-row sm:items-center sm:justify-between"
                                 >
-                                    <span className="break-all text-2xl sm:text-3xl md:text-[2.6rem] font-light text-white transition-colors duration-300 group-hover:text-brand" style={serif}>
-                                        {EMAIL}
+                                    {/* Phones break the address before "@", never mid-word */}
+                                    <span className="min-w-0 [overflow-wrap:anywhere] text-[1.75rem] leading-tight sm:text-3xl md:text-[2.6rem] font-light text-white transition-colors duration-300 group-hover:text-brand" style={serif}>
+                                        {EMAIL.split("@")[0]}<wbr />@{EMAIL.split("@")[1]}
                                     </span>
                                     <span className="flex shrink-0 items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-xs uppercase tracking-[0.14em] text-white/70 transition-colors duration-300 group-hover:border-brand/60 group-hover:text-white">
                                         {copied ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
@@ -235,7 +236,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                             <BookCallDialog location="footer">
                                 <button
                                     type="button"
-                                    className="group flex w-fit items-center gap-3 text-sm text-white/60 transition-colors duration-300 hover:text-white"
+                                    className="group flex min-h-11 w-fit items-center gap-3 text-[15px] md:text-sm text-white/70 md:text-white/60 transition-colors duration-300 hover:text-white"
                                 >
                                     Prefer talking? <span className="text-white" style={serif}>Book a 20-min call</span>
                                     <ArrowUpRight className="h-4 w-4 text-brand transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -252,7 +253,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             onClick={() => track("social_click", { network: link.label, location: "footer" })}
-                                            className="group flex items-center justify-between border-b border-white/[0.06] py-2 text-white/80 transition-colors duration-300 hover:text-white"
+                                            className="group flex min-h-12 items-center justify-between border-b border-white/[0.06] py-2 text-white/80 transition-colors duration-300 hover:text-white"
                                         >
                                             <span className="flex items-center gap-3 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1.5">
                                                 <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white/70 transition-colors duration-300 group-hover:border-brand/50 group-hover:bg-brand/10 group-hover:text-brand">
@@ -273,7 +274,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                         {SIGN_OFF.map((field) => (
                             <div key={field.label} className="px-5 py-4 md:px-6">
                                 <span className={label}>{field.label}</span>
-                                <span className="text-sm text-white/80" style={serif}>{field.value}</span>
+                                <span className="text-[15px] md:text-sm text-white/85 md:text-white/80" style={serif}>{field.value}</span>
                             </div>
                         ))}
                     </div>

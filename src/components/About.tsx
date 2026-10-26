@@ -16,7 +16,7 @@ import { DURATION, EASE, VIEWPORT, fadeUp } from "@/lib/motion";
 
 /* ── simple pill badge for mobile marquee ────────────────────── */
 const PillBadge: React.FC<{ icon: React.ReactNode; label: string; color: string }> = ({ icon, label, color }) => (
-  <div className="rounded-full px-1.5 py-1 pr-3 flex items-center gap-1.5 bg-white/90 backdrop-blur text-xs text-gray-900 shadow-lg border border-white/20 whitespace-nowrap select-none">
+  <div className="rounded-full px-1.5 py-1 pr-3 flex items-center gap-1.5 bg-white/90 backdrop-blur text-sm text-gray-900 shadow-lg border border-white/20 whitespace-nowrap select-none">
     <span className="inline-flex items-center justify-center rounded-full size-7 flex-shrink-0" style={{ backgroundColor: color }}>
       <span className="text-white">{icon}</span>
     </span>
@@ -43,7 +43,7 @@ const About: React.FC = () => {
       <div className="container relative z-10 md:max-w-7xl md:mx-auto mx-0 md:px-0 px-5 pb-10 md:pb-28">
         {/* Hello Badge */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-16"
           {...fadeUp()}
         >
           <div className="inline-flex items-center gap-3">
@@ -78,7 +78,7 @@ const About: React.FC = () => {
             <ScrollBlurText
               as="h2"
               text={statementText}
-              className="text-[1.7rem] md:text-5xl lg:text-5xl font-thin text-foreground mb-0 md:mb-6 text-center"
+              className="text-[1.65rem] md:text-5xl lg:text-5xl font-light md:font-thin text-foreground mb-0 md:mb-6 text-center"
               style={{ lineHeight: "1.2" }}
             />
           </motion.div>

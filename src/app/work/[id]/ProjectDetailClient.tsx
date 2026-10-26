@@ -4,12 +4,13 @@ import { useEffect, ViewTransition } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Code2, ShieldAlert, Cpu, Palette, Milestone } from "lucide-react";
+import { ArrowLeft, ArrowRight, Code2, ShieldAlert, Cpu, Palette, Milestone, Maximize2 } from "lucide-react";
 import { caseStudies } from "@/data/projects";
 import Contact from "@/components/Contact";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import { track } from "@/lib/analytics";
+import ImageLightbox from "@/components/ui/image-lightbox";
 
 export default function ProjectDetailClient({ id }: { id: string }) {
     const project = caseStudies.find((c) => c.id === id);
@@ -64,6 +65,21 @@ export default function ProjectDetailClient({ id }: { id: string }) {
                             <p className="text-lg md:text-xl text-white/60 leading-relaxed font-light max-w-3xl">
                                 {project.tagline}
                             </p>
+                            {/* Phones: the live link sits under the title (the desktop button is beside it) */}
+                            {project.liveUrl !== "#" && (
+                                <a
+                                    href={project.liveUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={() => track("live_project_click", { project: project.name })}
+                                    className="lg:hidden mt-6 inline-flex h-12 items-center gap-3 rounded-full bg-brand pl-5 pr-1.5 text-sm font-medium text-white shadow-[0_0_20px_rgba(255,95,38,0.35)]"
+                                >
+                                    Visit Live Project
+                                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white">
+                                        <ArrowRight className="h-4 w-4 -rotate-45 text-[#ff5f26]" />
+                                    </span>
+                                </a>
+                            )}
                         </motion.div>
                     </div>
 
@@ -103,7 +119,7 @@ export default function ProjectDetailClient({ id }: { id: string }) {
                     // Same name as the clicked card: the card morphs into this hero, so no entrance animation here
                     <ViewTransition name={`project-${project.id}`} share="project-morph" default="none">
                     <div 
-                        className="w-full aspect-[16/7] rounded-[1.5rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.6)] bg-white/5 mb-10 md:mb-24 relative group"
+                        className="w-full aspect-[4/3] md:aspect-[16/7] rounded-[1.5rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.6)] bg-white/5 mb-10 md:mb-24 relative group"
                     >
                         <Image 
                             src={project.images[0]} 
@@ -117,24 +133,24 @@ export default function ProjectDetailClient({ id }: { id: string }) {
                     </ViewTransition>
                 )}
 
-                <div id="context" className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 py-6 md:py-10 border-y border-white/10 mb-10 md:mb-24">
+                <div id="context" className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6 md:gap-8 py-6 md:py-10 border-y border-white/10 mb-10 md:mb-24">
                     <div>
-                        <span className="block text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-white/60 mb-1">My Role</span>
-                        <span className="text-white/80 font-light text-xs md:text-base leading-relaxed block">{project.role.split(" — ")[0]}</span>
+                        <span className="block text-xs md:text-[10px] font-mono uppercase tracking-wider md:tracking-widest text-white/65 md:text-white/60 mb-1.5 md:mb-1">My Role</span>
+                        <span className="text-white/85 md:text-white/80 font-normal md:font-light text-[15px] md:text-base leading-relaxed block">{project.role.split(" — ")[0]}</span>
                     </div>
                     <div>
-                        <span className="block text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-white/60 mb-1">Platform / Category</span>
-                        <span className="text-white/80 font-light text-xs md:text-base block">{project.category}</span>
+                        <span className="block text-xs md:text-[10px] font-mono uppercase tracking-wider md:tracking-widest text-white/65 md:text-white/60 mb-1.5 md:mb-1">Platform / Category</span>
+                        <span className="text-white/85 md:text-white/80 font-normal md:font-light text-[15px] md:text-base block">{project.category}</span>
                     </div>
                     <div>
-                        <span className="block text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-white/60 mb-1">Year</span>
-                        <span className="text-white/80 font-light text-xs md:text-base block">{project.year}</span>
+                        <span className="block text-xs md:text-[10px] font-mono uppercase tracking-wider md:tracking-widest text-white/65 md:text-white/60 mb-1.5 md:mb-1">Year</span>
+                        <span className="text-white/85 md:text-white/80 font-normal md:font-light text-[15px] md:text-base block">{project.year}</span>
                     </div>
                     <div>
-                        <span className="block text-[9px] md:text-[10px] font-mono uppercase tracking-widest text-white/60 mb-1">Core Tech</span>
+                        <span className="block text-xs md:text-[10px] font-mono uppercase tracking-wider md:tracking-widest text-white/65 md:text-white/60 mb-1.5 md:mb-1">Core Tech</span>
                         <div className="flex flex-wrap gap-1 mt-1">
                             {project.techStack.slice(0, 3).map((t, idx) => (
-                                <span key={idx} className="text-[9px] md:text-[10px] text-white/70 bg-white/5 px-2 md:px-2.5 py-0.5 md:py-1 rounded-full border border-white/5 font-mono">
+                                <span key={idx} className="text-[13px] md:text-[10px] text-white/75 md:text-white/70 bg-white/5 px-2 md:px-2.5 py-0.5 md:py-1 rounded-full border border-white/5 font-mono">
                                     {t}
                                 </span>
                             ))}
@@ -142,71 +158,81 @@ export default function ProjectDetailClient({ id }: { id: string }) {
                     </div>
                 </div>
 
-                <div id="vision" className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 mb-24">
+                <div id="vision" className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 mb-16 md:mb-24">
                     <div className="lg:col-span-7 space-y-16">
                         <div>
                             <h2 className="text-3xl md:text-4xl font-light mb-6 flex items-center gap-3 text-white" style={{ fontFamily: "'Fraunces', serif" }}>
                                 <Milestone className="w-6 h-6 text-brand" />
                                 The Challenge
                             </h2>
-                            <p className="text-white/60 font-light text-base leading-relaxed">{project.challenge}</p>
+                            <p className="text-white/75 md:text-white/60 font-normal md:font-light text-[17px] md:text-base leading-relaxed">{project.challenge}</p>
                         </div>
                         <div>
                             <h2 className="text-3xl md:text-4xl font-light mb-6 flex items-center gap-3 text-white" style={{ fontFamily: "'Fraunces', serif" }}>
                                 <Cpu className="w-6 h-6 text-green-400" />
                                 The Solution
                             </h2>
-                            <p className="text-white/60 font-light text-base leading-relaxed">{project.solution}</p>
+                            <p className="text-white/75 md:text-white/60 font-normal md:font-light text-[17px] md:text-base leading-relaxed">{project.solution}</p>
                         </div>
                     </div>
                     <div className="lg:col-span-5 space-y-16">
-                        <div className="p-8 rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-xl">
+                        <div className="p-6 md:p-8 rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-xl">
                             <h3 className="text-xs font-mono uppercase tracking-widest text-brand mb-4 flex items-center gap-2">
                                 <Code2 className="w-4 h-4" />
                                 Technical Architecture
                             </h3>
-                            <p className="text-white/75 font-light text-sm leading-relaxed mb-6">{project.architecture}</p>
+                            <p className="text-white/80 md:text-white/75 font-normal md:font-light text-[15px] md:text-sm leading-relaxed mb-6">{project.architecture}</p>
                             <h3 className="text-xs font-mono uppercase tracking-widest text-green-400 mb-3">Key Tech Stack</h3>
                             <div className="flex flex-wrap gap-1.5">
                                 {project.techStack.map((tech, i) => (
-                                    <span key={i} className="text-xs text-white/80 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full">{tech}</span>
+                                    <span key={i} className="text-[13px] md:text-xs text-white/80 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full">{tech}</span>
                                 ))}
                             </div>
                         </div>
                         <div>
                             <h2 className="text-3xl font-light mb-4 text-white" style={{ fontFamily: "'Fraunces', serif" }}>Business Outcome</h2>
-                            <p className="text-white/60 font-light text-base leading-relaxed">{project.outcome}</p>
+                            <p className="text-white/75 md:text-white/60 font-normal md:font-light text-[17px] md:text-base leading-relaxed">{project.outcome}</p>
                         </div>
                     </div>
                 </div>
 
                 {project.images.length > 1 && (
                     <div id="interface" className="mb-24">
-                        <h2 className="text-3xl md:text-4xl font-light mb-10 text-center text-white" style={{ fontFamily: "'Fraunces', serif" }}>Interface & Dashboard Details</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <h2 className="text-3xl md:text-4xl font-light mb-3 md:mb-10 md:text-center text-white" style={{ fontFamily: "'Fraunces', serif" }}>Interface & Dashboard Details</h2>
+                        <p className="md:hidden mb-8 text-[15px] text-white/60">Tap a screen to see it full size.</p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
                             {project.images.slice(1).map((img, i) => (
-                                <div key={i} className="rounded-[1.5rem] overflow-hidden border border-white/10 aspect-[16/7] bg-gray-900 shadow-2xl relative">
-                                    <Image 
-                                        src={img} 
-                                        alt={`${project.name} Detail Page Showcase`} 
-                                        fill
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-                                        className="object-cover object-top hover:scale-[1.02] transition-transform duration-500"
-                                    />
-                                </div>
+                                <ImageLightbox key={i} src={img} alt={`${project.name} screen ${i + 2}`}>
+                                    <button
+                                        type="button"
+                                        aria-label={`Open ${project.name} screen ${i + 2} full size`}
+                                        className="group block w-full rounded-[1.5rem] overflow-hidden border border-white/10 aspect-[16/10] md:aspect-[16/7] bg-gray-900 shadow-2xl relative cursor-zoom-in"
+                                    >
+                                        <Image 
+                                            src={img} 
+                                            alt={`${project.name} Detail Page Showcase`} 
+                                            fill
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                                            className="object-cover object-top group-hover:scale-[1.02] transition-transform duration-500"
+                                        />
+                                        <span className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
+                                            <Maximize2 className="h-4 w-4" />
+                                        </span>
+                                    </button>
+                                </ImageLightbox>
                             ))}
                         </div>
                     </div>
                 )}
 
-                <div id="decisions" className="p-8 md:p-12 rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.01] to-white/[0.04] mb-24">
+                <div id="decisions" className="p-6 md:p-12 rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.01] to-white/[0.04] mb-24">
                     <h2 className="text-3xl md:text-4xl font-light mb-8 flex items-center gap-3 text-white" style={{ fontFamily: "'Fraunces', serif" }}>
                         <Palette className="w-6 h-6 text-purple-400" />
                         UX & Design Decisions
                     </h2>
                     <ul className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {project.designDecisions.map((decision, idx) => (
-                            <li key={idx} className="relative pl-8 text-white/70 font-light text-sm leading-relaxed">
+                            <li key={idx} className="relative pl-8 text-white/80 md:text-white/70 font-normal md:font-light text-[15px] md:text-sm leading-relaxed">
                                 <span className="absolute left-0 top-1 w-2.5 h-2.5 rounded-full flex items-center justify-center text-xs font-bold font-mono" style={{ backgroundColor: project.color }} />
                                 {decision}
                             </li>

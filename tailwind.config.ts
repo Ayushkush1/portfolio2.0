@@ -13,12 +13,20 @@ export default {
 	theme: {
 		container: {
 			center: true,
-			padding: '2rem',
+			// Phones get a 20px gutter so content uses the screen; 32px from tablets up
+			padding: {
+				DEFAULT: '1.25rem',
+				md: '2rem'
+			},
 			screens: {
 				'2xl': '1400px'
 			}
 		},
 		extend: {
+			fontSize: {
+				// Section headings on phones: scales with the screen (38px at 360 → 45px at 430)
+				display: ['clamp(2.4rem, 10.5vw, 2.85rem)', { lineHeight: '1.05' }]
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',

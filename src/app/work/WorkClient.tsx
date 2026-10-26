@@ -4,6 +4,7 @@ import { useEffect, useState, ViewTransition } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 import Contact from "@/components/Contact";
 import ClientWebsites from "@/components/ClientWebsites";
@@ -54,20 +55,26 @@ function ProjectCard({
                         src={image}
                         alt={name}
                         fill
-                        sizes="(max-width: 768px) 62vw, 850px"
+                        sizes="(max-width: 768px) 100vw, 850px"
                         className="object-cover object-left-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     />
                 </div>
             </Link>
             </ViewTransition>
-            <div className="ml-3">
-                <h2 className="text-xl md:text-2xl font-normal text-white">
-                    {name}
-                </h2>
-                <p className="text-[11px] font-medium tracking-[0.18em] uppercase text-white/50 mt-1">
-                    {category}
-                </p>
-            </div>
+            <Link href={`/work/${id}`} data-cursor="View" className="ml-3 flex items-start justify-between gap-4 cursor-none">
+                <div className="min-w-0">
+                    <h2 className="text-2xl font-normal text-white">
+                        {name}
+                    </h2>
+                    <p className="text-xs md:text-[11px] font-medium tracking-[0.14em] md:tracking-[0.16em] uppercase text-white/65 md:text-white/55 mt-1">
+                        {category}
+                    </p>
+                </div>
+                {/* Phones: a tap-sized arrow says the card opens */}
+                <span className="md:hidden flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-white">
+                    <ArrowRight className="h-4 w-4 -rotate-45" />
+                </span>
+            </Link>
         </div>
     );
 }
@@ -84,24 +91,24 @@ function ProjectRow({
 }) {
     return (
         <motion.div
-            className={`flex gap-6 md:gap-10 w-full items-start ${reverse ? "flex-row-reverse" : "flex-row"}`}
+            className={`flex flex-col gap-12 md:gap-10 w-full items-start ${reverse ? "md:flex-row-reverse" : "md:flex-row"}`}
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-            {/* Big card — 62% */}
-            <div style={{ flex: "0 0 62%" }}>
+            {/* Big card — 62% (phones: full width, stacked) */}
+            <div className="w-full md:w-auto md:basis-[62%] md:shrink-0 md:grow-0">
                 <ProjectCard
                     {...big}
-                    heightClass="h-[340px] md:h-[500px]"
+                    heightClass="aspect-[4/5] md:aspect-auto md:h-[500px]"
                 />
             </div>
             {/* Small card — 38% */}
-            <div className="flex-1">
+            <div className="w-full md:w-auto md:flex-1">
                 <ProjectCard
                     {...small}
-                    heightClass="h-[210px] md:h-[300px]"
+                    heightClass="aspect-[4/3] md:aspect-auto md:h-[300px]"
                 />
             </div>
         </motion.div>
@@ -154,12 +161,12 @@ const WorkClient = () => {
 
             <Navbar backTo="/" customIndicatorSections={workIndicatorSections} />
 
-            <div id="projects-list" className="container relative z-10 pt-32 pb-24">
+            <div id="projects-list" className="container relative z-10 pt-28 md:pt-32 pb-20 md:pb-24">
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12 md:mb-20">
                     <div>
                         <motion.h1
-                            className="text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.1]"
+                            className="text-display md:text-5xl lg:text-6xl font-light text-white tracking-tight md:leading-[1.1]"
                             style={{ fontFamily: "'Fraunces', serif" }}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -187,7 +194,7 @@ const WorkClient = () => {
                                 role="tab"
                                 aria-selected={filter === f.id}
                                 onClick={() => selectFilter(f.id)}
-                                className={`relative rounded-full px-4 md:px-5 py-2 text-sm font-medium transition-colors duration-300 cursor-none ${filter === f.id ? "text-white" : "text-gray-400 hover:text-white"}`}
+                                className={`relative rounded-full px-4 md:px-5 py-2.5 md:py-2 text-sm font-medium transition-colors duration-300 cursor-none ${filter === f.id ? "text-white" : "text-gray-400 hover:text-white"}`}
                             >
                                 {filter === f.id && (
                                     <motion.span
@@ -198,7 +205,7 @@ const WorkClient = () => {
                                 )}
                                 <span className="relative z-10">
                                     {f.label}
-                                    {f.count !== undefined && <span className="ml-1.5 text-xs opacity-60">{f.count}</span>}
+                                    {f.count !== undefined && <span className="ml-1.5 text-xs opacity-70 md:opacity-60">{f.count}</span>}
                                 </span>
                             </button>
                         ))}
@@ -213,7 +220,7 @@ const WorkClient = () => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                            className="flex flex-col gap-16 md:gap-24"
+                            className="flex flex-col gap-14 md:gap-24"
                         >
                             {rows.map(([big, small], i) => (
                                 <ProjectRow
@@ -233,7 +240,7 @@ const WorkClient = () => {
                                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                                     className="w-full md:w-[62%]"
                                 >
-                                    <ProjectCard {...orphan} heightClass="h-[340px] md:h-[500px]" />
+                                    <ProjectCard {...orphan} heightClass="aspect-[4/5] md:aspect-auto md:h-[500px]" />
                                 </motion.div>
                             )}
                         </motion.div>

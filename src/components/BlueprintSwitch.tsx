@@ -34,7 +34,7 @@ const BlueprintSwitch = () => {
             aria-pressed={on}
             aria-label={on ? "Exit blueprint view" : "See how this site is designed and built"}
             title={on ? "Back to the live site (B)" : "See the design & engineering behind this site (B)"}
-            className={`group relative inline-flex h-[38px] items-center justify-center gap-2 rounded-full border text-sm font-medium transition-[background-color,border-color,color,box-shadow] duration-500 w-[38px] md:w-auto md:px-4 ${
+            className={`group relative inline-flex h-[38px] items-center justify-center gap-2 rounded-full border text-sm font-medium transition-[background-color,border-color,color,box-shadow] duration-500 w-[38px] md:w-auto md:px-4 before:absolute before:-inset-[3px] before:content-[''] ${
                 on
                     ? "border-transparent bg-[hsl(var(--bp))] text-[hsl(222_84%_6%)] shadow-[0_0_24px_hsl(var(--bp)/0.45)]"
                     : "nav-glass border-white/20 bg-[hsl(222_47%_7%/0.5)] text-foreground backdrop-blur-xl backdrop-saturate-200 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-white/20"

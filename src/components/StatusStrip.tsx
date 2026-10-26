@@ -27,19 +27,20 @@ const StatusStrip = () => {
         return () => clearInterval(id);
     }, []);
 
-    const label = "block text-[11px] font-medium uppercase tracking-[0.18em] text-white/45 mb-3";
+    const label = "block text-xs md:text-[11px] font-medium uppercase tracking-[0.14em] md:tracking-[0.16em] text-white/60 md:text-white/55 mb-2 md:mb-3";
     const value = "text-xl md:text-2xl font-light text-white leading-tight";
     const cell = "lg:border-l lg:border-white/10 lg:pl-8 first:border-l-0 first:pl-0";
 
     return (
-        // Generous top margin keeps the strip below the fold, so the hero owns the first screen
-        <section aria-label="Availability" className="relative bg-background mt-16 md:mt-20">
+        // Generous top margin keeps the strip below the fold, so the hero owns the first screen.
+        // Hidden on phones: the footer carries the same status, and the sticky bar handles contact.
+        <section aria-label="Availability" className="relative bg-background mt-16 md:mt-20 hidden md:block">
             <div className="container">
                 <div
                     data-bp-note="the business case, before the scroll"
                     data-bp-code="Intl.DateTimeFormat(IST) · live"
                     data-bp-pos="bottom"
-                    className="grid grid-cols-2 lg:grid-cols-[auto_auto_auto_1fr_auto] items-end gap-x-8 gap-y-10 border-y border-white/10 py-10 md:py-12"
+                    className="grid grid-cols-2 lg:grid-cols-[auto_auto_auto_1fr_auto] items-end gap-x-6 md:gap-x-8 gap-y-7 md:gap-y-10 border-y border-white/10 py-8 md:py-12"
                 >
                     <motion.div className={cell} {...fadeUp()}>
                         <span className={label}>Status</span>
@@ -73,7 +74,7 @@ const StatusStrip = () => {
 
                     <motion.div className={`${cell} col-span-2 lg:col-span-1`} {...fadeUp(STAGGER * 3)}>
                         <span className={label}>Trusted by</span>
-                        <span className="text-sm leading-relaxed text-white/70">
+                        <span className="text-[15px] md:text-sm leading-relaxed text-white/75 md:text-white/70">
                             {clientWebsites.map((site, i) => (
                                 <span key={site.id}>
                                     {site.name}
@@ -88,7 +89,7 @@ const StatusStrip = () => {
                         <BookCallDialog location="status_strip">
                         <button
                             type="button"
-                            className="group flex h-10 items-center gap-1.5 whitespace-nowrap rounded-full border border-white/15 bg-white/[0.03] px-4 text-sm text-white transition-all duration-300 hover:border-brand/60 hover:bg-brand/10"
+                            className="group flex h-11 md:h-10 items-center gap-1.5 whitespace-nowrap rounded-full border border-white/15 bg-white/[0.03] px-5 md:px-4 text-[15px] md:text-sm text-white transition-all duration-300 hover:border-brand/60 hover:bg-brand/10"
                         >
                             Book a 20-min call
                             <ArrowRight className="h-3.5 w-3.5 -rotate-45 text-brand transition-transform duration-300 group-hover:rotate-0" />

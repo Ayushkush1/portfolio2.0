@@ -180,7 +180,12 @@ const Navbar = ({
 
     return (
         <>
-            <header className={`nav-in ${isOnLight ? "nav-light" : ""} fixed top-0 left-0 w-full z-50 flex items-center justify-between py-8 px-6 xl:px-16 2xl:px-24 pointer-events-none`}>
+            <header className={`nav-in ${isOnLight ? "nav-light" : ""} fixed top-0 left-0 w-full z-50 flex items-center justify-between py-5 md:py-8 px-5 md:px-6 xl:px-16 2xl:px-24 pointer-events-none`}>
+                    {/* Phones: once scrolled, a soft scrim lifts the bar off the content passing under it */}
+                    <div
+                        aria-hidden="true"
+                        className={`nav-scrim md:hidden absolute inset-x-0 top-0 h-[calc(100%+24px)] -z-10 transition-opacity duration-500 ${isScrolled ? "opacity-100" : "opacity-0"}`}
+                    />
                     <a
                         href="#"
                         className="nav-logo-in nav-logo pointer-events-auto"
@@ -236,7 +241,7 @@ const Navbar = ({
                         {backTo || isProjectDetail ? (
                             <motion.button
                                 aria-label="Go back"
-                                className="nav-glass inline-flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[hsl(222_47%_7%/0.5)] backdrop-blur-xl backdrop-saturate-200 text-foreground border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-white/20 hover:shadow-[0_4px_30px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden relative group"
+                                className="nav-glass inline-flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[hsl(222_47%_7%/0.5)] backdrop-blur-xl backdrop-saturate-200 text-foreground border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-white/20 hover:shadow-[0_4px_30px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer relative group before:absolute before:-inset-[3px] before:content-['']"
                                 onClick={() => router.push(backTo || "/work")}
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
@@ -247,7 +252,7 @@ const Navbar = ({
                         ) : (
                             <motion.button
                                 aria-label="Open menu"
-                                className="nav-glass inline-flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[hsl(222_47%_7%/0.5)] backdrop-blur-xl backdrop-saturate-200 text-foreground border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-white/20 hover:shadow-[0_4px_30px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer overflow-hidden relative group"
+                                className="nav-glass inline-flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[hsl(222_47%_7%/0.5)] backdrop-blur-xl backdrop-saturate-200 text-foreground border border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.1),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:bg-white/20 hover:shadow-[0_4px_30px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer relative group before:absolute before:-inset-[3px] before:content-['']"
                                 onClick={handleMenuToggle}
                             >
                                 <AnimatePresence mode="wait">

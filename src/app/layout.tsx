@@ -6,6 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import CursorDot from '@/components/CursorDot'
 import BlueprintMode from '@/components/BlueprintMode'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
+import MobileCTA from '@/components/MobileCTA'
 import { JsonLd, personJsonLd, websiteJsonLd } from '@/lib/seo'
 
 export const metadata: Metadata = {
@@ -69,6 +70,7 @@ export default function RootLayout({
         <BlueprintMode />
         <Providers>
           {children}
+          <MobileCTA />
         </Providers>
         <Analytics />
         <SpeedInsights />

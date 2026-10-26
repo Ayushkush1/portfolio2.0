@@ -10,6 +10,27 @@ import MaskReveal from "@/components/ui/mask-reveal";
 import { CurtainReveal } from "@/components/ui/scroll-reveal";
 import { fadeUp } from "@/lib/motion";
 
+/* ─── Name + category under a card; phones also get a tap-sized arrow ── */
+function CardCaption({ product }: { product: FeaturedProduct }) {
+  return (
+    <Link
+      href={`/work/${product.id}`}
+      data-cursor="View"
+      className="ml-3 flex items-start justify-between gap-4 cursor-none"
+    >
+      <div className="min-w-0">
+        <h3 className="text-2xl font-normal text-white">{product.name}</h3>
+        <p className="text-xs md:text-[11px] font-medium tracking-[0.14em] md:tracking-[0.16em] uppercase text-white/65 md:text-white/55 mt-1">
+          {product.category}
+        </p>
+      </div>
+      <span className="md:hidden flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-white">
+        <ArrowRight className="h-4 w-4 -rotate-45" />
+      </span>
+    </Link>
+  );
+}
+
 /* ─── Row: big card + small card, text below each ──────────── */
 function ShowcaseRow({
   big,
@@ -34,18 +55,17 @@ function ShowcaseRow({
     <motion.div
       ref={ref}
       style={{ y }}
-      className={`flex gap-6 md:gap-10 w-full items-start ${reverse ? "flex-row-reverse" : "flex-row"}`}
+      className={`flex flex-col gap-12 md:gap-10 w-full items-start ${reverse ? "md:flex-row-reverse" : "md:flex-row"}`}
     >
-      {/* Big card — 62% width, taller */}
-      <div className="flex flex-col gap-4" style={{ flex: "0 0 62%" }}>
+      {/* Big card — 62% width, taller (phones: full width, one card per screen) */}
+      <div className="flex flex-col gap-4 w-full md:w-auto md:basis-[62%] md:shrink-0 md:grow-0">
         {/* Shares its name with the case study hero, so the card morphs into it on navigation */}
         <ViewTransition name={`project-${big.id}`} share="project-morph" default="none">
         <Link
           href={`/work/${big.id}`}
           data-cursor="View"
           data-cursor-ring={`${big.name} · ${big.category}`}
-          className="group relative block cursor-none w-full h-[340px] md:h-[500px]"
-          style={{ borderRadius: "40px", overflow: "hidden" }}
+          className="group relative block cursor-none w-full aspect-[4/5] md:aspect-auto md:h-[500px] rounded-[40px] overflow-hidden"
         >
           {/* Tall cover fills the card; opens like a curtain as the row scrolls in */}
           <CurtainReveal className="absolute inset-0 overflow-hidden">
@@ -53,24 +73,17 @@ function ShowcaseRow({
               src={big.cover ?? big.sliderItems[0]?.image}
               alt={big.name}
               fill
-              sizes="(max-width: 768px) 62vw, 850px"
+              sizes="(max-width: 768px) 100vw, 850px"
               className="object-cover object-left-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             />
           </CurtainReveal>
         </Link>
         </ViewTransition>
-        <div className="ml-3">
-          <h3 className="text-xl md:text-2xl font-normal text-white">
-            {big.name}
-          </h3>
-          <p className="text-[11px] font-medium tracking-[0.18em] uppercase text-white/50 mt-1">
-            {big.category}
-          </p>
-        </div>
+        <CardCaption product={big} />
       </div>
 
-      {/* Small card — 38% width, shorter height */}
-      <div className="flex flex-col gap-4 flex-1">
+      {/* Small card — 38% width, shorter height (phones: same full-width card) */}
+      <div className="flex flex-col gap-4 w-full md:w-auto md:flex-1">
         {/* Shares its name with the case study hero, so the card morphs into it on navigation */}
         <ViewTransition name={`project-${small.id}`} share="project-morph" default="none">
         <Link
@@ -81,8 +94,7 @@ function ShowcaseRow({
           })}
           data-cursor="View"
           data-cursor-ring={`${small.name} · ${small.category}`}
-          className="group relative block cursor-none w-full h-[210px] md:h-[300px]"
-          style={{ borderRadius: "40px", overflow: "hidden" }}
+          className="group relative block cursor-none w-full aspect-[4/3] md:aspect-auto md:h-[300px] rounded-[40px] overflow-hidden"
         >
           {/* Tall cover fills the card; opens like a curtain as the row scrolls in */}
           <CurtainReveal className="absolute inset-0 overflow-hidden">
@@ -90,20 +102,13 @@ function ShowcaseRow({
               src={small.cover ?? small.sliderItems[0]?.image}
               alt={small.name}
               fill
-              sizes="(max-width: 768px) 38vw, 520px"
+              sizes="(max-width: 768px) 100vw, 520px"
               className="object-cover object-left-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             />
           </CurtainReveal>
         </Link>
         </ViewTransition>
-        <div className="ml-3">
-          <h3 className="text-xl md:text-2xl font-normal text-white">
-            {small.name}
-          </h3>
-          <p className="text-[10px] font-medium tracking-[0.12em] uppercase text-white/50 mt-1">
-            {small.category}
-          </p>
-        </div>
+        <CardCaption product={small} />
       </div>
     </motion.div>
   );
@@ -119,15 +124,15 @@ const Showcase = () => {
   return (
     <section
       id="work"
-      className="relative bg-gradient-to-br from-background via-background to-primary/5 pt-24 md:pt-32 pb-24 md:pb-40"
+      className="relative bg-gradient-to-br from-background via-background to-primary/5 pt-16 md:pt-32 pb-20 md:pb-40"
     >
       <div className="container relative z-10 flex flex-col gap-0">
 
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 mb-10 md:mb-16 text-center md:text-left">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-10 md:mb-16 text-left">
           <div>
             <MaskReveal
-              className="text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.1]"
+              className="text-display md:text-5xl lg:text-6xl font-light text-white tracking-tight md:leading-[1.1]"
               style={{ fontFamily: "'Fraunces', serif" }}
               lines={[
                 "Selected products",
@@ -173,7 +178,7 @@ const Showcase = () => {
         </div>
 
         {/* Project Rows */}
-        <div className="flex flex-col gap-10 md:gap-12">
+        <div className="flex flex-col gap-14 md:gap-12">
           {rows.map(([big, small], i) => (
             <ShowcaseRow
               key={big.id}

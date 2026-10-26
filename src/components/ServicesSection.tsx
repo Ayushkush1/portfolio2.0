@@ -36,9 +36,9 @@ const ServicesSection = () => {
     ];
 
     return (
-        <section id="services" className="relative pb-16 md:pb-32 bg-gradient-to-br from-background via-background to-primary/5">
+        <section id="services" className="relative pb-8 md:pb-32 bg-gradient-to-br from-background via-background to-primary/5">
             {/* Sticky Scroll Services Section */}
-            <div className="container relative z-10 max-w-7xl mx-auto px-4">
+            <div className="container relative z-10 max-w-7xl mx-auto md:px-4">
                 <div className="flex flex-col lg:flex-row relative">
 
                     {/* Left Sticky Number */}
@@ -59,45 +59,45 @@ const ServicesSection = () => {
                     </div>
 
                     {/* Right Scrolling Content */}
-                    <div className="w-full lg:w-1/2 flex flex-col pt-10 md:pt-20 pb-[10vh]">
+                    <div className="w-full lg:w-1/2 flex flex-col pt-4 md:pt-20 md:pb-[10vh]">
                         {services.map((service) => (
                             <motion.div
                                 key={service.id}
-                                className="min-h-[50vh] md:min-h-[60vh] flex flex-col justify-center items-center md:items-start text-center md:text-left py-12 md:py-24 border-b border-white/5 last:border-0"
+                                className="md:min-h-[60vh] flex flex-col justify-center items-start text-left py-10 md:py-24 border-b border-white/10 md:border-white/5 last:border-0"
                                 onViewportEnter={() => setActiveId(service.id)}
                                 viewport={{ margin: "-45% 0px -45% 0px" }}
                             >
                                 {/* Mobile Number */}
                                 <motion.div
-                                    className="lg:hidden text-6xl font-bold text-transparent mb-4"
-                                    style={{ WebkitTextStroke: "1px rgba(255,255,255,0.2)", fontFamily: "'Fraunces', serif" }}
+                                    className="lg:hidden text-5xl md:text-6xl leading-none font-bold text-transparent mb-4"
+                                    style={{ WebkitTextStroke: "1px rgba(255,255,255,0.3)", fontFamily: "'Fraunces', serif" }}
                                     {...fadeUp()}
                                 >
                                     0{service.id}<span className="text-brand">.</span>
                                 </motion.div>
 
                                 <MaskReveal
-                                    className="text-4xl md:text-5xl font-medium mb-6 tracking-tight text-white"
+                                    className="text-[2rem] leading-[1.1] md:text-5xl md:leading-normal font-medium mb-4 md:mb-6 tracking-tight text-white"
                                     style={{ fontFamily: "'Fraunces', serif" }}
                                     lines={[<>{service.title}<span className="text-brand ml-1">.</span></>]}
                                 />
 
                                 <ScrollBlurText
-                                    className="text-gray-400 text-base md:text-xl mb-10 max-w-lg leading-relaxed"
+                                    className="text-gray-400 text-[17px] md:text-xl mb-7 md:mb-10 max-w-lg leading-relaxed"
                                     text={service.description}
                                 />
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12">
+                                <div className="grid grid-cols-2 gap-y-3 gap-x-4 md:gap-y-6 md:gap-x-12 w-full md:w-auto">
                                     {service.features.map((feature, idx) => (
                                         <motion.div
                                             key={idx}
-                                            className="flex items-center text-gray-400 group cursor-default transition-all duration-300 hover:translate-x-2"
+                                            className="flex items-baseline text-gray-300 md:text-gray-400 group cursor-default transition-all duration-300 hover:translate-x-2"
                                             {...fadeUp(0.25 + idx * STAGGER)}
                                         >
-                                            <span className="text-xs mr-4 font-mono text-brand/60 group-hover:text-brand transition-all duration-300">
+                                            <span className="text-[13px] md:text-xs mr-2 md:mr-4 font-mono text-brand/80 md:text-brand/60 shrink-0 group-hover:text-brand transition-all duration-300">
                                                 / 0{idx + 1}
                                             </span>
-                                            <span className="text-base group-hover:text-white transition-colors duration-300 border-b border-transparent group-hover:border-white/10 pb-1">
+                                            <span className="text-[15px] md:text-base leading-snug group-hover:text-white transition-colors duration-300 border-b border-transparent group-hover:border-white/10 pb-1">
                                                 {feature}
                                             </span>
                                         </motion.div>

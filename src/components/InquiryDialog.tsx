@@ -24,7 +24,7 @@ const PROJECT_TYPES = ["SaaS product", "Startup MVP", "CRM / ERP", "Website", "U
 const BUDGETS = ["Under ₹50K", "₹50K – ₹1.5L", "₹1.5L – ₹3L", "₹3L+", "Not sure yet"];
 const TIMELINES = ["ASAP", "Within 1 month", "1 – 3 months", "Flexible"];
 
-const LABEL = "mb-2 block text-[10px] font-medium uppercase tracking-[0.18em] text-white/50";
+const LABEL = "mb-2 block text-[11px] font-medium uppercase tracking-[0.18em] text-white/50";
 const FIELD = "w-full rounded-2xl border border-white/10 bg-white/[0.03] px-4 text-sm text-white placeholder:text-gray-600 outline-none transition-colors focus:border-brand/60";
 
 function SelectField({
@@ -100,7 +100,7 @@ const InquiryDialog = ({ children }: { children: React.ReactNode }) => {
             <DialogTrigger asChild>{children}</DialogTrigger>
             <DialogContent
                 data-lenis-prevent
-                className="w-[calc(100vw-32px)] sm:max-w-[600px] rounded-[32px] sm:rounded-[32px] border-white/10 bg-[#070b16]/95 backdrop-blur-xl p-6 md:p-8 text-left"
+                className="w-[calc(100vw-32px)] max-h-[calc(100dvh-32px)] overflow-y-auto sm:max-w-[600px] rounded-[32px] sm:rounded-[32px] border-white/10 bg-[#070b16]/95 backdrop-blur-xl p-6 md:p-8 text-left"
             >
                 <DialogHeader className="text-left space-y-2">
                     <DialogTitle
