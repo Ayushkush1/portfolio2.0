@@ -238,6 +238,18 @@ All colors MUST be HSL.
 }
 .nav-light .nav-glass .text-foreground { color: hsl(var(--paper-foreground)); }
 
+/* Footer email (see Contact): letters take the brand colour in a left-to-right sweep on hover
+   (each letter carries its own transition-delay) and hop once in a wave when the address is copied */
+.email-char { transition: color 0.45s ease; }
+@media (hover: hover) {
+  .group:hover .email-char { color: hsl(var(--brand)); }
+}
+.email-copied .email-char { animation: email-hop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+@keyframes email-hop { 40% { transform: translateY(-14%); } }
+@media (prefers-reduced-motion: reduce) {
+  .email-copied .email-char { animation: none; }
+}
+
 /* Sticky mobile call-to-action: clears the iPhone home indicator */
 .safe-bottom { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
 .nav-light .nav-glass .bg-foreground { background-color: hsl(var(--paper-foreground)); }

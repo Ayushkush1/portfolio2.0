@@ -1,5 +1,5 @@
 "use client";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
 import {
   LayoutGrid,
@@ -26,17 +26,9 @@ const PillBadge: React.FC<{ icon: React.ReactNode; label: string; color: string 
 
 const About: React.FC = () => {
   const containerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
 
   const statementText = "I help founders and businesses turn ideas into products people enjoy using designing every screen, crafting the motion, and engineering everything behind it, from first wireframe to production.";
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -150]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const y3 = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   return (
     <section ref={containerRef} id="about" className="relative flex items-center justify-center overflow-hidden w-full pt-10 pb-12 md:pt-40 md:pb-32 bg-gradient-to-br from-background via-background to-primary/5">

@@ -1,18 +1,40 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, MotionValue, useMotionValue, useMotionValueEvent } from "framer-motion";
 import { useState } from "react";
 import MaskReveal from "@/components/ui/mask-reveal";
 import { ScrollBlurText } from "@/components/ui/scroll-reveal";
 import { DURATION, EASE, STAGGER, fadeUp } from "@/lib/motion";
 
+// The big sticky "01" re-renders on its own: the active service lives in a motion value,
+// so scrolling into a new service doesn't re-render the whole section and its ~150 animated words
+const StickyIndex = ({ active }: { active: MotionValue<number> }) => {
+    const [activeId, setActiveId] = useState(active.get());
+    useMotionValueEvent(active, "change", setActiveId);
+    return (
+        <motion.div
+            key={activeId}
+            initial={{ opacity: 0, scale: 0.9, x: -20 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ duration: DURATION.base, ease: EASE.out }}
+            className="text-[18rem] xl:text-[22rem] leading-none font-bold text-transparent select-none"
+            style={{
+                WebkitTextStroke: "2px rgba(255,255,255,0.15)",
+                fontFamily: "'Fraunces', serif"
+            }}
+        >
+            0{activeId}
+        </motion.div>
+    );
+};
+
 const ServicesSection = () => {
-    const [activeId, setActiveId] = useState(1);
+    const activeId = useMotionValue(1);
 
     const services = [
         {
             id: 1,
             title: "SaaS Product Development",
-            description: "End-to-end SaaS platform development—from product strategy and system architecture to cloud deployment. I build production-ready platforms designed to launch fast and scale without limits.",
+            description: "End-to-end SaaS platform development from product strategy and system architecture to cloud deployment. I build production-ready platforms designed to launch fast and scale without limits.",
             features: ["Product Strategy", "System Architecture", "Cloud Infrastructure", "Rapid Prototyping"],
         },
         {
@@ -43,19 +65,7 @@ const ServicesSection = () => {
 
                     {/* Left Sticky Number */}
                     <div data-bp-note="sticky index — one chapter per service" data-bp-pos="right" className="hidden lg:flex w-1/2 sticky top-0 h-screen items-center justify-start lg:pl-2 xl:pl-4">
-                        <motion.div
-                            key={activeId}
-                            initial={{ opacity: 0, scale: 0.9, x: -20 }}
-                            animate={{ opacity: 1, scale: 1, x: 0 }}
-                            transition={{ duration: DURATION.base, ease: EASE.out }}
-                            className="text-[18rem] xl:text-[22rem] leading-none font-bold text-transparent select-none"
-                            style={{
-                                WebkitTextStroke: "2px rgba(255,255,255,0.15)",
-                                fontFamily: "'Fraunces', serif"
-                            }}
-                        >
-                            0{activeId}
-                        </motion.div>
+                        <StickyIndex active={activeId} />
                     </div>
 
                     {/* Right Scrolling Content */}
@@ -64,7 +74,7 @@ const ServicesSection = () => {
                             <motion.div
                                 key={service.id}
                                 className="md:min-h-[60vh] flex flex-col justify-center items-start text-left py-10 md:py-24 border-b border-white/10 md:border-white/5 last:border-0"
-                                onViewportEnter={() => setActiveId(service.id)}
+                                onViewportEnter={() => activeId.set(service.id)}
                                 viewport={{ margin: "-45% 0px -45% 0px" }}
                             >
                                 {/* Mobile Number */}

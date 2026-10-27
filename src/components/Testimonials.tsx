@@ -1,18 +1,18 @@
 "use client";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useTransform, AnimatePresence, useInView } from "framer-motion";
 import { Quote, Users } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import MaskReveal from "@/components/ui/mask-reveal";
+import { useScrollProgress } from "@/components/ui/scroll-reveal";
 import { DURATION, EASE, VIEWPORT, fadeUp } from "@/lib/motion";
 
 const Testimonials = () => {
     const sectionRef = useRef<HTMLElement>(null);
     const [activeIndex, setActiveIndex] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
-    const { scrollYProgress } = useScroll({
-        target: sectionRef,
-        offset: ["start end", "end start"]
-    });
+    const scrollYProgress = useScrollProgress(sectionRef, ["start", 1], ["end", 0]);
+    // The carousel only advances while it's on screen; off screen it would re-render for nothing
+    const inView = useInView(sectionRef);
 
     const x = useTransform(scrollYProgress, [0, 1], [100, -100]);
     // The paper sheet settles from slightly inset to full size as it scrolls in
@@ -51,12 +51,12 @@ const Testimonials = () => {
 
     // Automatic slider
     useEffect(() => {
-        if (isHovered) return;
+        if (isHovered || !inView) return;
         const interval = setInterval(() => {
             setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
         }, 4000);
         return () => clearInterval(interval);
-    }, [testimonials.length, isHovered]);
+    }, [testimonials.length, isHovered, inView]);
 
     return (
         <section ref={sectionRef} id="testimonials" className="relative bg-background px-2 md:px-4 py-4 md:py-8">

@@ -1,5 +1,5 @@
 "use client";
-import { motion, MotionValue, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
+import { frame, motion, MotionValue, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import { CSSProperties, ReactNode, RefObject, useEffect, useRef } from "react";
 
 // Scroll-scrubbed reveals: progress is tied to the scroll position (not a one-off timer),
@@ -17,20 +17,33 @@ const START = 0.95; // element top  at 95% of the viewport → progress 0
 const END = 0.85;   // element bottom at 85% of the viewport → progress 1
 
 /* ── Shared, layout-free scroll tracking ──────────────────────────
-   Each reveal measures its document position once (and again when the page resizes or
-   after scrolling settles). While scrolling, progress comes from window.scrollY alone —
-   no per-frame layout reads, which is what makes scroll-linked effects stutter. */
-const trackers = new Set<{ measure: () => void; update: () => void }>();
+   Every scroll-linked effect on the site goes through here (instead of Framer's useScroll or
+   GSAP ScrollTrigger, which re-measure the page on every scroll and force a synchronous
+   layout each frame). Each tracker measures its document position once (and again when the
+   page resizes or after scrolling settles); while scrolling, progress comes from one read of
+   window.scrollY per event, shared by all trackers. */
+type Tracker = { measure: (scrollY: number) => void; update: (scrollY: number, vh: number) => void };
+const trackers = new Set<Tracker>();
 let listening = false;
 let settleTimer: ReturnType<typeof setTimeout> | null = null;
 
 function listen() {
   if (listening || typeof window === "undefined") return;
   listening = true;
-  const updateAll = () => trackers.forEach((t) => t.update());
-  const remeasureAll = () => { trackers.forEach((t) => t.measure()); updateAll(); };
-  window.addEventListener("scroll", () => {
+  const updateAll = () => {
+    const y = window.scrollY;
+    const vh = window.innerHeight;
+    trackers.forEach((t) => t.update(y, vh));
+  };
+  const remeasureAll = () => {
+    const y = window.scrollY;
+    trackers.forEach((t) => t.measure(y));
     updateAll();
+  };
+  window.addEventListener("scroll", () => {
+    // Read in Framer's batched read step (before any style writes in the frame), so reading
+    // scrollY never forces a layout; once per frame however many scroll events arrive
+    frame.read(updateAll);
     // Content above may have shifted (images, accordions): re-measure once scrolling settles
     if (settleTimer) clearTimeout(settleTimer);
     settleTimer = setTimeout(remeasureAll, 250);
@@ -39,33 +52,49 @@ function listen() {
   new ResizeObserver(remeasureAll).observe(document.body);
 }
 
-export function useRevealProgress(ref: RefObject<HTMLElement | null>) {
+/** A point in the scroll: which edge of the element meets which fraction down the viewport */
+export type ScrollEdge = [edge: "start" | "end", viewport: number];
+
+/**
+ * Progress 0 → 1 as the element travels between two scroll points — the layout-free
+ * equivalent of Framer's useScroll({ target, offset }). E.g. Framer's
+ * ["start end", "end start"] is [["start", 1], ["end", 0]].
+ */
+export function useScrollProgress(ref: RefObject<HTMLElement | null>, from: ScrollEdge, to: ScrollEdge) {
   const progress = useMotionValue(0);
+  const [fromEdge, fromVp] = from;
+  const [toEdge, toVp] = to;
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     let top = 0;
     let bottom = 0;
-    const tracker = {
-      measure: () => {
+    const tracker: Tracker = {
+      measure: (scrollY) => {
         const r = el.getBoundingClientRect();
-        top = r.top + window.scrollY;
-        bottom = r.bottom + window.scrollY;
+        top = r.top + scrollY;
+        bottom = r.bottom + scrollY;
       },
-      update: () => {
-        const vh = window.innerHeight;
-        const start = top - START * vh;
-        const end = bottom - END * vh; // always > start: (bottom - top) + 0.10vh
-        progress.set(Math.min(1, Math.max(0, (window.scrollY - start) / (end - start))));
+      update: (scrollY, vh) => {
+        const start = (fromEdge === "start" ? top : bottom) - fromVp * vh;
+        const end = (toEdge === "start" ? top : bottom) - toVp * vh;
+        const p = end > start ? (scrollY - start) / (end - start) : scrollY >= end ? 1 : 0;
+        progress.set(Math.min(1, Math.max(0, p)));
       },
     };
-    tracker.measure();
-    tracker.update();
+    tracker.measure(window.scrollY);
+    tracker.update(window.scrollY, window.innerHeight);
     trackers.add(tracker);
     listen();
     return () => { trackers.delete(tracker); };
-  }, [ref, progress]);
+  }, [ref, progress, fromEdge, fromVp, toEdge, toVp]);
   return progress;
+}
+
+// Reveal window: starts as the element's top passes 95% down the viewport and completes once
+// its bottom passes 85%. The end always comes after the start, for any element height.
+export function useRevealProgress(ref: RefObject<HTMLElement | null>) {
+  return useScrollProgress(ref, ["start", START], ["end", END]);
 }
 
 /* ── Words sharpen out of a blur as the paragraph scrolls into place ── */

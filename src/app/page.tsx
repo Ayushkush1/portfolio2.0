@@ -12,7 +12,6 @@ import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import { JsonLd, serviceJsonLd } from "@/lib/seo";
 import IntroCurtain from "@/components/IntroCurtain";
-import StatusStrip from "@/components/StatusStrip";
 
 export const metadata: Metadata = {
   alternates: { canonical: '/' },
@@ -45,7 +44,6 @@ export default function Home() {
       <JsonLd data={serviceJsonLd} />
       <Navbar />
       <Heros />
-      <StatusStrip />
       <About />
       {/* Pacing: proof first (products → design range → websites), then what I do & who I am */}
       <Showcase />

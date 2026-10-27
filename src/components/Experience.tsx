@@ -1,38 +1,18 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, useSpring, useTransform } from "framer-motion";
 import Image from "next/image";
 import { Github, Instagram, Linkedin, Mail } from "lucide-react";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
 import { track } from "@/lib/analytics";
 import MaskReveal from "@/components/ui/mask-reveal";
-import { ScrollBlurText } from "@/components/ui/scroll-reveal";
+import { SCRUB, ScrollBlurText, useScrollProgress } from "@/components/ui/scroll-reveal";
 import { fadeUp, STAGGER } from "@/lib/motion";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Experience = () => {
     const sectionRef = useRef<HTMLElement>(null);
-    const imageRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        let ctx = gsap.context(() => {
-            // Parallax for profile image
-            gsap.to(imageRef.current, {
-                y: -50,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: 1,
-                }
-            });
-        }, sectionRef);
-
-        return () => ctx.revert();
-    }, []);
+    // Profile photo drifts up 50px across the section's pass through the viewport
+    const progress = useSpring(useScrollProgress(sectionRef, ["start", 1], ["end", 0]), SCRUB);
+    const imageY = useTransform(progress, [0, 1], [0, -50]);
 
     const experiences = [
         {
@@ -70,9 +50,9 @@ const Experience = () => {
                             className="flex flex-col pt-6 lg:pt-12"
                             {...fadeUp()}
                             >
-                                                 {/* Profile Image Wrapper for GSAP Parallax */}
-                            <div
-                                ref={imageRef}
+                            {/* Profile image wrapper: scroll parallax */}
+                            <motion.div
+                                style={{ y: imageY }}
                                 className="relative mb-0"
                             >
                                 {/* Motion div for Hover lift */}
@@ -88,7 +68,7 @@ const Experience = () => {
                                         <Image src="/assets/ayush-kushwaha.webp" alt="Ayush Kushwaha" fill sizes="(max-width: 768px) 100vw, 45vw" className="object-cover object-top" />
                                     </div>
                                 </motion.div>
-                            </div>
+                            </motion.div>
 
                             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-1 md:gap-3 px-2 md:px-12 -mt-2 lg:-mt-4">
                                 {/* Name & Title */}

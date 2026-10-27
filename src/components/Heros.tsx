@@ -1,12 +1,13 @@
 "use client";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion, useScroll, useTransform, useMotionValue, animate, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, useTransform, useMotionValue, animate, AnimatePresence, useReducedMotion, useInView } from "framer-motion";
 
 import { useRef, useEffect, useState, Fragment } from "react";
 
 import VariableProximity from "./VariableProximity";
 import { track } from "@/lib/analytics";
+import { useScrollProgress } from "@/components/ui/scroll-reveal";
 
 
 const CountUp = ({ to, duration = 2 }: { to: number, duration?: number }) => {
@@ -38,9 +39,12 @@ const RotatingLine = ({ renderIntro }: { renderIntro: (text: string) => React.Re
     const [index, setIndex] = useState(0);
     const [hasCycled, setHasCycled] = useState(false);
     const reduceMotion = useReducedMotion();
+    // Words only cycle while the hero is on screen; off screen each change re-renders for nothing
+    const lineRef = useRef<HTMLSpanElement>(null);
+    const inView = useInView(lineRef);
 
     useEffect(() => {
-        if (reduceMotion) return;
+        if (reduceMotion || !inView) return;
         let interval: ReturnType<typeof setInterval>;
         const start = setTimeout(() => {
             interval = setInterval(() => {
@@ -52,10 +56,10 @@ const RotatingLine = ({ renderIntro }: { renderIntro: (text: string) => React.Re
             clearTimeout(start);
             clearInterval(interval);
         };
-    }, [reduceMotion]);
+    }, [reduceMotion, inView]);
 
     return (
-        <span className="relative block w-full overflow-hidden pb-2 -mb-2">
+        <span ref={lineRef} className="relative block w-full overflow-hidden pb-2 -mb-2">
             <span className="sr-only">{ROTATING_WORDS.join(", ")}</span>
             <AnimatePresence mode="wait" initial={false}>
                 {!hasCycled ? (
@@ -81,10 +85,7 @@ const RotatingLine = ({ renderIntro }: { renderIntro: (text: string) => React.Re
 
 const Hero = () => {
     const containerRef = useRef<HTMLElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start start", "end start"]
-    });
+    const scrollYProgress = useScrollProgress(containerRef, ["start", 0], ["end", 0]);
 
     const xLeft = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
     const xRight = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);

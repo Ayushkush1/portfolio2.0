@@ -1,13 +1,13 @@
 "use client";
 import { useRef, ViewTransition } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useTransform } from "framer-motion";
 import { featuredProducts, FeaturedProduct } from "@/data/projects";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MaskReveal from "@/components/ui/mask-reveal";
-import { CurtainReveal } from "@/components/ui/scroll-reveal";
+import { CurtainReveal, useScrollProgress } from "@/components/ui/scroll-reveal";
 import { fadeUp } from "@/lib/motion";
 
 /* ─── Name + category under a card; phones also get a tap-sized arrow ── */
@@ -45,10 +45,7 @@ function ShowcaseRow({
   annotate?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
+  const scrollYProgress = useScrollProgress(ref, ["start", 1], ["end", 0]);
   const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
