@@ -130,7 +130,7 @@ const Showcase = () => {
           <div>
             <MaskReveal
               className="text-display md:text-5xl lg:text-6xl font-light text-white tracking-tight md:leading-[1.1]"
-              style={{ fontFamily: "'Fraunces', serif" }}
+              style={{ fontFamily: "var(--font-fraunces), serif" }}
               lines={[
                 "Selected products",
                 <span key="l2" className="italic text-gray-400">

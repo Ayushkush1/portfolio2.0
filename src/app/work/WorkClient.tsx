@@ -166,7 +166,7 @@ const WorkClient = () => {
                     <div>
                         <motion.h1
                             className="text-display md:text-5xl lg:text-6xl font-light text-white tracking-tight md:leading-[1.1]"
-                            style={{ fontFamily: "'Fraunces', serif" }}
+                            style={{ fontFamily: "var(--font-fraunces), serif" }}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.1 }}

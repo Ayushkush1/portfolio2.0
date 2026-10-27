@@ -89,7 +89,7 @@ const Testimonials = () => {
                     </motion.p>
                     <MaskReveal
                         className="text-[2.2rem] md:text-7xl font-bold tracking-tight text-paper-foreground mb-6"
-                        style={{ fontFamily: "'Fraunces', serif" }}
+                        style={{ fontFamily: "var(--font-fraunces), serif" }}
                         delay={0.1}
                         lines={[<>Loved by <span className="text-paper-foreground/45 italic font-light">visionaries<span className="text-brand">.</span></span></>]}
                     />
@@ -114,7 +114,7 @@ const Testimonials = () => {
                             </div>
 
                             {/* Large Typography Text (No Box) */}
-                            <p className="text-lg font-light text-paper-foreground/75 leading-relaxed mb-8 italic max-w-[90vw]" style={{ fontFamily: "'Fraunces', serif" }}>
+                            <p className="text-lg font-light text-paper-foreground/75 leading-relaxed mb-8 italic max-w-[90vw]" style={{ fontFamily: "var(--font-fraunces), serif" }}>
                                 "{testimonials[activeIndex].text}"
                             </p>
 
@@ -180,7 +180,7 @@ const Testimonials = () => {
                                 exit={{ opacity: 0, filter: "blur(6px)", y: -14, transition: { duration: 0.45, ease: EASE.in } }}
                             >
                                 <div className="flex items-start gap-4 mb-10">
-                                    <p className="text-paper-foreground/80 text-xl lg:text-2xl leading-relaxed italic font-light" style={{ fontFamily: "'Fraunces', serif" }}>
+                                    <p className="text-paper-foreground/80 text-xl lg:text-2xl leading-relaxed italic font-light" style={{ fontFamily: "var(--font-fraunces), serif" }}>
                                         "{testimonials[activeIndex].text}"
                                     </p>
                                     <Quote className="h-8 w-8 text-brand flex-shrink-0 mt-1 opacity-30" />
@@ -215,7 +215,7 @@ const Testimonials = () => {
                                 exit={{ opacity: 0, filter: "blur(6px)", y: -14, transition: { duration: 0.45, ease: EASE.in } }}
                             >
                                 <div className="flex items-start gap-4 mb-10">
-                                    <p className="text-paper-foreground/80 text-xl lg:text-2xl leading-relaxed italic font-light" style={{ fontFamily: "'Fraunces', serif" }}>
+                                    <p className="text-paper-foreground/80 text-xl lg:text-2xl leading-relaxed italic font-light" style={{ fontFamily: "var(--font-fraunces), serif" }}>
                                         "{testimonials[(activeIndex + 1) % testimonials.length].text}"
                                     </p>
                                     <Quote className="h-8 w-8 text-brand flex-shrink-0 mt-1 opacity-30" />

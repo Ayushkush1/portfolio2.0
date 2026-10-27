@@ -119,7 +119,7 @@ const InquiryDialog = ({
                 <DialogHeader className="text-left space-y-2">
                     <DialogTitle
                         className="text-3xl font-light tracking-tight text-white"
-                        style={{ fontFamily: "'Fraunces', serif" }}
+                        style={{ fontFamily: "var(--font-fraunces), serif" }}
                     >
                         Start a project<span className="text-brand">.</span>
                     </DialogTitle>

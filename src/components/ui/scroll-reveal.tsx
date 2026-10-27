@@ -137,7 +137,10 @@ export const ScrollBlurText = ({
   }
 
   return (
-    <Tag ref={ref as never} className={className} style={{ ...style, rotate, transformOrigin: "0% 50%" }} aria-label={text}>
+    <Tag ref={ref as never} className={className} style={{ ...style, rotate, transformOrigin: "0% 50%" }}>
+      {/* Screen readers and AI agents read the sentence whole (aria-label isn't permitted on a <p>);
+          the animated word spans below are hidden from them */}
+      <span className="sr-only">{text}</span>
       {words.map((word, i) => {
         // Overlapping windows give a soft, staggered wave instead of word-by-word steps
         const start = (i / words.length) * 0.75;

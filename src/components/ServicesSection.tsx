@@ -19,7 +19,7 @@ const StickyIndex = ({ active }: { active: MotionValue<number> }) => {
             className="text-[18rem] xl:text-[22rem] leading-none font-bold text-transparent select-none"
             style={{
                 WebkitTextStroke: "2px rgba(255,255,255,0.15)",
-                fontFamily: "'Fraunces', serif"
+                fontFamily: "var(--font-fraunces), serif"
             }}
         >
             0{activeId}
@@ -80,7 +80,7 @@ const ServicesSection = () => {
                                 {/* Mobile Number */}
                                 <motion.div
                                     className="lg:hidden text-5xl md:text-6xl leading-none font-bold text-transparent mb-4"
-                                    style={{ WebkitTextStroke: "1px rgba(255,255,255,0.3)", fontFamily: "'Fraunces', serif" }}
+                                    style={{ WebkitTextStroke: "1px rgba(255,255,255,0.3)", fontFamily: "var(--font-fraunces), serif" }}
                                     {...fadeUp()}
                                 >
                                     0{service.id}<span className="text-brand">.</span>
@@ -88,7 +88,7 @@ const ServicesSection = () => {
 
                                 <MaskReveal
                                     className="text-[2rem] leading-[1.1] md:text-5xl md:leading-normal font-medium mb-4 md:mb-6 tracking-tight text-white"
-                                    style={{ fontFamily: "'Fraunces', serif" }}
+                                    style={{ fontFamily: "var(--font-fraunces), serif" }}
                                     lines={[<>{service.title}<span className="text-brand ml-1">.</span></>]}
                                 />
 

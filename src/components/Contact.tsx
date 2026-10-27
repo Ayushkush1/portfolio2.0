@@ -40,7 +40,7 @@ const followPointer = (e: React.MouseEvent<HTMLElement>) => {
     e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
 };
 
-const serif = { fontFamily: "'Fraunces', serif" };
+const serif = { fontFamily: "var(--font-fraunces), serif" };
 
 const label = "block text-xs md:text-[11px] font-medium uppercase tracking-[0.14em] md:tracking-[0.18em] text-white/60 md:text-white/40 mb-2";
 
@@ -340,7 +340,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                         containerRef={ref as React.MutableRefObject<HTMLElement | null>}
                         radius={350}
                         falloff="gaussian"
-                        style={{ display: "inline-block", whiteSpace: "nowrap", fontFamily: '"Roboto Flex", sans-serif', lineHeight: 0.8 }}
+                        style={{ display: "inline-block", whiteSpace: "nowrap", fontFamily: 'var(--font-roboto-flex), sans-serif', lineHeight: 0.8 }}
                     />
                 </div>
             </div>

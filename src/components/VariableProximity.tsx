@@ -189,7 +189,9 @@ const VariableProximity = forwardRef<HTMLSpanElement, VariableProximityProps>((p
                 ref={el => { letterRefs.current[currentLetterIndex] = el; }}
                 style={{
                   display: 'inline-block',
-                  fontVariationSettings: interpolatedSettingsRef.current[currentLetterIndex],
+                  // Start at the resting weight in the server HTML: rendering at the default weight
+                  // and switching after hydration widened every letter and shifted the layout
+                  fontVariationSettings: interpolatedSettingsRef.current[currentLetterIndex] ?? fromFontVariationSettings,
                 }}
                 aria-hidden="true"
               >

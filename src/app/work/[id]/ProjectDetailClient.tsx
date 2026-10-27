@@ -23,7 +23,7 @@ export default function ProjectDetailClient({ id }: { id: string }) {
         return (
             <div className="min-h-screen bg-background text-white flex flex-col items-center justify-center px-4">
                 <ShieldAlert className="w-16 h-16 text-brand mb-6 animate-pulse" />
-                <h1 className="text-3xl font-light mb-4" style={{ fontFamily: "'Fraunces', serif" }}>Project Not Found</h1>
+                <h1 className="text-3xl font-light mb-4" style={{ fontFamily: "var(--font-fraunces), serif" }}>Project Not Found</h1>
                 <p className="text-white/50 mb-8 max-w-md text-center font-light">
                     The project case study you are looking for doesn't exist or may have been relocated.
                 </p>
@@ -58,7 +58,7 @@ export default function ProjectDetailClient({ id }: { id: string }) {
                         >
                             <h1 
                                 className="text-3xl md:text-5xl lg:text-6xl font-light text-white mb-2 tracking-tight leading-none"
-                                style={{ fontFamily: "'Fraunces', serif" }}
+                                style={{ fontFamily: "var(--font-fraunces), serif" }}
                             >
                                 {project.name}
                             </h1>
@@ -161,14 +161,14 @@ export default function ProjectDetailClient({ id }: { id: string }) {
                 <div id="vision" className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 mb-16 md:mb-24">
                     <div className="lg:col-span-7 space-y-16">
                         <div>
-                            <h2 className="text-3xl md:text-4xl font-light mb-6 flex items-center gap-3 text-white" style={{ fontFamily: "'Fraunces', serif" }}>
+                            <h2 className="text-3xl md:text-4xl font-light mb-6 flex items-center gap-3 text-white" style={{ fontFamily: "var(--font-fraunces), serif" }}>
                                 <Milestone className="w-6 h-6 text-brand" />
                                 The Challenge
                             </h2>
                             <p className="text-white/75 md:text-white/60 font-normal md:font-light text-[17px] md:text-base leading-relaxed">{project.challenge}</p>
                         </div>
                         <div>
-                            <h2 className="text-3xl md:text-4xl font-light mb-6 flex items-center gap-3 text-white" style={{ fontFamily: "'Fraunces', serif" }}>
+                            <h2 className="text-3xl md:text-4xl font-light mb-6 flex items-center gap-3 text-white" style={{ fontFamily: "var(--font-fraunces), serif" }}>
                                 <Cpu className="w-6 h-6 text-green-400" />
                                 The Solution
                             </h2>
@@ -190,7 +190,7 @@ export default function ProjectDetailClient({ id }: { id: string }) {
                             </div>
                         </div>
                         <div>
-                            <h2 className="text-3xl font-light mb-4 text-white" style={{ fontFamily: "'Fraunces', serif" }}>Business Outcome</h2>
+                            <h2 className="text-3xl font-light mb-4 text-white" style={{ fontFamily: "var(--font-fraunces), serif" }}>Business Outcome</h2>
                             <p className="text-white/75 md:text-white/60 font-normal md:font-light text-[17px] md:text-base leading-relaxed">{project.outcome}</p>
                         </div>
                     </div>
@@ -198,7 +198,7 @@ export default function ProjectDetailClient({ id }: { id: string }) {
 
                 {project.images.length > 1 && (
                     <div id="interface" className="mb-24">
-                        <h2 className="text-3xl md:text-4xl font-light mb-3 md:mb-10 md:text-center text-white" style={{ fontFamily: "'Fraunces', serif" }}>Interface & Dashboard Details</h2>
+                        <h2 className="text-3xl md:text-4xl font-light mb-3 md:mb-10 md:text-center text-white" style={{ fontFamily: "var(--font-fraunces), serif" }}>Interface & Dashboard Details</h2>
                         <p className="md:hidden mb-8 text-[15px] text-white/60">Tap a screen to see it full size.</p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
                             {project.images.slice(1).map((img, i) => (
@@ -226,7 +226,7 @@ export default function ProjectDetailClient({ id }: { id: string }) {
                 )}
 
                 <div id="decisions" className="p-6 md:p-12 rounded-3xl md:rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[0.01] to-white/[0.04] mb-24">
-                    <h2 className="text-3xl md:text-4xl font-light mb-8 flex items-center gap-3 text-white" style={{ fontFamily: "'Fraunces', serif" }}>
+                    <h2 className="text-3xl md:text-4xl font-light mb-8 flex items-center gap-3 text-white" style={{ fontFamily: "var(--font-fraunces), serif" }}>
                         <Palette className="w-6 h-6 text-purple-400" />
                         UX & Design Decisions
                     </h2>

@@ -177,7 +177,7 @@ const Experience = () => {
                             </motion.p>
                             <MaskReveal
                                 className="text-4xl md:text-5xl lg:text-[3rem] tracking-tight mb-8 leading-[1.1] text-gray-500"
-                                style={{ fontFamily: "'Fraunces', serif" }}
+                                style={{ fontFamily: "var(--font-fraunces), serif" }}
                                 delay={0.1}
                                 lines={[
                                     "Pushing boundaries",

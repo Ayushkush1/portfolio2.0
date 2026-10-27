@@ -32,7 +32,7 @@ export default function BlogPage() {
       <Navbar />
       <div className="flex-1 flex items-center justify-center pt-32 pb-16">
         <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-6xl font-bold" style={{ fontFamily: "'Fraunces', serif" }}>
+          <h1 className="text-4xl md:text-6xl font-bold" style={{ fontFamily: "var(--font-fraunces), serif" }}>
             Writing
           </h1>
           <p className="text-muted-foreground text-lg max-w-md mx-auto">

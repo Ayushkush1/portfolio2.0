@@ -391,7 +391,7 @@ All colors MUST be HSL.
 /* Handwritten design notes, written in like the intro signature */
 .bp-note {
   position: absolute; width: max-content; max-width: 280px;
-  font-family: 'Caveat', cursive; font-size: 24px; font-weight: 600; line-height: 1.05;
+  font-family: var(--font-caveat), cursive; font-size: 24px; font-weight: 600; line-height: 1.05;
   color: hsl(var(--bp));
   text-shadow: 0 1px 10px hsl(222 84% 4% / 0.9);
 }

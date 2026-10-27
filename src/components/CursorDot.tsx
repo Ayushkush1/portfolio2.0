@@ -236,7 +236,7 @@ export default function CursorDot() {
                   className={`flex items-start text-white transition-transform duration-700 ${expo} ${
                     open ? 'translate-y-0 delay-100' : 'translate-y-[110%]'
                   }`}
-                  style={{ fontFamily: "'Fraunces', serif" }}
+                  style={{ fontFamily: "var(--font-fraunces), serif" }}
                 >
                   <span className="text-[22px] italic font-light leading-none">{label}</span>
                   {icon === 'external' ? (

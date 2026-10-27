@@ -68,7 +68,7 @@ const ClientWebsites = ({ hideHeader = false, limit }: { hideHeader?: boolean; l
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8 md:mb-20 text-left">
                     <MaskReveal
                         className="text-display md:text-5xl lg:text-6xl font-light text-white tracking-tight md:leading-[1.1]"
-                        style={{ fontFamily: "'Fraunces', serif" }}
+                        style={{ fontFamily: "var(--font-fraunces), serif" }}
                         lines={[
                             "Websites crafted",
                             <span key="l2" className="italic text-gray-400">
@@ -123,7 +123,7 @@ const ClientWebsites = ({ hideHeader = false, limit }: { hideHeader?: boolean; l
                                     </span>
                                     <h3
                                         className="text-[2rem] leading-[1.1] md:text-5xl lg:text-6xl font-light tracking-tight text-white lg:text-gray-300 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/row:text-white lg:group-hover/row:translate-x-3"
-                                        style={{ fontFamily: "'Fraunces', serif" }}
+                                        style={{ fontFamily: "var(--font-fraunces), serif" }}
                                     >
                                         {site.name}
                                     </h3>

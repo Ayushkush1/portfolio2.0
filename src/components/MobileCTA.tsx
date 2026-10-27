@@ -121,7 +121,7 @@ const MobileCTA = () => {
                                 transition={spring}
                             >
                                 <p className="px-3 pt-2 pb-3 text-[13px] leading-snug text-white/60">
-                                    <span className="text-white" style={{ fontFamily: "'Fraunces', serif" }}>Got an idea?</span>
+                                    <span className="text-white" style={{ fontFamily: "var(--font-fraunces), serif" }}>Got an idea?</span>
                                     <br />
                                     I usually reply within 24 hours.
                                 </p>

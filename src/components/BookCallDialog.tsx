@@ -41,7 +41,7 @@ const BookCallDialog = ({ children, location }: { children: ReactElement; locati
                 className="w-[calc(100vw-32px)] sm:max-w-[1040px] rounded-3xl sm:rounded-[32px] border-white/10 bg-[#070b16]/95 backdrop-blur-xl px-6 md:px-8 text-left"
             >
                 <DialogHeader className="text-left space-y-2">
-                    <DialogTitle className="text-3xl font-light tracking-tight text-white" style={{ fontFamily: "'Fraunces', serif" }}>
+                    <DialogTitle className="text-3xl font-light tracking-tight text-white" style={{ fontFamily: "var(--font-fraunces), serif" }}>
                         Book a 20-min call<span className="text-brand">.</span>
                     </DialogTitle>
                     <DialogDescription className="text-gray-400">

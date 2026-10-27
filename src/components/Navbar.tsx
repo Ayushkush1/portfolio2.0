@@ -197,6 +197,8 @@ const Navbar = ({
                         <img
                             src="/assets/ayush-kushwaha-logo.webp"
                             alt="Ayush Kushwaha Logo"
+                            width={274}
+                            height={108}
                             className="h-8 w-auto brightness-0 invert"
                         />
                     </a>

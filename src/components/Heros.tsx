@@ -146,7 +146,7 @@ const Hero = () => {
                             <span
                                 key={lineIdx}
                                 className={`block w-full ${lineIdx === 0 ? "pb-2" : "-mb-1"} ${lineIdx === 0 || lineIdx === 2 ? "text-gray-400  pt-2 font-light" : "text-white"}`}
-                                style={lineIdx === 2 || lineIdx === 0 ? { fontFamily: "'Fraunces', serif" } : undefined}
+                                style={lineIdx === 2 || lineIdx === 0 ? { fontFamily: "var(--font-fraunces), serif" } : undefined}
                             >
                                 {lineIdx === 1 ? (
                                     <RotatingLine renderIntro={(text) => renderChars(text, lineIdx)} />
@@ -276,7 +276,7 @@ const Hero = () => {
                             falloff="gaussian"
                             style={{
                                 display: 'block',
-                                fontFamily: '"Roboto Flex", sans-serif',
+                                fontFamily: 'var(--font-roboto-flex), sans-serif',
                                 letterSpacing: '0em',
                                 lineHeight: 1,
                             }}
@@ -292,7 +292,7 @@ const Hero = () => {
                             falloff="gaussian"
                             style={{
                                 display: 'block',
-                                fontFamily: '"Roboto Flex", sans-serif',
+                                fontFamily: 'var(--font-roboto-flex), sans-serif',
                                 letterSpacing: '0em',
                                 lineHeight: 1,
                             }}

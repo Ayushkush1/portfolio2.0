@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { Caveat, Fraunces, Roboto_Flex } from 'next/font/google'
 import '../index.css'
 import { Providers } from '@/components/Providers'
 import { Analytics } from "@vercel/analytics/react"
@@ -44,6 +45,31 @@ export const metadata: Metadata = {
   }
 }
 
+// Self-hosted through next/font: preloaded with the page and given size-matched fallbacks,
+// so text doesn't jump when the real face arrives (the Google Fonts stylesheet caused layout shift)
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  axes: ['opsz'],
+  variable: '--font-fraunces',
+  display: 'swap',
+})
+// Only the oversized decorative names use it: they wait for the real face instead of swapping
+const robotoFlex = Roboto_Flex({
+  subsets: ['latin'],
+  axes: ['opsz'],
+  variable: '--font-roboto-flex',
+  display: 'block',
+})
+// Blueprint mode's handwritten notes only, so it isn't preloaded
+const caveat = Caveat({
+  subsets: ['latin'],
+  weight: '600',
+  variable: '--font-caveat',
+  display: 'swap',
+  preload: false,
+})
+
 export const viewport: Viewport = {
   themeColor: '#ff5f26',
 }
@@ -54,15 +80,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Caveat:wght@600&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="en" className={`dark ${fraunces.variable} ${robotoFlex.variable} ${caveat.variable}`} suppressHydrationWarning>
       <body>
         <JsonLd data={personJsonLd} />
         <JsonLd data={websiteJsonLd} />
