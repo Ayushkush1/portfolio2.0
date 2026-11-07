@@ -160,7 +160,7 @@ const Hero = () => {
 
                 {/* Right side - portrait and bio */}
                 <div className="hero-right flex flex-col items-start justify-center -mt-2 md:mt-0 gap-7 md:gap-6 md:items-end w-full">
-                    <div className="hero-intro w-full max-w-full md:max-w-[310px] flex flex-col gap-8 md:gap-4 md:text-right">
+                    <div className="hero-intro w-full max-w-full md:max-w-[320px] flex flex-col gap-8 md:gap-4 md:text-right">
                         <motion.div
                             className="flex gap-8 w-full justify-start md:justify-end pb-4 md:pb-2 md:border-b md:border-white/5 order-2 md:order-1"
                             variants={{
@@ -203,7 +203,7 @@ const Hero = () => {
                             Product designer and full-stack engineer. I take products from first sketch to production for founders and growing businesses.
                         </p>
                         <p className="hidden md:block text-md text-gray-300 leading-relaxed md:order-2">
-                            Product designer and full-stack engineer. <br/> I take products from first sketch to production: interface design, motion, architecture and deployment for founders, agencies and growing businesses.
+                            Product designer and full-stack engineer. <br/> I take products from sketch to production: design, motion, architecture and deployment for founders and businesses.
                         </p>
                     </div>
                     <motion.div
@@ -260,7 +260,7 @@ const Hero = () => {
 
                 {/* Oversized name – VariableProximity weight morph on hover */}
                 <motion.div
-                    className="pointer-events-none absolute bottom-10 lg:bottom-4 left-0 w-full select-none text-[20vw] md:text-[19vw] leading-none tracking-tighter text-foreground/[0.025] hidden md:block"
+                    className="pointer-events-none absolute bottom-10 lg:bottom-0 left-0 w-full select-none text-[20vw] md:text-[19vw] leading-none tracking-tighter text-foreground/[0.025] hidden md:block"
                     aria-hidden="true"
                     initial={{ opacity: 0.001 }}
                     animate={{ opacity: 1 }}
@@ -282,7 +282,7 @@ const Hero = () => {
                             }}
                         />
                     </motion.div>
-                    <motion.div style={{ x: xRight }}>
+                    <motion.div style={{ x: xRight, marginTop: "-0.06em" }}>
                         <VariableProximity
                             label="Kushwaha"
                             fromFontVariationSettings="'wght' 800, 'opsz' 110"
