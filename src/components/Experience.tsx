@@ -1,6 +1,6 @@
 "use client";
 import { motion, useSpring, useTransform } from "framer-motion";
-import Image from "next/image";
+import ProfilePhotoSwap from "@/components/ui/profile-photo-swap";
 import { Github, Instagram, Linkedin, Mail } from "lucide-react";
 import { useRef } from "react";
 import { track } from "@/lib/analytics";
@@ -65,7 +65,7 @@ const Experience = () => {
                                     }}
                                 >
                                     <div className="w-full md:w-[90%] mx-auto relative rounded-[20px] md:rounded-3xl overflow-hidden shadow-2xl shadow-foreground/5 h-[400px] md:h-[500px] lg:h-[560px] scale-95">
-                                        <Image src="/assets/ayush-kushwaha.webp" alt="Ayush Kushwaha" fill sizes="(max-width: 768px) 100vw, 45vw" className="object-cover object-top" />
+                                        <ProfilePhotoSwap />
                                     </div>
                                 </motion.div>
                             </motion.div>

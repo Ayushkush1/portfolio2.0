@@ -250,6 +250,11 @@ All colors MUST be HSL.
   .email-copied .email-char { animation: none; }
 }
 
+/* Experience profile photo (see ProfilePhotoSwap): this hidden timer animation drives
+   auto-advance, so pausing it (off screen) also pauses the slideshow */
+@keyframes photo-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.photo-progress { transform-origin: left; animation: photo-progress linear both; }
+
 /* Sticky mobile call-to-action: clears the iPhone home indicator */
 .safe-bottom { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
 .nav-light .nav-glass .bg-foreground { background-color: hsl(var(--paper-foreground)); }
