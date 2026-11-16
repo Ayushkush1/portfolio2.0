@@ -14,11 +14,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     
     return {
         title: `${project.name} Case Study | Ayush Kushwaha`,
-        description: `${project.tagline} — a case study by Ayush Kushwaha.`,
+        description: `${project.tagline}: a case study by Ayush Kushwaha.`,
         alternates: { canonical: `/work/${project.id}` },
         openGraph: {
             title: `${project.name} Case Study | Ayush Kushwaha`,
-            description: `${project.tagline} — a case study by Ayush Kushwaha.`,
+            description: `${project.tagline}: a case study by Ayush Kushwaha.`,
             url: `https://ayushkushwaha.com/work/${project.id}`,
             images: [
                 {
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         twitter: {
             card: "summary_large_image",
             title: `${project.name} Case Study | Ayush Kushwaha`,
-            description: `${project.tagline} — a case study by Ayush Kushwaha.`,
+            description: `${project.tagline}: a case study by Ayush Kushwaha.`,
             images: [`https://ayushkushwaha.com/assets/og/${project.id}.jpg`],
         }
     }
@@ -55,7 +55,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         "@context": "https://schema.org",
         "@type": "CreativeWork",
         "@id": `${SITE_URL}/work/${project.id}#work`,
-        name: `${project.name} — ${project.tagline}`,
+        name: `${project.name}: ${project.tagline}`,
         headline: project.tagline,
         description: project.overview,
         url: `${SITE_URL}/work/${project.id}`,

@@ -64,7 +64,7 @@ const ServicesSection = () => {
                 <div className="flex flex-col lg:flex-row relative">
 
                     {/* Left Sticky Number */}
-                    <div data-bp-note="sticky index — one chapter per service" data-bp-pos="right" className="hidden lg:flex w-1/2 sticky top-0 h-screen items-center justify-start lg:pl-2 xl:pl-4">
+                    <div data-bp-note="sticky index, one chapter per service" data-bp-pos="right" className="hidden lg:flex w-1/2 sticky top-0 h-screen items-center justify-start lg:pl-2 xl:pl-4">
                         <StickyIndex active={activeId} />
                     </div>
 

@@ -205,7 +205,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                 <motion.footer {...fadeUp()} className="relative mt-20 md:mt-32 border-t border-white/10 pt-10 md:pt-14">
                     <div className="flex items-center justify-between gap-4">
                         <span className={`${label} !mb-0 transition-colors duration-300 ${copied ? "!text-brand" : ""}`} aria-live="polite">
-                            {copied ? "Copied to clipboard ✓" : <>Say hello <span className="normal-case tracking-normal">—</span> <span className="md:hidden">tap</span><span className="hidden md:inline">click</span> to copy</>}
+                            {copied ? "Copied to clipboard ✓" : <>Say hello <span className="normal-case tracking-normal">·</span> <span className="md:hidden">tap</span><span className="hidden md:inline">click</span> to copy</>}
                         </span>
                         <BookCallDialog location="footer">
                             <button
@@ -224,7 +224,7 @@ const Contact = ({ title = "Let's Connect", description }: ContactProps) => {
                         type="button"
                         onClick={copyEmail}
                         aria-label={`Copy email address ${EMAIL}`}
-                        data-bp-note="fitted edge to edge — click copies"
+                        data-bp-note="fitted edge to edge, click copies"
                         data-bp-code="fontSize = size × box ÷ text"
                         className={`group mt-3 block w-full text-left font-light leading-[1.05] tracking-tight text-white text-[2rem] sm:text-6xl ${copied ? "email-copied" : ""}`}
                         style={{ ...serif, fontSize: emailSize }}

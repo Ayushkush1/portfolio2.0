@@ -225,7 +225,7 @@ const BlueprintMode = () => {
                     {Array.from({ length: 12 }, (_, i) => <span key={i} style={{ transitionDelay: `${i * 30}ms` }} />)}
                 </div>
                 <div className="bp-legend">
-                    <span>Blueprint</span> — layout grid, type specs &amp; design notes. Press <kbd>B</kbd> to switch back.
+                    <span>Blueprint</span>: layout grid, type specs &amp; design notes. Press <kbd>B</kbd> to switch back.
                 </div>
             </div>
         </>

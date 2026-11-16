@@ -32,7 +32,7 @@ export default function WorkPage() {
     const collectionJsonLd = {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        name: "Selected work — Ayush Kushwaha",
+        name: "Selected work by Ayush Kushwaha",
         url: `${SITE_URL}/work`,
         isPartOf: { "@id": WEBSITE_ID },
         author: { "@id": PERSON_ID },

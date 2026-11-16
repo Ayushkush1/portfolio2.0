@@ -11,7 +11,7 @@ Ayush Kushwaha is a product designer and full-stack engineer based in India, ava
 - LinkedIn: [https://www.linkedin.com/in/ayush-kushwaha-b3b76915b/](https://www.linkedin.com/in/ayush-kushwaha-b3b76915b/)
 
 ## Overview
-This site is the portfolio of Ayush Kushwaha. It showcases case studies of SaaS products, business platforms, ERP systems and client websites that Ayush designed and built, including AgencyOS, CATFY, Leadzenor, Karatrix, an ERP for an IP law firm, and the Seven Stars pub website.
+This site is the portfolio of Ayush Kushwaha. It showcases case studies of SaaS products, business platforms, ERP systems and client websites that Ayush designed and built, including AgencyOS, CATFY, Leadzenor, ServEye, Karatrix, an ERP for an IP law firm, and the Seven Stars pub website.
 
 ## Key Links
 - [Home](https://ayushkushwaha.com/)

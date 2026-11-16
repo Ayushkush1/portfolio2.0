@@ -16,6 +16,7 @@ const designs = [
     "/assets/sites/little-flower-schools.webp",
     "/assets/CodignPanda_LandignPage1.webp",
     "/assets/Leadzenor_LandingPage1.webp",
+    "/assets/ServEye_1.webp",
     "/assets/sites/cp-atlas.webp",
     "/assets/Erp_LandinPage1.webp",
     "/assets/sites/coding-pandas-studio.webp",
@@ -55,9 +56,9 @@ const DesignShowcase = () => {
             {/* Interactive GridMotion Container */}
             <div
                 data-bp-skip
-                data-bp-note="endless marquee — never slows, never reverses"
+                data-bp-note="endless marquee: never slows, never reverses"
                 data-bp-code="gsap.ticker + utils.wrap()"
-                className="w-full h-[440px] md:h-[700px] relative z-20"
+                className="w-full h-[540px] md:h-[900px] relative z-20"
             >
                 <GridMotion items={designs} gradientColor="transparent" />
             </div>

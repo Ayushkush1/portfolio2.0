@@ -13,12 +13,12 @@ import { JsonLd, personJsonLd, websiteJsonLd } from '@/lib/seo'
 export const metadata: Metadata = {
   metadataBase: new URL("https://ayushkushwaha.com/"),
   title: "Ayush Kushwaha | Product Designer & Full-Stack Engineer",
-  description: "I design and build SaaS products, business platforms and premium websites — UI/UX, motion, architecture and deployment. Available for freelance projects.",
+  description: "I design and build SaaS products, business platforms and premium websites: UI/UX, motion, architecture and deployment. Available for freelance projects.",
   authors: [{ name: "Ayush Kushwaha" }],
   keywords: "Product Designer, UI/UX Designer, Full-Stack Engineer, Freelance Developer, SaaS Development, Next.js Developer, Web Design, India",
   openGraph: {
     title: "Ayush Kushwaha | Product Designer & Full-Stack Engineer",
-    description: "I design and build SaaS products, business platforms and premium websites — UI/UX, motion, architecture and deployment. Available for freelance projects.",
+    description: "I design and build SaaS products, business platforms and premium websites: UI/UX, motion, architecture and deployment. Available for freelance projects.",
     type: "website",
     url: "https://ayushkushwaha.com/",
     siteName: "Ayush Kushwaha Portfolio",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Ayush Kushwaha | Product Designer & Full-Stack Engineer",
-    description: "I design and build SaaS products, business platforms and premium websites — UI/UX, motion, architecture and deployment. Available for freelance projects.",
+    description: "I design and build SaaS products, business platforms and premium websites: UI/UX, motion, architecture and deployment. Available for freelance projects.",
     creator: "@kushwaha_ayush",
     images: ["https://ayushkushwaha.com/assets/og-image.jpg"],
   },

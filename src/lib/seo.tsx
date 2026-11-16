@@ -52,7 +52,7 @@ export const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "@id": SERVICE_ID,
-    name: "Ayush Kushwaha — Product Design & Development",
+    name: "Ayush Kushwaha | Product Design & Development",
     url: `${SITE_URL}/`,
     image: `${SITE_URL}/assets/og-image.jpg`,
     description:

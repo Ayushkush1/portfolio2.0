@@ -136,7 +136,7 @@ export default function ProjectDetailClient({ id }: { id: string }) {
                 <div id="context" className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-6 md:gap-8 py-6 md:py-10 border-y border-white/10 mb-10 md:mb-24">
                     <div>
                         <span className="block text-xs md:text-[10px] font-mono uppercase tracking-wider md:tracking-widest text-white/65 md:text-white/60 mb-1.5 md:mb-1">My Role</span>
-                        <span className="text-white/85 md:text-white/80 font-normal md:font-light text-[15px] md:text-base leading-relaxed block">{project.role.split(" — ")[0]}</span>
+                        <span className="text-white/85 md:text-white/80 font-normal md:font-light text-[15px] md:text-base leading-relaxed block">{project.role.split(": ")[0]}</span>
                     </div>
                     <div>
                         <span className="block text-xs md:text-[10px] font-mono uppercase tracking-wider md:tracking-widest text-white/65 md:text-white/60 mb-1.5 md:mb-1">Platform / Category</span>

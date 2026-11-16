@@ -16,10 +16,10 @@ import IntroCurtain from "@/components/IntroCurtain";
 export const metadata: Metadata = {
   alternates: { canonical: '/' },
   title: "Ayush Kushwaha | Product Designer & Full-Stack Engineer",
-  description: "I design and build SaaS products, business platforms and premium websites — UI/UX, motion, architecture and deployment. Available for freelance projects.",
+  description: "I design and build SaaS products, business platforms and premium websites: UI/UX, motion, architecture and deployment. Available for freelance projects.",
   openGraph: {
     title: "Ayush Kushwaha | Product Designer & Full-Stack Engineer",
-    description: "I design and build SaaS products, business platforms and premium websites — UI/UX, motion, architecture and deployment. Available for freelance projects.",
+    description: "I design and build SaaS products, business platforms and premium websites: UI/UX, motion, architecture and deployment. Available for freelance projects.",
     url: "https://ayushkushwaha.com/",
     images: [
       {
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Ayush Kushwaha | Product Designer & Full-Stack Engineer",
-    description: "I design and build SaaS products, business platforms and premium websites — UI/UX, motion, architecture and deployment. Available for freelance projects.",
+    description: "I design and build SaaS products, business platforms and premium websites: UI/UX, motion, architecture and deployment. Available for freelance projects.",
     images: ["https://ayushkushwaha.com/assets/og-image.jpg"],
   }
 };

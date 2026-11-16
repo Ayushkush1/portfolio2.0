@@ -141,7 +141,7 @@ const Hero = () => {
             <div className="container relative z-10 grid min-h-[70vh] lg:min-h-[80vh] grid-cols-1 content-start md:content-normal items-start md:items-center lg:gap-10 md:gap-4 gap-8 pt-8 md:pt-36 pb-12 md:pb-40 md:py-20 md:grid-cols-2">
                 {/* Left copy */}
                 <div className="hero-left">
-                    <h1 data-bp-note="serif + sans — warmth meets clarity" data-bp-code="Fraunces 300 · system sans 700" data-bp-pos="bottom" className="text-[2.2rem] sm:text-[2.6rem] lg:text-6xl font-bold leading-tight tracking-tight max-w-xl flex flex-wrap">
+                    <h1 data-bp-note="serif + sans: warmth meets clarity" data-bp-code="Fraunces 300 · system sans 700" data-bp-pos="bottom" className="text-[2.2rem] sm:text-[2.6rem] lg:text-6xl font-bold leading-tight tracking-tight max-w-xl flex flex-wrap">
                         {HEADLINE.map((line, lineIdx) => (
                             <span
                                 key={lineIdx}

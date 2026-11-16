@@ -15,18 +15,27 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = 'black' }
   const copies = 2; // each row is repeated so the marquee wraps seamlessly
   const defaultItems = Array.from({ length: 28 }, (_, index) => `Item ${index + 1}`);
   const combinedItems = items.length > 0 ? items : defaultItems;
-  // Only the two middle rows are fully visible, so every item is split between them.
-  // The partly-hidden top & bottom rows reuse those items, shifted so neighbours differ.
+  // Every item appears once across the two middle rows. The outer rows reuse those items,
+  // shifted by different amounts so neighbouring cards never repeat. Six rows keep the tilted
+  // band tall enough to fill the container's corners, even on wide screens.
   const half = Math.ceil(combinedItems.length / 2);
   const middleTop = combinedItems.slice(0, half);
   const middleBottom = combinedItems.slice(half);
-  const rotate = <T,>(arr: T[]) => {
-    const shift = Math.floor(arr.length / 2);
+  const rotate = <T,>(arr: T[], fraction = 0.5) => {
+    const shift = Math.floor(arr.length * fraction);
     return [...arr.slice(shift), ...arr.slice(0, shift)];
   };
-  const rows = [rotate(middleBottom), middleTop, middleBottom, rotate(middleTop)];
+  const rows = [
+    rotate(middleTop, 0.25),
+    rotate(middleBottom),
+    middleTop,
+    middleBottom,
+    rotate(middleTop),
+    rotate(middleBottom, 0.75),
+  ];
   const rowLengthsRef = useRef<number[]>([]);
   rowLengthsRef.current = rows.map(row => row.length);
+  const rowCount = rows.length;
 
   useEffect(() => {
     gsap.ticker.lagSmoothing(0);
@@ -37,12 +46,13 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = 'black' }
 
     const maxMoveAmount = 300;
     const scrollSpeed = 40; // px per second, constant marquee speed
-    const inertiaFactors = [0.06, 0.08, 0.1, 0.12];
-    const smoothedMouse = [0, 0, 0, 0];
+    // Each row follows the mouse with its own lag, so the parallax has depth
+    const inertiaFactors = Array.from({ length: rowCount }, (_, i) => 0.05 + i * 0.015);
+    const smoothedMouse = new Array(rowCount).fill(0);
 
     // Row loop widths are measured once (and on resize) — never inside the frame loop,
     // where reading layout right after writing transforms forces a synchronous reflow.
-    const periods = [0, 0, 0, 0];
+    const periods = new Array(rowCount).fill(0);
     const measure = () => {
       rowRefs.current.forEach((row, index) => {
         if (!row) return;
@@ -90,7 +100,7 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = 'black' }
       ro.disconnect();
       io.disconnect();
     };
-  }, []);
+  }, [rowCount]);
 
   return (
     <div ref={gridRef} className="h-full w-full overflow-hidden">
@@ -101,7 +111,7 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = 'black' }
         }}
       >
         <div className="absolute inset-0 pointer-events-none z-[4] bg-[length:250px]"></div>
-        <div className="md:gap-4 gap-2 flex-none relative w-max h-max grid grid-rows-4 grid-cols-1 rotate-[-15deg] origin-center z-[2]">
+        <div className="md:gap-4 gap-2 flex-none relative w-max h-max grid grid-cols-1 rotate-[-15deg] origin-center z-[2]">
           {rows.map((rowItems, rowIndex) => (
             <div
               key={rowIndex}
