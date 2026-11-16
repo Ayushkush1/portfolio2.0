@@ -158,6 +158,10 @@ export interface CaseStudy {
   /** Tall image used to fill the /work card */
   cover?: string;
   liveUrl: string;
+  /** What was built; defaults to software. Feeds the case study's structured data. */
+  kind?: "software" | "website";
+  /** YYYY-MM-DD this case study last changed; falls back to SITE_UPDATED in src/lib/seo.tsx */
+  updated?: string;
 }
 
 export const caseStudies: CaseStudy[] = [
@@ -281,7 +285,8 @@ export const caseStudies: CaseStudy[] = [
     outcome: "Live at sevenstarsatmarshbaldon.co.uk, with the pub team updating their own content through the CMS.",
     techStack: ["Next.js", "GSAP", "Lenis", "Three.js", "PostgreSQL", "Prisma", "Custom CMS", "Vercel"],
     images: ["/assets/TheSevenStar_LandingPage1.webp", "/assets/TheSevenStar_LandingPage2.webp", "/assets/TheSevenStar_LandingPage3.webp", "/assets/TheSevenStar_LandingPage4.webp"],
-    liveUrl: "https://sevenstarsatmarshbaldon.co.uk"
+    liveUrl: "https://sevenstarsatmarshbaldon.co.uk",
+    kind: "website",
   },
   {
     id: "payment-manager",

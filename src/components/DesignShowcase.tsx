@@ -6,24 +6,25 @@ import { ScrollBlurText } from "@/components/ui/scroll-reveal";
 
 // Every image shows once across the two fully-visible middle rows:
 // the first half goes in the upper middle row, the rest in the lower one.
-// The top & bottom rows reuse these automatically, so just add or remove lines here.
+// The outer rows reuse these automatically, so just add or remove lines here.
+// `alt` describes the design for screen readers and image search.
 const designs = [
-    "/assets/AgencyOS_1.webp",
-    "/assets/Catfy_LandignPage1.webp",
-    "/assets/TheSevenStar_LandingPage1.webp",
-    "/assets/Karatrix_LandingPage1.webp",
-    "/assets/sites/kokalachi.webp",
-    "/assets/sites/little-flower-schools.webp",
-    "/assets/CodignPanda_LandignPage1.webp",
-    "/assets/Leadzenor_LandingPage1.webp",
-    "/assets/ServEye_1.webp",
-    "/assets/sites/cp-atlas.webp",
-    "/assets/Erp_LandinPage1.webp",
-    "/assets/sites/coding-pandas-studio.webp",
-    "/assets/EricHost1.webp",
-    "/assets/sites/neatroots.webp",
-    "/assets/sites/seven-stars.webp",
-    "/assets/sites/coding-pandas.webp",
+    { src: "/assets/AgencyOS_1.webp", alt: "AgencyOS agency management dashboard with revenue, profit and project status" },
+    { src: "/assets/Catfy_LandignPage1.webp", alt: "CATFY digital catalogue builder landing page" },
+    { src: "/assets/TheSevenStar_LandingPage1.webp", alt: "Seven Stars pub and restaurant website homepage" },
+    { src: "/assets/Karatrix_LandingPage1.webp", alt: "Karatrix jewellery inventory SaaS landing page" },
+    { src: "/assets/sites/kokalachi.webp", alt: "Kokalachi group travel website homepage" },
+    { src: "/assets/sites/little-flower-schools.webp", alt: "Little Flower Schools education website homepage" },
+    { src: "/assets/CodignPanda_LandignPage1.webp", alt: "Coding Pandas coding courses landing page" },
+    { src: "/assets/Leadzenor_LandingPage1.webp", alt: "Leadzenor QR lead capture SaaS landing page" },
+    { src: "/assets/ServEye_1.webp", alt: "ServEye server and website monitoring dashboard" },
+    { src: "/assets/sites/cp-atlas.webp", alt: "CP Atlas startup workspace SaaS landing page" },
+    { src: "/assets/Erp_LandinPage1.webp", alt: "IP ERP platform landing page" },
+    { src: "/assets/sites/coding-pandas-studio.webp", alt: "Coding Pandas Studio software agency website" },
+    { src: "/assets/EricHost1.webp", alt: "Erichost web hosting website homepage" },
+    { src: "/assets/sites/neatroots.webp", alt: "NeatRoots app development studio website" },
+    { src: "/assets/sites/seven-stars.webp", alt: "Seven Stars pub website, dining and events sections" },
+    { src: "/assets/sites/coding-pandas.webp", alt: "Coding Pandas EdTech website homepage" },
 ];
 
 const DesignShowcase = () => {

@@ -10,7 +10,7 @@ import ServicesSection from "@/components/ServicesSection";
 import DesignShowcase from "@/components/DesignShowcase";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
-import { JsonLd, serviceJsonLd } from "@/lib/seo";
+import { JsonLd, profilePageJsonLd, serviceJsonLd } from "@/lib/seo";
 import IntroCurtain from "@/components/IntroCurtain";
 
 export const metadata: Metadata = {
@@ -41,6 +41,7 @@ export default function Home() {
   return (
     <main>
       <IntroCurtain />
+      <JsonLd data={profilePageJsonLd} />
       <JsonLd data={serviceJsonLd} />
       <Navbar />
       <Heros />

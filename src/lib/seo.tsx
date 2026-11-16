@@ -4,6 +4,12 @@ export const SITE_URL = "https://ayushkushwaha.com";
 export const PERSON_ID = `${SITE_URL}/#person`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const SERVICE_ID = `${SITE_URL}/#service`;
+export const PROFILE_ID = `${SITE_URL}/#profile`;
+
+// Date the site's content last changed (YYYY-MM-DD). Feeds the sitemap's lastmod and the
+// dateModified fields, so bump it when copy or case studies change — not on every deploy,
+// or Google learns the dates are meaningless and stops trusting them.
+export const SITE_UPDATED = "2026-11-17";
 
 export const personJsonLd = {
     "@context": "https://schema.org",
@@ -17,6 +23,20 @@ export const personJsonLd = {
     image: `${SITE_URL}/assets/ayush-kushwaha.webp`,
     email: "mailto:ayushkushwaha381@gmail.com",
     address: { "@type": "PostalAddress", addressCountry: "IN" },
+    worksFor: { "@type": "Organization", name: "The Gold Technologies" },
+    hasOccupation: [
+        {
+            "@type": "Occupation",
+            name: "Tech Lead",
+            description: "Leads product engineering at The Gold Technologies, building internal platforms, ERP and SaaS products.",
+        },
+        {
+            "@type": "Occupation",
+            name: "Freelance Product Designer & Full-Stack Engineer",
+            description: "Designs and builds SaaS products, CRM and ERP systems and premium websites for clients.",
+        },
+    ],
+    knowsLanguage: ["English", "Hindi"],
     knowsAbout: [
         "Product Design",
         "UI/UX Design",
@@ -27,8 +47,10 @@ export const personJsonLd = {
         "Next.js",
         "React",
         "TypeScript",
+        "Node.js",
         "PostgreSQL",
         "Prisma",
+        "Server Monitoring",
     ],
     sameAs: [
         "https://github.com/Ayushkush1",
@@ -76,7 +98,21 @@ export const serviceJsonLd = {
     },
 };
 
-export const breadcrumbJsonLd = (items: { name: string; path: string }[]) => ({
+// The homepage is Ayush's profile: Google's ProfilePage markup ties the page to the Person,
+// which helps it surface for name searches and in knowledge panels
+export const profilePageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": PROFILE_ID,
+    url: `${SITE_URL}/`,
+    name: "Ayush Kushwaha | Product Designer & Full-Stack Engineer",
+    inLanguage: "en",
+    dateModified: SITE_UPDATED,
+    isPartOf: { "@id": WEBSITE_ID },
+    mainEntity: { "@id": PERSON_ID },
+};
+
+export const breadcrumbJsonLd =(items: { name: string; path: string }[]) => ({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: items.map((item, i) => ({

@@ -2,10 +2,23 @@
 import { useEffect, useRef, FC, ReactNode } from 'react';
 import { gsap } from 'gsap';
 
+/** An image with its description; plain strings are treated as image URLs with no description */
+export interface GridImage {
+  src: string;
+  alt: string;
+}
+
 interface GridMotionProps {
-  items?: (string | ReactNode)[];
+  items?: (GridImage | string | ReactNode)[];
   gradientColor?: string;
 }
+
+const isGridImage = (item: unknown): item is GridImage =>
+  typeof item === 'object' && item !== null && 'src' in item && 'alt' in item;
+
+const isImageUrl = (item: unknown): item is string =>
+  typeof item === 'string' &&
+  (item.startsWith('http') || item.startsWith('/assets/') || /\.(png|jpe?g|webp)$/.test(item));
 
 const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = 'black' }) => {
   const gridRef = useRef<HTMLDivElement>(null);
@@ -123,19 +136,24 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = 'black' }
             >
               {Array.from({ length: rowItems.length * copies }, (_, itemIndex) => {
                 const content = rowItems[itemIndex % rowItems.length];
+                const src = isGridImage(content) ? content.src : isImageUrl(content) ? content : null;
+                // Each design is described once: its first copy in the two middle rows. Every other
+                // card is a visual repeat for the endless loop, so it's hidden from screen readers.
+                const isOriginal = (rowIndex === 2 || rowIndex === 3) && itemIndex < rowItems.length;
+                const alt = isOriginal && isGridImage(content) ? content.alt : "";
                 return (
-                  <div key={itemIndex} className="relative shrink-0">
+                  <div key={itemIndex} className="relative shrink-0" aria-hidden={isOriginal ? undefined : true}>
                     <div className="relative w-[360px] sm:w-[400px] md:w-[590px] h-[170px] sm:h-[180px] md:h-[270px] overflow-hidden rounded-[20px] md:rounded-3xl bg-[#111] border border-white/5 flex items-center justify-center text-white text-[1.5rem] shadow-2xl">
-                      {typeof content === 'string' && (content.startsWith('http') || content.startsWith('/assets/') || content.endsWith('.png') || content.endsWith('.jpg') || content.endsWith('.jpeg')) ? (
+                      {src ? (
                         <img
-                          src={content}
-                          alt="Design Showcase"
+                          src={src}
+                          alt={alt}
                           loading="lazy"
                           decoding="async"
                           className="w-full h-full object-cover object-top absolute top-0 left-0"
                         />
                       ) : (
-                        <div className="p-4 text-center z-[1]">{content}</div>
+                        <div className="p-4 text-center z-[1]">{content as ReactNode}</div>
                       )}
                     </div>
                   </div>

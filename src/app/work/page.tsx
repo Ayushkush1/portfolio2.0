@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import WorkClient from "./WorkClient";
 import { caseStudies } from "@/data/projects";
-import { JsonLd, breadcrumbJsonLd, PERSON_ID, SITE_URL, WEBSITE_ID } from "@/lib/seo";
+import { JsonLd, breadcrumbJsonLd, PERSON_ID, SITE_UPDATED, SITE_URL, WEBSITE_ID } from "@/lib/seo";
 
 export const metadata: Metadata = {
     alternates: { canonical: '/work' },
@@ -34,6 +34,8 @@ export default function WorkPage() {
         "@type": "CollectionPage",
         name: "Selected work by Ayush Kushwaha",
         url: `${SITE_URL}/work`,
+        inLanguage: "en",
+        dateModified: SITE_UPDATED,
         isPartOf: { "@id": WEBSITE_ID },
         author: { "@id": PERSON_ID },
         mainEntity: {

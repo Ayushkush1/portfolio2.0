@@ -4,6 +4,9 @@ import Contact from "@/components/Contact";
 
 export const metadata: Metadata = {
   alternates: { canonical: '/blog' },
+  // Kept out of search results while it's an empty "coming soon" page: thin pages drag down how
+  // Google rates the whole site. Remove this once the first posts are live.
+  robots: { index: false, follow: true },
   title: "Blog | Ayush Kushwaha",
   description: "Thoughts, tutorials, and case studies on product design and full-stack engineering.",
   openGraph: {
