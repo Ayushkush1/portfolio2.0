@@ -1,21 +1,22 @@
 import { Metadata } from 'next';
-import Navbar from "@/components/Navbar";
-import Contact from "@/components/Contact";
+import BlogIndex from "@/components/blog/blog-index";
+import { blogPosts } from "@/data/blog";
+import { JsonLd, breadcrumbJsonLd, PERSON_ID, SITE_URL, WEBSITE_ID } from "@/lib/seo";
+
+const description =
+  "Build stories and engineering notes from the products I design and ship: architecture, UX decisions and the details that made them work.";
 
 export const metadata: Metadata = {
   alternates: { canonical: '/blog' },
-  // Kept out of search results while it's an empty "coming soon" page: thin pages drag down how
-  // Google rates the whole site. Remove this once the first posts are live.
-  robots: { index: false, follow: true },
   title: "Blog | Ayush Kushwaha",
-  description: "Thoughts, tutorials, and case studies on product design and full-stack engineering.",
+  description,
   openGraph: {
     title: "Blog | Ayush Kushwaha",
-    description: "Thoughts, tutorials, and case studies on product design and full-stack engineering.",
+    description,
     url: "https://ayushkushwaha.com/blog",
     images: [
       {
-        url: "https://ayushkushwaha.com/assets/og-image.jpg",
+        url: `https://ayushkushwaha.com${blogPosts[0]?.ogImage ?? "/assets/og-image.jpg"}`,
         width: 1200,
         height: 630,
       }
@@ -24,26 +25,40 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Blog | Ayush Kushwaha",
-    description: "Thoughts, tutorials, and case studies on product design and full-stack engineering.",
-    images: ["https://ayushkushwaha.com/assets/og-image.jpg"],
+    description,
+    images: [`https://ayushkushwaha.com${blogPosts[0]?.ogImage ?? "/assets/og-image.jpg"}`],
   }
 };
 
 export default function BlogPage() {
+  const blogJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "@id": `${SITE_URL}/blog#blog`,
+    name: "Ayush Kushwaha's blog",
+    description,
+    url: `${SITE_URL}/blog`,
+    inLanguage: "en",
+    author: { "@id": PERSON_ID },
+    publisher: { "@id": PERSON_ID },
+    isPartOf: { "@id": WEBSITE_ID },
+    blogPost: blogPosts.map((p) => ({
+      "@type": "BlogPosting",
+      "@id": `${SITE_URL}/blog/${p.slug}#post`,
+      headline: p.title,
+      url: `${SITE_URL}/blog/${p.slug}`,
+      datePublished: p.published,
+    })),
+  };
+
   return (
-    <main className="min-h-screen bg-background text-foreground flex flex-col">
-      <Navbar />
-      <div className="flex-1 flex items-center justify-center pt-32 pb-16">
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-6xl font-bold" style={{ fontFamily: "var(--font-fraunces), serif" }}>
-            Writing
-          </h1>
-          <p className="text-muted-foreground text-lg max-w-md mx-auto">
-            Articles, tutorials, and deep dives on software engineering and product design coming soon.
-          </p>
-        </div>
-      </div>
-      <Contact title="Let's Talk" description="Have a topic you want me to write about?" />
-    </main>
+    <>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: "Home", path: "/" },
+        { name: "Blog", path: "/blog" },
+      ])} />
+      <JsonLd data={blogJsonLd} />
+      <BlogIndex />
+    </>
   );
 }

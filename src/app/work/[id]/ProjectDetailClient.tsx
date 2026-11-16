@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Code2, ShieldAlert, Cpu, Palette, Milestone, Maximize2 } from "lucide-react";
 import { caseStudies } from "@/data/projects";
+import { blogPosts } from "@/data/blog";
 import Contact from "@/components/Contact";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
@@ -14,6 +15,7 @@ import ImageLightbox from "@/components/ui/image-lightbox";
 
 export default function ProjectDetailClient({ id }: { id: string }) {
     const project = caseStudies.find((c) => c.id === id);
+    const buildStory = blogPosts.find((p) => p.project === id);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -157,6 +159,23 @@ export default function ProjectDetailClient({ id }: { id: string }) {
                         </div>
                     </div>
                 </div>
+
+                {buildStory && (
+                    <Link
+                        href={`/blog/${buildStory.slug}`}
+                        className="group -mt-4 md:-mt-14 mb-12 md:mb-24 flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4 md:px-7 md:py-5 transition-colors duration-300 hover:border-brand/40"
+                    >
+                        <span className="min-w-0">
+                            <span className="block font-mono text-[10.5px] uppercase tracking-[0.16em] text-brand">Build story · {buildStory.readingMinutes} min read</span>
+                            <span className="mt-1 block truncate text-[16px] md:text-[18px] font-light text-white" style={{ fontFamily: "var(--font-fraunces), serif" }}>
+                                {buildStory.title.split(": ")[0]}: how it was designed and built
+                            </span>
+                        </span>
+                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 transition-all duration-500 group-hover:border-brand group-hover:bg-brand">
+                            <ArrowRight className="h-4 w-4 -rotate-45 transition-transform duration-500 group-hover:rotate-0" />
+                        </span>
+                    </Link>
+                )}
 
                 <div id="vision" className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 mb-16 md:mb-24">
                     <div className="lg:col-span-7 space-y-16">

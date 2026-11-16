@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next'
+import { blogPosts } from '@/data/blog'
 import { caseStudies } from '@/data/projects'
 import { SITE_UPDATED, SITE_URL } from '@/lib/seo'
 
@@ -26,5 +27,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     ...projectUrls,
+    {
+      url: `${SITE_URL}/blog`,
+      // The blog index changes whenever a post is published or updated
+      lastModified: blogPosts.map((p) => p.updated ?? p.published).sort().at(-1) ?? SITE_UPDATED,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    ...blogPosts.map((post) => ({
+      url: `${SITE_URL}/blog/${post.slug}`,
+      lastModified: post.updated ?? post.published,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
   ]
 }

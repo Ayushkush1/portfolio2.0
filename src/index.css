@@ -255,6 +255,18 @@ All colors MUST be HSL.
 @keyframes photo-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 .photo-progress { transform-origin: left; animation: photo-progress linear both; }
 
+/* Blog heartbeat diagram (see post-kit HeartbeatDiagram): a pulse travels down the wire on
+   phones and across it on desktop. Transform only, so it never triggers layout or paint. */
+@keyframes blog-pulse-y { from { transform: translate(-50%, -150%); } to { transform: translate(-50%, 500%); } }
+@keyframes blog-pulse-x { from { transform: translate(-150%, -50%); } to { transform: translate(500%, -50%); } }
+.blog-pulse { animation: blog-pulse-y 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+@media (min-width: 768px) {
+  .blog-pulse { animation-name: blog-pulse-x; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .blog-pulse { animation: none; opacity: 0; }
+}
+
 /* Sticky mobile call-to-action: clears the iPhone home indicator */
 .safe-bottom { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
 .nav-light .nav-glass .bg-foreground { background-color: hsl(var(--paper-foreground)); }

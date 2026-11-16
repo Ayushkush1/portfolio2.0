@@ -9,6 +9,7 @@ const navItems = [
     { href: "#home", label: "Home", id: "home" },
     { href: "#about", label: "About", id: "about" },
     { href: "/work", label: "Work", id: "work" },
+    { href: "/blog", label: "Blog", id: "blog" },
     { href: "#experience", label: "Experience", id: "experience" },
     { href: "#contact", label: "Contact", id: "contact" }
 ];
@@ -140,6 +141,13 @@ const Navbar = ({
     };
 
     const scrollToSection = (sectionId: string) => {
+        // Work and Blog are pages of their own, reachable from anywhere
+        if (sectionId === 'work' || sectionId === 'blog') {
+            router.push(`/${sectionId}`);
+            setIsMenuOpen(false);
+            return;
+        }
+
         if (backTo || isProjectDetail) {
             const section = document.getElementById(sectionId);
             if (section) {
@@ -149,13 +157,10 @@ const Navbar = ({
                 });
             } else if (sectionsToTrack[0] && sectionId === sectionsToTrack[0].id) {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                // A homepage section (Home, About, Experience…) opened from a sub-page: go there
+                router.push(sectionId === 'home' ? '/' : `/#${sectionId}`);
             }
-            setIsMenuOpen(false);
-            return;
-        }
-
-        if (sectionId === 'work') {
-            router.push('/work');
             setIsMenuOpen(false);
             return;
         }

@@ -1,3 +1,4 @@
+import { blogPosts } from "@/data/blog";
 import { caseStudies, clientWebsites } from "@/data/projects";
 import { SITE_UPDATED, SITE_URL } from "@/lib/seo";
 
@@ -37,6 +38,10 @@ export function GET() {
         })
         .join("\n\n");
 
+    const writing = blogPosts
+        .map((p) => `- [${p.title}](${SITE_URL}/blog/${p.slug}) (${p.published}): ${p.description}`)
+        .join("\n");
+
     const websites = clientWebsites
         .map((w) => `- [${w.name}](${w.url}): ${w.industry} (${w.role})`)
         .join("\n");
@@ -50,6 +55,7 @@ Ayush is a Tech Lead at The Gold Technologies and runs a freelance practice (sin
 ## Contact
 - Website: ${SITE_URL}/
 - Work: ${SITE_URL}/work
+- Blog: ${SITE_URL}/blog
 - Email: [ayushkushwaha381@gmail.com](mailto:ayushkushwaha381@gmail.com)
 - GitHub: [github.com/Ayushkush1](https://github.com/Ayushkush1)
 - LinkedIn: [linkedin.com/in/ayush-kushwaha-b3b76915b](https://www.linkedin.com/in/ayush-kushwaha-b3b76915b/)
@@ -63,6 +69,9 @@ Next.js, React, TypeScript, Node.js, PostgreSQL, Prisma, Drizzle, Supabase, Tail
 
 ## Products and case studies
 ${products}
+
+## Writing
+${writing}
 
 ## Client websites
 ${websites}
