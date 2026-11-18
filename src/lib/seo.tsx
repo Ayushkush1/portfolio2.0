@@ -11,6 +11,11 @@ export const PROFILE_ID = `${SITE_URL}/#profile`;
 // or Google learns the dates are meaningless and stops trusting them.
 export const SITE_UPDATED = "2026-11-17";
 
+// Turns a YYYY-MM-DD content date into a full ISO 8601 datetime in IST. Google's ProfilePage
+// rejects bare dates for dateCreated/dateModified ("Invalid datetime value"), and its Article
+// docs recommend a timezone so the date isn't read in Googlebot's own zone.
+export const toSchemaDateTime = (date: string) => `${date}T00:00:00+05:30`;
+
 export const personJsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -107,7 +112,7 @@ export const profilePageJsonLd = {
     url: `${SITE_URL}/`,
     name: "Ayush Kushwaha | Product Designer & Full-Stack Engineer",
     inLanguage: "en",
-    dateModified: SITE_UPDATED,
+    dateModified: toSchemaDateTime(SITE_UPDATED),
     isPartOf: { "@id": WEBSITE_ID },
     mainEntity: { "@id": PERSON_ID },
 };

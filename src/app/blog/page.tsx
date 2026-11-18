@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import BlogIndex from "@/components/blog/blog-index";
 import { blogPosts } from "@/data/blog";
-import { JsonLd, breadcrumbJsonLd, PERSON_ID, SITE_URL, WEBSITE_ID } from "@/lib/seo";
+import { JsonLd, breadcrumbJsonLd, PERSON_ID, SITE_URL, WEBSITE_ID, toSchemaDateTime } from "@/lib/seo";
 
 const description =
   "Build stories and engineering notes from the products I design and ship: architecture, UX decisions and the details that made them work.";
@@ -47,7 +47,7 @@ export default function BlogPage() {
       "@id": `${SITE_URL}/blog/${p.slug}#post`,
       headline: p.title,
       url: `${SITE_URL}/blog/${p.slug}`,
-      datePublished: p.published,
+      datePublished: toSchemaDateTime(p.published),
     })),
   };
 

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import PostLayout from "@/components/blog/post-layout";
 import { postContent } from "@/content/blog";
 import { blogPosts, getPost } from "@/data/blog";
-import { JsonLd, breadcrumbJsonLd, PERSON_ID, SITE_URL } from "@/lib/seo";
+import { JsonLd, breadcrumbJsonLd, PERSON_ID, SITE_URL, toSchemaDateTime } from "@/lib/seo";
 
 type Props = {
     params: Promise<{ slug: string }>;
@@ -65,8 +65,8 @@ export default async function BlogPostPage({ params }: Props) {
         url,
         mainEntityOfPage: url,
         image: [`${SITE_URL}${post.ogImage}`, `${SITE_URL}${post.cover}`],
-        datePublished: post.published,
-        dateModified: post.updated ?? post.published,
+        datePublished: toSchemaDateTime(post.published),
+        dateModified: toSchemaDateTime(post.updated ?? post.published),
         inLanguage: "en",
         keywords: post.tags.join(", "),
         timeRequired: `PT${post.readingMinutes}M`,
